@@ -1,0 +1,155 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { services } from "@/data/services";
+import { site } from "@/lib/site";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+export function Hero() {
+  return (
+    <section id="top" className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+      <div className="container-x">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+          {/* Left — message */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease }}
+              className="eyebrow"
+            >
+              Chicago, IL · IT Engineering
+            </motion.div>
+
+            <h1 className="mt-6 text-balance text-[clamp(2rem,8.5vw,4.1rem)] leading-[1.04]">
+              <Line delay={0.06}>Experienced engineers</Line>
+              <Line delay={0.14}>who get your toughest</Line>
+              <Line delay={0.22}>
+                tasks{" "}
+                <span className="text-accent-grad italic">solved.</span>
+              </Line>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.34, ease }}
+              className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted"
+            >
+              We work closely with you, understand exactly what you need, and
+              deliver it. We don&apos;t walk away until everything is working —
+              in your environment, on your terms.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.46, ease }}
+              className="mt-9 flex flex-wrap items-center gap-3"
+            >
+              <a href="#contact" className="btn-primary group">
+                Start a project
+                <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-1" />
+              </a>
+              <a href="#services" className="btn-ghost group">
+                Explore services
+                <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-faint"
+            >
+              <Status label="Available 24/7" />
+              <span className="hidden h-3.5 w-px bg-line-strong sm:block" />
+              <span>Replies within {site.responseTime}</span>
+              <span className="hidden h-3.5 w-px bg-line-strong sm:block" />
+              <span>100% confidential</span>
+            </motion.div>
+          </div>
+
+          {/* Right — capability console */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease }}
+            className="relative"
+          >
+            <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
+              <div className="rounded-[1.25rem] border border-line bg-bg-soft/80 p-2">
+                <div className="flex items-center justify-between px-4 py-3">
+                  <span className="font-mono text-[11px] uppercase tracking-label text-muted">
+                    Where we help
+                  </span>
+                  <span className="flex items-center gap-2 font-mono text-[11px] text-faint">
+                    <span className="relative flex h-1.5 w-1.5" aria-hidden>
+                      <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                    </span>
+                    online
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  {services.map((s, i) => (
+                    <a
+                      key={s.id}
+                      href="#services"
+                      className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-3.5 transition-all duration-300 ease-smooth hover:border-line hover:bg-surface"
+                      style={{ animationDelay: `${i * 60}ms` }}
+                    >
+                      <span className="font-mono text-xs text-faint">{s.index}</span>
+                      <span className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
+                        <s.icon className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                      </span>
+                      <span className="flex-1">
+                        <span className="block text-[15px] font-medium text-ink">
+                          {s.name}
+                        </span>
+                        <span className="block text-xs text-faint">
+                          {s.tagline.replace(/^We (build|help you secure) /i, "")}
+                        </span>
+                      </span>
+                      <ArrowUpRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
+  return (
+    <span className="block overflow-hidden">
+      <motion.span
+        className="block text-signal"
+        initial={{ y: "110%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.8, delay, ease }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+function Status({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 text-faint">
+      <span className="relative flex h-2 w-2" aria-hidden>
+        <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+      </span>
+      {label}
+    </span>
+  );
+}
