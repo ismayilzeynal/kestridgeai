@@ -33,3 +33,5 @@ next-env.d.ts
 
 # internal docs (confidential brief — not part of the app)
 Website_info.docx
+
+.vercel
