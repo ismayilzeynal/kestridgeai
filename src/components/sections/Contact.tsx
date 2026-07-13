@@ -92,7 +92,7 @@ export function Contact() {
               title={
                 <>
                   Tell us what you&apos;re{" "}
-                  <span className="text-accent-grad italic">trying to solve</span>
+                  <span className="text-accent-grad">trying to solve</span>
                 </>
               }
               description={`A short description of your project and how to reach you is all we need. We'll get back to you within ${site.responseTime}.`}
@@ -110,7 +110,7 @@ export function Contact() {
                   <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
                     Email
                   </span>
-                  <span className="text-[15px] text-ink">{site.email}</span>
+                  <span className="text-[16px] text-ink">{site.email}</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -130,7 +130,7 @@ export function Contact() {
                   <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
                     LinkedIn
                   </span>
-                  <span className="text-[15px] text-ink">Follow our work</span>
+                  <span className="text-[16px] text-ink">Follow our work</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -143,7 +143,7 @@ export function Contact() {
                   <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
                     Based in
                   </span>
-                  <span className="text-[15px] text-ink">{site.location}</span>
+                  <span className="text-[16px] text-ink">{site.location}</span>
                 </span>
               </div>
             </div>
@@ -257,7 +257,7 @@ export function Contact() {
                           onChange={(e) => setService(e.target.value)}
                           aria-invalid={!!errors.service}
                           aria-describedby={errors.service ? "service-error" : undefined}
-                          className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+                          className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                             service ? "text-ink" : "text-faint"
                           } ${errors.service ? "border-red-400/60" : "border-line"}`}
                         >
@@ -287,7 +287,7 @@ export function Contact() {
                         placeholder="A sentence or two about what you're trying to build or solve…"
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "message-error" : undefined}
-                        className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+                        className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                           errors.message ? "border-red-400/60" : "border-line"
                         }`}
                       />
@@ -403,7 +403,7 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
-        className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[15px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+        className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
           error ? "border-red-400/60" : "border-line"
         }`}
       />

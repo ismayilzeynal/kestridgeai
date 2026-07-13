@@ -47,7 +47,7 @@ export function WhyChooseUs() {
               eyebrow="How we work"
               title={
                 <>
-                  Why companies <span className="text-accent-grad italic">choose</span> us
+                  Why companies <span className="text-accent-grad">choose</span> us
                 </>
               }
               description="We're not a vendor that disappears after kickoff. We work like part of your team — from the first conversation to long after launch."

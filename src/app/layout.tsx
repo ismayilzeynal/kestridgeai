@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 import { Providers } from "@/components/Providers";
 import { Background } from "@/components/layout/Background";
@@ -10,24 +11,9 @@ import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const display = Fraunces({
+const sans = Archivo({
   subsets: ["latin"],
-  axes: ["opsz"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const sans = Hanken_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -126,7 +112,7 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${GeistMono.variable}`}>
       <body className="antialiased">
         {/* No-JS / hydration-failure fallback: reveal motion content that would
             otherwise stay at its hidden initial state. */}

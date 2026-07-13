@@ -55,7 +55,7 @@ export default function AboutPage() {
           <Reveal delay={0.06}>
             <h1 className="mt-6 max-w-4xl text-balance text-[clamp(2rem,7vw,3.6rem)] leading-[1.05] text-signal">
               An American company, built on{" "}
-              <span className="text-accent-grad italic">global engineering.</span>
+              <span className="text-accent-grad">global engineering.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.12}>
@@ -91,7 +91,7 @@ export default function AboutPage() {
                 eyebrow="Who we are"
                 title={
                   <>
-                    Engineering-first, <span className="text-accent-grad italic">delivery-obsessed.</span>
+                    Engineering-first, <span className="text-accent-grad">delivery-obsessed.</span>
                   </>
                 }
               />
@@ -131,7 +131,7 @@ export default function AboutPage() {
             eyebrow="What we stand for"
             title={
               <>
-                Principles that <span className="text-accent-grad italic">hold up</span> under pressure
+                Principles that <span className="text-accent-grad">hold up</span> under pressure
               </>
             }
             align="center"
@@ -143,10 +143,10 @@ export default function AboutPage() {
                   <div className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-bg-soft text-accent">
                     <p.icon className="h-5 w-5" strokeWidth={1.6} />
                   </div>
-                  <h3 className="mt-4 font-sans text-[15px] font-semibold tracking-tight text-ink">
+                  <h3 className="mt-4 font-sans text-[16.5px] font-semibold tracking-tight text-ink">
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-muted">
                     {p.body}
                   </p>
                 </div>

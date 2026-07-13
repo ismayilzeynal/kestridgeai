@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
-import { site } from "@/lib/site";
 import { openService, scrollToId } from "@/lib/scroll";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -24,11 +23,11 @@ export function Hero() {
               United States · Applied AI &amp; Engineering
             </motion.div>
 
-            <h1 className="mt-6 text-balance text-[clamp(2rem,8.5vw,4.1rem)] leading-[1.04]">
+            <h1 className="mt-7 text-balance text-[clamp(2.3rem,8.4vw,4.4rem)] font-bold leading-[1.05]">
               <Line delay={0.06}>Enterprise AI, automation</Line>
               <Line delay={0.14}>and security,</Line>
               <Line delay={0.22}>
-                <span className="text-accent-grad italic">engineered around you.</span>
+                <span className="text-accent-grad">engineered around you.</span>
               </Line>
             </h1>
 
@@ -36,7 +35,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.34, ease }}
-              className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted"
+              className="mt-8 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
             >
               An American engineering team that works closely with you,
               understands exactly what you need, and delivers it — then stays
@@ -47,7 +46,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.46, ease }}
-              className="mt-9 flex flex-wrap items-center gap-3"
+              className="mt-10 flex flex-wrap items-center gap-3"
             >
               <a href="#contact" className="btn-primary group">
                 Start a project
@@ -61,19 +60,6 @@ export function Hero() {
                 <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-faint"
-            >
-              <Status label="Available 24/7" />
-              <span className="hidden h-3.5 w-px bg-line-strong sm:block" />
-              <span>Replies within {site.responseTime}</span>
-              <span className="hidden h-3.5 w-px bg-line-strong sm:block" />
-              <span>100% confidential</span>
-            </motion.div>
           </div>
 
           {/* Right — capability console */}
@@ -85,11 +71,11 @@ export function Hero() {
           >
             <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
               <div className="rounded-[1.25rem] border border-line bg-bg-soft p-2">
-                <div className="flex items-center justify-between px-4 py-3">
-                  <span className="font-mono text-[11px] uppercase tracking-label text-muted">
+                <div className="flex items-center justify-between px-4 py-3.5">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted">
                     Where we help
                   </span>
-                  <span className="flex items-center gap-2 font-mono text-[11px] text-faint">
+                  <span className="flex items-center gap-2 font-mono text-[12px] text-faint">
                     <span className="relative flex h-1.5 w-1.5" aria-hidden>
                       <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -102,21 +88,21 @@ export function Hero() {
                     <button
                       key={s.id}
                       onClick={() => openService(s.id)}
-                      className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-3.5 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
+                      className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-4 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
                     >
-                      <span className="font-mono text-xs text-faint">{s.index}</span>
-                      <span className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
-                        <s.icon className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                      <span className="font-mono text-[13px] text-faint">{s.index}</span>
+                      <span className="grid h-10 w-10 place-items-center rounded-lg border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
+                        <s.icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
-                        <span className="block text-[15px] font-medium text-ink">
+                        <span className="block text-[16px] font-semibold text-ink">
                           {s.name}
                         </span>
-                        <span className="block text-xs text-faint">
+                        <span className="block text-[13px] text-faint">
                           {s.tagline.replace(/^We (build|help you secure) /i, "")}
                         </span>
                       </span>
-                      <ArrowUpRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="h-[18px] w-[18px] text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </button>
                   ))}
                 </div>
@@ -131,7 +117,9 @@ export function Hero() {
 
 function Line({ children, delay }: { children: React.ReactNode; delay: number }) {
   return (
-    <span className="block overflow-hidden">
+    // pb + matching -mb give the clip region room for tall descenders (g, y)
+    // without loosening the line spacing.
+    <span className="block overflow-hidden pb-[0.16em] -mb-[0.16em]">
       <motion.span
         className="block text-signal"
         initial={{ y: "110%" }}
@@ -140,18 +128,6 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
       >
         {children}
       </motion.span>
-    </span>
-  );
-}
-
-function Status({ label }: { label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 text-faint">
-      <span className="relative flex h-2 w-2" aria-hidden>
-        <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-      </span>
-      {label}
     </span>
   );
 }

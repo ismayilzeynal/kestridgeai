@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 :root {
+  /* Fonts — Archivo (matches the AIVanta wordmark) + Geist Mono for labels */
+  --font-display: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+
   /* Surfaces — light, clean paper with white elevated cards (RGB channels for alpha) */
   --bg: 245 246 249;
   --bg-soft: 238 240 244;
@@ -15,8 +19,8 @@
 
   /* Text (RGB channels for alpha) */
   --text: 17 24 33;
-  --text-muted: 82 91 104;
-  --text-faint: 118 127 140;
+  --text-muted: 74 83 96;
+  --text-faint: 110 119 132;
 
   /* Accent — deep, serious teal used surgically */
   --accent: #0b7a67;
@@ -35,8 +39,9 @@
 }
 
 html {
+  font-size: 17px; /* larger, more comfortable base scale */
   scroll-behavior: smooth;
-  scroll-padding-top: 5.25rem; /* keep anchored targets clear of the fixed navbar */
+  scroll-padding-top: 5rem; /* keep anchored targets clear of the fixed navbar */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -57,6 +62,8 @@ body {
   background-color: rgb(var(--bg));
   color: rgb(var(--text));
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -87,10 +94,10 @@ body {
   h1,
   h2,
   h3 {
-    font-family: var(--font-display), Georgia, serif;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.04;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
 
   /* Visible keyboard focus across all interactive elements */
@@ -111,7 +118,7 @@ body {
 
   /* Eyebrow / mono label */
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-label text-muted;
+    @apply inline-flex items-center gap-2.5 font-mono text-[12px] font-medium uppercase tracking-[0.2em] text-muted;
   }
   .eyebrow::before {
     content: "";
@@ -124,13 +131,13 @@ body {
 
   /* Gradient signal text — dark ink for headings on light */
   .text-signal {
-    background: linear-gradient(180deg, #12161c 0%, #3a4250 100%);
+    background: linear-gradient(180deg, #10141b 0%, #333b47 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .text-accent-grad {
-    background: linear-gradient(110deg, var(--accent-strong), var(--accent) 55%, var(--accent-deep));
+    background: linear-gradient(110deg, var(--accent-strong), var(--accent) 60%, var(--accent-deep));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -153,10 +160,10 @@ body {
 
   /* Buttons */
   .btn {
-    @apply relative inline-flex select-none items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 ease-smooth;
+    @apply relative inline-flex select-none items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-smooth;
   }
   .btn-primary {
-    @apply btn px-6 py-3.5 text-[15px] text-white;
+    @apply btn px-7 py-4 text-[16px] text-white;
     background: var(--ink-btn);
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16), 0 12px 28px -12px rgba(15, 23, 42, 0.4);
   }
@@ -166,7 +173,7 @@ body {
     box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18), 0 18px 40px -12px rgba(15, 23, 42, 0.45);
   }
   .btn-ghost {
-    @apply btn px-6 py-3.5 text-[15px] text-ink;
+    @apply btn px-7 py-4 text-[16px] text-ink;
     background: rgb(var(--surface));
     border: 1px solid var(--border-strong);
   }
@@ -199,7 +206,7 @@ body {
   .bg-grid {
     background-image: linear-gradient(var(--grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 56px 56px;
+    background-size: 60px 60px;
   }
   .bg-grid-fade {
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 78%);
@@ -214,8 +221,8 @@ body {
   }
 
   .mask-fade-x {
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
 
   .glow-accent {

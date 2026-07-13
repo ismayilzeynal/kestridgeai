@@ -48,7 +48,7 @@ export function FAQ() {
           eyebrow="Questions"
           title={
             <>
-              Answers before you <span className="text-accent-grad italic">ask</span>
+              Answers before you <span className="text-accent-grad">ask</span>
             </>
           }
           align="center"
@@ -58,7 +58,7 @@ export function FAQ() {
           {faqs.map((f, i) => (
             <Reveal key={f.q} delay={(i % 6) * 0.04}>
               <details className="group card rounded-2xl px-5 py-1 sm:px-6 [&_summary::-webkit-details-marker]:hidden">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[16px] font-semibold text-ink">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[17.5px] font-semibold text-ink">
                   {f.q}
                   <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line text-accent transition-transform duration-300 group-open:rotate-45">
                     <Plus className="h-4 w-4" strokeWidth={2} />

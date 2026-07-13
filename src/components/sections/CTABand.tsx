@@ -34,7 +34,7 @@ export function CTABand() {
               className="mt-5 text-balance text-4xl text-signal sm:text-[3.2rem] sm:leading-[1.05]"
             >
               Have something that needs{" "}
-              <span className="text-accent-grad italic">solving?</span>
+              <span className="text-accent-grad">solving?</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}

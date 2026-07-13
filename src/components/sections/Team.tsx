@@ -15,7 +15,7 @@ export function Team() {
             title={
               <>
                 The faces behind the{" "}
-                <span className="text-accent-grad italic">work</span>
+                <span className="text-accent-grad">work</span>
               </>
             }
             description="A senior team of engineers across AI, security, automation and data. Real people who stay accountable from kickoff to long after launch."
@@ -49,11 +49,11 @@ export function Team() {
                   </a>
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="font-sans text-[15px] font-semibold tracking-tight text-ink">
+                  <h3 className="font-sans text-[16.5px] font-semibold tracking-tight text-ink">
                     {m.name}
                   </h3>
-                  <p className="mt-0.5 text-[13px] text-accent">{m.role}</p>
-                  <p className="mt-2 font-mono text-[11px] leading-relaxed text-faint">
+                  <p className="mt-1 text-[14px] font-medium text-accent">{m.role}</p>
+                  <p className="mt-2 font-mono text-[12px] leading-relaxed text-faint">
                     {m.focus}
                   </p>
                 </div>

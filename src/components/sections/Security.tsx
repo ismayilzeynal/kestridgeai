@@ -60,7 +60,7 @@ export function Security() {
               <span className="eyebrow">Privacy &amp; security</span>
               <h2 className="mt-5 text-balance text-4xl text-signal sm:text-5xl">
                 Your privacy isn&apos;t a feature.{" "}
-                <span className="text-accent-grad italic">It&apos;s the foundation.</span>
+                <span className="text-accent-grad">It&apos;s the foundation.</span>
               </h2>
               <p className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-muted">
                 We work with sensitive systems and sensitive data every day — AI
@@ -93,10 +93,10 @@ export function Security() {
                     <div className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-accent">
                       <c.icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
-                    <h3 className="mt-4 font-sans text-[15px] font-semibold tracking-tight text-ink">
+                    <h3 className="mt-4 font-sans text-[16.5px] font-semibold tracking-tight text-ink">
                       {c.title}
                     </h3>
-                    <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+                    <p className="mt-2 text-[14.5px] leading-relaxed text-muted">
                       {c.body}
                     </p>
                   </div>

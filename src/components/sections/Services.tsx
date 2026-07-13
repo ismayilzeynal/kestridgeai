@@ -54,7 +54,7 @@ export function Services() {
           title={
             <>
               Services built around{" "}
-              <span className="text-accent-grad italic">your</span> requirements
+              <span className="text-accent-grad">your</span> requirements
             </>
           }
           description="Four disciplines, one way of working — understand it, plan it, build it into your environment, and stay until it runs."
@@ -161,7 +161,7 @@ export function Services() {
                   </span>
                 </div>
 
-                <p className="mt-2.5 line-clamp-3 max-w-2xl text-pretty text-[14.5px] leading-relaxed text-muted lg:line-clamp-2">
+                <p className="mt-3 line-clamp-3 max-w-2xl text-pretty text-[15.5px] leading-relaxed text-muted lg:line-clamp-2">
                   {svc.description}
                 </p>
 
@@ -185,26 +185,24 @@ export function Services() {
                     </span>
                     <span className="hairline flex-1" />
                   </div>
-                  <ol className="grid gap-2 sm:grid-cols-2">
+                  <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                     {svc.steps.map((step, i) => (
                       <li
                         key={step.phase}
                         className="rounded-xl border border-line bg-bg-soft/70 p-3"
                       >
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="flex items-center gap-2">
-                            <span className="grid h-5 w-5 place-items-center rounded-md bg-surface font-mono text-[10.5px] text-accent shadow-sm">
-                              {i + 1}
-                            </span>
-                            <span className="text-[13.5px] font-semibold text-ink">
-                              {step.phase}
-                            </span>
+                        <div className="flex items-center gap-2">
+                          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-md bg-surface font-mono text-[10.5px] text-accent shadow-sm">
+                            {i + 1}
                           </span>
-                          <span className="shrink-0 font-mono text-[10px] uppercase tracking-wide text-faint">
-                            {step.timeline}
+                          <span className="text-[13px] font-semibold leading-tight text-ink">
+                            {step.phase}
                           </span>
                         </div>
-                        <p className="mt-1.5 line-clamp-2 text-[12.5px] leading-snug text-muted">
+                        <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-wide text-faint">
+                          {step.timeline}
+                        </span>
+                        <p className="mt-1.5 line-clamp-2 text-[12.5px] leading-snug text-muted lg:hidden">
                           {step.what}
                         </p>
                       </li>
