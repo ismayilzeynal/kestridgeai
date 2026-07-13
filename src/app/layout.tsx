@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import { Providers } from "@/components/Providers";
+import { Background } from "@/components/layout/Background";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { Navbar } from "@/components/layout/Navbar";
+import { MobileCTA } from "@/components/layout/MobileCTA";
+import { Footer } from "@/components/layout/Footer";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const display = Fraunces({
@@ -24,53 +31,140 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://testlogo.example";
+const TITLE = "AIVanta — Applied AI, Automation, Security & Analytics";
+const DESCRIPTION =
+  "AIVanta is an American technology company delivering applied AI, automation, cybersecurity and analytics — engineered around your business, backed by access to global engineering talent.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(site.url),
   title: {
-    default: "test_logo — AI, Automation, Security & Analytics Engineering",
-    template: "%s · test_logo",
+    default: TITLE,
+    template: "%s · AIVanta",
   },
-  description:
-    "A team of experienced IT engineers in Chicago building AI solutions, automation, cybersecurity and analytics around your requirements. We don't walk away until everything works.",
+  description: DESCRIPTION,
+  applicationName: "AIVanta",
   keywords: [
+    "AIVanta",
     "AI solutions",
+    "AI consulting",
+    "applied AI",
     "automation",
     "cybersecurity",
+    "IT security",
     "data analytics",
-    "IT engineering",
-    "Chicago",
+    "American AI company",
+    "enterprise AI",
+    "Illinois",
+    "United States",
   ],
+  authors: [{ name: "AIVanta" }],
+  creator: "AIVanta",
+  publisher: "AIVanta",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "test_logo — AI, Automation, Security & Analytics Engineering",
-    description:
-      "Experienced IT engineers who understand what you need and deliver it. AI, automation, security and analytics — built around your requirements.",
+    title: TITLE,
+    description: DESCRIPTION,
     type: "website",
     locale: "en_US",
-    url: SITE_URL,
+    url: site.url,
+    siteName: "AIVanta",
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  category: "technology",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08090b",
+  themeColor: "#f5f6f9",
   width: "device-width",
   initialScale: 1,
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AIVanta",
+  url: site.url,
+  email: site.email,
+  description: DESCRIPTION,
+  slogan: site.tagline,
+  areaServed: { "@type": "Country", name: "United States" },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "Illinois",
+    addressCountry: "US",
+  },
+  sameAs: [site.linkedin],
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Business Automation",
+    "Cybersecurity",
+    "Data Analytics",
+  ],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "AIVanta",
+  url: site.url,
+  publisher: { "@type": "Organization", name: "AIVanta" },
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
-      <body className="grain antialiased">
+      <body className="antialiased">
         {/* No-JS / hydration-failure fallback: reveal motion content that would
             otherwise stay at its hidden initial state. */}
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <Providers>{children}</Providers>
+
+        <Providers>
+          <Background />
+          <ScrollProgress />
+          <Navbar />
+          <main id="main">{children}</main>
+          <Footer />
+          <MobileCTA />
+        </Providers>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationSchema, websiteSchema]),
+          }}
+        />
+
+        {/* Google Analytics / Ads — activates only once NEXT_PUBLIC_GA_ID is set. */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaId}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
 import { site } from "@/lib/site";
+import { openService, scrollToId } from "@/lib/scroll";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -20,15 +21,14 @@ export function Hero() {
               transition={{ duration: 0.6, ease }}
               className="eyebrow"
             >
-              Chicago, IL · IT Engineering
+              United States · Applied AI &amp; Engineering
             </motion.div>
 
             <h1 className="mt-6 text-balance text-[clamp(2rem,8.5vw,4.1rem)] leading-[1.04]">
-              <Line delay={0.06}>Experienced engineers</Line>
-              <Line delay={0.14}>who get your toughest</Line>
+              <Line delay={0.06}>Enterprise AI, automation</Line>
+              <Line delay={0.14}>and security,</Line>
               <Line delay={0.22}>
-                tasks{" "}
-                <span className="text-accent-grad italic">solved.</span>
+                <span className="text-accent-grad italic">engineered around you.</span>
               </Line>
             </h1>
 
@@ -38,9 +38,9 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.34, ease }}
               className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted"
             >
-              We work closely with you, understand exactly what you need, and
-              deliver it. We don&apos;t walk away until everything is working —
-              in your environment, on your terms.
+              An American engineering team that works closely with you,
+              understands exactly what you need, and delivers it — then stays
+              until everything runs the way it should.
             </motion.p>
 
             <motion.div
@@ -53,10 +53,13 @@ export function Hero() {
                 Start a project
                 <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-1" />
               </a>
-              <a href="#services" className="btn-ghost group">
+              <button
+                onClick={() => scrollToId("services")}
+                className="btn-ghost group"
+              >
                 Explore services
                 <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
+              </button>
             </motion.div>
 
             <motion.div
@@ -81,7 +84,7 @@ export function Hero() {
             className="relative"
           >
             <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
-              <div className="rounded-[1.25rem] border border-line bg-bg-soft/80 p-2">
+              <div className="rounded-[1.25rem] border border-line bg-bg-soft p-2">
                 <div className="flex items-center justify-between px-4 py-3">
                   <span className="font-mono text-[11px] uppercase tracking-label text-muted">
                     Where we help
@@ -95,12 +98,11 @@ export function Hero() {
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  {services.map((s, i) => (
-                    <a
+                  {services.map((s) => (
+                    <button
                       key={s.id}
-                      href="#services"
-                      className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-3.5 transition-all duration-300 ease-smooth hover:border-line hover:bg-surface"
-                      style={{ animationDelay: `${i * 60}ms` }}
+                      onClick={() => openService(s.id)}
+                      className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-3.5 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
                     >
                       <span className="font-mono text-xs text-faint">{s.index}</span>
                       <span className="grid h-9 w-9 place-items-center rounded-lg border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
@@ -115,7 +117,7 @@ export function Hero() {
                         </span>
                       </span>
                       <ArrowUpRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>

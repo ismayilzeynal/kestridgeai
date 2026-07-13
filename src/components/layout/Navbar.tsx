@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { site } from "@/lib/site";
@@ -62,21 +63,21 @@ export function Navbar() {
 
           <div className="hidden items-center gap-9 md:flex">
             {site.nav.map((n) => (
-              <a
+              <Link
                 key={n.href}
                 href={n.href}
                 className="text-sm text-muted transition-colors duration-300 hover:text-ink"
               >
                 {n.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="hidden md:block">
-            <a href="#contact" className="btn-primary !py-3 !px-5 text-sm group">
+            <Link href="/#contact" className="btn-primary !py-3 !px-5 text-sm group">
               Start a project
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </a>
+            </Link>
           </div>
 
           <button
@@ -105,7 +106,7 @@ export function Navbar() {
       >
         <div className="container-x flex flex-col gap-1 pt-6">
           {site.nav.map((n, i) => (
-            <a
+            <Link
               key={n.href}
               ref={i === 0 ? firstLinkRef : undefined}
               href={n.href}
@@ -114,17 +115,17 @@ export function Navbar() {
               className="border-b border-line py-4 font-display text-2xl text-ink"
             >
               {n.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             onClick={() => setOpen(false)}
             tabIndex={open ? 0 : -1}
             className="btn-primary mt-6 w-full"
           >
             Start a project
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </header>

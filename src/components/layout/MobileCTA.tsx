@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 // Persistent mobile call-to-action. Appears once the hero is scrolled past and
@@ -37,10 +38,10 @@ export function MobileCTA() {
       }`}
     >
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/90 to-transparent" />
-      <a href="#contact" className="btn-primary group w-full" tabIndex={show ? 0 : -1}>
+      <Link href="/#contact" className="btn-primary group w-full" tabIndex={show ? 0 : -1}>
         Start a project
         <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
-      </a>
+      </Link>
     </div>
   );
 }

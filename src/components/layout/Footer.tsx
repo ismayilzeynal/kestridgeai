@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Mail, MapPin, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { LinkedInButton } from "@/components/ui/LinkedInButton";
@@ -6,14 +7,14 @@ import { services } from "@/data/services";
 
 export function Footer() {
   return (
-    <footer id="site-footer" className="relative border-t border-line bg-bg-soft/50">
+    <footer id="site-footer" className="relative border-t border-line bg-surface">
       <div className="container-x py-16">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-muted">
-              Experienced IT engineers building AI, automation, security and
-              analytics around what your business actually needs.
+              An American technology company building AI, automation, security
+              and analytics around what your business actually needs.
             </p>
             <div className="mt-6">
               <LinkedInButton />
@@ -27,14 +28,22 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-3">
               {services.map((s) => (
                 <li key={s.id}>
-                  <a
-                    href="#services"
+                  <Link
+                    href="/#services"
                     className="link-underline text-sm text-muted hover:text-ink"
                   >
                     {s.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/about"
+                  className="link-underline text-sm text-muted hover:text-ink"
+                >
+                  About
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -44,13 +53,16 @@ export function Footer() {
             </h4>
             <ul className="mt-5 flex flex-col gap-4">
               <li>
-                <a
-                  href="#contact"
+                <Link
+                  href="/#contact"
                   className="group inline-flex items-center gap-2.5 text-sm text-ink hover:text-accent"
                 >
-                  <ArrowRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={1.7} />
+                  <ArrowRight
+                    className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5"
+                    strokeWidth={1.7}
+                  />
                   Send us a message
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -84,8 +96,8 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <p className="text-xs text-faint">
-            © {new Date().getFullYear()} {site.brand}. All rights reserved ·
-            Placeholder brand &amp; logo, pending approval.
+            © {new Date().getFullYear()} {site.brand}. American-based · Global
+            engineering resources.
           </p>
           <p className="text-xs text-faint">
             All information you share with us is kept strictly confidential.

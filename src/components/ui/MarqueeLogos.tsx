@@ -14,10 +14,10 @@ export function MarqueeLogos() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`https://cdn.simpleicons.org/${c.slug}/ffffff`}
+              src={`https://cdn.simpleicons.org/${c.slug}/475569`}
               alt={c.name}
               loading="lazy"
-              className="h-7 w-auto opacity-40 grayscale transition duration-500 ease-smooth group-hover:opacity-95"
+              className="h-7 w-auto opacity-50 transition duration-500 ease-smooth group-hover:opacity-100"
               style={{ maxWidth: 132 }}
             />
           </div>

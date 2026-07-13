@@ -1,16 +1,21 @@
 // Single source of truth for brand + contact details.
-// Brand name and logo are NOT final — "test_logo" is a placeholder until approved.
+// Logo artwork is not final yet — the wordmark "AIVanta" stands in for it.
 export const site = {
-  brand: "test_logo",
-  location: "Chicago, IL",
-  email: "hello@testlogo.com", // placeholder until the company name is finalized
-  linkedin: "https://www.linkedin.com/company/testlogo",
+  brand: "AIVanta",
+  // Public production URL — update when the custom domain is live.
+  url: "https://testlogo-site.vercel.app",
+  tagline: "Applied AI, automation, security & analytics for American business.",
+  location: "Illinois, USA",
+  region: "IL",
+  country: "United States",
+  email: "hello@aivanta.com", // placeholder until the domain mailbox is live
+  linkedin: "https://www.linkedin.com/company/aivanta",
   responseTime: "2–3 business days",
   nav: [
-    { label: "Services", href: "#services" },
-    { label: "Team", href: "#team" },
-    { label: "Security", href: "#security" },
-    { label: "Contact", href: "#contact" },
+    { label: "Services", href: "/#services" },
+    { label: "About", href: "/about" },
+    { label: "Team", href: "/#team" },
+    { label: "Security", href: "/#security" },
   ],
 };
 

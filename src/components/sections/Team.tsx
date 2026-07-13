@@ -7,7 +7,7 @@ import { LinkedInButton } from "@/components/ui/LinkedInButton";
 
 export function Team() {
   return (
-    <section id="team" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="team" className="relative py-24 sm:py-32">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <SectionHeading
@@ -43,7 +43,7 @@ export function Team() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${m.name} — ${site.brand} on LinkedIn`}
-                    className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-line-strong bg-bg/70 text-ink opacity-70 backdrop-blur transition-all duration-300 ease-smooth hover:bg-accent hover:text-[#04130f] sm:opacity-0 sm:group-hover:opacity-100"
+                    className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-line-strong bg-surface/80 text-ink opacity-80 backdrop-blur transition-all duration-300 ease-smooth hover:bg-accent hover:text-white sm:opacity-0 sm:group-hover:opacity-100"
                   >
                     <Linkedin className="h-4 w-4" strokeWidth={1.8} />
                   </a>

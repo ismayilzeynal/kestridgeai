@@ -3,29 +3,31 @@
 @tailwind utilities;
 
 :root {
-  /* Surfaces — near-black with a faintly cool undertone (RGB channels for alpha) */
-  --bg: 8 9 11;
-  --bg-soft: 11 13 16;
-  --surface: 16 19 23;
-  --surface-2: 22 26 32;
+  /* Surfaces — light, clean paper with white elevated cards (RGB channels for alpha) */
+  --bg: 245 246 249;
+  --bg-soft: 238 240 244;
+  --surface: 255 255 255;
+  --surface-2: 248 249 251;
 
   /* Lines */
-  --border: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.13);
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.16);
 
   /* Text (RGB channels for alpha) */
-  --text: 237 239 242;
-  --text-muted: 178 185 194;
-  --text-faint: 122 130 140;
+  --text: 17 24 33;
+  --text-muted: 82 91 104;
+  --text-faint: 118 127 140;
 
-  /* Accent — refined signal teal-cyan, used surgically */
-  --accent: #4fe3c9;
-  --accent-strong: #8affe7;
-  --accent-deep: #10a98f;
-  --accent-glow: rgba(79, 227, 201, 0.32);
-  --ice: #8fb4ff;
+  /* Accent — deep, serious teal used surgically */
+  --accent: #0b7a67;
+  --accent-strong: #12a58c;
+  --accent-deep: #075044;
+  --accent-glow: rgba(11, 122, 103, 0.18);
 
-  --grid: rgba(255, 255, 255, 0.028);
+  /* Ink used for primary buttons — near-black reads premium on light */
+  --ink-btn: #14181f;
+
+  --grid: rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -34,6 +36,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.25rem; /* keep anchored targets clear of the fixed navbar */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -61,23 +64,23 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #04130f;
+  color: #ffffff;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 11px;
+  width: 12px;
 }
 ::-webkit-scrollbar-track {
   background: rgb(var(--bg));
 }
 ::-webkit-scrollbar-thumb {
-  background: #20262d;
+  background: #cdd3db;
   border-radius: 99px;
   border: 3px solid rgb(var(--bg));
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2c343d;
+  background: #b6bdc7;
 }
 
 @layer base {
@@ -96,7 +99,6 @@ body {
     outline-offset: 3px;
     border-radius: 6px;
   }
-  /* Mouse/touch interactions shouldn't show the ring */
   :focus:not(:focus-visible) {
     outline: none;
   }
@@ -117,12 +119,12 @@ body {
     height: 6px;
     border-radius: 99px;
     background: var(--accent);
-    box-shadow: 0 0 12px 1px var(--accent-glow);
+    box-shadow: 0 0 10px 1px var(--accent-glow);
   }
 
-  /* Gradient signal text */
+  /* Gradient signal text — dark ink for headings on light */
   .text-signal {
-    background: linear-gradient(180deg, #ffffff 0%, #cfd6dd 100%);
+    background: linear-gradient(180deg, #12161c 0%, #3a4250 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -136,8 +138,9 @@ body {
 
   /* Surface card */
   .card {
-    @apply relative rounded-3xl border bg-surface/70 backdrop-blur-sm transition duration-500;
+    @apply relative rounded-3xl border bg-surface transition duration-500;
     border-color: var(--border);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -20px rgba(15, 23, 42, 0.14);
   }
   .card-hover {
     @apply transition-all duration-500 ease-smooth;
@@ -145,7 +148,7 @@ body {
   .card-hover:hover {
     border-color: var(--border-strong);
     transform: translateY(-4px);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 24px 48px -24px rgba(15, 23, 42, 0.22);
   }
 
   /* Buttons */
@@ -153,22 +156,23 @@ body {
     @apply relative inline-flex select-none items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 ease-smooth;
   }
   .btn-primary {
-    @apply btn px-6 py-3.5 text-[15px] text-[#03130f];
-    background: linear-gradient(180deg, var(--accent-strong), var(--accent));
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, 0 14px 34px -14px var(--accent-glow);
+    @apply btn px-6 py-3.5 text-[15px] text-white;
+    background: var(--ink-btn);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16), 0 12px 28px -12px rgba(15, 23, 42, 0.4);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 18px 44px -12px var(--accent-glow);
+    background: #0a0d12;
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18), 0 18px 40px -12px rgba(15, 23, 42, 0.45);
   }
   .btn-ghost {
     @apply btn px-6 py-3.5 text-[15px] text-ink;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgb(var(--surface));
     border: 1px solid var(--border-strong);
   }
   .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: rgb(var(--surface-2));
+    border-color: rgba(15, 23, 42, 0.28);
     transform: translateY(-2px);
   }
 
@@ -202,17 +206,6 @@ body {
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 35%, transparent 78%);
   }
 
-  /* Soft noise grain */
-  .grain::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
   .text-balance {
     text-wrap: balance;
   }
@@ -226,6 +219,6 @@ body {
   }
 
   .glow-accent {
-    box-shadow: 0 0 50px -10px var(--accent-glow);
+    box-shadow: 0 20px 60px -24px var(--accent-glow);
   }
 }
