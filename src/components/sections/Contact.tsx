@@ -15,6 +15,7 @@ import { site, serviceOptions } from "@/lib/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { LinkedInButton } from "@/components/ui/LinkedInButton";
+import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
 
 type Status = "idle" | "submitting" | "success";
 type Errors = Partial<Record<"name" | "email" | "service" | "message", string>>;
@@ -48,13 +49,13 @@ export function Contact() {
     const email = (data.get("email") as string)?.trim();
     const svc = data.get("service") as string;
     const msg = (data.get("message") as string)?.trim();
-    if (!n) next.name = "Please tell us your name.";
-    if (!email) next.email = "We need an email to reach you.";
+    if (!n) next.name = "Please enter your name.";
+    if (!email) next.email = "Please enter your email address.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      next.email = "That email doesn't look right.";
-    if (!svc) next.service = "Pick the area you're interested in.";
+      next.email = "Please enter a valid email address.";
+    if (!svc) next.service = "Please select an area.";
     if (!msg || msg.length < 10)
-      next.message = "A sentence or two about your project helps a lot.";
+      next.message = "Please add at least a sentence about your project.";
     return next;
   };
 
@@ -63,7 +64,18 @@ export function Contact() {
     const data = new FormData(e.currentTarget);
     const found = validate(data);
     setErrors(found);
-    if (Object.keys(found).length > 0) return;
+    if (Object.keys(found).length > 0) {
+      // Bring the first invalid field into view and focus it.
+      const first = (["name", "email", "service", "message"] as const).find(
+        (k) => found[k]
+      );
+      if (first) {
+        const el = document.getElementById(first);
+        el?.scrollIntoView({ block: "center", behavior: "smooth" });
+        el?.focus({ preventScroll: true });
+      }
+      return;
+    }
 
     setName((data.get("name") as string)?.trim() || "");
     setStatus("submitting");
@@ -121,9 +133,7 @@ export function Contact() {
                 className="card card-hover group flex items-center gap-4 rounded-2xl p-4"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-accent">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden>
-                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
-                  </svg>
+                  <LinkedInIcon className="h-5 w-5" />
                 </span>
                 <span className="flex-1">
                   <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
@@ -175,14 +185,14 @@ export function Contact() {
                     </p>
                     <div className="mt-8 flex flex-col items-center gap-4">
                       <p className="text-sm text-faint">
-                        While you wait — stay close to what we&apos;re building.
+                        Need to add anything? Email us and reference your message.
                       </p>
                       <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <LinkedInButton variant="primary" />
-                        <a href={`mailto:${site.email}`} className="btn-ghost group">
+                        <a href={`mailto:${site.email}`} className="btn-primary group">
                           Email us directly
                           <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </a>
+                        <LinkedInButton />
                       </div>
                       <button
                         onClick={reset}
@@ -254,7 +264,7 @@ export function Contact() {
                           aria-describedby={errors.service ? "service-error" : undefined}
                           className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                             service ? "text-ink" : "text-faint"
-                          } ${errors.service ? "border-red-400/60" : "border-line"}`}
+                          } ${errors.service ? "border-red-500/70" : "border-line"}`}
                         >
                           <option value="" disabled hidden>
                             Select an area…
@@ -283,7 +293,7 @@ export function Contact() {
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "message-error" : undefined}
                         className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
-                          errors.message ? "border-red-400/60" : "border-line"
+                          errors.message ? "border-red-500/70" : "border-line"
                         }`}
                       />
                       {errors.message && (
@@ -349,7 +359,7 @@ function ErrorText({
   id?: string;
 }) {
   return (
-    <span id={id} className="text-[12.5px] text-red-400">
+    <span id={id} aria-live="polite" className="text-[13px] font-medium text-red-600">
       {children}
     </span>
   );
@@ -394,7 +404,7 @@ function Field({
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
         className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
-          error ? "border-red-400/60" : "border-line"
+          error ? "border-red-500/70" : "border-line"
         }`}
       />
       {error && <ErrorText id={`${name}-error`}>{error}</ErrorText>}

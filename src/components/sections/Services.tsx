@@ -68,7 +68,7 @@ export function Services() {
           </Reveal>
         </div>
 
-        <div className="mt-6 grid gap-5 lg:grid-cols-[300px_1fr]">
+        <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[300px_minmax(0,1fr)]">
           {/* Tab rail */}
           <Reveal>
             <div className="relative">
@@ -248,7 +248,7 @@ export function Services() {
                 <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-line pt-4 sm:flex-row sm:items-center">
                   <p className="flex items-center gap-2.5 text-[13.5px] text-faint">
                     <Lock className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.7} />
-                    NDA-first — confidential on every engagement.
+                    Confidential by default — NDA on request.
                   </p>
                   <button
                     onClick={() => selectAndScroll(svc.id)}

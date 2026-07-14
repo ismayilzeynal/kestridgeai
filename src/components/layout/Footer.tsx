@@ -36,6 +36,12 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+
+            <h4 className="mt-8 font-mono text-[11px] uppercase tracking-label text-faint">
+              Company
+            </h4>
+            <ul className="mt-4 flex flex-col gap-3">
               <li>
                 <Link
                   href="/about"

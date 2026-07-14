@@ -37,8 +37,8 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.34, ease }}
               className="mt-6 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
             >
-              An American engineering team that works closely with you,
-              understands exactly what you need, and delivers it — then stays
+              An American company whose engineers work closely with you,
+              understand exactly what you need, and deliver it — then stay
               until everything runs the way it should.
             </motion.p>
 
@@ -71,16 +71,9 @@ export function Hero() {
           >
             <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
               <div className="rounded-[1.25rem] border border-line bg-bg-soft p-2">
-                <div className="flex items-center justify-between px-4 py-3.5">
+                <div className="px-4 py-3.5">
                   <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted">
                     Where we help
-                  </span>
-                  <span className="flex items-center gap-2 font-mono text-[12px] text-faint">
-                    <span className="relative flex h-1.5 w-1.5" aria-hidden>
-                      <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-                    </span>
-                    online
                   </span>
                 </div>
                 <div className="flex flex-col">

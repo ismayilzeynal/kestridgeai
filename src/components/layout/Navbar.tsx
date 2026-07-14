@@ -100,7 +100,7 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Site menu"
         aria-hidden={!open}
-        className={`fixed inset-0 top-[68px] z-40 origin-top bg-bg/95 backdrop-blur-xl transition-all duration-300 md:hidden ${
+        className={`fixed inset-0 top-[68px] z-40 origin-top bg-bg transition-all duration-300 md:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >

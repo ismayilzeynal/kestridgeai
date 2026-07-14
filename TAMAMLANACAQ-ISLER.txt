@@ -1,0 +1,115 @@
+================================================================
+  AIVANTA SAYTI — TAMAMLANACAQ İŞLƏR SİYAHISI
+  Hazırlanma tarixi: 14 iyul 2026
+  Canlı sayt: https://testlogo-site.vercel.app
+================================================================
+
+Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müddət sonra
+           [SONRA] = gələcək inkişaf
+
+
+────────────────────────────────────────────────────────────────
+ 1. DOMEN VƏ BREND
+────────────────────────────────────────────────────────────────
+[ ] [VACIB] Custom domen almaq (məs. aivanta.com / aivanta.ai)
+      → Vercel > Project > Settings > Domains bölməsində qoşmaq
+      → Kodda yenilənməli: src/lib/site.ts içində `url` sahəsi
+[ ] [VACIB] Domen emaili qurmaq (hello@aivanta.com)
+      → Google Workspace və ya Zoho Mail
+      → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
+      → Kodda yenilənməli: src/lib/site.ts içində `email` sahəsi
+[ ] [VACIB] LinkedIn şirkət səhifəsi yaratmaq
+      → Hazır assetlər: media-logo-assets/banner/aivanta-linkedin-1584x396.png
+        (cover) və media-logo-assets/avatar/ (profil şəkli)
+      → Real URL kodda yenilənməli: src/lib/site.ts içində `linkedin`
+[ ] [ORTA]  Logo son təsdiq (hazırkı kit saytda inteqrasiya olunub;
+      dəyişsə: public/brand/, src/app/icon.svg, apple-icon.png,
+      opengraph-image.png, twitter-image.png yenilənməlidir)
+[ ] [ORTA]  Logomark-a dizayner baxışı: review-da qeyd olundu ki, mark
+      kiçik ölçülərdə (navbar 34px, favicon 16px) incə "|" xəttinə
+      bənzəyir və krem rəngi saytın soyuq boz+teal palitrasından
+      kənardır. Kiçik ölçüdə daha oxunaqlı variant nəzərdən keçirin.
+
+────────────────────────────────────────────────────────────────
+ 2. KONTENT (real məlumatlar)
+────────────────────────────────────────────────────────────────
+[ ] [VACIB] Komanda bölməsi — real üzvlər:
+      → Real ad, vəzifə, fokus sahəsi
+      → Real fotolar (hazırda randomuser.me placeholder-ləri —
+        real şəxslərin şəkilləridir, canlı saytda qalması hüquqi riskdir!)
+      → Hər üzvün ŞƏXSİ LinkedIn profil linki
+      → Fayl: src/data/team.ts
+[ ] [VACIB] "Companies our team has worked with" — real şirkətlər:
+      → Hazırkı loqolar (Anthropic, NVIDIA, McDonald's və s.) placeholder-dir.
+        Komandanın həqiqətən işlədiyi şirkətlərlə əvəzlənməlidir,
+        əks halda yanlış təqdimat (false advertising) riski var.
+      → Fayl: src/data/companies.ts
+[ ] [ORTA]  Dəqiq ofis ünvanı:
+      → About səhifəsi (src/app/about/page.tsx), src/lib/site.ts,
+        layout.tsx içindəki Organization JSON-LD
+[ ] [ORTA]  Bütün mətnlərin yekun biznes təsdiqi (iddialar: 24/7,
+      NDA-first, 100% confidential, cavab müddəti "2–3 business days")
+
+────────────────────────────────────────────────────────────────
+ 3. BACKEND VƏ CONTACT FORM
+────────────────────────────────────────────────────────────────
+[ ] [VACIB] Form göndərişini real backend-ə bağlamaq
+      → Hazırda simulyasiyadır: src/components/sections/Contact.tsx
+        içində onSubmit (setTimeout ilə saxta "success")
+      → Sadə yol: Next.js API route + Resend/SendGrid ilə email
+      → Alternativ: Formspree / Basin kimi hazır servis
+[ ] [VACIB] Spam qoruması (Cloudflare Turnstile və ya honeypot sahə)
+[ ] [ORTA]  Müraciətlərin qeydiyyatı (email inbox kifayətdir; istəsəniz
+      DB / Google Sheets / CRM inteqrasiyası)
+[ ] [ORTA]  Yeni müraciət üçün komandaya bildiriş (email notification)
+
+────────────────────────────────────────────────────────────────
+ 4. SEO, ANALİTİKA VƏ REKLAM
+────────────────────────────────────────────────────────────────
+[ ] [VACIB] Google Search Console:
+      → Yeni domeni təsdiqlə
+      → sitemap.xml göndər (hazırdır: /sitemap.xml)
+[ ] [VACIB] Google Analytics 4 hesabı yarat
+      → Vercel > Settings > Environment Variables:
+        NEXT_PUBLIC_GA_ID = G-XXXXXXX
+      → Kod hazırdır (layout.tsx), env qoyulan kimi işə düşür
+[ ] [ORTA]  Google Ads (reklam vermək istəyəndə):
+      → Ads hesabı + conversion action yarat
+      → Form submit-də gtag conversion event əlavə etmək (kiçik kod işi)
+[ ] [ORTA]  Real domen açılandan sonra OG kartını yoxla
+      (opengraph.xyz və ya LinkedIn Post Inspector ilə)
+[ ] [SONRA] Bing Webmaster Tools (opsional)
+
+────────────────────────────────────────────────────────────────
+ 5. HÜQUQİ
+────────────────────────────────────────────────────────────────
+[ ] [VACIB] Privacy Policy səhifəsi (form şəxsi məlumat topladığı üçün
+      ABŞ ştat qanunları baxımından lazımdır) + footer-də link
+[ ] [ORTA]  Terms of Service (opsional, amma enterprise müştərilər axtarır)
+[ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) və footer-də hüquqi ad
+
+────────────────────────────────────────────────────────────────
+ 6. TEXNİKİ KEYFİYYƏT (launch ətrafı)
+────────────────────────────────────────────────────────────────
+[ ] [ORTA]  Real domendə Lighthouse audit (performance / SEO / a11y)
+[ ] [ORTA]  Uptime monitorinq (UptimeRobot pulsuz plan kifayətdir)
+[ ] [SONRA] Vercel Analytics / Speed Insights (opsional)
+
+────────────────────────────────────────────────────────────────
+ 7. GƏLƏCƏK KONTENT (satışı gücləndirmək üçün)
+────────────────────────────────────────────────────────────────
+[ ] [SONRA] Case study / portfolio bölməsi (ilk layihələrdən sonra)
+[ ] [SONRA] Müştəri rəyləri (testimonials)
+[ ] [SONRA] Blog / insights (SEO + AI-axtarış görünürlüyü üçün güclü)
+[ ] [SONRA] E-poçt newsletter (opsional)
+
+================================================================
+ QEYD: Kod tərəfində hazır olanlar (heç nə etmək lazım deyil):
+ • SEO metadata, sitemap.xml, robots.txt, manifest
+ • Organization + WebSite + FAQPage structured data (JSON-LD)
+ • OG / Twitter şəkilləri (brendli, 1200x630)
+ • Favicon + Apple icon (brend kitindən)
+ • Google Analytics qarmağı (env dəyişəni gözləyir)
+ • Responsive dizayn (mobil / laptop / desktop yoxlanılıb)
+ • Accessibility əsasları (klaviatura, screen reader, reduced motion)
+================================================================

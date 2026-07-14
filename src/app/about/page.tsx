@@ -131,10 +131,10 @@ export default function AboutPage() {
             eyebrow="What we stand for"
             title={
               <>
-                Principles that <span className="text-accent-grad">hold up</span> under pressure
+                Principles that hold up{" "}
+                <span className="text-accent-grad">under pressure</span>
               </>
             }
-            align="center"
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {principles.map((p, i) => (

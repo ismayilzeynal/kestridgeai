@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 // hides while the contact form itself is on screen (so it never covers it).
 export function MobileCTA() {
   const [pastHero, setPastHero] = useState(false);
-  const [contactVisible, setContactVisible] = useState(false);
+  const [hiddenZone, setHiddenZone] = useState(false);
 
   useEffect(() => {
     const onScroll = () =>
@@ -18,18 +18,30 @@ export function MobileCTA() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Hide while the contact form or the footer is on screen — the pill must
+  // never cover the form it points to, nor the footer's last lines.
   useEffect(() => {
-    const contact = document.getElementById("contact");
-    if (!contact) return;
+    const zones = [
+      document.getElementById("contact"),
+      document.getElementById("site-footer"),
+    ].filter(Boolean) as Element[];
+    if (zones.length === 0) return;
+    const visible = new Set<Element>();
     const io = new IntersectionObserver(
-      ([entry]) => setContactVisible(entry.isIntersecting),
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.add(e.target);
+          else visible.delete(e.target);
+        }
+        setHiddenZone(visible.size > 0);
+      },
       { threshold: 0.04 }
     );
-    io.observe(contact);
+    zones.forEach((z) => io.observe(z));
     return () => io.disconnect();
   }, []);
 
-  const show = pastHero && !contactVisible;
+  const show = pastHero && !hiddenZone;
 
   return (
     <div

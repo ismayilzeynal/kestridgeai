@@ -1,4 +1,4 @@
-import { Linkedin } from "lucide-react";
+import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
 import { team } from "@/data/team";
 import { site } from "@/lib/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -45,7 +45,7 @@ export function Team() {
                     aria-label={`${m.name} — ${site.brand} on LinkedIn`}
                     className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-line-strong bg-surface/80 text-ink opacity-80 backdrop-blur transition-all duration-300 ease-smooth hover:bg-accent hover:text-white sm:opacity-0 sm:group-hover:opacity-100"
                   >
-                    <Linkedin className="h-4 w-4" strokeWidth={1.8} />
+                    <LinkedInIcon className="h-4 w-4" />
                   </a>
                 </div>
                 <div className="p-4 sm:p-5">
