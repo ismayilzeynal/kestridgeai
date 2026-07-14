@@ -83,10 +83,14 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
  5. HÜQUQİ
 ────────────────────────────────────────────────────────────────
-[ ] [VACIB] Privacy Policy səhifəsi (form şəxsi məlumat topladığı üçün
+[x] [VACIB] Privacy Policy səhifəsi (form şəxsi məlumat topladığı üçün
       ABŞ ştat qanunları baxımından lazımdır) + footer-də link
-[ ] [ORTA]  Terms of Service (opsional, amma enterprise müştərilər axtarır)
-[ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) və footer-də hüquqi ad
+      → HAZIRDIR: /privacy — hüquqşünas yoxlaması hələ qalır
+[x] [ORTA]  Terms of Service (opsional, amma enterprise müştərilər axtarır)
+      → HAZIRDIR: /terms — hüquqşünas yoxlaması hələ qalır
+[ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) — footer-də "AIVanta Inc."
+      yazılıb; qeydiyyat fərqli olsa kodda yenilənməli: src/lib/site.ts
+      içində `legalName`
 
 ────────────────────────────────────────────────────────────────
  6. TEXNİKİ KEYFİYYƏT (launch ətrafı)
