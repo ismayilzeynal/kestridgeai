@@ -42,7 +42,7 @@ const faqSchema = {
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
+    <section id="faq" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
       <div className="container-x">
         <SectionHeading
           eyebrow="Questions"

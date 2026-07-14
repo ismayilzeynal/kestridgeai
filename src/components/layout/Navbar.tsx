@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { site } from "@/lib/site";
+import { scrollToId } from "@/lib/scroll";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -46,6 +49,27 @@ export function Navbar() {
     };
   }, [open]);
 
+  // Same-page hash links: close the menu first, restore body scroll, THEN
+  // scroll — a hash jump while the menu holds `overflow:hidden` is silently
+  // blocked on iOS. Cross-page links fall through to normal navigation.
+  const onNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) {
+      setOpen(false);
+      return;
+    }
+    const base = href.slice(0, hashIndex) || "/";
+    const id = href.slice(hashIndex + 1);
+    if (pathname === base) {
+      e.preventDefault();
+      setOpen(false);
+      // wait one tick so overflow:hidden is lifted before scrolling
+      window.setTimeout(() => scrollToId(id), 60);
+    } else {
+      setOpen(false);
+    }
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
@@ -66,6 +90,7 @@ export function Navbar() {
               <Link
                 key={n.href}
                 href={n.href}
+                onClick={(e) => onNavClick(e, n.href)}
                 className="text-sm text-muted transition-colors duration-300 hover:text-ink"
               >
                 {n.label}
@@ -74,7 +99,11 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:block">
-            <Link href="/#contact" className="btn-primary !py-3 !px-5 text-sm group">
+            <Link
+              href="/#contact"
+              onClick={(e) => onNavClick(e, "/#contact")}
+              className="btn-primary !py-3 !px-5 text-sm group"
+            >
               Start a project
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
@@ -110,16 +139,16 @@ export function Navbar() {
               key={n.href}
               ref={i === 0 ? firstLinkRef : undefined}
               href={n.href}
-              onClick={() => setOpen(false)}
+              onClick={(e) => onNavClick(e, n.href)}
               tabIndex={open ? 0 : -1}
-              className="border-b border-line py-4 font-display text-2xl text-ink"
+              className="border-b border-line py-4 text-2xl font-bold tracking-tight text-ink"
             >
               {n.label}
             </Link>
           ))}
           <Link
             href="/#contact"
-            onClick={() => setOpen(false)}
+            onClick={(e) => onNavClick(e, "/#contact")}
             tabIndex={open ? 0 : -1}
             className="btn-primary mt-6 w-full"
           >

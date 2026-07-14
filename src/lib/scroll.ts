@@ -13,5 +13,7 @@ export function scrollToId(id: string) {
 /** Select a Services tab (by id) and scroll the Services section into place. */
 export function openService(id: string) {
   window.dispatchEvent(new CustomEvent("select-service-tab", { detail: id }));
-  scrollToId("services");
+  // Defer past the re-render the event triggers (accordion/tab switch) —
+  // a synchronous smooth scroll gets cancelled by that layout change.
+  window.setTimeout(() => scrollToId("services"), 120);
 }

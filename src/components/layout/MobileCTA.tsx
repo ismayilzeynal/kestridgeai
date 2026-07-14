@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { scrollToId } from "@/lib/scroll";
 
 // Persistent mobile call-to-action. Appears once the hero is scrolled past and
 // hides while the contact form itself is on screen (so it never covers it).
 export function MobileCTA() {
   const [pastHero, setPastHero] = useState(false);
   const [hiddenZone, setHiddenZone] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () =>
@@ -50,7 +53,17 @@ export function MobileCTA() {
       }`}
     >
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/90 to-transparent" />
-      <Link href="/#contact" className="btn-primary group w-full" tabIndex={show ? 0 : -1}>
+      <Link
+        href="/#contact"
+        onClick={(e) => {
+          if (pathname === "/") {
+            e.preventDefault();
+            scrollToId("contact");
+          }
+        }}
+        className="btn-primary group w-full"
+        tabIndex={show ? 0 : -1}
+      >
         Start a project
         <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
       </Link>

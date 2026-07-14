@@ -92,7 +92,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
+    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           {/* Left — invitation + contact rails */}

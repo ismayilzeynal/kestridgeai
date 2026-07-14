@@ -44,7 +44,7 @@ const commitments = [
 
 export function Security() {
   return (
-    <section id="security" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
+    <section id="security" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
       <div className="container-x">
         <div className="relative overflow-hidden rounded-[2rem] border border-line bg-bg-soft/60 p-6 sm:p-12 lg:p-16">
           {/* accent atmosphere */}
