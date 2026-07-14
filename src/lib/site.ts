@@ -11,7 +11,7 @@ export const site = {
   country: "United States",
   email: "info@aivanta.com", // placeholder until the domain mailbox is live
   linkedin: "https://www.linkedin.com/company/aivanta",
-  responseTime: "2–3 business days",
+  responseTime: "as soon as possible",
   nav: [
     { label: "Services", href: "/#services" },
     { label: "About", href: "/about" },

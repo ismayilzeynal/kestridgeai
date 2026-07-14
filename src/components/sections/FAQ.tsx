@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "How do we start working together?",
-    a: `The fastest way is the contact form on this site — tell us what you're trying to solve. We reply within ${site.responseTime}, then we scope the work with you, agree a plan and timeline, and start building.`,
+    a: `The fastest way is the contact form on this site — tell us what you're trying to solve. We reply ${site.responseTime}, then we scope the work with you, agree a plan and timeline, and start building.`,
   },
   {
     q: "How do you handle data security and confidentiality?",
@@ -80,7 +80,7 @@ export function FAQ() {
               </h3>
               <p className="mt-2 text-[14.5px] leading-relaxed text-muted">
                 Tell us what you&apos;re working on — an engineer will get back
-                to you within {site.responseTime}.
+                to you {site.responseTime}.
               </p>
               <a href="#contact" className="btn-primary group mt-5 w-full !py-3 text-[14.5px]">
                 Ask us directly

@@ -48,7 +48,7 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → About səhifəsi (src/app/about/page.tsx), src/lib/site.ts,
         layout.tsx içindəki Organization JSON-LD
 [ ] [ORTA]  Bütün mətnlərin yekun biznes təsdiqi (iddialar: 24/7,
-      NDA-first, 100% confidential, cavab müddəti "2–3 business days")
+      NDA-first, 100% confidential, cavab müddəti "as soon as possible")
 
 ────────────────────────────────────────────────────────────────
  3. BACKEND VƏ CONTACT FORM

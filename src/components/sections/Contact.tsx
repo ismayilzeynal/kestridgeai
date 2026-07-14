@@ -107,7 +107,7 @@ export function Contact() {
                   <span className="text-accent-grad">trying to solve</span>
                 </>
               }
-              description={`A short description of your project and how to reach you is all we need. We'll get back to you within ${site.responseTime}.`}
+              description={`A short description of your project and how to reach you is all we need. We'll get back to you ${site.responseTime}.`}
             />
 
             <div className="mt-9 flex flex-col gap-3 lg:mt-6">
@@ -181,8 +181,8 @@ export function Contact() {
                       Thank you{name ? `, ${name.split(" ")[0]}` : ""}.
                     </h3>
                     <p className="mt-3 max-w-sm text-pretty leading-relaxed text-muted">
-                      Your message is in. We&apos;ll review it and get back to you
-                      within {site.responseTime}.
+                      Your message is in. We&apos;ll review it and get back to
+                      you {site.responseTime}.
                     </p>
                     <div className="mt-8 flex flex-col items-center gap-4">
                       <p className="text-sm text-faint">
