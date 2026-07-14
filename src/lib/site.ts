@@ -2,6 +2,7 @@
 // Logo artwork is not final yet — the wordmark "AIVanta" stands in for it.
 export const site = {
   brand: "AIVanta",
+  legalName: "AIVanta Inc.",
   // Public production URL — update when the custom domain is live.
   url: "https://testlogo-site.vercel.app",
   tagline: "Applied AI, automation, security & analytics for American business.",

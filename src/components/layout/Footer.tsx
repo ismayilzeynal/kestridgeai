@@ -50,6 +50,22 @@ export function Footer() {
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="link-underline text-sm text-muted hover:text-ink"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="link-underline text-sm text-muted hover:text-ink"
+                >
+                  Terms of Use
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -102,12 +118,26 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <p className="text-xs text-faint">
-            © {new Date().getFullYear()} {site.brand}. American-based · Global
-            engineering resources.
+            © {new Date().getFullYear()} {site.legalName} American-based ·
+            Global engineering resources.
           </p>
-          <p className="text-xs text-faint">
-            All information you share with us is kept strictly confidential.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <p className="text-xs text-faint">
+              All information you share with us is kept strictly confidential.
+            </p>
+            <Link
+              href="/privacy"
+              className="text-xs text-faint transition-colors hover:text-ink"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-faint transition-colors hover:text-ink"
+            >
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

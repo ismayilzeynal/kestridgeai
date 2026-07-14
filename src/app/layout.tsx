@@ -79,6 +79,7 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "AIVanta",
+  legalName: site.legalName,
   url: site.url,
   email: site.email,
   description: DESCRIPTION,
