@@ -1,6 +1,13 @@
 # AIVanta — Daxili sənədlər
 
-Bu qovluq xidmət sahələri üzrə iş sənədlərini saxlayır. İki hissədən ibarətdir:
+Bu qovluq xidmət sahələri üzrə iş sənədlərini saxlayır.
+
+**Dillər və formatlar:**
+- Azərbaycanca mənbələr: `roadmap/` və `qaydalar/` (markdown)
+- İngiliscə mənbələr: `en/roadmap/` və `en/qaydalar/` (markdown)
+- **Word versiyaları (paylaşmaq üçün): `word/az/` və `word/en/`** —
+  brendlənmiş .docx, hər dildə 9 sənəd. Mənbə md dəyişəndə Word-ü
+  yenidən generasiya etmək lazımdır (Claude-a "word fayllarını yenilə" de).
 
 ## roadmap/ — Layihə yol xəritələri
 Hər sahə üzrə layihənin 0-dan təhvilə qədər keçdiyi addımlar.
