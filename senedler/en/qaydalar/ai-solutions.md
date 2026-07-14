@@ -1,56 +1,78 @@
 # AI Solutions — Delivery Rules
 
-The General Delivery Rules apply here too. Below are the additions
-specific to AI projects.
+The [General Rules](00-umumi.md) fully apply. Below are the operational
+rules, tool stack and procedures specific to AI projects.
 
-## What we ask from the client
+## 1. Tool stack (standard)
 
-- **A data sample** — after the first meeting, for the assessment (may be
-  anonymized).
-- **Direct contact with the data owner** — so data questions are answered
-  directly, not routed through the POC.
-- **Domain expert time** — at least 1–2 hours per week. The judgment of
-  someone who knows the field is essential for the model to learn the
-  right things.
-- **Working environment:** for on-prem work, a GPU VM (exact requirement
-  set per project; typical: NVIDIA 24 GB+ VRAM, 8 vCPU, 32 GB RAM, 200 GB
-  SSD); in the cloud, a separate project + GPU instance quota. A cost
-  estimate is provided up front.
+| Purpose | Tool | Note |
+| --- | --- | --- |
+| Language / environment | Python 3.11+, `venv`/`conda` | Versions pinned for reproducibility |
+| Model | PyTorch / TensorFlow, Hugging Face | Chosen per task |
+| Experiment tracking | **MLflow** | Every training run logged (params, metrics) |
+| Data versioning | **DVC** | Data + model version tied to Git |
+| Container | **Docker** (+ CUDA image) | Removes environment differences |
+| Serving | **FastAPI** (+ vLLM / Triton if needed) | Model exposed as an API |
+| Drift monitoring | **Evidently** | Performance/drift watched in production |
+| GPU | NVIDIA + CUDA | Driver/CUDA version documented |
 
-## Data and model rules
+## 2. What we ask from the client
 
-- **We never train shared/global models on client data.** A client's data
-  is used only in their own solution.
-- If a third-party API (OpenAI, Anthropic, etc.) will be used:
-  **written consent in advance** + documentation of exactly what data
-  goes to the API. PII is masked before sending wherever possible.
-- PII is removed from or masked in training data wherever possible.
-- Data lineage is maintained: which model was trained on which data,
-  when — included in the handover package.
+- **A data sample** — for the assessment (may be anonymized).
+- **Direct contact with the data owner** — for schema/semantics questions.
+- **Domain expert time** — at least 1–2 hours per week.
+- **Working environment:** for on-prem work, a GPU VM (typical: NVIDIA
+  24 GB+ VRAM, 8 vCPU, 32 GB RAM, 200 GB SSD); in the cloud, a separate
+  project + GPU instance quota. A cost estimate is provided up front.
 
-## Quality and acceptance
+## 3. Data and model rules
+
+- **Reproducibility is mandatory:** which model, which data (DVC hash),
+  which parameters (MLflow run) — all recorded. The answer to "how did we
+  get this result" must always exist.
+- **Data lineage** is included in the handover package.
+- PII is removed from / masked in training data wherever possible.
+- The test dataset is separate from training; acceptance is judged only on
+  test-set results.
+
+## 4. Third-party LLMs (OpenAI / Anthropic / etc.) — data governance
+
+This is the most-forgotten risk. The rule:
+
+- **Default: client data (especially PII) is not sent to a third-party
+  API.**
+- If it will be sent: (1) **written consent in advance**, (2) which data,
+  to which provider — documented, (3) **redaction/masking of PII** before
+  sending wherever possible.
+- The provider's **"zero-retention" / enterprise** mode is selected (data
+  not retained for training).
+- **Prompt-injection** defense: text coming from user input is not treated
+  as a system instruction.
+- Prompt/response logs are stored **securely** (no PII in logs).
+- An **approved-provider + allowed-data-class matrix** is written per
+  project.
+
+## 5. Quality and acceptance
 
 - The acceptance criterion is written in the agreement **as a number:**
-  minimum accuracy / precision-recall / response time — whichever metric
-  fits the project.
+  min. accuracy / precision-recall / response time.
 - The metric is measured at the POC stage; if the target is realistic it
-  is confirmed, if not, it is revisited together — no surprises at the
-  end.
-- The test dataset is kept separate from training; acceptance is judged
-  only on test-set results.
+  is confirmed, if not it is revisited together — no surprises at the end.
 
-## Production rules
+## 6. Production rules
 
-- When a model goes live, **monitoring is set up:** performance, response
-  time, data drift. Who receives alerts is written in the runbook.
-- If human oversight is needed on model outputs (high-stakes decisions),
-  the human-in-the-loop flow is designed in from the start.
-- A new model version reaches production only after a comparison test
-  against the current one; rollback to the previous version is always
-  possible.
+- When a model goes live, **monitoring:** performance, response time, data
+  drift (Evidently). Who gets alerts is in the runbook.
+- For high-stakes decisions, **human-in-the-loop** is designed in from the
+  start.
+- A new model version reaches production only after a **comparison test**
+  against the current one; rollback is always possible.
+- **GPU instances are shut down when idle** — they burn cost (a forgotten
+  nuance).
 
-## Extra handover items
+## 7. Extra handover items
 
-- Model card: what it does, what data it was trained on, its limits.
-- Retraining guide: when it's needed, how to do it.
-- Access to the monitoring dashboard and the alerting rules.
+- **Model card:** what it does, what data it was trained on, its limits.
+- **Retraining guide:** when it's needed, how to do it.
+- Access to the monitoring dashboard + alerting rules.
+- The approved-LLM-provider + data-class matrix.

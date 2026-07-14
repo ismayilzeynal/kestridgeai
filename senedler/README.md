@@ -21,8 +21,10 @@ Müştəri ilə söhbətdə və daxili planlaşdırmada istifadə üçün.
 | [roadmap/analytics.md](roadmap/analytics.md) | Analytics |
 
 ## qaydalar/ — İş qaydaları (dokumentasiya)
-İşin hansı formada və hansı qaydalar çərçivəsində gedəcəyi:
-girişlər, mühitlər (VM), data, kommunikasiya, təhvil.
+İşi icra edən mütəxəssis üçün əməli playbook — "hansı halda nə et, hansı
+tool ilə, hansı qayda ilə". Girişlər (VPN/bastion/SSH/RDP/cloud IAM/DB),
+secrets, mühitlər (VM/IaC), data, backup/rollback, audit, insident,
+offboarding, təhvil + hər sahə üçün konkret tool stack.
 
 | Fayl | Məzmun |
 | --- | --- |

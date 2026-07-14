@@ -1,57 +1,71 @@
-# Analytics — iş qaydaları
+# Analytics — İş Qaydaları
 
-[Ümumi qaydalar](00-umumi.md) burada da keçərlidir. Aşağıdakılar
-analitika layihələrinə xas əlavələrdir.
+[Ümumi qaydalar](00-umumi.md) tam keçərlidir. Aşağıdakılar analitika
+layihələrinə xas əməli qaydalar, tool stack və prosedurlardır.
 
-## Müştəridən nə istəyirik
+## 1. Tool stack (standart)
 
-- **Data mənbələrinə read-only giriş:** mümkünsə read-only replica və ya
-  ayrıca analytics istifadəçisi. **Production bazaya yazma girişi
-  istəmirik** — heç vaxt.
-- Mənbə sistemlərin sahibləri ilə əlaqə (CRM admini, DB admini) — sxem
-  sualları birbaşa cavablansın deyə.
-- **KPI sahibi:** hər metrikin biznes tərəfdən sahibi — tərifi o təsdiqləyir.
-- **İş mühiti:** warehouse haradadır — müştərinin cloud-u (ayrıca project)
-  və ya VM (standart: ümumi qaydalardakı kimi; data həcminə görə disk
-  artırıla bilər). BI alət seçimi mövcud lisenziyalara görə (Power BI /
-  Looker / Metabase / Grafana).
+| Məqsəd | Tool |
+| --- | --- |
+| Transformasiya | **dbt** (test + docs + lineage) |
+| Orkestrasiya | **Airflow** (kiçik işlərdə cron / Dagster) |
+| Warehouse | **Snowflake** / **BigQuery** / **Postgres** |
+| BI / dashboard | **Power BI** / **Looker** / **Metabase** |
+| Maskalama | Faker / warehouse masking policy |
 
-## Data qaydaları
+## 2. Müştəridən nə istəyirik
+
+- **Read-only giriş:** read-only replica və ya ayrıca analytics
+  istifadəçisi. **Production bazaya yazma girişi istəmirik — heç vaxt.**
+- Mənbə sistem sahibləri ilə əlaqə (CRM admin, DB admin) — sxem sualları
+  üçün.
+- **KPI sahibi:** hər metrikin biznes tərəfdən sahibi (tərifi o təsdiqləyir).
+- **İş mühiti:** warehouse harada — müştərinin cloud-u (ayrıca project)
+  və ya VM (standart spec; data həcminə görə disk artırıla bilər). BI
+  aləti mövcud lisenziyalara görə.
+
+## 3. Data qaydaları
 
 - Mənbə sistemlərdən data **oxunur, dəyişdirilmir.** ETL yalnız bizim
   mühitdə transformasiya edir.
-- Sorğular mənbə sistemi yormamalıdır: ağır sorğular iş saatlarından
-  kənar / replica üzərində; ilk dəfə işə salınmadan əvvəl DB admini ilə
-  razılaşdırılır.
-- PII ehtiva edən sahələr dashboard-larda yalnız zərurət halında və
-  rol-əsaslı giriş ilə göstərilir.
+- Sorğular mənbəni **yormamalıdır:** ağır sorğu iş saatından kənar /
+  replica üzərində; ilk işə salma DB admini ilə razılaşdırılır.
+- **Runaway xərc** nəzarəti: Snowflake/BigQuery-də nəzarətsiz ağır sorğu
+  böyük hesab yarada bilər — sorğular optimallaşdırılır, limit qoyulur
+  (unudulan risk).
+- PII sahələr dashboard-larda yalnız zərurət + **rol-əsaslı giriş (RLS)**
+  ilə; lazım olanda **maskalama**.
 
-## Metrik qaydaları
+## 4. Metrik qaydaları (semantic layer)
 
-- **Metric definitions sənədi məcburidir:** hər KPI üçün — ad, düstur,
-  mənbə sahələr, filtrlər, istisna hallar. KPI sahibi yazılı təsdiqləyir.
-- Tərif dəyişəndə sənəd yenilənir və dəyişiklik tarixi qeyd olunur —
-  "keçən ay bu rəqəm başqa idi" situasiyasının qarşısı belə alınır.
-- Hər dashboard-da datanın **nə vaxt yeniləndiyi görünür** (last refresh).
+- **Metric definitions sənədi məcburidir:** hər KPI — ad, düstur, mənbə
+  sahələr, filtrlər, istisnalar. KPI sahibi yazılı təsdiqləyir.
+- Vahid mənbə (dbt / semantic layer) — **hər dashboard eyni tərifi
+  işlədir.** Əks halda rəhbərlik fərqli rəqəm görür (ən çox rast gəlinən
+  problem).
+- Tərif dəyişəndə sənəd yenilənir + tarix qeyd olunur.
+- Hər dashboard-da **son yenilənmə vaxtı (last refresh)** görünür.
 
-## Validasiya qaydası
+## 5. Validasiya qaydası
 
-- Hər dashboard canlıya çıxmazdan əvvəl rəqəmlər mənbə sistemlə
-  üzləşdirilir (ən azı 3 fərqli dövr / kəsim üzrə).
+- Hər dashboard canlıya çıxmazdan əvvəl rəqəmlər mənbə sistemlə üzləşdirilir
+  (ən azı 3 fərqli dövr / kəsim).
 - Müştəri **sign-off verir: "rəqəmlər düzdür".** Bu təsdiq olmadan
-  dashboard istifadəçilərə açılmır.
+  dashboard açılmır.
 
-## Refresh və alertlər
+## 6. Refresh və test
 
+- **dbt testləri:** freshness, uniqueness, not-null — pipeline-a daxil.
 - Refresh cədvəli sənədləşir: hansı data, nə tezliklə, nə qədər gecikmə
   normaldır (freshness SLA).
-- Pipeline xətası halında alert kimə gedir, nə edilməlidir — runbook-da.
-- Refresh pəncərələri mənbə sistemlərin pik saatlarından kənar seçilir.
+- Pipeline xətası → alert kimə gedir, nə edilməli — runbook-da.
+- Refresh pəncərələri mənbənin pik saatlarından kənar.
 
-## Təhvildə əlavə olaraq
+## 7. Təhvildə əlavə olaraq
 
 - Metric definitions sənədinin son versiyası.
-- Pipeline sxemi: mənbə → transformasiya → warehouse → dashboard.
-- Yeni istifadəçi əlavə etmə / giriş vermə təlimatı.
-- Yeni metrik əlavə etmək üçün qısa yol xəritəsi (gələcəkdə özləri və ya
-  biz — hər iki halda eyni qayda ilə).
+- **Pipeline sxemi + lineage:** mənbə → transformasiya → warehouse →
+  dashboard (dbt docs).
+- Yeni istifadəçi / giriş vermə təlimatı.
+- Yeni metrik əlavə etmək üçün qısa yol (gələcəkdə özləri və ya biz — eyni
+  qayda ilə).
