@@ -162,7 +162,7 @@ export function Contact() {
           {/* Right — the form */}
           <Reveal delay={0.06}>
             <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9">
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 {status === "success" ? (
                   <motion.div
                     key="success"

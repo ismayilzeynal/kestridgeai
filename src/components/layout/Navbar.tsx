@@ -75,7 +75,7 @@ export function Navbar() {
       <div
         className={`transition-all duration-500 ease-smooth ${
           scrolled
-            ? "border-b border-line bg-bg/70 backdrop-blur-xl"
+            ? "border-b border-line bg-bg/95 backdrop-blur-sm"
             : "border-b border-transparent bg-transparent"
         }`}
       >

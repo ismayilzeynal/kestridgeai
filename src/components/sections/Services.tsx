@@ -235,7 +235,7 @@ export function Services() {
             tabIndex={0}
             className="card rounded-[1.5rem] p-6 sm:p-7"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={svc.id}
                 initial={{ opacity: 0, y: 12 }}

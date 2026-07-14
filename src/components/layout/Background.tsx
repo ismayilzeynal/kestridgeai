@@ -3,18 +3,19 @@ export function Background() {
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {/* base wash */}
       <div className="absolute inset-0 bg-bg" />
-      {/* soft teal tint, top */}
+      {/* soft tints — plain radial gradients (no blur filters: cheap to paint) */}
       <div
-        className="absolute -top-40 left-1/2 h-[620px] w-[1100px] -translate-x-1/2 rounded-full opacity-[0.10] blur-[130px]"
+        className="absolute -top-40 left-1/2 h-[620px] w-[1100px] -translate-x-1/2"
         style={{
-          background: "radial-gradient(closest-side, var(--accent), transparent 70%)",
+          background:
+            "radial-gradient(closest-side, rgba(11,122,103,0.09), transparent 70%)",
         }}
       />
-      {/* faint cool tint, lower right */}
       <div
-        className="absolute bottom-[-12%] right-[-6%] h-[520px] w-[620px] rounded-full opacity-[0.07] blur-[140px]"
+        className="absolute bottom-[-12%] right-[-6%] h-[520px] w-[620px]"
         style={{
-          background: "radial-gradient(closest-side, #6aa8ff, transparent 70%)",
+          background:
+            "radial-gradient(closest-side, rgba(106,168,255,0.07), transparent 70%)",
         }}
       />
       {/* fine blueprint grid */}

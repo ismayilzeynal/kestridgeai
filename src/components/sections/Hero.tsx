@@ -1,11 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
 import { openService, scrollToId } from "@/lib/scroll";
-
-const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
@@ -14,14 +11,9 @@ export function Hero() {
         <div className="grid items-start gap-12 lg:grid-cols-[1.12fr_0.88fr]">
           {/* Left — message */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease }}
-              className="eyebrow"
-            >
+            <div className="anim-rise eyebrow" style={{ animationDelay: "0.05s" }}>
               United States · Applied AI &amp; Engineering
-            </motion.div>
+            </div>
 
             <h1 className="mt-7 text-[clamp(2.1rem,4.4vw,3.2rem)] font-bold leading-[1.08]">
               <Line delay={0.06}>Enterprise AI,</Line>
@@ -31,22 +23,18 @@ export function Hero() {
               </Line>
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.34, ease }}
-              className="mt-6 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
+            <p
+              className="anim-rise mt-6 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
+              style={{ animationDelay: "0.3s" }}
             >
               An American company whose engineers work closely with you,
               understand exactly what you need, and deliver it — then stay
               until everything runs the way it should.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.46, ease }}
-              className="mt-9 flex flex-wrap items-center gap-3"
+            <div
+              className="anim-rise mt-9 flex flex-wrap items-center gap-3"
+              style={{ animationDelay: "0.42s" }}
             >
               <a href="#contact" className="btn-primary group">
                 Start a project
@@ -59,16 +47,11 @@ export function Hero() {
                 Explore services
                 <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right — capability console */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease }}
-            className="relative"
-          >
+          <div className="anim-rise relative" style={{ animationDelay: "0.28s" }}>
             <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
               <div className="rounded-[1.25rem] border border-line bg-bg-soft p-2">
                 <div className="px-4 py-3.5">
@@ -101,7 +84,7 @@ export function Hero() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -113,14 +96,9 @@ function Line({ children, delay }: { children: React.ReactNode; delay: number })
     // pb + matching -mb give the clip region room for tall descenders (g, y)
     // without loosening the line spacing.
     <span className="block overflow-hidden pb-[0.16em] -mb-[0.16em]">
-      <motion.span
-        className="block text-signal"
-        initial={{ y: "110%" }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, delay, ease }}
-      >
+      <span className="anim-line block text-signal" style={{ animationDelay: `${delay}s` }}>
         {children}
-      </motion.span>
+      </span>
     </span>
   );
 }
