@@ -14,7 +14,7 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 [ ] [VACIB] Custom domen almaq (məs. aivanta.com / aivanta.ai)
       → Vercel > Project > Settings > Domains bölməsində qoşmaq
       → Kodda yenilənməli: src/lib/site.ts içində `url` sahəsi
-[ ] [VACIB] Domen emaili qurmaq (hello@aivanta.com)
+[ ] [VACIB] Domen emaili qurmaq (info@aivanta.com)
       → Google Workspace və ya Zoho Mail
       → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
       → Kodda yenilənməli: src/lib/site.ts içində `email` sahəsi

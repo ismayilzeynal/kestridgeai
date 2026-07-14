@@ -41,7 +41,7 @@ src/
 | --- | --- | --- |
 | Logo artwork | `ui/Logo.tsx`, `app/icon.svg` | name is final (AIVanta); logo art is a temporary mark |
 | Production domain | `lib/site.ts` (`url`) | currently the Vercel URL — update when the custom domain is live |
-| Contact email | `lib/site.ts` (`email`) | `hello@aivanta.com` placeholder |
+| Contact email | `lib/site.ts` (`email`) | `info@aivanta.com` placeholder |
 | LinkedIn URL | `lib/site.ts` (`linkedin`) | placeholder company URL |
 | Office address | `about/page.tsx`, `lib/site.ts` | "Illinois, USA" until a precise address is set |
 | Team members + photos | `data/team.ts` | placeholder faces from randomuser.me |

@@ -92,11 +92,11 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
+    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-7 lg:pt-12">
       <div className="container-x">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
           {/* Left — invitation + contact rails */}
-          <div className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:self-start lg:overflow-y-auto">
+          <div className="lg:self-start">
 
             <SectionHeading
               eyebrow="Let's talk"
@@ -109,7 +109,7 @@ export function Contact() {
               description={`A short description of your project and how to reach you is all we need. We'll get back to you within ${site.responseTime}.`}
             />
 
-            <div className="mt-9 flex flex-col gap-3">
+            <div className="mt-9 flex flex-col gap-3 lg:mt-6">
               <a
                 href={`mailto:${site.email}`}
                 className="card card-hover group flex items-center gap-4 rounded-2xl p-4"
@@ -161,7 +161,7 @@ export function Contact() {
 
           {/* Right — the form */}
           <Reveal delay={0.06}>
-            <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9">
+            <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9 lg:p-6">
               <AnimatePresence mode="wait" initial={false}>
                 {status === "success" ? (
                   <motion.div
@@ -211,7 +211,7 @@ export function Contact() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex flex-col gap-5"
+                    className="flex flex-col gap-5 lg:gap-4"
                   >
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Field
@@ -288,7 +288,7 @@ export function Contact() {
                       <textarea
                         id="message"
                         name="message"
-                        rows={4}
+                        rows={3}
                         placeholder="A sentence or two about what you're trying to build or solve…"
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "message-error" : undefined}
@@ -300,14 +300,6 @@ export function Contact() {
                         <ErrorText id="message-error">{errors.message}</ErrorText>
                       )}
                     </div>
-
-                    <p className="-mb-1 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-center font-mono text-[11px] uppercase tracking-label text-faint">
-                      <span>Free first conversation</span>
-                      <span className="text-line-strong">·</span>
-                      <span>No commitment</span>
-                      <span className="text-line-strong">·</span>
-                      <span>Confidential</span>
-                    </p>
 
                     <button
                       type="submit"

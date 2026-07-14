@@ -8,7 +8,7 @@ export const site = {
   location: "Illinois, USA",
   region: "IL",
   country: "United States",
-  email: "hello@aivanta.com", // placeholder until the domain mailbox is live
+  email: "info@aivanta.com", // placeholder until the domain mailbox is live
   linkedin: "https://www.linkedin.com/company/aivanta",
   responseTime: "2–3 business days",
   nav: [
