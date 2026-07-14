@@ -90,6 +90,17 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → HAZIRDIR: /privacy — hüquqşünas yoxlaması hələ qalır
 [x] [ORTA]  Terms of Service (opsional, amma enterprise müştərilər axtarır)
       → HAZIRDIR: /terms — hüquqşünas yoxlaması hələ qalır
+[ ] [VACIB] COOKIE CONSENT — YADDAN ÇIXMASIN! Hazırda saytda cookie yoxdur,
+      ona görə banner göstərilmir (düzgündür). AMMA gələcəkdə cookie
+      yaradan hər hansı şey əlavə olunanda banner aktiv OLMALIDIR:
+      → Google Analytics: AVTOMATİKDİR — Vercel-də NEXT_PUBLIC_GA_ID
+        qoyulan kimi banner çıxır, GA yalnız "Accept"-dən sonra yüklənir
+        (kod: src/components/CookieConsent.tsx)
+      → Backend qoşulanda: form/sessiya cookie yaradırsa →
+        CookieConsent.tsx-i yoxla + aktiv et
+      → Başqa xidmət (reklam pikseli, chat widget, video embed) əlavə
+        olunanda: həmin xidməti də consent-ə bağla + Privacy Policy-nin
+        3-cü bölməsini (Cookies) yenilə
 [ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) — footer-də "AIVanta Inc."
       yazılıb; qeydiyyat fərqli olsa kodda yenilənməli: src/lib/site.ts
       içində `legalName`
@@ -99,7 +110,9 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
 [ ] [ORTA]  Real domendə Lighthouse audit (performance / SEO / a11y)
 [ ] [ORTA]  Uptime monitorinq (UptimeRobot pulsuz plan kifayətdir)
-[ ] [SONRA] Vercel Analytics / Speed Insights (opsional)
+[x] [SONRA] Vercel Analytics — HAZIRDIR və İŞLƏYİR (cookiesiz, banner
+      tələb etmir; Vercel > Project > Analytics tab-da statistika)
+      Speed Insights hələ qoşulmayıb (opsional)
 
 ────────────────────────────────────────────────────────────────
  7. GƏLƏCƏK KONTENT (satışı gücləndirmək üçün)

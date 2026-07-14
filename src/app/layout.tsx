@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/components/Providers";
 import { CookieConsent } from "@/components/CookieConsent";
 import { SmoothAnchors } from "@/components/SmoothAnchors";
@@ -139,10 +140,14 @@ export default function RootLayout({
           }}
         />
 
-        {/* Analytics are consent-gated: nothing renders or loads until
+        {/* Google Analytics is consent-gated: nothing renders or loads until
             NEXT_PUBLIC_GA_ID is set, and GA runs only after the visitor
             accepts the cookie notice. */}
         <CookieConsent gaId={gaId} />
+
+        {/* Vercel Web Analytics — cookieless and anonymous, so it needs no
+            consent banner. */}
+        <Analytics />
       </body>
     </html>
   );
