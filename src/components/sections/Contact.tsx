@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -92,7 +93,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-7 lg:pt-12">
+    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-2 lg:pt-12">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
           {/* Left — invitation + contact rails */}
@@ -318,6 +319,17 @@ export function Contact() {
                         </>
                       )}
                     </button>
+
+                    <p className="-mt-1 text-center text-[12px] leading-snug text-faint lg:-mt-2">
+                      By sending this message, you agree to our{" "}
+                      <Link
+                        href="/privacy"
+                        className="underline underline-offset-2 transition-colors hover:text-ink"
+                      >
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
                   </motion.form>
                 )}
               </AnimatePresence>

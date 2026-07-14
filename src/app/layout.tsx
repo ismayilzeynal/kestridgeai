@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
-import Script from "next/script";
 import { Providers } from "@/components/Providers";
+import { CookieConsent } from "@/components/CookieConsent";
 import { SmoothAnchors } from "@/components/SmoothAnchors";
 import { Background } from "@/components/layout/Background";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
@@ -139,21 +139,10 @@ export default function RootLayout({
           }}
         />
 
-        {/* Google Analytics / Ads — activates only once NEXT_PUBLIC_GA_ID is set. */}
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="gtag-init" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${gaId}');`}
-            </Script>
-          </>
-        )}
+        {/* Analytics are consent-gated: nothing renders or loads until
+            NEXT_PUBLIC_GA_ID is set, and GA runs only after the visitor
+            accepts the cookie notice. */}
+        <CookieConsent gaId={gaId} />
       </body>
     </html>
   );

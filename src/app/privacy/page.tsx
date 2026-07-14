@@ -77,8 +77,11 @@ export default function PrivacyPage() {
           </li>
         </ul>
         <p>
-          You can control or delete cookies through your browser settings, and
-          you can opt out of Google Analytics using Google&apos;s{" "}
+          When analytics are active on this site, a small notice appears on
+          your first visit letting you <strong>accept or decline</strong>{" "}
+          analytics cookies — analytics run only if you accept. You can also
+          control or delete cookies through your browser settings, and you can
+          opt out of Google Analytics using Google&apos;s{" "}
           <a
             href="https://tools.google.com/dlpage/gaoptout"
             target="_blank"
@@ -177,12 +180,15 @@ export default function PrivacyPage() {
           you differently for exercising a privacy right.
         </p>
 
-        <h2>9. Do Not Track</h2>
+        <h2>9. Do Not Track and Global Privacy Control</h2>
         <p>
           Some browsers offer a &quot;Do Not Track&quot; signal. There is
           currently no common industry standard for responding to these
-          signals, so this website does not respond to them. We apply the same
-          privacy practices described in this Policy to all visitors.
+          signals, so this website does not respond to them. We do, however,
+          honor the <strong>Global Privacy Control (GPC)</strong> signal: if
+          your browser sends GPC, analytics cookies stay disabled
+          automatically. We apply the same privacy practices described in this
+          Policy to all visitors.
         </p>
 
         <h2>10. Children&apos;s privacy</h2>

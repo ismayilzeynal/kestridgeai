@@ -72,7 +72,9 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 [ ] [VACIB] Google Analytics 4 hesabı yarat
       → Vercel > Settings > Environment Variables:
         NEXT_PUBLIC_GA_ID = G-XXXXXXX
-      → Kod hazırdır (layout.tsx), env qoyulan kimi işə düşür
+      → Kod hazırdır (CookieConsent.tsx), env qoyulan kimi işə düşür
+      → Cookie banner avtomatik aktivləşir; GA yalnız ziyarətçi
+        "Accept" edəndən sonra yüklənir (consent-gated)
 [ ] [ORTA]  Google Ads (reklam vermək istəyəndə):
       → Ads hesabı + conversion action yarat
       → Form submit-də gtag conversion event əlavə etmək (kiçik kod işi)
