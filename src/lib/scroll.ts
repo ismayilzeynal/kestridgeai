@@ -1,11 +1,12 @@
-// Fixed navbar is 68px; add a little breathing room above anchored targets.
-export const NAV_OFFSET = 84;
-
-export function scrollToId(id: string, offset = NAV_OFFSET) {
+// Anchor landing is tuned per-section via CSS `scroll-margin-top` so the
+// section HEADING (not its padded top edge) stops just under the fixed navbar.
+// This helper mirrors the native behavior for JS-driven scrolls.
+export function scrollToId(id: string) {
   if (typeof window === "undefined") return;
   const el = document.getElementById(id);
   if (!el) return;
-  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  const smt = parseFloat(getComputedStyle(el).scrollMarginTop || "0") || 0;
+  const top = el.getBoundingClientRect().top + window.scrollY - smt;
   window.scrollTo({ top, behavior: "smooth" });
 }
 

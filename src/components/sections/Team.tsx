@@ -7,7 +7,7 @@ import { LinkedInButton } from "@/components/ui/LinkedInButton";
 
 export function Team() {
   return (
-    <section id="team" className="relative py-24 sm:py-32">
+    <section id="team" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <SectionHeading

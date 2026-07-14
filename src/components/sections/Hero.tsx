@@ -9,9 +9,9 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+    <section id="top" className="relative overflow-hidden pb-16 pt-28 sm:pt-32">
       <div className="container-x">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid items-start gap-12 lg:grid-cols-[1.12fr_0.88fr]">
           {/* Left — message */}
           <div>
             <motion.div
@@ -23,9 +23,9 @@ export function Hero() {
               United States · Applied AI &amp; Engineering
             </motion.div>
 
-            <h1 className="mt-7 text-balance text-[clamp(2.3rem,8.4vw,4.4rem)] font-bold leading-[1.05]">
-              <Line delay={0.06}>Enterprise AI, automation</Line>
-              <Line delay={0.14}>and security,</Line>
+            <h1 className="mt-7 text-[clamp(2.1rem,4.4vw,3.2rem)] font-bold leading-[1.08]">
+              <Line delay={0.06}>Enterprise AI,</Line>
+              <Line delay={0.14}>automation &amp; security,</Line>
               <Line delay={0.22}>
                 <span className="text-accent-grad">engineered around you.</span>
               </Line>
@@ -35,7 +35,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.34, ease }}
-              className="mt-8 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
+              className="mt-6 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
             >
               An American engineering team that works closely with you,
               understands exactly what you need, and delivers it — then stays
@@ -46,7 +46,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.46, ease }}
-              className="mt-10 flex flex-wrap items-center gap-3"
+              className="mt-9 flex flex-wrap items-center gap-3"
             >
               <a href="#contact" className="btn-primary group">
                 Start a project
@@ -91,7 +91,7 @@ export function Hero() {
                       className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-4 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
                     >
                       <span className="font-mono text-[13px] text-faint">{s.index}</span>
-                      <span className="grid h-10 w-10 place-items-center rounded-lg border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
+                      <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
                         <s.icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
@@ -99,7 +99,7 @@ export function Hero() {
                           {s.name}
                         </span>
                         <span className="block text-[13px] text-faint">
-                          {s.tagline.replace(/^We (build|help you secure) /i, "")}
+                          {s.cardLabel}
                         </span>
                       </span>
                       <ArrowUpRight className="h-[18px] w-[18px] text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

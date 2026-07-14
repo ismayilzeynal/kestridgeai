@@ -57,7 +57,7 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 38s linear infinite",
+        marquee: "marquee 64s linear infinite",
         "pulse-ring": "pulse-ring 2.6s cubic-bezier(0.22,1,0.36,1) infinite",
       },
     },

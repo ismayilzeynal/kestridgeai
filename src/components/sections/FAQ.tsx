@@ -42,7 +42,7 @@ const faqSchema = {
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative py-24 sm:py-32">
+    <section id="faq" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
       <div className="container-x">
         <SectionHeading
           eyebrow="Questions"
@@ -51,10 +51,9 @@ export function FAQ() {
               Answers before you <span className="text-accent-grad">ask</span>
             </>
           }
-          align="center"
         />
 
-        <div className="mx-auto mt-12 flex max-w-3xl flex-col gap-3">
+        <div className="mt-12 flex max-w-3xl flex-col gap-3">
           {faqs.map((f, i) => (
             <Reveal key={f.q} delay={(i % 6) * 0.04}>
               <details className="group card rounded-2xl px-5 py-1 sm:px-6 [&_summary::-webkit-details-marker]:hidden">

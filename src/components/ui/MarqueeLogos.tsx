@@ -26,8 +26,11 @@ function LogoRow() {
 export function MarqueeLogos() {
   return (
     <div className="mask-fade-x relative w-full overflow-hidden" aria-hidden>
-      {/* two identical rows; the track translates by exactly one row width */}
+      {/* four identical rows; the track translates by exactly half its width
+          (= two rows), so the loop stays seamless on viewports up to ~3300px */}
       <div className="flex w-max animate-marquee items-center hover:[animation-play-state:paused]">
+        <LogoRow />
+        <LogoRow />
         <LogoRow />
         <LogoRow />
       </div>

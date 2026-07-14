@@ -7,7 +7,6 @@ import {
   ArrowUpRight,
   Mail,
   MapPin,
-  ShieldCheck,
   CheckCircle2,
   Loader2,
   ChevronDown,
@@ -81,7 +80,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
+    <section id="contact" className="relative scroll-mt-0 py-24 sm:scroll-mt-[-32px] sm:py-32">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           {/* Left — invitation + contact rails */}
@@ -148,10 +147,6 @@ export function Contact() {
               </div>
             </div>
 
-            <p className="mt-5 flex items-start gap-2.5 text-[13px] text-faint">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" strokeWidth={1.7} />
-              Everything you share here is kept strictly confidential.
-            </p>
           </div>
 
           {/* Right — the form */}
@@ -321,11 +316,6 @@ export function Contact() {
                         </>
                       )}
                     </button>
-
-                    <p className="text-center text-xs text-faint">
-                      No spam, ever. We only use your details to reply to this
-                      request.
-                    </p>
                   </motion.form>
                 )}
               </AnimatePresence>

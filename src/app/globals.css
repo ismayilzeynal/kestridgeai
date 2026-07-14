@@ -41,7 +41,8 @@
 html {
   font-size: 17px; /* larger, more comfortable base scale */
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* keep anchored targets clear of the fixed navbar */
+  /* Anchor offsets are tuned per-section via scroll-margin-top so the section
+     HEADING (not the padded section edge) lands just under the fixed navbar. */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -129,18 +130,12 @@ body {
     box-shadow: 0 0 10px 1px var(--accent-glow);
   }
 
-  /* Gradient signal text — dark ink for headings on light */
+  /* Heading colors — solid ink and one disciplined teal (no gradient text) */
   .text-signal {
-    background: linear-gradient(180deg, #10141b 0%, #333b47 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: rgb(var(--text));
   }
   .text-accent-grad {
-    background: linear-gradient(110deg, var(--accent-strong), var(--accent) 60%, var(--accent-deep));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--accent);
   }
 
   /* Surface card */
