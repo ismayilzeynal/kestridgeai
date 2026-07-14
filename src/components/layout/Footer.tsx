@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer id="site-footer" className="relative border-t border-line bg-surface">
       <div className="container-x py-16">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-muted">
@@ -37,11 +37,13 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
 
-            <h4 className="mt-8 font-mono text-[11px] uppercase tracking-label text-faint">
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-label text-faint">
               Company
             </h4>
-            <ul className="mt-4 flex flex-col gap-3">
+            <ul className="mt-5 flex flex-col gap-3">
               <li>
                 <Link
                   href="/about"
