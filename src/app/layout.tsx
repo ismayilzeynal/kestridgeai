@@ -3,6 +3,7 @@ import { Archivo } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 import { Providers } from "@/components/Providers";
+import { SmoothAnchors } from "@/components/SmoothAnchors";
 import { Background } from "@/components/layout/Background";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { Navbar } from "@/components/layout/Navbar";
@@ -121,6 +122,7 @@ export default function RootLayout({
         </noscript>
 
         <Providers>
+          <SmoothAnchors />
           <Background />
           <ScrollProgress />
           <Navbar />

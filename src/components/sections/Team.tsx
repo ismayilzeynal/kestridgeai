@@ -7,7 +7,7 @@ import { LinkedInButton } from "@/components/ui/LinkedInButton";
 
 export function Team() {
   return (
-    <section id="team" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
+    <section id="team" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-9 lg:pt-12">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <SectionHeading
@@ -25,11 +25,11 @@ export function Team() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-14 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:mt-7 lg:grid-cols-4">
           {team.map((m, i) => (
             <Reveal key={m.name} delay={(i % 4) * 0.06}>
               <article className="card card-hover group h-full overflow-hidden rounded-3xl">
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="relative aspect-[4/5] overflow-hidden lg:aspect-square">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={m.photo}
@@ -48,11 +48,11 @@ export function Team() {
                     <LinkedInIcon className="h-4 w-4" />
                   </a>
                 </div>
-                <div className="p-4 sm:p-5">
+                <div className="p-4 sm:p-5 lg:p-4">
                   <h3 className="font-sans text-[16.5px] font-semibold tracking-tight text-ink">
                     {m.name}
                   </h3>
-                  <p className="mt-1 text-[14px] font-medium text-accent">{m.role}</p>
+                  <p className="mt-0.5 text-[14px] font-medium text-accent">{m.role}</p>
                   <p className="mt-2 font-mono text-[12px] leading-relaxed text-faint">
                     {m.focus}
                   </p>

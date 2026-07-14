@@ -40,7 +40,9 @@
 
 html {
   font-size: 17px; /* larger, more comfortable base scale */
-  scroll-behavior: smooth;
+  /* No CSS smooth-scrolling: all in-page scrolls go through the JS animator
+     (lib/scroll.ts) so the behavior is identical everywhere. Direct visits to
+     a #hash land instantly at the correctly offset position. */
   /* Anchor offsets are tuned per-section via scroll-margin-top so the section
      HEADING (not the padded section edge) lands just under the fixed navbar. */
   -webkit-text-size-adjust: 100%;

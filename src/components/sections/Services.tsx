@@ -49,16 +49,16 @@ export function Services() {
   };
 
   return (
-    <section id="services" className="relative scroll-mt-[52px] py-12 sm:scroll-mt-8 sm:py-16">
+    <section id="services" className="relative scroll-mt-[52px] py-12 sm:scroll-mt-8 sm:py-16 lg:scroll-mt-7 lg:py-12">
       <div className="container-x">
         {/* Split header: title left, supporting copy right */}
-        <div className="grid items-end gap-x-12 gap-y-4 lg:grid-cols-[1fr_minmax(0,400px)]">
+        <div className="grid items-end gap-x-12 gap-y-4 lg:grid-cols-[1fr_minmax(0,400px)] xl:grid-cols-[1fr_minmax(0,360px)]">
           <div>
             <Reveal>
               <span className="eyebrow">What we do</span>
             </Reveal>
             <Reveal delay={0.06}>
-              <h2 className="mt-4 text-balance text-3xl text-signal sm:text-[2.4rem]">
+              <h2 className="mt-3 text-balance text-3xl text-signal sm:text-[2.4rem] xl:whitespace-nowrap">
                 Services built around{" "}
                 <span className="text-accent-grad">your</span> requirements
               </h2>
@@ -147,7 +147,7 @@ export function Services() {
         </div>
 
         {/* ============ DESKTOP: tab rail + panel ============ */}
-        <div className="mt-6 hidden gap-5 lg:grid lg:grid-cols-[300px_minmax(0,1fr)]">
+        <div className="mt-5 hidden gap-5 lg:grid lg:grid-cols-[300px_minmax(0,1fr)]">
           {/* Tab rail */}
           <Reveal>
             <div>
@@ -172,7 +172,7 @@ export function Services() {
                       aria-controls="svc-panel"
                       tabIndex={isActive ? 0 : -1}
                       onClick={() => setActive(i)}
-                      className={`group relative flex items-center gap-3.5 rounded-2xl border px-4 py-4 text-left transition-all duration-300 ease-smooth ${
+                      className={`group relative flex items-center gap-3.5 rounded-2xl border px-4 py-3.5 text-left transition-all duration-300 ease-smooth ${
                         isActive
                           ? "border-line-strong bg-surface shadow-sm"
                           : "border-line bg-surface/50 hover:bg-surface"
@@ -219,7 +219,7 @@ export function Services() {
               {/* quiet utility link fills the rail's residual space */}
               <button
                 onClick={() => scrollToId("contact")}
-                className="mt-4 flex w-full items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-4 text-left text-[14px] text-muted transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-ink"
+                className="mt-3 flex w-full items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-3.5 text-left text-[14px] text-muted transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-ink"
               >
                 Not sure where to start? Talk to an engineer
                 <ArrowRight className="h-4 w-4 shrink-0 text-accent" />
@@ -233,7 +233,7 @@ export function Services() {
             role="tabpanel"
             aria-labelledby={`svc-tab-${svc.id}`}
             tabIndex={0}
-            className="card rounded-[1.5rem] p-6 sm:p-7"
+            className="card rounded-[1.5rem] p-6"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -247,11 +247,11 @@ export function Services() {
                   {svc.tagline}
                 </h3>
 
-                <p className="mt-3 max-w-3xl text-pretty text-[15.5px] leading-relaxed text-muted">
+                <p className="mt-2.5 max-w-3xl text-pretty text-[15.5px] leading-relaxed text-muted">
                   {svc.description}
                 </p>
 
-                <ul className="mt-5 flex flex-wrap gap-x-7 gap-y-2.5">
+                <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2.5">
                   {svc.highlights.map((h) => (
                     <li
                       key={h}
@@ -264,23 +264,23 @@ export function Services() {
                 </ul>
 
                 {/* Delivery stepper — connected timeline */}
-                <ol className="relative mt-7 grid grid-cols-4 gap-6">
+                <ol className="relative mt-5 grid grid-cols-4 gap-6">
                   <span
                     aria-hidden
-                    className="absolute left-0 right-6 top-[15px] h-px bg-[color:var(--border-strong)]"
+                    className="absolute left-0 right-6 top-[13px] h-px bg-[color:var(--border-strong)]"
                   />
                   {svc.steps.map((step, i) => (
                     <li key={step.phase} className="relative">
-                      <span className="relative z-10 grid h-8 w-8 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[12.5px] font-medium text-accent">
+                      <span className="relative z-10 grid h-7 w-7 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[12.5px] font-medium text-accent">
                         {i + 1}
                       </span>
-                      <h4 className="mt-3.5 text-[15px] font-semibold tracking-tight text-ink">
+                      <h4 className="mt-2.5 text-[15px] font-semibold tracking-tight text-ink">
                         {step.phase}
                       </h4>
                       <p className="mt-1 text-[13.5px] leading-snug text-muted">
                         {step.summary}
                       </p>
-                      <span className="mt-2 block font-mono text-[11px] uppercase tracking-wide text-faint">
+                      <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-wide text-faint">
                         {step.timeline}
                       </span>
                     </li>
@@ -288,14 +288,14 @@ export function Services() {
                 </ol>
 
                 {/* Footer: confidentiality + CTA */}
-                <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-line pt-4 sm:flex-row sm:items-center">
+                <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-3 sm:flex-row sm:items-center">
                   <p className="flex items-center gap-2.5 text-[13.5px] text-faint">
                     <Lock className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.7} />
                     Confidential by default — NDA on request.
                   </p>
                   <button
                     onClick={() => startProject(svc.id)}
-                    className="btn-primary group shrink-0 !py-3.5 !px-6 text-[15px]"
+                    className="btn-primary group shrink-0 !py-3 !px-6 text-[15px]"
                   >
                     Start your {svc.name} project
                     <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
