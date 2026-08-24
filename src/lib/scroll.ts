@@ -1,6 +1,6 @@
 // One deterministic scroll path for the whole site. Native hash jumps,
 // scrollIntoView and CSS smooth-scrolling behave differently per browser and
-// can be cancelled by re-renders — this rAF animator always behaves the same.
+// can be cancelled by re-renders - this rAF animator always behaves the same.
 let raf = 0;
 
 function cancelAnim() {
@@ -41,6 +41,10 @@ export function scrollToId(id: string) {
   if (typeof window === "undefined") return;
   const el = document.getElementById(id);
   if (!el) return;
+  // Move keyboard focus with the scroll, otherwise "Skip to main content"
+  // and every nav anchor leave the tab order where it was.
+  if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+  el.focus({ preventScroll: true });
   const smt = parseFloat(getComputedStyle(el).scrollMarginTop || "0") || 0;
   const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - smt);
   animateScrollTo(top);
@@ -49,7 +53,6 @@ export function scrollToId(id: string) {
 /** Select a Services tab (by id) and scroll the Services section into place. */
 export function openService(id: string) {
   window.dispatchEvent(new CustomEvent("select-service-tab", { detail: id }));
-  // Defer past the re-render the event triggers (accordion/tab switch) —
-  // a scroll started synchronously gets cancelled by that layout change.
+  // Defer past the re-render the event triggers (accordion/tab switch) - // a scroll started synchronously gets cancelled by that layout change.
   window.setTimeout(() => scrollToId("services"), 120);
 }

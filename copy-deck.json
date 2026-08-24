@@ -1,0 +1,2091 @@
+{
+ "zone": "kestridge-final",
+ "items": [
+  {
+   "key": "brand.name",
+   "file": "src/lib/site.ts",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": "Single source of the brand name. Logo, nav, footer, structured data and page titles all read from it."
+  },
+  {
+   "key": "brand.legalName",
+   "file": "src/lib/site.ts",
+   "current": "AIVanta Inc.",
+   "proposed": "Kestridge AI Inc.",
+   "note": "Used in the Privacy Policy, the Terms of Use and the footer copyright. Confirm the entity is incorporated as an Inc. before this ships. If it is not, remove \"Inc.\" everywhere and use \"Kestridge AI\"."
+  },
+  {
+   "key": "brand.tagline",
+   "file": "src/lib/site.ts",
+   "current": "Applied AI, automation, security & analytics for American business.",
+   "proposed": "AI, automation, IT security, and data analytics for US businesses.",
+   "note": "Serial comma added, matching the rule now used site wide. Language rule for the whole site: \"United States\" as a noun, \"US\" as an adjective. Map this value to the structured data description field and delete the schema slogan field (see meta.schema.slogan)."
+  },
+  {
+   "key": "brand.location",
+   "file": "src/lib/site.ts",
+   "current": "Illinois, USA",
+   "proposed": "Illinois, United States",
+   "note": "One shared value (site.location) feeding the hero eyebrow, the contact card and the footer. Do not expand into a street address."
+  },
+  {
+   "key": "brand.email",
+   "file": "src/lib/site.ts",
+   "current": "info@aivanta.com",
+   "proposed": "info@kestridgeai.com",
+   "note": "Every rendered address on the site reads from this field. Must have a live mailbox before launch, or remove the address from the site."
+  },
+  {
+   "key": "brand.linkedin",
+   "file": "src/lib/site.ts",
+   "current": "https://www.linkedin.com/company/aivanta",
+   "proposed": "https://www.linkedin.com/company/kestridge-ai",
+   "note": "Placeholder. Remove every LinkedIn link on the site if the company page does not exist yet. A dead social link reads worse than no link."
+  },
+  {
+   "key": "nav.items.services.label",
+   "file": "src/lib/site.ts",
+   "current": "Services",
+   "proposed": "Services",
+   "note": "Href \"/#services\". Final nav order: Services, Process, Company, Founders, Security, Questions. Contact stays a button, not a nav link."
+  },
+  {
+   "key": "nav.items.process.label",
+   "file": "src/lib/site.ts",
+   "current": "",
+   "proposed": "Process",
+   "note": "New nav item, placed second. The page puts a full section, \"How we run a project\", between Services and Company, and the navigation did not reach it. Href \"/#process\"; give the WhyChooseUs section the id \"process\"."
+  },
+  {
+   "key": "nav.items.company.label",
+   "file": "src/lib/site.ts",
+   "current": "About",
+   "proposed": "Company",
+   "note": "The About route is gone from src/app. Href moves from \"/about\" to \"/#company\"."
+  },
+  {
+   "key": "nav.items.founders.label",
+   "file": "src/lib/site.ts",
+   "current": "Team",
+   "proposed": "Founders",
+   "note": "Four founders, not a staff roster. Href \"/#founders\"; rename the section id in src/components/sections/Team.tsx to match. If the four names are not published (see founders.card.name.1), remove this nav item as well: a link labeled Founders that leads to a section naming nobody is worse than no link."
+  },
+  {
+   "key": "nav.items.security.label",
+   "file": "src/lib/site.ts",
+   "current": "Security",
+   "proposed": "Security",
+   "note": "No change. Href \"/#security\"."
+  },
+  {
+   "key": "nav.items.questions.label",
+   "file": "src/lib/site.ts",
+   "current": "",
+   "proposed": "Questions",
+   "note": "New nav item. Href \"/#questions\" if the FAQ section id is renamed, otherwise \"/#faq\"."
+  },
+  {
+   "key": "nav.cta.desktop",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Start a project",
+   "proposed": "Contact us",
+   "note": "Scrolls to the contact form. This is the primary contact button on the page; the hero, process, security, FAQ and closing band contact buttons are all deleted."
+  },
+  {
+   "key": "nav.cta.mobileSheet",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Start a project",
+   "proposed": "Contact us",
+   "note": "Same label as the desktop button."
+  },
+  {
+   "key": "nav.aria.mainNav",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Main",
+   "proposed": "Main",
+   "note": "No change."
+  },
+  {
+   "key": "nav.aria.menuOpen",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Open menu",
+   "proposed": "Open menu",
+   "note": "No change."
+  },
+  {
+   "key": "nav.aria.menuClose",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Close menu",
+   "proposed": "Close menu",
+   "note": "No change."
+  },
+  {
+   "key": "nav.aria.mobileSheet",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "Site menu",
+   "proposed": "Site menu",
+   "note": "No change."
+  },
+  {
+   "key": "nav.skipLink",
+   "file": "src/components/layout/Navbar.tsx",
+   "current": "",
+   "proposed": "Skip to main content",
+   "note": "New string. Standard label for the first focusable link, visible only on keyboard focus."
+  },
+  {
+   "key": "logo.wordmark",
+   "file": "src/components/ui/Logo.tsx",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": "Read it from site.brand rather than hardcoding it a second time."
+  },
+  {
+   "key": "logo.aria",
+   "file": "src/components/ui/Logo.tsx",
+   "current": "AIVanta - home",
+   "proposed": "Kestridge AI home page",
+   "note": "The current template joins the words with a long dash. Rewrite the template so it produces the brand name followed by \"home page\" with no dash."
+  },
+  {
+   "key": "hero.eyebrow",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "United States · Applied AI & Engineering",
+   "proposed": "Illinois, United States",
+   "note": "Location label only, rendering site.location. The category claim and the middot separator both go. This is the only place the location appears in the first screen."
+  },
+  {
+   "key": "hero.h1.line1",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "Enterprise AI,",
+   "proposed": "We build AI, automation,",
+   "note": "Line 1 of 3. The three lines read as one sentence: \"We build AI, automation, IT security, and data analytics systems for US businesses.\""
+  },
+  {
+   "key": "hero.h1.line2",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "automation & security,",
+   "proposed": "IT security, and data analytics",
+   "note": "Line 2 of 3. Serial comma added. Uses the exact service area names used in the nav, the panels, the footer and the contact dropdown."
+  },
+  {
+   "key": "hero.h1.line3",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "engineered around you.",
+   "proposed": "systems for US businesses.",
+   "note": "Line 3 of 3, carrying the accent color. \"Systems\" gives the verb an object: a firm builds systems, it does not build security or analytics."
+  },
+  {
+   "key": "hero.body",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "An American company whose engineers work closely with you, understand exactly what you need, and deliver it - then stay until everything runs the way it should.",
+   "proposed": "We build these systems and connect them to the software your business already uses. We continue to support them once they are running.",
+   "note": "Stays in the first person the headline above uses, instead of switching to \"Kestridge AI builds\" and back. \"These systems\" points at the four the headline just named."
+  },
+  {
+   "key": "hero.cta.primary",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "Start a project",
+   "proposed": "",
+   "note": "Delete the button and its arrow icon. The header contact button covers this."
+  },
+  {
+   "key": "hero.cta.secondary",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "Explore services",
+   "proposed": "See our services",
+   "note": "The only hero button. It scrolls to the services section."
+  },
+  {
+   "key": "hero.card.title",
+   "file": "src/components/sections/Hero.tsx",
+   "current": "Where we help",
+   "proposed": "Areas of work",
+   "note": "\"Service areas\" here collided with the services heading \"Four service areas\" one screen below."
+  },
+  {
+   "key": "hero.card.item1.name",
+   "file": "src/data/services.ts",
+   "current": "AI Solutions",
+   "proposed": "AI Solutions",
+   "note": "No change. Same field as services.ai.name."
+  },
+  {
+   "key": "hero.card.item1.subLabel",
+   "file": "src/data/services.ts",
+   "current": "Decision support & LLM systems",
+   "proposed": "Forecasting and assistants for your staff",
+   "note": "Same field as services.ai.cardLabel. \"Decision support\" is consultant vocabulary that left the reader unsure whether the software decides or reports."
+  },
+  {
+   "key": "hero.card.item2.name",
+   "file": "src/data/services.ts",
+   "current": "Automation",
+   "proposed": "Automation",
+   "note": "No change."
+  },
+  {
+   "key": "hero.card.item2.subLabel",
+   "file": "src/data/services.ts",
+   "current": "Connected systems, zero manual steps",
+   "proposed": "Routine steps run without manual work",
+   "note": "Same field as services.automation.cardLabel. \"Zero manual steps\" was an absolute claim."
+  },
+  {
+   "key": "hero.card.item3.name",
+   "file": "src/data/services.ts",
+   "current": "IT Security",
+   "proposed": "IT Security",
+   "note": "No change."
+  },
+  {
+   "key": "hero.card.item3.subLabel",
+   "file": "src/data/services.ts",
+   "current": "Assess, harden, monitor - 24/7",
+   "proposed": "Assessment, access rules, and monitoring",
+   "note": "Same field as services.security.cardLabel. \"Controls\" reads as a switch to a non technical reader, so the plain term is used instead."
+  },
+  {
+   "key": "hero.card.item4.name",
+   "file": "src/data/services.ts",
+   "current": "Analytics",
+   "proposed": "Data Analytics",
+   "note": "The stated service area name. Corrected here, in the services panel, in the footer and in the contact dropdown so all four agree."
+  },
+  {
+   "key": "hero.card.item4.subLabel",
+   "file": "src/data/services.ts",
+   "current": "Pipelines, dashboards & reporting",
+   "proposed": "Dashboards and business reporting",
+   "note": "Same field as services.analytics.cardLabel."
+  },
+  {
+   "key": "mobileCta.label",
+   "file": "src/components/layout/MobileCTA.tsx",
+   "current": "Start a project",
+   "proposed": "Contact us",
+   "note": "Persistent mobile button. Same label as the header button."
+  },
+  {
+   "key": "contactForm.serviceOptions.ai",
+   "file": "src/lib/site.ts",
+   "current": "AI Solutions",
+   "proposed": "AI Solutions",
+   "note": "No change. Dropdown labels match the service names exactly."
+  },
+  {
+   "key": "contactForm.serviceOptions.automation",
+   "file": "src/lib/site.ts",
+   "current": "Automation",
+   "proposed": "Automation",
+   "note": "No change."
+  },
+  {
+   "key": "contactForm.serviceOptions.security",
+   "file": "src/lib/site.ts",
+   "current": "IT Security",
+   "proposed": "IT Security",
+   "note": "No change."
+  },
+  {
+   "key": "contactForm.serviceOptions.analytics",
+   "file": "src/lib/site.ts",
+   "current": "Analytics",
+   "proposed": "Data Analytics",
+   "note": "Matches the service area name used everywhere else."
+  },
+  {
+   "key": "contactForm.serviceOptions.general",
+   "file": "src/lib/site.ts",
+   "current": "General / Not sure yet",
+   "proposed": "General inquiry",
+   "note": "Same string as contact.form.service.option.general."
+  },
+  {
+   "key": "howWeWork.eyebrow",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "How we work",
+   "proposed": "",
+   "note": "Delete. Every section eyebrow on the page is removed so the sections share one format and the headings alone read as a clean outline: Four service areas, How we run a project, A United States technology company, The four founders, How we handle your systems and data, Common questions, Send us a message. Make the eyebrow prop optional in src/components/ui/SectionHeading.tsx."
+  },
+  {
+   "key": "howWeWork.heading",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "Why companies choose us",
+   "proposed": "How we run a project",
+   "note": "States the subject instead of arguing for the company. Apply the accent span to \"run\", replacing the one around \"choose\". Section id becomes \"process\"."
+  },
+  {
+   "key": "howWeWork.description",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We're not a vendor that disappears after kickoff. We work like part of your team - from the first conversation to long after launch.",
+   "proposed": "We follow the same method on every project, from the first consultation to support after launch.",
+   "note": "The earlier draft listed all four stages here and the points below then listed them again at length. One line of introduction is enough."
+  },
+  {
+   "key": "howWeWork.cta.label",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "Work with us",
+   "proposed": "",
+   "note": "Delete the button and its arrow icon."
+  },
+  {
+   "key": "howWeWork.points.requirements.title",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We start by understanding you",
+   "proposed": "We start with your requirements",
+   "note": "Point 1 of 4. The section now shows four points, matching the four stages named everywhere else on the site."
+  },
+  {
+   "key": "howWeWork.points.requirements.body",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We sit down with you and learn exactly what you need before anyone writes a line of code.",
+   "proposed": "The first step is a consultation. We record what the business needs before any work begins.",
+   "note": "Removes the \"line of code\" phrasing, which assumes a technical reader."
+  },
+  {
+   "key": "howWeWork.points.plan.title",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We agree on what & when",
+   "proposed": "We agree on the plan in writing",
+   "note": "Point 2 of 4. Ampersand removed."
+  },
+  {
+   "key": "howWeWork.points.plan.body",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "Clear scope, clear deliverables, clear timeline. You know what you're getting and by when.",
+   "proposed": "We put the proposed solution and the schedule in writing. Work begins after you approve that document.",
+   "note": "Removes the three part cadence and the contraction."
+  },
+  {
+   "key": "howWeWork.points.updates.title",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We keep you informed",
+   "proposed": "",
+   "note": "Delete this point. Five points sat under a description naming four stages, and the service panels then showed four steps under different names again. Progress reporting moves into the build point below."
+  },
+  {
+   "key": "howWeWork.points.updates.body",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "You stay in the loop through the entire engagement - no surprises, no black boxes.",
+   "proposed": "",
+   "note": "Delete with the point. The content is folded into howWeWork.points.integration.body."
+  },
+  {
+   "key": "howWeWork.points.integration.title",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "It works in your environment",
+   "proposed": "We build inside your existing systems",
+   "note": "Point 3 of 4."
+  },
+  {
+   "key": "howWeWork.points.integration.body",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "When we're done, we make sure everything actually works where it matters: in production.",
+   "proposed": "We connect the new software to the systems your staff already use. We test it there before anyone relies on it. You receive written progress updates at the intervals set in the plan.",
+   "note": "Absorbs the deleted progress point so the section keeps four stages."
+  },
+  {
+   "key": "howWeWork.points.support.title",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "We're here 24/7",
+   "proposed": "We support the system after it goes live",
+   "note": "Point 4 of 4. Contraction removed."
+  },
+  {
+   "key": "howWeWork.points.support.body",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "If something comes up, we're available around the clock. We don't walk away.",
+   "proposed": "We monitor the systems we run for you and fix issues as they come up.",
+   "note": "The around the clock fact is deliberately not repeated here. A four founder firm stating round the clock coverage on five separate screens stopped reading as a fact. It is now stated once, in security.cards.monitoring.body."
+  },
+  {
+   "key": "howWeWork.section.ariaLabel",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "",
+   "proposed": "How we run a project",
+   "note": "Optional landmark label matching the visible heading."
+  },
+  {
+   "key": "services.header.eyebrow",
+   "file": "src/components/sections/Services.tsx",
+   "current": "What we do",
+   "proposed": "",
+   "note": "Delete. See howWeWork.eyebrow: all section eyebrows are removed."
+  },
+  {
+   "key": "services.header.heading",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Services built around your requirements",
+   "proposed": "Four service areas",
+   "note": "Wrap \"Four\" in the accent span, or drop the span."
+  },
+  {
+   "key": "services.header.support",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Four disciplines, one way of working - understand it, plan it, build it into your environment, and stay until it runs.",
+   "proposed": "",
+   "note": "Delete the support line. The heading says four service areas and the four tab labels sit directly below it, so the sentence listed what the reader was already looking at. The same four names appear in the headline, the hero card, the nav, the footer and the form."
+  },
+  {
+   "key": "services.rail.tablistAriaLabel",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Services",
+   "proposed": "Services",
+   "note": "No change."
+  },
+  {
+   "key": "services.rail.contactLink",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Not sure where to start? Talk to an engineer",
+   "proposed": "",
+   "note": "Delete the link."
+  },
+  {
+   "key": "services.panel.confidentialityNote",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Confidential by default - NDA on request.",
+   "proposed": "Your information stays confidential.",
+   "note": "Same string appears twice in the file, desktop panel footer and mobile accordion footer. Replace both. The nondisclosure offer is removed here: it was made in this note, in the security card and in the FAQ, and three offers of the same document read as a firm with one selling point. The security card and the FAQ keep it."
+  },
+  {
+   "key": "services.panel.ctaButton",
+   "file": "src/components/sections/Services.tsx",
+   "current": "Start your {service} project",
+   "proposed": "Contact us about {service}",
+   "note": "Template using svc.name; appears twice. Kept because it preselects the service in the form, which no other button does, and only one panel is open at a time. Confirm the mobile accordion never renders more than one open panel, so the page does not show four contact buttons at once."
+  },
+  {
+   "key": "services.accordion.stepsLabel",
+   "file": "src/components/sections/Services.tsx",
+   "current": "How we deliver",
+   "proposed": "Project steps",
+   "note": "\"Deliver\" is vendor vocabulary. The block lists the steps of a project."
+  },
+  {
+   "key": "services.steps.timingNote",
+   "file": "src/components/sections/Services.tsx",
+   "current": "",
+   "proposed": "Each step is scheduled in the written plan before work begins.",
+   "note": "New line, rendered once under the step list in both the desktop stepper and the mobile accordion. It replaces the per step timeline field, which now reads the same on every step. See steps.shared.consult.timeline."
+  },
+  {
+   "key": "services.ai.name",
+   "file": "src/data/services.ts",
+   "current": "AI Solutions",
+   "proposed": "AI Solutions",
+   "note": "No change."
+  },
+  {
+   "key": "services.ai.tagline",
+   "file": "src/data/services.ts",
+   "current": "Production AI that fits how you operate.",
+   "proposed": "AI for work that involves documents and judgment",
+   "note": "Panel heading: noun phrase, no closing period, matching the other three. It also separates this panel from Automation, which a reader coming in about one specific job could not previously tell apart."
+  },
+  {
+   "key": "services.ai.cardLabel",
+   "file": "src/data/services.ts",
+   "current": "Decision support & LLM systems",
+   "proposed": "Forecasting and assistants for your staff",
+   "note": "Same field as hero.card.item1.subLabel."
+  },
+  {
+   "key": "services.ai.description",
+   "file": "src/data/services.ts",
+   "current": "We design and deploy AI that fits how your business actually operates - smarter decision-making, automated insights from your data, and intelligent systems that deliver measurable results.",
+   "proposed": "We build software that uses AI to handle work your staff currently does by hand. Examples include answering staff questions from your own documents, sorting incoming requests, and forecasting from past records.",
+   "note": "The three examples here are mirrored one for one by the three highlights below."
+  },
+  {
+   "key": "services.ai.highlight.1",
+   "file": "src/data/services.ts",
+   "current": "Decision-support & predictive models",
+   "proposed": "Forecasting from your past records",
+   "note": "\"Models\" removed as a term the reader is assumed not to know."
+  },
+  {
+   "key": "services.ai.highlight.2",
+   "file": "src/data/services.ts",
+   "current": "LLM assistants & retrieval systems",
+   "proposed": "A search tool that answers staff questions from your own documents",
+   "note": "Names what the client receives. Documents do not answer questions; a tool does."
+  },
+  {
+   "key": "services.ai.highlight.3",
+   "file": "src/data/services.ts",
+   "current": "Production-grade outcomes",
+   "proposed": "Sorting and routing of incoming requests",
+   "note": "The earlier draft, \"Internal AI assistants\", was the same deliverable as highlight 2. This picks up the third example from the description."
+  },
+  {
+   "key": "services.automation.name",
+   "file": "src/data/services.ts",
+   "current": "Automation",
+   "proposed": "Automation",
+   "note": "No change."
+  },
+  {
+   "key": "services.automation.tagline",
+   "file": "src/data/services.ts",
+   "current": "The manual work, removed from your week.",
+   "proposed": "Automation of repeated, rule based steps",
+   "note": "Panel heading: noun phrase, no period. \"Rule based\" is the word that separates this panel from AI Solutions."
+  },
+  {
+   "key": "services.automation.cardLabel",
+   "file": "src/data/services.ts",
+   "current": "Connected systems, zero manual steps",
+   "proposed": "Routine steps run without manual work",
+   "note": "Same field as hero.card.item2.subLabel."
+  },
+  {
+   "key": "services.automation.description",
+   "file": "src/data/services.ts",
+   "current": "We study how your team works, find what can be automated, and build it - connecting your systems and eliminating manual steps so everything runs reliably on its own.",
+   "proposed": "Automation follows rules you set and runs the same way every time. We map the repeated steps your team performs by hand and build software to run them. We connect the systems you already use so information moves between them without retyping.",
+   "note": "The opening sentence is the one line that tells a reader which of the two panels their job belongs in. AI is named as the alternative in services.ai.tagline."
+  },
+  {
+   "key": "services.automation.highlight.1",
+   "file": "src/data/services.ts",
+   "current": "Workflow & systems orchestration",
+   "proposed": "Automated approval routing",
+   "note": "\"Orchestration\" removed."
+  },
+  {
+   "key": "services.automation.highlight.2",
+   "file": "src/data/services.ts",
+   "current": "No-touch, reliable pipelines",
+   "proposed": "Records passed between systems without retyping",
+   "note": "\"System to system connections\" said nothing: every system in a business is connected to something."
+  },
+  {
+   "key": "services.automation.highlight.3",
+   "file": "src/data/services.ts",
+   "current": "Hours saved, errors removed",
+   "proposed": "Automated data entry",
+   "note": "The old line implied a measured result the company cannot evidence."
+  },
+  {
+   "key": "services.security.name",
+   "file": "src/data/services.ts",
+   "current": "IT Security",
+   "proposed": "IT Security",
+   "note": "No change."
+  },
+  {
+   "key": "services.security.tagline",
+   "file": "src/data/services.ts",
+   "current": "Secured before problems happen.",
+   "proposed": "Review and correction of security weaknesses",
+   "note": "Panel heading: noun phrase, no period, matching the other three."
+  },
+  {
+   "key": "services.security.cardLabel",
+   "file": "src/data/services.ts",
+   "current": "Assess, harden, monitor - 24/7",
+   "proposed": "Assessment, access rules, and monitoring",
+   "note": "Same field as hero.card.item3.subLabel."
+  },
+  {
+   "key": "services.security.description",
+   "file": "src/data/services.ts",
+   "current": "We assess your environment, fix vulnerabilities, and put the right controls in place - keeping you compliant with US regulations and monitored around the clock.",
+   "proposed": "We review your systems for weaknesses and give you a written report of what we find. You decide which findings to fix. We then make those fixes and set up access rules, encryption, and monitoring.",
+   "note": "The earlier wording, \"we correct the items you approve\", read on first pass as though the client approves the faults. Blanket compliance claims stay out."
+  },
+  {
+   "key": "services.security.highlight.1",
+   "file": "src/data/services.ts",
+   "current": "Assessment & hardening",
+   "proposed": "Testing of systems and networks",
+   "note": "The written report is already named in the panel description and in the assessment step, so this slot names the work instead."
+  },
+  {
+   "key": "services.security.highlight.2",
+   "file": "src/data/services.ts",
+   "current": "US compliance & certification readiness",
+   "proposed": "Access rules and encryption",
+   "note": "Certification wording removed; none are published."
+  },
+  {
+   "key": "services.security.highlight.3",
+   "file": "src/data/services.ts",
+   "current": "24/7 monitoring & response",
+   "proposed": "Around the clock monitoring",
+   "note": "Matches the confirmed support fact."
+  },
+  {
+   "key": "services.analytics.name",
+   "file": "src/data/services.ts",
+   "current": "Analytics",
+   "proposed": "Data Analytics",
+   "note": "Mirror this name in the contact form dropdown and the footer link list."
+  },
+  {
+   "key": "services.analytics.tagline",
+   "file": "src/data/services.ts",
+   "current": "A clear picture of the business, every day.",
+   "proposed": "Business reporting from your own records",
+   "note": "Panel heading: noun phrase, no period."
+  },
+  {
+   "key": "services.analytics.cardLabel",
+   "file": "src/data/services.ts",
+   "current": "Pipelines, dashboards & reporting",
+   "proposed": "Dashboards and business reporting",
+   "note": "Same field as hero.card.item4.subLabel."
+  },
+  {
+   "key": "services.analytics.description",
+   "file": "src/data/services.ts",
+   "current": "We clean up your data, build reliable pipelines, and set up dashboards and reports - so the right people always have a clear, accurate picture of the business.",
+   "proposed": "We collect your data from the systems that hold it and check it for errors. We then build dashboards and scheduled reports for the people who need the numbers.",
+   "note": "No change from the previous draft."
+  },
+  {
+   "key": "services.analytics.highlight.1",
+   "file": "src/data/services.ts",
+   "current": "Reliable data pipelines",
+   "proposed": "Data cleanup and checks",
+   "note": "Plain words."
+  },
+  {
+   "key": "services.analytics.highlight.2",
+   "file": "src/data/services.ts",
+   "current": "Dashboards & self-serve reporting",
+   "proposed": "Management dashboards",
+   "note": "\"Self-serve\" removed as product language."
+  },
+  {
+   "key": "services.analytics.highlight.3",
+   "file": "src/data/services.ts",
+   "current": "A clear picture, every day",
+   "proposed": "Scheduled reports",
+   "note": "A deliverable, not a feeling."
+  },
+  {
+   "key": "steps.shared.consult.phase",
+   "file": "src/data/services.ts",
+   "current": "Consultation",
+   "proposed": "Consultation",
+   "note": "Shared step used by AI Solutions, Automation and Data Analytics. No change."
+  },
+  {
+   "key": "steps.shared.consult.summary",
+   "file": "src/data/services.ts",
+   "current": "We learn your requirements in depth.",
+   "proposed": "We gather requirements with your team.",
+   "note": "Desktop stepper line."
+  },
+  {
+   "key": "steps.shared.consult.what",
+   "file": "src/data/services.ts",
+   "current": "We meet with you, gather all the requirements, and make sure we fully understand what needs to be built.",
+   "proposed": "We meet with you and go through what the system needs to do. We record the requirements and confirm them with you before any design work begins.",
+   "note": "Mobile accordion copy."
+  },
+  {
+   "key": "steps.shared.consult.timeline",
+   "file": "src/data/services.ts",
+   "current": "1-2 weeks",
+   "proposed": "",
+   "note": "Remove the timeline field from every step before go live, on all four services, and remove the timing cell from the stepper and the accordion when the value is empty. The company has no delivery history, so week counts are commitments it cannot evidence, and filling six visible cells with one identical phrase read as a field emptied on purpose. \"Ongoing\" stays on the two support steps. The single line services.steps.timingNote covers the rest."
+  },
+  {
+   "key": "steps.shared.design.phase",
+   "file": "src/data/services.ts",
+   "current": "Solution Design",
+   "proposed": "Solution Design",
+   "note": "No change."
+  },
+  {
+   "key": "steps.shared.design.summary",
+   "file": "src/data/services.ts",
+   "current": "We agree the solution together.",
+   "proposed": "We write the plan and agree on it with you.",
+   "note": "\"Agree it\" is British usage; American English takes \"agree on it\"."
+  },
+  {
+   "key": "steps.shared.design.what",
+   "file": "src/data/services.ts",
+   "current": "We come back with a proposed solution and work through it with you until it is agreed and ready to build.",
+   "proposed": "We write up the proposed solution, the scope, and the schedule. We review the document with you and revise it until you approve it.",
+   "note": "Matches the stated process."
+  },
+  {
+   "key": "steps.shared.design.timeline",
+   "file": "src/data/services.ts",
+   "current": "1-2 weeks",
+   "proposed": "",
+   "note": "Remove. Same reasoning as the consultation step."
+  },
+  {
+   "key": "steps.shared.build.phase",
+   "file": "src/data/services.ts",
+   "current": "Build & Integrate",
+   "proposed": "Build and Integration",
+   "note": "Phase reads as a subject."
+  },
+  {
+   "key": "steps.shared.build.summary",
+   "file": "src/data/services.ts",
+   "current": "We build it in your environment.",
+   "proposed": "We build the system and connect it.",
+   "note": "Desktop stepper line, \"environment\" removed."
+  },
+  {
+   "key": "steps.shared.build.what",
+   "file": "src/data/services.ts",
+   "current": "We put together the right team and start building and integrating the solution into your environment.",
+   "proposed": "We assign the engineers and build the solution. We connect it to your existing systems and test it with your team.",
+   "note": "Mobile accordion copy."
+  },
+  {
+   "key": "steps.shared.build.timeline",
+   "file": "src/data/services.ts",
+   "current": "Project scope",
+   "proposed": "",
+   "note": "Remove. Same reasoning as the consultation step."
+  },
+  {
+   "key": "steps.shared.deliver.phase",
+   "file": "src/data/services.ts",
+   "current": "Delivery & Support",
+   "proposed": "Go Live and Support",
+   "note": "Matches step four of the stated process."
+  },
+  {
+   "key": "steps.shared.deliver.summary",
+   "file": "src/data/services.ts",
+   "current": "Production, monitoring, support.",
+   "proposed": "We put the system into use and support it.",
+   "note": "Old line was a fragment."
+  },
+  {
+   "key": "steps.shared.deliver.what",
+   "file": "src/data/services.ts",
+   "current": "We push to production, monitor everything, fix any issues - then continue with ongoing support or hand off to your team.",
+   "proposed": "We move the system into everyday use and monitor how it runs. You then choose: we continue to run and support it, or we hand it to your staff with the documentation they need.",
+   "note": "The earlier version offered two endings without saying who picks. One of them carries a continuing bill, so the reader needs to know the choice is theirs."
+  },
+  {
+   "key": "steps.shared.deliver.timeline",
+   "file": "src/data/services.ts",
+   "current": "Ongoing",
+   "proposed": "Ongoing",
+   "note": "No change. This and steps.security.monitoring.timeline are the only timing values that still render."
+  },
+  {
+   "key": "steps.security.consult.phase",
+   "file": "src/data/services.ts",
+   "current": "Consultation",
+   "proposed": "Consultation",
+   "note": "IT Security has its own four steps. No change."
+  },
+  {
+   "key": "steps.security.consult.summary",
+   "file": "src/data/services.ts",
+   "current": "We learn your environment and concerns.",
+   "proposed": "We review what you need to protect.",
+   "note": "Desktop stepper line."
+  },
+  {
+   "key": "steps.security.consult.what",
+   "file": "src/data/services.ts",
+   "current": "We meet with you and learn about your current environment, your concerns, and what you are trying to protect.",
+   "proposed": "We meet with you and go through your current systems and your concerns. We record what needs protection and who has access to it today.",
+   "note": "Mobile accordion copy."
+  },
+  {
+   "key": "steps.security.consult.timeline",
+   "file": "src/data/services.ts",
+   "current": "1-2 weeks",
+   "proposed": "",
+   "note": "Remove. Same reasoning as the shared steps."
+  },
+  {
+   "key": "steps.security.assessment.phase",
+   "file": "src/data/services.ts",
+   "current": "Assessment",
+   "proposed": "Assessment",
+   "note": "No change."
+  },
+  {
+   "key": "steps.security.assessment.summary",
+   "file": "src/data/services.ts",
+   "current": "We map vulnerabilities and risks.",
+   "proposed": "We test the systems and list the weaknesses.",
+   "note": "Desktop stepper line."
+  },
+  {
+   "key": "steps.security.assessment.what",
+   "file": "src/data/services.ts",
+   "current": "We go through your systems, identify any vulnerabilities, and give you a clear picture of where you stand.",
+   "proposed": "We examine your systems and networks for weaknesses. You receive a written report of what we found, ordered by how serious each item is.",
+   "note": "Names the deliverable."
+  },
+  {
+   "key": "steps.security.assessment.timeline",
+   "file": "src/data/services.ts",
+   "current": "1-2 weeks",
+   "proposed": "",
+   "note": "Remove. Same reasoning as the shared steps."
+  },
+  {
+   "key": "steps.security.implementation.phase",
+   "file": "src/data/services.ts",
+   "current": "Implementation",
+   "proposed": "Implementation",
+   "note": "No change."
+  },
+  {
+   "key": "steps.security.implementation.summary",
+   "file": "src/data/services.ts",
+   "current": "We fix and harden your systems.",
+   "proposed": "We fix the findings and set up controls.",
+   "note": "\"Harden\" removed."
+  },
+  {
+   "key": "steps.security.implementation.what",
+   "file": "src/data/services.ts",
+   "current": "We fix the issues, put the right controls in place, and make sure everything is configured correctly.",
+   "proposed": "We correct the findings you decide to fix and set up access rules, encryption, and backups. We confirm each item is closed with your team.",
+   "note": "Matches the panel description, where the client chooses which findings to fix."
+  },
+  {
+   "key": "steps.security.implementation.timeline",
+   "file": "src/data/services.ts",
+   "current": "Project scope",
+   "proposed": "",
+   "note": "Remove. Same reasoning as the shared steps."
+  },
+  {
+   "key": "steps.security.monitoring.phase",
+   "file": "src/data/services.ts",
+   "current": "Monitoring & Support",
+   "proposed": "Monitoring and Support",
+   "note": "Ampersand replaced."
+  },
+  {
+   "key": "steps.security.monitoring.summary",
+   "file": "src/data/services.ts",
+   "current": "Around-the-clock protection.",
+   "proposed": "We monitor and respond to issues.",
+   "note": "Old line was a fragment and a promise."
+  },
+  {
+   "key": "steps.security.monitoring.what",
+   "file": "src/data/services.ts",
+   "current": "We monitor your environment on an ongoing basis and stay available 24/7 if something needs immediate attention.",
+   "proposed": "We monitor the systems we run for you and review the alerts they produce. We respond to issues that need attention.",
+   "note": "The around the clock claim is deliberately not repeated here. It is stated once, in security.cards.monitoring.body."
+  },
+  {
+   "key": "steps.security.monitoring.timeline",
+   "file": "src/data/services.ts",
+   "current": "Ongoing · 24/7",
+   "proposed": "Ongoing",
+   "note": "Middle dot removed and the availability claim moved to the one place it is stated."
+  },
+  {
+   "key": "company.section.eyebrow",
+   "file": "src/components/sections/Company.tsx",
+   "current": "The company",
+   "proposed": "",
+   "note": "Delete. See howWeWork.eyebrow: all section eyebrows are removed. The About page content now lives in src/components/sections/Company.tsx with the section id \"company\"."
+  },
+  {
+   "key": "company.section.heading",
+   "file": "src/components/sections/Company.tsx",
+   "current": "An American company, built on global engineering.",
+   "proposed": "A United States technology company",
+   "note": "\"United States\" everywhere, never \"American\". One plain line: drop the accent span split and the trailing period."
+  },
+  {
+   "key": "company.body.p1",
+   "file": "src/components/sections/Company.tsx",
+   "current": "AIVanta is a United States technology company delivering applied AI, automation, cybersecurity and analytics. We're based in Illinois - and we draw on a network of engineering talent worldwide, so you get local accountability with global capability.",
+   "proposed": "Kestridge AI is a technology company based in Illinois, United States. We work with US businesses in four areas: AI solutions, automation, IT security, and data analytics.",
+   "note": "The separate location block at the bottom of the old About page is deleted, so the location fact lives here."
+  },
+  {
+   "key": "company.body.p2",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Our engineers work closely with each client, and we draw on a global network of specialists so every project gets exactly the expertise it needs, when it needs it. Access to global resources means we can move quickly without compromising on quality.",
+   "proposed": "Our engineers work with you directly throughout the project. Each project is staffed with the specialists the work requires.",
+   "note": "The founder count is stated in the founders section one screen below, and the engineering network is stated in company.card.network.body a few lines down, so both were removed here. Addresses the reader as \"you\", never \"the client\"."
+  },
+  {
+   "key": "company.body.p3",
+   "file": "src/components/sections/Company.tsx",
+   "current": "And we don't disappear after kickoff. We stay involved until the work is running the way it should - and we're available around the clock if something comes up.",
+   "proposed": "",
+   "note": "Delete the paragraph. Every fact in it is stated in the process section support point and in the security monitoring card. Around the clock support was on five screens; it is now on one."
+  },
+  {
+   "key": "company.card.us.title",
+   "file": "src/components/sections/Company.tsx",
+   "current": "American-based accountability",
+   "proposed": "A United States company",
+   "note": ""
+  },
+  {
+   "key": "company.card.us.body",
+   "file": "src/components/sections/Company.tsx",
+   "current": "A United States company you can hold accountable - working to US standards, regulations and expectations.",
+   "proposed": "Your agreement is with Kestridge AI Inc., a United States company.",
+   "note": "The card's job is naming the contracting entity. Illinois is already stated in the heading area and in the first paragraph within six lines. Confirm the entity is incorporated before \"Inc.\" ships."
+  },
+  {
+   "key": "company.card.network.title",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Access to global talent",
+   "proposed": "Engineering network",
+   "note": ""
+  },
+  {
+   "key": "company.card.network.body",
+   "file": "src/components/sections/Company.tsx",
+   "current": "We draw on a worldwide network of specialists, so the right expertise is on every problem, exactly when it's needed.",
+   "proposed": "When a project calls for specific experience, we bring in engineering specialists from outside the United States.",
+   "note": "This is now the only statement of the network fact in the company section."
+  },
+  {
+   "key": "company.card.security.title",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Security & confidentiality first",
+   "proposed": "Security and confidentiality",
+   "note": "Ampersand replaced."
+  },
+  {
+   "key": "company.card.security.body",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Strict controls on every engagement. Your data and systems are treated with the same care as our own.",
+   "proposed": "Every project includes a security review before work begins.",
+   "note": "The clause about never teaching other companies' AI systems appeared word for word here, in the security card and in the FAQ. It stays in the security card only."
+  },
+  {
+   "key": "company.card.outcomes.title",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Built for outcomes",
+   "proposed": "Project completion",
+   "note": "\"When a project is complete\" was a subordinate clause used as a heading, so it read as the first half of a sentence."
+  },
+  {
+   "key": "company.card.outcomes.body",
+   "file": "src/components/sections/Company.tsx",
+   "current": "We measure success by what runs reliably in production - not by hours billed or slideware delivered.",
+   "proposed": "A project is complete when the system is running in your business and your staff use it.",
+   "note": "\"Your staff are using it\" is British concord; American business English takes \"your staff use it\"."
+  },
+  {
+   "key": "company.removed.chip.location",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Based in Illinois, USA",
+   "proposed": "",
+   "note": "Delete. The location is stated in the first paragraph."
+  },
+  {
+   "key": "company.removed.chip.network",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Global engineering network",
+   "proposed": "",
+   "note": "Delete. The same fact is in the engineering network card."
+  },
+  {
+   "key": "company.removed.narrative.p1",
+   "file": "src/components/sections/Company.tsx",
+   "current": "We design, build and secure the systems businesses rely on - applied AI, automation, cybersecurity and analytics - with the rigor and accountability you expect from an American partner.",
+   "proposed": "",
+   "note": "Delete. Duplicates the first paragraph and the services section."
+  },
+  {
+   "key": "company.removed.principles.eyebrow",
+   "file": "src/components/sections/Company.tsx",
+   "current": "What we stand for",
+   "proposed": "",
+   "note": "Delete. The four cards sit directly under the paragraphs with no sub heading."
+  },
+  {
+   "key": "company.removed.location.eyebrow",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Where we're based",
+   "proposed": "",
+   "note": "Delete the whole location block."
+  },
+  {
+   "key": "company.removed.location.heading",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Illinois, United States",
+   "proposed": "",
+   "note": "Delete."
+  },
+  {
+   "key": "company.removed.location.body",
+   "file": "src/components/sections/Company.tsx",
+   "current": "We operate as a US-based company. A precise office address will be published here as we finalize it. Until then, the fastest way to reach us is through the form, by email, or on LinkedIn.",
+   "proposed": "",
+   "note": "Delete. An unpublished address should not be discussed at all."
+  },
+  {
+   "key": "company.removed.location.cta",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Start a project",
+   "proposed": "",
+   "note": "Delete with the block."
+  },
+  {
+   "key": "company.removed.location.linkedin",
+   "file": "src/components/sections/Company.tsx",
+   "current": "Follow us on LinkedIn",
+   "proposed": "",
+   "note": "Delete with the block."
+  },
+  {
+   "key": "company.removed.metadata.title",
+   "file": "src/app/about/page.tsx",
+   "current": "About",
+   "proposed": "",
+   "note": "Delete with the route, which is already gone from src/app."
+  },
+  {
+   "key": "company.removed.metadata.description",
+   "file": "src/app/about/page.tsx",
+   "current": "AIVanta is an American technology company based in Illinois, delivering applied AI, automation, security and analytics - with access to global engineering talent.",
+   "proposed": "",
+   "note": "Delete with the route. The home page description covers the company facts."
+  },
+  {
+   "key": "company.rejected.exampleBlock",
+   "file": "src/components/sections/Company.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied. A worked example of a finished job was proposed to give the reader something concrete. It reads as a case study, and there are no completed client engagements to base one on. If the owner confirms a real piece of work that a client will allow described without naming them, add it here as a short block headed \"An example of the work\". Until then the concrete examples in the service panel descriptions and highlights carry that load."
+  },
+  {
+   "key": "company.rejected.foundingYear",
+   "file": "src/components/sections/Company.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied. Stating the founding year and headcount would answer a real question, but neither figure is confirmed and hard rule 5 bars invented numbers. If the owner supplies the year, company.body.p2 can open: \"Kestridge AI was founded in [year] by four people, and the same four run it today.\""
+  },
+  {
+   "key": "founders.eyebrow",
+   "file": "src/components/sections/Team.tsx",
+   "current": "The people",
+   "proposed": "",
+   "note": "Delete. Consistent with every other section."
+  },
+  {
+   "key": "founders.heading",
+   "file": "src/components/sections/Team.tsx",
+   "current": "The faces behind the work",
+   "proposed": "The four founders",
+   "note": "One plain line; drop the accent span on the last word. Section id becomes \"founders\"."
+  },
+  {
+   "key": "founders.description",
+   "file": "src/components/sections/Team.tsx",
+   "current": "A senior team of engineers across AI, security, automation and data. Real people who stay accountable from kickoff to long after launch.",
+   "proposed": "The company has four founders. The same four people run it today.",
+   "note": "\"Those four\" read as clumsy. The sentence about photos linking to LinkedIn profiles stays cut: it is interface narration, and in src/data/team.ts every founder link points at the company page, not a personal profile."
+  },
+  {
+   "key": "founders.namesNote",
+   "file": "src/components/sections/Team.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied. \"Names and backgrounds are provided on request\" was proposed as a stand in for the founder cards. Both review lenses rejected it: on a page whose job is to establish a real, accountable US company, a line stating that the owners' names are withheld does more damage than blank space, and it would have been the third \"on request\" line after the nondisclosure agreement and the registration details. Either publish the four names, or ship the section with the heading and the description alone and remove the Founders nav item."
+  },
+  {
+   "key": "founders.linkedin.button",
+   "file": "src/components/sections/Team.tsx",
+   "current": "Meet us on LinkedIn",
+   "proposed": "View our LinkedIn page",
+   "note": "Literal label. Rendered by the shared LinkedInButton default; see ui.linkedinButton.defaultLabel."
+  },
+  {
+   "key": "founders.card.name.1",
+   "file": "src/data/team.ts",
+   "current": "Daniel Hart",
+   "proposed": "",
+   "note": "Do not publish. First names over stock portraits read as concealment. Publish full legal names with real photographs, or remove the four cards and keep the heading and the description line only."
+  },
+  {
+   "key": "founders.card.name.2",
+   "file": "src/data/team.ts",
+   "current": "Sofia Marchetti",
+   "proposed": "",
+   "note": "Same as founders.card.name.1."
+  },
+  {
+   "key": "founders.card.name.3",
+   "file": "src/data/team.ts",
+   "current": "Marcus Bell",
+   "proposed": "",
+   "note": "Same as founders.card.name.1."
+  },
+  {
+   "key": "founders.card.name.4",
+   "file": "src/data/team.ts",
+   "current": "Priya Nair",
+   "proposed": "",
+   "note": "Same as founders.card.name.1."
+  },
+  {
+   "key": "founders.card.names.removed",
+   "file": "src/data/team.ts",
+   "current": "Jonas Weber, Amara Okafor, Elena Vasquez, Tomas Novak",
+   "proposed": "",
+   "note": "Delete these four invented entries in every case. The company has four founders."
+  },
+  {
+   "key": "founders.card.role",
+   "file": "src/data/team.ts",
+   "current": "Principal AI Engineer / Head of Security / Automation Lead / Analytics Lead",
+   "proposed": "Founder",
+   "note": "Titles were invented. \"Founder\" is the only role the facts support, and it applies only if the cards ship with real names."
+  },
+  {
+   "key": "founders.card.focus",
+   "file": "src/data/team.ts",
+   "current": "Decision systems & applied ML / Threat modeling & compliance / Systems orchestration & integration / Data pipelines & visualization",
+   "proposed": "",
+   "note": "Delete the focus line on every card. Every value is invented and the wording is jargon."
+  },
+  {
+   "key": "founders.card.photo.alt",
+   "file": "src/components/sections/Team.tsx",
+   "current": "{name}",
+   "proposed": "",
+   "note": "Keep the attribute, set it to an empty string, since the name is announced in the card heading below. Separate build point: the portraits are randomuser.me placeholders and must be replaced with real photographs before launch."
+  },
+  {
+   "key": "founders.card.linkedin.aria",
+   "file": "src/components/sections/Team.tsx",
+   "current": "{name} - AIVanta on LinkedIn",
+   "proposed": "{name} on LinkedIn",
+   "note": "The current template joins the name and the brand with a long dash. Remove the icon entirely on any card whose link points at the company page rather than a personal profile."
+  },
+  {
+   "key": "trustbar.intro",
+   "file": "src/components/sections/TrustBar.tsx",
+   "current": "Companies our team has worked with",
+   "proposed": "",
+   "note": "Delete the line and the TrustBar section with it. No caption undoes the visual claim made by a strip of well known logos."
+  },
+  {
+   "key": "trustbar.logos",
+   "file": "src/data/companies.ts",
+   "current": "Anthropic, NVIDIA, Google, Meta, Hugging Face, Palantir, Databricks, Snowflake, Netflix, Uber, Stripe, McDonald's, Tesla, Visa, Mastercard, Cisco, Spotify, Samsung",
+   "proposed": "",
+   "note": "Delete the whole marquee. The file comment confirms all eighteen logos are placeholders. Ship nothing here until each founder will put their name in writing to a specific employer or engagement."
+  },
+  {
+   "key": "nav.about",
+   "file": "src/lib/site.ts",
+   "current": "About",
+   "proposed": "Company",
+   "note": "Same item as nav.items.company.label. The About route is gone, so the href must point at /#company."
+  },
+  {
+   "key": "ui.linkedinButton.defaultLabel",
+   "file": "src/components/ui/LinkedInButton.tsx",
+   "current": "Follow us on LinkedIn",
+   "proposed": "View our LinkedIn page",
+   "note": "Default label of the shared button. Changing it updates the founders header, the footer and the contact success screen at once."
+  },
+  {
+   "key": "security.eyebrow",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Privacy & security",
+   "proposed": "",
+   "note": "Delete. Consistent with every other section."
+  },
+  {
+   "key": "security.heading",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Your privacy isn't a feature. It's the foundation.",
+   "proposed": "How we handle your systems and data",
+   "note": "Kills the \"not X, it is Y\" construction. Either drop the second accent span or wrap \"your systems and data\" in it."
+  },
+  {
+   "key": "security.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "We work with sensitive systems and sensitive data every day - AI models, production environments, business intelligence. We treat all of it like it's our own, because trust is the only way this work happens.",
+   "proposed": "Our work involves access to the systems your business runs on and to the data they hold. Security review is part of every project, not a separate add-on.",
+   "note": "The earlier three part list ran to twenty six words and its third item was circular. The second sentence is the strongest line in the section and now sits in the clear."
+  },
+  {
+   "key": "security.badge.confidential",
+   "file": "src/components/sections/Security.tsx",
+   "current": "100% confidential",
+   "proposed": "",
+   "note": "Delete. A percentage claim reads as advertising and the confidentiality card carries the substance."
+  },
+  {
+   "key": "security.badge.monitoring",
+   "file": "src/components/sections/Security.tsx",
+   "current": "24/7 monitoring & response",
+   "proposed": "",
+   "note": "Delete. Duplicates the monitoring card and the pill format reads as a marketing tag."
+  },
+  {
+   "key": "security.cta",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Start a confidential conversation",
+   "proposed": "",
+   "note": "Delete the button."
+  },
+  {
+   "key": "security.cards.confidentiality.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Confidential by default",
+   "proposed": "Confidentiality on every project",
+   "note": "Card 1 of 7."
+  },
+  {
+   "key": "security.cards.confidentiality.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Strict confidentiality on every engagement - NDA on request.",
+   "proposed": "Confidentiality applies from the first conversation, and a nondisclosure agreement is available on request.",
+   "note": "This card and faq.a4 are the only two places the nondisclosure agreement is offered. \"Nondisclosure\" spelled out and closed, American style."
+  },
+  {
+   "key": "security.cards.access.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Least-privilege access",
+   "proposed": "Access limited to what the work requires",
+   "note": "Card 2 of 7. States the meaning of least privilege so no definition is needed."
+  },
+  {
+   "key": "security.cards.access.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Only your project's engineers touch your systems.",
+   "proposed": "Each engineer is given access only to the systems their part of the work requires.",
+   "note": ""
+  },
+  {
+   "key": "security.cards.encryption.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Encrypted end to end",
+   "proposed": "Encryption in transit and in storage",
+   "note": "Card 3 of 7. Noun phrase, matching the other titles. \"End to end\" has a specific technical meaning that should not be implied."
+  },
+  {
+   "key": "security.cards.encryption.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Encrypted in transit and at rest, on hardened infrastructure.",
+   "proposed": "Your data is scrambled while it moves between systems and while it sits in storage. Only people we authorize can read it.",
+   "note": "The earlier version introduced \"the key\" with a definite article and no prior mention, which stopped the non technical reader."
+  },
+  {
+   "key": "security.cards.aidata.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Your AI data stays yours",
+   "proposed": "Your data is used only for your work",
+   "note": "Card 4 of 7. A project is not a place, so data cannot stay in one."
+  },
+  {
+   "key": "security.cards.aidata.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "We never train shared models on your data.",
+   "proposed": "We use your data only for your project. We never use it to teach AI systems that serve other companies.",
+   "note": "This is now the only place on the page that carries the sentence. The company card and the FAQ answer were rewritten to stop repeating it."
+  },
+  {
+   "key": "security.cards.compliance.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Built for US compliance",
+   "proposed": "",
+   "note": "Delete the compliance card, title and body. No certifications, no named framework and no audit practice are confirmed."
+  },
+  {
+   "key": "security.cards.compliance.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "We work to US regulations and help you stay certification-ready.",
+   "proposed": "",
+   "note": "Delete with the card."
+  },
+  {
+   "key": "security.cards.record.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "",
+   "proposed": "Written record of what we put in place",
+   "note": "Card 5 of 7, new, taking the grid position of the deleted compliance card. \"Controls\" was cut from the title: to a reader outside IT a control is a switch, and the title is the only part many people scan. The section now holds seven cards; if the grid needs six, this is the one to drop."
+  },
+  {
+   "key": "security.cards.record.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "",
+   "proposed": "We document who has access to what, what is encrypted, and what is monitored. You receive that record.",
+   "note": "New card body."
+  },
+  {
+   "key": "security.cards.offshore.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "",
+   "proposed": "Engineering specialists outside the United States",
+   "note": "Card 6 of 7, new. The site says specialists work outside the US and then never says how that squares with access to client systems. Leaving it unstated makes it the first question on the call."
+  },
+  {
+   "key": "security.cards.offshore.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "",
+   "proposed": "Specialists outside the United States work under the same confidentiality terms and access limits as our own engineers. We tell you who is assigned to your project before work begins.",
+   "note": "New card body. Two facts a careful buyer will ask for are missing because they are not confirmed: which countries the specialists work in, and whether client data leaves the United States. If the owner can answer both, add: \"They work in [countries]. Your data stays on systems located in the United States.\" Also confirm the company will in fact name assigned staff before work begins."
+  },
+  {
+   "key": "security.cards.monitoring.title",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Monitored around the clock",
+   "proposed": "Monitoring around the clock",
+   "note": "Card 7 of 7. Noun phrase, matching the other titles."
+  },
+  {
+   "key": "security.cards.monitoring.body",
+   "file": "src/components/sections/Security.tsx",
+   "current": "Continuous monitoring, 24/7 response.",
+   "proposed": "The systems we run for you are monitored continuously, and we respond to issues at any hour.",
+   "note": "This is the single statement of around the clock support on the site. It was previously made in five places, which a reader who knows what shift coverage costs stopped believing. Scoped to systems the company runs."
+  },
+  {
+   "key": "faq.eyebrow",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Questions",
+   "proposed": "",
+   "note": "Delete. Consistent with every other section. Section id becomes \"questions\"."
+  },
+  {
+   "key": "faq.heading",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Answers before you ask",
+   "proposed": "Common questions",
+   "note": "Drop the accent span and set the line in one style. Drop the accordion as well: the answers are short enough to be always visible."
+  },
+  {
+   "key": "faq.q1",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "What does AIVanta do?",
+   "proposed": "What does Kestridge AI do?",
+   "note": ""
+  },
+  {
+   "key": "faq.a1",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "We design, build and secure the systems businesses rely on - applied AI solutions, business automation, cybersecurity and data analytics. Every engagement is built around your specific requirements.",
+   "proposed": "We build AI, automation, IT security, and data analytics systems for US businesses. We support them after they go live.",
+   "note": "The current string contains a long dash; match on the surrounding words when replacing."
+  },
+  {
+   "key": "faq.q2",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Where is AIVanta based?",
+   "proposed": "Where is Kestridge AI based?",
+   "note": "Q1 names the brand, so this one does too. Two adjacent questions should not use two voices."
+  },
+  {
+   "key": "faq.a2",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "AIVanta is an American technology company based in Illinois, USA. We work with a global network of engineering specialists, so you get local accountability with global capability.",
+   "proposed": "Kestridge AI is based in Illinois. We also work with engineering specialists outside the United States.",
+   "note": "The country is already stated in the heading, the first company paragraph and the metadata."
+  },
+  {
+   "key": "faq.q3",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "How do we start working together?",
+   "proposed": "How does a project start?",
+   "note": ""
+  },
+  {
+   "key": "faq.a3",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "The fastest way is the contact form on this site - tell us what you're trying to solve. We reply as soon as possible, then we scope the work with you, agree a plan and timeline, and start building.",
+   "proposed": "A project starts with a consultation to gather your requirements. We then send a written plan and proposed solution for your approval.",
+   "note": "No response time promise."
+  },
+  {
+   "key": "faq.q4",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "How do you handle data security and confidentiality?",
+   "proposed": "How do you handle our data?",
+   "note": "Active, and it matches the reader to firm form used in the other questions."
+  },
+  {
+   "key": "faq.a4",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Confidentiality is the foundation of how we work. Every engagement is covered by strict confidentiality, NDAs on request, least-privilege access, and end-to-end encryption. We never reuse or train shared models on your data.",
+   "proposed": "We encrypt your data, limit who can reach it, and use it only for your work. A nondisclosure agreement is available on request.",
+   "note": "The sentence about never teaching other companies' AI systems is dropped here; it stays in the security card. No bare abbreviation."
+  },
+  {
+   "key": "faq.q5",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Do you work with startups and small companies, or only large enterprises?",
+   "proposed": "What size companies do you work with?",
+   "note": ""
+  },
+  {
+   "key": "faq.a5",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Both. We work with startups and mid-size companies through to large enterprises - every engagement is scoped to fit your needs and budget.",
+   "proposed": "We accept projects from companies of any size. Scope, schedule, and cost are set per project in the written plan.",
+   "note": "\"We take work from\" sat below the register of the rest of the page. The old answer claimed an existing client base across three size segments."
+  },
+  {
+   "key": "faq.q6",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "What does a project cost?",
+   "proposed": "How is cost determined?",
+   "note": ""
+  },
+  {
+   "key": "faq.a6",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "It depends on scope, which we define together before any commitment. The first conversation is always free, with no obligation.",
+   "proposed": "Cost depends on the scope of the work, which is set in the written plan. Nothing is committed until you approve it.",
+   "note": "A published starting figure was proposed and not applied: no price the company will stand behind is confirmed, and hard rule 5 bars invented numbers. This is the single largest unanswered question on the page. If the owner will name a floor, this answer is where it belongs."
+  },
+  {
+   "key": "faq.q7",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "",
+   "proposed": "What kinds of work do you take on?",
+   "note": "New question, placed after Q1. The page describes four service areas in general terms and never names a job a reader could recognize as their own. Confirm the examples with the owner before publishing."
+  },
+  {
+   "key": "faq.a7",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "",
+   "proposed": "Common examples are entering incoming orders, matching invoices, routing approvals, and reporting from records you already keep.",
+   "note": "New answer. Examples of work the four service areas cover, not a claim of completed engagements."
+  },
+  {
+   "key": "faq.q8",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "",
+   "proposed": "What do you need from us during a project?",
+   "note": "New question, placed last. A buyer who has been through a software project asks this before anything else."
+  },
+  {
+   "key": "faq.a8",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "",
+   "proposed": "One person who knows the process, available a few hours each week during the build, and access to the systems involved.",
+   "note": "New answer. Confirm the time expectation with the owner before publishing."
+  },
+  {
+   "key": "faq.rejected.ownership",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied. A question on who owns the software after final payment was proposed, and it is a fair question for a firm that also offers to run the system afterward. Contract and intellectual property terms are not among the confirmed facts, so no answer can be published. If the owner confirms the position, add: \"Who owns the software you build?\" with a two sentence answer."
+  },
+  {
+   "key": "faq.rail.heading",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Still have questions?",
+   "proposed": "",
+   "note": "Delete the whole side rail. The contact section sits directly below it and repeats the same link, the same email and the same button."
+  },
+  {
+   "key": "faq.rail.body",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Tell us what you're working on - an engineer will get back to you as soon as possible.",
+   "proposed": "",
+   "note": "Delete with the rail."
+  },
+  {
+   "key": "faq.rail.button",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "Ask us directly",
+   "proposed": "",
+   "note": "Delete with the rail."
+  },
+  {
+   "key": "faq.rail.email",
+   "file": "src/components/sections/FAQ.tsx",
+   "current": "info@aivanta.com",
+   "proposed": "",
+   "note": "Delete with the rail. If the rail is kept for layout reasons, the address must render from site.email."
+  },
+  {
+   "key": "cta.eyebrow",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "Ready when you are",
+   "proposed": "",
+   "note": "Delete the entire closing band. It states no fact and the contact section follows immediately after it."
+  },
+  {
+   "key": "cta.heading",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "Have something that needs solving?",
+   "proposed": "",
+   "note": "Delete with the band."
+  },
+  {
+   "key": "cta.body",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "One short conversation is all it takes to find out how we can help. No pressure, no jargon - just engineers who listen.",
+   "proposed": "",
+   "note": "Delete with the band."
+  },
+  {
+   "key": "cta.button.primary",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "Start a project",
+   "proposed": "",
+   "note": "Delete with the band."
+  },
+  {
+   "key": "cta.button.linkedin",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "Follow us on LinkedIn",
+   "proposed": "",
+   "note": "Delete with the band."
+  },
+  {
+   "key": "cta.fallback.heading",
+   "file": "src/components/sections/CTABand.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not used. If the owner later insists on a block in that slot, the heading is \"How to reach us\", the body is \"Send a description of the work through the contact form below.\", and the button is \"Contact us\"."
+  },
+  {
+   "key": "contact.eyebrow",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Let's talk",
+   "proposed": "",
+   "note": "Delete. Consistent with every other section."
+  },
+  {
+   "key": "contact.heading",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Tell us what you're trying to solve",
+   "proposed": "Send us a message",
+   "note": "Drop the accent span and set the heading in one style."
+  },
+  {
+   "key": "contact.description",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "A short description of your project and how to reach you is all we need. We'll get back to you as soon as possible.",
+   "proposed": "Describe the work and how to reach you. A founder reads every message and replies by email.",
+   "note": "Removing every mention of a reply left the reader with no sign that anyone opens the mailbox, at the exact moment they decide whether to fill in the form. This states who reads it rather than how fast. Confirm with the owner that a founder does read every message."
+  },
+  {
+   "key": "contact.card.email.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Email",
+   "proposed": "Email",
+   "note": "No change."
+  },
+  {
+   "key": "contact.card.email.value",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "info@aivanta.com",
+   "proposed": "info@kestridgeai.com",
+   "note": "Renders site.email. Every visible address on the site must be this one."
+  },
+  {
+   "key": "contact.card.linkedin.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "LinkedIn",
+   "proposed": "LinkedIn",
+   "note": "No change."
+  },
+  {
+   "key": "contact.card.linkedin.value",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Follow our work",
+   "proposed": "Company page",
+   "note": "States what the link opens."
+  },
+  {
+   "key": "contact.card.location.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Based in",
+   "proposed": "Based in",
+   "note": "No change."
+  },
+  {
+   "key": "contact.card.location.value",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Illinois, USA",
+   "proposed": "Illinois, United States",
+   "note": "Renders site.location; the same change updates the footer and the hero eyebrow."
+  },
+  {
+   "key": "contact.card.phone",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied, and the strongest recommendation in the review that could not be carried out. The site asks the reader for a phone number and offers none in return, which reads as a one person operation. No phone number is among the confirmed facts. If the owner provides a number, add a third card: label \"Phone\", the number as the value, and a line stating the hours it is answered, clickable on mobile."
+  },
+  {
+   "key": "contact.form.name.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Full name",
+   "proposed": "Full name",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.name.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Jane Doe",
+   "proposed": "Jane Doe",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.email.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Email",
+   "proposed": "Email address",
+   "note": "Distinguishes the field from the email contact card above it."
+  },
+  {
+   "key": "contact.form.email.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "jane@company.com",
+   "proposed": "jane@company.com",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.company.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Company",
+   "proposed": "Company",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.company.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Company name",
+   "proposed": "Company name",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.phone.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Phone",
+   "proposed": "Phone number",
+   "note": "Matches the form of the other labels."
+  },
+  {
+   "key": "contact.form.phone.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "(555) 000-0000",
+   "proposed": "(555) 000-0000",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.optionalTag",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "optional",
+   "proposed": "optional",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.service.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "What can we help with?",
+   "proposed": "Service area",
+   "note": "Question form removed."
+  },
+  {
+   "key": "contact.form.service.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Select an area...",
+   "proposed": "Select a service area",
+   "note": "Ellipsis removed; the current source uses a single character ellipsis."
+  },
+  {
+   "key": "contact.form.service.option.ai",
+   "file": "src/lib/site.ts",
+   "current": "AI Solutions",
+   "proposed": "AI Solutions",
+   "note": "Same array as contactForm.serviceOptions."
+  },
+  {
+   "key": "contact.form.service.option.automation",
+   "file": "src/lib/site.ts",
+   "current": "Automation",
+   "proposed": "Automation",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.service.option.security",
+   "file": "src/lib/site.ts",
+   "current": "IT Security",
+   "proposed": "IT Security",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.service.option.analytics",
+   "file": "src/lib/site.ts",
+   "current": "Analytics",
+   "proposed": "Data Analytics",
+   "note": "Matches the service area name used everywhere else."
+  },
+  {
+   "key": "contact.form.service.option.general",
+   "file": "src/lib/site.ts",
+   "current": "General / Not sure yet",
+   "proposed": "General inquiry",
+   "note": "Same string as contactForm.serviceOptions.general."
+  },
+  {
+   "key": "contact.form.message.label",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Brief project description",
+   "proposed": "Description of the work",
+   "note": ""
+  },
+  {
+   "key": "contact.form.message.placeholder",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "A sentence or two about what you're trying to build or solve...",
+   "proposed": "A short description of the work and the systems involved.",
+   "note": "Ellipsis removed."
+  },
+  {
+   "key": "contact.form.submit",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Send message",
+   "proposed": "Send message",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.submitting",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Sending...",
+   "proposed": "Sending",
+   "note": "Ellipsis removed."
+  },
+  {
+   "key": "contact.form.consent",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "By sending this message, you agree to our Privacy Policy.",
+   "proposed": "By sending this message, you agree to our Privacy Policy.",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.consent.link",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Privacy Policy",
+   "proposed": "Privacy Policy",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.error.name",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Please enter your name.",
+   "proposed": "Please enter your name.",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.error.email.required",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Please enter your email address.",
+   "proposed": "Please enter your email address.",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.error.email.invalid",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Please enter a valid email address.",
+   "proposed": "Please enter a valid email address.",
+   "note": "No change."
+  },
+  {
+   "key": "contact.form.error.service",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Please select an area.",
+   "proposed": "Please select a service area.",
+   "note": "Matches the new field label."
+  },
+  {
+   "key": "contact.form.error.message",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Please add at least a sentence about your project.",
+   "proposed": "Please add at least one sentence about the work.",
+   "note": ""
+  },
+  {
+   "key": "contact.success.heading",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Thank you, {firstName}.",
+   "proposed": "Thank you, {firstName}.",
+   "note": "No change. Renders as \"Thank you.\" when no first name is present."
+  },
+  {
+   "key": "contact.success.body",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Your message is in. We'll review it and get back to you as soon as possible.",
+   "proposed": "Your message has been received. We will reply by email to the address you provided.",
+   "note": "No response time claim."
+  },
+  {
+   "key": "contact.success.note",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Need to add anything? Email us and reference your message.",
+   "proposed": "",
+   "note": "Delete. The \"Email us\" button sits directly beneath it, so the sentence narrated the button."
+  },
+  {
+   "key": "contact.success.button.email",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Email us directly",
+   "proposed": "Email us",
+   "note": "Opens the reader's email program."
+  },
+  {
+   "key": "contact.success.button.linkedin",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Follow us on LinkedIn",
+   "proposed": "View our LinkedIn page",
+   "note": "Shared LinkedInButton default label."
+  },
+  {
+   "key": "contact.success.reset",
+   "file": "src/components/sections/Contact.tsx",
+   "current": "Send another message",
+   "proposed": "Send another message",
+   "note": "No change."
+  },
+  {
+   "key": "footer.description",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "An American technology company building AI, automation, security and analytics around what your business actually needs.",
+   "proposed": "Kestridge AI is a United States technology company based in Illinois. We build, run and support AI, automation, IT security, and data analytics systems.",
+   "note": "Serial comma added to match the rest of the site."
+  },
+  {
+   "key": "footer.col.services",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Services",
+   "proposed": "Services",
+   "note": "No change."
+  },
+  {
+   "key": "footer.col.company",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Company",
+   "proposed": "Company",
+   "note": "No change."
+  },
+  {
+   "key": "footer.col.contact",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Get in touch",
+   "proposed": "Contact",
+   "note": ""
+  },
+  {
+   "key": "footer.link.services",
+   "file": "src/data/services.ts",
+   "current": "AI Solutions / Automation / IT Security / Analytics",
+   "proposed": "AI Solutions / Automation / IT Security / Data Analytics",
+   "note": "The four footer links read their labels from src/data/services.ts, so renaming Analytics to Data Analytics there updates the footer too."
+  },
+  {
+   "key": "footer.link.about",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "About",
+   "proposed": "Company",
+   "note": "The About route no longer exists, so this link currently points at a 404. Repoint it to /#company."
+  },
+  {
+   "key": "footer.link.privacy",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Privacy Policy",
+   "proposed": "Privacy Policy",
+   "note": "No change."
+  },
+  {
+   "key": "footer.link.terms",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Terms of Use",
+   "proposed": "Terms of Use",
+   "note": "No change."
+  },
+  {
+   "key": "footer.link.contactForm",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Send us a message",
+   "proposed": "Contact form",
+   "note": "The link scrolls to the contact form, so the label names the destination."
+  },
+  {
+   "key": "footer.link.email",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "info@aivanta.com",
+   "proposed": "info@kestridgeai.com",
+   "note": "Renders site.email."
+  },
+  {
+   "key": "footer.link.linkedin",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "LinkedIn",
+   "proposed": "LinkedIn",
+   "note": "No change."
+  },
+  {
+   "key": "footer.location",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Illinois, USA",
+   "proposed": "Illinois, United States",
+   "note": "Renders site.location."
+  },
+  {
+   "key": "footer.linkedinButton",
+   "file": "src/components/ui/LinkedInButton.tsx",
+   "current": "Follow us on LinkedIn",
+   "proposed": "View our LinkedIn page",
+   "note": "Same string as ui.linkedinButton.defaultLabel."
+  },
+  {
+   "key": "footer.registration",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Do not ship a placeholder. A bracketed state name in live copy would turn the one fact a reader can verify independently into a blank, and \"registration details on request\" makes a public record sound withheld. When the state of incorporation and the file number are confirmed, publish one line above the copyright: \"Kestridge AI Inc. is registered in the State of [state]. Secretary of State file number [number].\" If incorporation is not confirmed, publish nothing here and remove \"Inc.\" everywhere, including the copyright and the legal pages."
+  },
+  {
+   "key": "footer.copyright",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "© {year} AIVanta Inc. American-based · Global engineering resources.",
+   "proposed": "© {year} Kestridge AI Inc.",
+   "note": "A copyright line is a legal notice and carries the entity only. The location already renders from site.location a few lines above in the same footer."
+  },
+  {
+   "key": "footer.confidentiality",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "All information you share with us is kept strictly confidential.",
+   "proposed": "",
+   "note": "Delete. Confidentiality is stated in the service panels, the security section and the FAQ. In the footer it reads as reassurance rather than fact, which is the register the owner rejected."
+  },
+  {
+   "key": "footer.legal.privacy",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Privacy",
+   "proposed": "Privacy",
+   "note": "No change."
+  },
+  {
+   "key": "footer.legal.terms",
+   "file": "src/components/layout/Footer.tsx",
+   "current": "Terms",
+   "proposed": "Terms",
+   "note": "No change."
+  },
+  {
+   "key": "meta.title",
+   "file": "src/app/layout.tsx",
+   "current": "AIVanta - Applied AI, Automation, Security & Analytics",
+   "proposed": "Kestridge AI | AI Solutions, Automation, IT Security, Data Analytics",
+   "note": "68 characters, so search results may truncate the tail. The full service name is used because \"Kestridge AI | AI,\" stutters in the tab and in results. If a shorter title is required, drop the last item rather than shortening the names."
+  },
+  {
+   "key": "meta.title.template",
+   "file": "src/app/layout.tsx",
+   "current": "%s · AIVanta",
+   "proposed": "%s | Kestridge AI",
+   "note": "Middle dot replaced with a pipe so every separator on the site is plain ASCII."
+  },
+  {
+   "key": "meta.description",
+   "file": "src/app/layout.tsx",
+   "current": "AIVanta is an American technology company delivering applied AI, automation, cybersecurity and analytics - engineered around your business, backed by access to global engineering talent.",
+   "proposed": "Kestridge AI is a United States technology company based in Illinois. We build AI, automation, IT security, and data analytics systems for US businesses.",
+   "note": "153 characters. Also used for Open Graph, Twitter and the Organization schema description."
+  },
+  {
+   "key": "meta.applicationName",
+   "file": "src/app/layout.tsx",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": "Same value for authors, creator, publisher and openGraph.siteName."
+  },
+  {
+   "key": "meta.keywords",
+   "file": "src/app/layout.tsx",
+   "current": "AIVanta, AI solutions, AI consulting, applied AI, automation, cybersecurity, IT security, data analytics, American AI company, enterprise AI, Illinois, United States",
+   "proposed": "Kestridge AI, AI solutions, AI consulting, automation, IT security, cybersecurity, data analytics, Illinois, United States",
+   "note": "Not visible to readers. Marketing phrasing removed."
+  },
+  {
+   "key": "meta.schema.name",
+   "file": "src/app/layout.tsx",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": "Organization and WebSite schema name plus the publisher name."
+  },
+  {
+   "key": "meta.schema.legalName",
+   "file": "src/lib/site.ts",
+   "current": "AIVanta Inc.",
+   "proposed": "Kestridge AI Inc.",
+   "note": "Same value as brand.legalName."
+  },
+  {
+   "key": "meta.schema.slogan",
+   "file": "src/lib/site.ts",
+   "current": "Applied AI, automation, security & analytics for American business.",
+   "proposed": "",
+   "note": "Remove the slogan field from the Organization schema. The firm has no slogan. Use brand.tagline as the schema description instead."
+  },
+  {
+   "key": "manifest.name",
+   "file": "src/app/manifest.ts",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": ""
+  },
+  {
+   "key": "manifest.short_name",
+   "file": "src/app/manifest.ts",
+   "current": "AIVanta",
+   "proposed": "Kestridge",
+   "note": "short_name exists to fit a home screen icon label, so it must be shorter than name. This is the only place the brand appears without \"AI\"."
+  },
+  {
+   "key": "manifest.description",
+   "file": "src/app/manifest.ts",
+   "current": "American technology company delivering applied AI, automation, security and analytics.",
+   "proposed": "United States technology company building AI, automation, IT security, and data analytics systems.",
+   "note": ""
+  },
+  {
+   "key": "site.brand",
+   "file": "src/lib/site.ts",
+   "current": "AIVanta",
+   "proposed": "Kestridge AI",
+   "note": "Same field as brand.name. Always \"Kestridge AI\" in body copy, never \"Kestridge\" alone and never \"KestridgeAI\". The single exception is manifest.short_name."
+  },
+  {
+   "key": "site.responseTime",
+   "file": "src/lib/site.ts",
+   "current": "as soon as possible",
+   "proposed": "",
+   "note": "Remove the field. No copy in the final deck states a response time."
+  },
+  {
+   "key": "cta.mobile.button",
+   "file": "src/components/layout/MobileCTA.tsx",
+   "current": "Start a project",
+   "proposed": "Contact us",
+   "note": "Same string as mobileCta.label."
+  },
+  {
+   "key": "support.rejected.commercialTerms",
+   "file": "src/components/sections/WhyChooseUs.tsx",
+   "current": "",
+   "proposed": "",
+   "note": "Not applied. A line stating that support after launch is covered by a separate monthly agreement would answer a fair question, since continuing support from a four founder firm is clearly not free. Commercial terms are not among the confirmed facts. If the owner confirms them, add one sentence to howWeWork.points.support.body: \"Support after launch is covered by a separate agreement, agreed before the system goes live.\""
+  }
+ ]
+}

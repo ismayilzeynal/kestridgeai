@@ -51,26 +51,11 @@ export function Services() {
   return (
     <section id="services" className="relative scroll-mt-[52px] py-12 sm:scroll-mt-8 sm:py-16 lg:scroll-mt-7 lg:py-12">
       <div className="container-x">
-        {/* Split header: title left, supporting copy right */}
-        <div className="grid items-end gap-x-12 gap-y-4 lg:grid-cols-[1fr_minmax(0,400px)] xl:grid-cols-[1fr_minmax(0,360px)]">
-          <div>
-            <Reveal>
-              <span className="eyebrow">What we do</span>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h2 className="mt-3 text-balance text-3xl text-signal sm:text-[2.4rem] xl:whitespace-nowrap">
-                Services built around{" "}
-                <span className="text-accent-grad">your</span> requirements
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={0.12}>
-            <p className="text-pretty text-[16px] leading-relaxed text-muted lg:pb-1">
-              Four disciplines, one way of working — understand it, plan it,
-              build it into your environment, and stay until it runs.
-            </p>
-          </Reveal>
-        </div>
+        <Reveal>
+          <h2 className="text-balance text-4xl text-signal sm:text-5xl">
+            <span className="text-accent-grad">Four</span> service areas
+          </h2>
+        </Reveal>
 
         {/* ============ MOBILE / TABLET: vertical accordion ============ */}
         <div className="mt-7 flex flex-col gap-3 lg:hidden">
@@ -97,6 +82,7 @@ export function Services() {
                       }, 380);
                     }
                   }}
+                  id={`svc-acc-btn-${s.id}`}
                   aria-expanded={open}
                   aria-controls={`svc-acc-panel-${s.id}`}
                   className="flex w-full items-center gap-3.5 px-4 py-4 text-left"
@@ -125,10 +111,16 @@ export function Services() {
                   />
                 </button>
 
+                {/* Persistent wrapper so aria-controls always resolves, even
+                    while the panel is collapsed. */}
+                <div
+                  id={`svc-acc-panel-${s.id}`}
+                  role="region"
+                  aria-labelledby={`svc-acc-btn-${s.id}`}
+                >
                 <AnimatePresence initial={false}>
                   {open && (
                     <motion.div
-                      id={`svc-acc-panel-${s.id}`}
                       key="panel"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
@@ -141,6 +133,7 @@ export function Services() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                </div>
               </div>
             );
           })}
@@ -216,14 +209,6 @@ export function Services() {
                   );
                 })}
               </div>
-              {/* quiet utility link fills the rail's residual space */}
-              <button
-                onClick={() => scrollToId("contact")}
-                className="mt-3 flex w-full items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-3.5 text-left text-[14px] text-muted transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-ink"
-              >
-                Not sure where to start? Talk to an engineer
-                <ArrowRight className="h-4 w-4 shrink-0 text-accent" />
-              </button>
             </div>
           </Reveal>
 
@@ -263,11 +248,11 @@ export function Services() {
                   ))}
                 </ul>
 
-                {/* Delivery stepper — connected timeline */}
+                {/* Delivery stepper - connected timeline */}
                 <ol className="relative mt-5 grid grid-cols-4 gap-6">
                   <span
                     aria-hidden
-                    className="absolute left-0 right-6 top-[13px] h-px bg-[color:var(--border-strong)]"
+                    className="absolute left-0 right-6 top-[calc(0.875rem-0.5px)] h-px bg-[color:var(--border-strong)]"
                   />
                   {svc.steps.map((step, i) => (
                     <li key={step.phase} className="relative">
@@ -280,24 +265,30 @@ export function Services() {
                       <p className="mt-1 text-[13.5px] leading-snug text-muted">
                         {step.summary}
                       </p>
-                      <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-wide text-faint">
-                        {step.timeline}
-                      </span>
+                      {step.timeline && (
+                        <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-wide text-faint">
+                          {step.timeline}
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ol>
 
-                {/* Footer: confidentiality + CTA */}
+                <p className="mt-3 text-[13px] text-faint">
+                  Each step is scheduled in the written plan before work begins.
+                </p>
+
+                {/* Footer: confidentiality + contact */}
                 <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-3 sm:flex-row sm:items-center">
                   <p className="flex items-center gap-2.5 text-[13.5px] text-faint">
                     <Lock className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.7} />
-                    Confidential by default — NDA on request.
+                    Your information stays confidential.
                   </p>
                   <button
                     onClick={() => startProject(svc.id)}
                     className="btn-primary group shrink-0 !py-3 !px-6 text-[15px]"
                   >
-                    Start your {svc.name} project
+                    Contact us about {svc.name}
                     <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
@@ -310,7 +301,7 @@ export function Services() {
   );
 }
 
-/** Expanded accordion content — tuned for small screens. */
+/** Expanded accordion content - tuned for small screens. */
 function AccordionBody({ svc }: { svc: Service }) {
   return (
     <div>
@@ -337,7 +328,7 @@ function AccordionBody({ svc }: { svc: Service }) {
       <div className="mt-6">
         <div className="mb-3 flex items-center gap-3">
           <span className="font-mono text-[10.5px] uppercase tracking-label text-faint">
-            How we deliver
+            Project steps
           </span>
           <span className="hairline flex-1" />
         </div>
@@ -358,9 +349,11 @@ function AccordionBody({ svc }: { svc: Service }) {
                   <h4 className="text-[15.5px] font-semibold tracking-tight text-ink">
                     {step.phase}
                   </h4>
-                  <span className="font-mono text-[11px] uppercase tracking-wide text-faint">
-                    {step.timeline}
-                  </span>
+                  {step.timeline && (
+                    <span className="font-mono text-[11px] uppercase tracking-wide text-faint">
+                      {step.timeline}
+                    </span>
+                  )}
                 </div>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-muted">
                   {step.what}
@@ -371,16 +364,20 @@ function AccordionBody({ svc }: { svc: Service }) {
         </ol>
       </div>
 
+      <p className="mt-1 text-[13px] text-faint">
+        Each step is scheduled in the written plan before work begins.
+      </p>
+
       <button
         onClick={() => startProject(svc.id)}
         className="btn-primary group mt-5 w-full !py-3.5 text-[15px]"
       >
-        Start your {svc.name} project
+        Contact us about {svc.name}
         <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
       </button>
       <p className="mt-3 flex items-center justify-center gap-2 text-center text-[12.5px] text-faint">
         <Lock className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={1.7} />
-        Confidential by default — NDA on request.
+        Your information stays confidential.
       </p>
     </div>
   );

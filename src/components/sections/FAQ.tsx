@@ -1,32 +1,38 @@
-import { Plus, ArrowRight } from "lucide-react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { site } from "@/lib/site";
 
 const faqs = [
   {
-    q: "What does AIVanta do?",
-    a: "We design, build and secure the systems businesses rely on — applied AI solutions, business automation, cybersecurity and data analytics. Every engagement is built around your specific requirements.",
+    q: "What does Kestridge AI do?",
+    a: "We build the four kinds of systems listed above, connect them to what you already run, and support them after launch.",
   },
   {
-    q: "Where is AIVanta based?",
-    a: "AIVanta is an American technology company based in Illinois, USA. We work with a global network of engineering specialists, so you get local accountability with global capability.",
+    q: "What kinds of work do you take on?",
+    a: "Common examples are entering incoming orders, matching invoices, routing approvals, and reporting from records you already keep.",
   },
   {
-    q: "How do we start working together?",
-    a: `The fastest way is the contact form on this site — tell us what you're trying to solve. We reply ${site.responseTime}, then we scope the work with you, agree a plan and timeline, and start building.`,
+    q: "Where is Kestridge AI based?",
+    a: "Kestridge AI is based in Illinois. We also work with engineering specialists outside the United States.",
   },
   {
-    q: "How do you handle data security and confidentiality?",
-    a: "Confidentiality is the foundation of how we work. Every engagement is covered by strict confidentiality, NDAs on request, least-privilege access, and end-to-end encryption. We never reuse or train shared models on your data.",
+    q: "How does a project start?",
+    a: "A project starts with a consultation to gather your requirements. We then send a written plan and proposed solution for your approval.",
   },
   {
-    q: "Do you work with startups and small companies, or only large enterprises?",
-    a: "Both. We work with startups and mid-size companies through to large enterprises — every engagement is scoped to fit your needs and budget.",
+    q: "How do you handle our data?",
+    a: "We encrypt your data, limit who can reach it, and use it only for your work. A nondisclosure agreement is available on request.",
   },
   {
-    q: "What does a project cost?",
-    a: "It depends on scope, which we define together before any commitment. The first conversation is always free, with no obligation.",
+    q: "What size companies do you work with?",
+    a: "We accept projects from companies of any size. Scope, schedule, and cost are set per project in the written plan.",
+  },
+  {
+    q: "How is cost determined?",
+    a: "Cost depends on the scope of the work, which is set in the written plan. Nothing is committed until you approve it.",
+  },
+  {
+    q: "What do you need from us during a project?",
+    a: "One person who knows the process, and access to the systems involved.",
   },
 ];
 
@@ -42,59 +48,47 @@ const faqSchema = {
 
 export function FAQ() {
   return (
-    <section id="faq" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20">
+    <section
+      id="questions"
+      className="relative scroll-mt-5 pb-20 pt-16 sm:pb-28 sm:pt-20"
+    >
       <div className="container-x">
-        <SectionHeading
-          eyebrow="Questions"
-          title={
-            <>
-              Answers before you <span className="text-accent-grad">ask</span>
-            </>
-          }
-        />
+        <Reveal>
+          <h2 className="text-balance text-4xl text-signal sm:text-5xl">
+            Common <span className="text-accent-grad">questions</span>
+          </h2>
+        </Reveal>
 
-        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="flex flex-col gap-3">
-            {faqs.map((f, i) => (
-              <Reveal key={f.q} delay={(i % 6) * 0.04}>
-                <details className="group card rounded-2xl px-5 py-1 sm:px-6 [&_summary::-webkit-details-marker]:hidden">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[17.5px] font-semibold text-ink">
-                    {f.q}
-                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line text-accent transition-transform duration-300 group-open:rotate-45">
-                      <Plus className="h-4 w-4" strokeWidth={2} />
-                    </span>
-                  </summary>
-                  <p className="pb-5 pr-10 text-pretty leading-relaxed text-muted">
-                    {f.a}
-                  </p>
-                </details>
-              </Reveal>
-            ))}
-          </div>
+        {/* Answers stay open by design: short pairs, no expanding panels. */}
+        <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:mt-12 xl:grid-cols-3 xl:gap-x-8">
+          {faqs.map((f, i) => (
+            <Reveal
+              key={f.q}
+              delay={(i % 2) * 0.05}
+              className="border-t border-line pt-5"
+            >
+              <dt className="text-[16px] font-semibold tracking-tight text-ink">
+                {f.q}
+              </dt>
+              <dd className="mt-2 text-pretty text-[14.5px] leading-relaxed text-muted">
+                {f.a}
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
 
-          {/* Companion rail — balances the two-column rhythm */}
-          <Reveal delay={0.1}>
-            <aside className="card hidden rounded-2xl p-6 lg:sticky lg:top-24 lg:block">
-              <h3 className="text-[18px] font-bold tracking-tight text-ink">
-                Still have questions?
-              </h3>
-              <p className="mt-2 text-[14.5px] leading-relaxed text-muted">
-                Tell us what you&apos;re working on — an engineer will get back
-                to you {site.responseTime}.
-              </p>
-              <a href="#contact" className="btn-primary group mt-5 w-full !py-3 text-[14.5px]">
-                Ask us directly
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-3 block text-center text-[13.5px] text-muted underline-offset-4 hover:text-ink hover:underline"
-              >
-                {site.email}
-              </a>
-            </aside>
-          </Reveal>
-        </div>
+        <Reveal delay={0.1}>
+          <p className="mt-10 text-[15px] text-muted">
+            For anything not covered here, write to us at{" "}
+            <a
+              href={`mailto:${site.email}`}
+              className="font-medium text-accent underline-offset-4 hover:underline"
+            >
+              {site.email}
+            </a>
+            .
+          </p>
+        </Reveal>
       </div>
 
       <script

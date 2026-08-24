@@ -1,62 +1,49 @@
-import {
-  Handshake,
-  FileCheck2,
-  MessageSquareDot,
-  CheckCircle2,
-  Clock,
-  ArrowRight,
-} from "lucide-react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Handshake, FileCheck2, Boxes, LifeBuoy } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
 const points = [
   {
     icon: Handshake,
-    title: "We start by understanding you",
-    body: "We sit down with you and learn exactly what you need before anyone writes a line of code.",
+    title: "We start with your requirements",
+    body: "We meet first and write down what the business needs, before any work starts.",
   },
   {
     icon: FileCheck2,
-    title: "We agree on what & when",
-    body: "Clear scope, clear deliverables, clear timeline. You know what you're getting and by when.",
+    title: "We agree on the plan in writing",
+    body: "You get the solution and the schedule in writing. Work starts once you approve it.",
   },
   {
-    icon: MessageSquareDot,
-    title: "We keep you informed",
-    body: "You stay in the loop through the entire engagement — no surprises, no black boxes.",
+    icon: Boxes,
+    title: "We build inside your existing systems",
+    body: "We connect it to the systems your staff already use, and test it there before anyone relies on it.",
   },
   {
-    icon: CheckCircle2,
-    title: "It works in your environment",
-    body: "When we're done, we make sure everything actually works where it matters: in production.",
-  },
-  {
-    icon: Clock,
-    title: "We're here 24/7",
-    body: "If something comes up, we're available around the clock. We don't walk away.",
+    icon: LifeBuoy,
+    title: "We support it after launch",
+    body: "We monitor the systems we run for you and fix issues as they come up.",
   },
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="relative py-24 sm:py-32">
+    <section
+      id="process"
+      aria-label="How we run a project"
+      className="relative scroll-mt-5 py-20 sm:py-28 lg:scroll-mt-8"
+    >
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
-            <SectionHeading
-              eyebrow="How we work"
-              title={
-                <>
-                  Why companies <span className="text-accent-grad">choose</span> us
-                </>
-              }
-              description="We're not a vendor that disappears after kickoff. We work like part of your team — from the first conversation to long after launch."
-            />
-            <Reveal delay={0.18}>
-              <a href="#contact" className="btn-primary group mt-8 inline-flex">
-                Work with us
-                <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
+            <Reveal>
+              <h2 className="text-balance text-4xl text-signal sm:text-5xl">
+                How we <span className="text-accent-grad">run</span> a project
+              </h2>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
+                We follow the same method on every project, from the first
+                consultation to support after launch.
+              </p>
             </Reveal>
           </div>
 

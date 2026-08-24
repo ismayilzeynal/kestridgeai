@@ -1,5 +1,5 @@
 ================================================================
-  AIVANTA SAYTI — TAMAMLANACAQ İŞLƏR SİYAHISI
+  KESTRIDGE AI SAYTI - TAMAMLANACAQ İŞLƏR SİYAHISI
   Hazırlanma tarixi: 14 iyul 2026
   Canlı sayt: https://testlogo-site.vercel.app
 ================================================================
@@ -11,15 +11,15 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
  1. DOMEN VƏ BREND
 ────────────────────────────────────────────────────────────────
-[ ] [VACIB] Custom domen almaq (məs. aivanta.com / aivanta.ai)
+[ ] [VACIB] Custom domen almaq (məs. kestridge.com)
       → Vercel > Project > Settings > Domains bölməsində qoşmaq
       → Kodda yenilənməli: src/lib/site.ts içində `url` sahəsi
-[ ] [VACIB] Domen emaili qurmaq (info@aivanta.com)
+[ ] [VACIB] Domen emaili qurmaq (info@kestridge.com)
       → Google Workspace və ya Zoho Mail
       → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
       → Kodda yenilənməli: src/lib/site.ts içində `email` sahəsi
 [ ] [VACIB] LinkedIn şirkət səhifəsi yaratmaq
-      → Hazır assetlər: media-logo-assets/banner/aivanta-linkedin-1584x396.png
+      → Hazır assetlər: media-logo-assets/banner/kestridge-linkedin-1584x396.png
         (cover) və media-logo-assets/avatar/ (profil şəkli)
       → Real URL kodda yenilənməli: src/lib/site.ts içində `linkedin`
 [ ] [ORTA]  Logo son təsdiq (hazırkı kit saytda inteqrasiya olunub;
@@ -33,13 +33,12 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
  2. KONTENT (real məlumatlar)
 ────────────────────────────────────────────────────────────────
-[ ] [VACIB] Komanda bölməsi — real üzvlər:
+[ ] [VACIB] Komanda bölməsi - real üzvlər:
       → Real ad, vəzifə, fokus sahəsi
-      → Real fotolar (hazırda randomuser.me placeholder-ləri —
-        real şəxslərin şəkilləridir, canlı saytda qalması hüquqi riskdir!)
+      → Real fotolar (hazırda randomuser.me placeholder-ləri - real şəxslərin şəkilləridir, canlı saytda qalması hüquqi riskdir!)
       → Hər üzvün ŞƏXSİ LinkedIn profil linki
       → Fayl: src/data/team.ts
-[ ] [VACIB] "Companies our team has worked with" — real şirkətlər:
+[ ] [VACIB] "Companies our team has worked with" - real şirkətlər:
       → Hazırkı loqolar (Anthropic, NVIDIA, McDonald's və s.) placeholder-dir.
         Komandanın həqiqətən işlədiyi şirkətlərlə əvəzlənməlidir,
         əks halda yanlış təqdimat (false advertising) riski var.
@@ -87,13 +86,13 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
 [x] [VACIB] Privacy Policy səhifəsi (form şəxsi məlumat topladığı üçün
       ABŞ ştat qanunları baxımından lazımdır) + footer-də link
-      → HAZIRDIR: /privacy — hüquqşünas yoxlaması hələ qalır
+      → HAZIRDIR: /privacy - hüquqşünas yoxlaması hələ qalır
 [x] [ORTA]  Terms of Service (opsional, amma enterprise müştərilər axtarır)
-      → HAZIRDIR: /terms — hüquqşünas yoxlaması hələ qalır
-[ ] [VACIB] COOKIE CONSENT — YADDAN ÇIXMASIN! Hazırda saytda cookie yoxdur,
+      → HAZIRDIR: /terms - hüquqşünas yoxlaması hələ qalır
+[ ] [VACIB] COOKIE CONSENT - YADDAN ÇIXMASIN! Hazırda saytda cookie yoxdur,
       ona görə banner göstərilmir (düzgündür). AMMA gələcəkdə cookie
       yaradan hər hansı şey əlavə olunanda banner aktiv OLMALIDIR:
-      → Google Analytics: AVTOMATİKDİR — Vercel-də NEXT_PUBLIC_GA_ID
+      → Google Analytics: AVTOMATİKDİR - Vercel-də NEXT_PUBLIC_GA_ID
         qoyulan kimi banner çıxır, GA yalnız "Accept"-dən sonra yüklənir
         (kod: src/components/CookieConsent.tsx)
       → Backend qoşulanda: form/sessiya cookie yaradırsa →
@@ -101,7 +100,7 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → Başqa xidmət (reklam pikseli, chat widget, video embed) əlavə
         olunanda: həmin xidməti də consent-ə bağla + Privacy Policy-nin
         3-cü bölməsini (Cookies) yenilə
-[ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) — footer-də "AIVanta Inc."
+[ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) - footer-də "Kestridge AI Inc."
       yazılıb; qeydiyyat fərqli olsa kodda yenilənməli: src/lib/site.ts
       içində `legalName`
 
@@ -110,17 +109,10 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
 [ ] [ORTA]  Real domendə Lighthouse audit (performance / SEO / a11y)
 [ ] [ORTA]  Uptime monitorinq (UptimeRobot pulsuz plan kifayətdir)
-[x] [SONRA] Vercel Analytics — HAZIRDIR və İŞLƏYİR (cookiesiz, banner
+[x] [SONRA] Vercel Analytics - HAZIRDIR və İŞLƏYİR (cookiesiz, banner
       tələb etmir; Vercel > Project > Analytics tab-da statistika)
       Speed Insights hələ qoşulmayıb (opsional)
 
-────────────────────────────────────────────────────────────────
- 7. GƏLƏCƏK KONTENT (satışı gücləndirmək üçün)
-────────────────────────────────────────────────────────────────
-[ ] [SONRA] Case study / portfolio bölməsi (ilk layihələrdən sonra)
-[ ] [SONRA] Müştəri rəyləri (testimonials)
-[ ] [SONRA] Blog / insights (SEO + AI-axtarış görünürlüyü üçün güclü)
-[ ] [SONRA] E-poçt newsletter (opsional)
 
 ================================================================
  QEYD: Kod tərəfində hazır olanlar (heç nə etmək lazım deyil):

@@ -4,12 +4,19 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description:
-    "The terms that govern your use of the AIVanta website.",
+  description: `The terms that govern your use of the ${site.brand} website.`,
   alternates: { canonical: "/terms" },
+  openGraph: {
+    title: `Terms of Use | ${site.brand}`,
+    description: `The terms that govern your use of the ${site.brand} website.`,
+    url: "/terms",
+    type: "website",
+    locale: "en_US",
+    siteName: site.brand,
+  },
 };
 
-const UPDATED = "July 14, 2026";
+const UPDATED = "August 24, 2026";
 
 export default function TermsPage() {
   return (
@@ -17,13 +24,13 @@ export default function TermsPage() {
       <LegalHeader
         title="Terms of Use"
         updated={UPDATED}
-        intro={`These Terms of Use ("Terms") govern your access to and use of this website, operated by ${site.legalName} ("AIVanta", "we", "us" or "our"). By accessing or using the site, you agree to these Terms. If you do not agree, please do not use the site.`}
+        intro={`These Terms of Use ("Terms") govern your access to and use of this website, operated by ${site.legalName} ("Kestridge AI", "we", "us" or "our"). By accessing or using the site, you agree to these Terms. If you do not agree, please do not use the site.`}
       />
       <LegalBody>
         <h2>1. Who we are</h2>
         <p>
           {site.legalName} is a technology company based in Illinois, United
-          States, providing applied AI, automation, IT security and analytics
+          States, providing AI, automation, IT security, and data analytics
           services. You can contact us at{" "}
           <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
@@ -31,10 +38,10 @@ export default function TermsPage() {
         <h2>2. This website is informational</h2>
         <p>
           The content on this website is provided for general information about
-          AIVanta and our services. It does not constitute a binding offer,
+          Kestridge AI and our services. It does not constitute a binding offer,
           professional advice, or a guarantee of any particular result. Any
           services we provide to a client are governed by a separate written
-          agreement between AIVanta and that client; if there is a conflict
+          agreement between Kestridge AI and that client; if there is a conflict
           between these Terms and such an agreement, the agreement controls for
           the services it covers.
         </p>
@@ -43,7 +50,7 @@ export default function TermsPage() {
         <p>
           We grant you a limited, non-exclusive, non-transferable, revocable
           license to access and use this website for its intended purpose:
-          learning about AIVanta and contacting us. You agree that you will
+          learning about Kestridge AI and contacting us. You agree that you will
           not:
         </p>
         <ul>
@@ -76,8 +83,8 @@ export default function TermsPage() {
 
         <h2>4. Intellectual property</h2>
         <p>
-          The website and its content — including text, graphics, logos, the
-          AIVanta name and mark, page designs and underlying code — are owned
+          The website and its content, including text, graphics, logos, the
+          Kestridge AI name and mark, page designs and underlying code, are owned
           by {site.legalName} or its licensors and are protected by copyright,
           trademark and other intellectual-property laws. You may view, print
           or download content for your personal or internal business use in
@@ -94,9 +101,9 @@ export default function TermsPage() {
           <a href="/privacy">Privacy Policy</a>, and we treat project
           information you share with us as confidential, as described on this
           website. Please do not submit trade secrets or highly sensitive
-          material through the contact form — if your inquiry requires it, ask
+          material through the contact form. If your inquiry requires it, ask
           us first and we will agree on a secure channel and, where
-          appropriate, a non-disclosure agreement.
+          appropriate, a nondisclosure agreement.
         </p>
 
         <h2>6. Third-party links and services</h2>
@@ -126,8 +133,8 @@ export default function TermsPage() {
           TO THE MAXIMUM EXTENT PERMITTED BY LAW, {`${site.legalName.toUpperCase()}`}{" "}
           AND ITS OFFICERS, DIRECTORS, EMPLOYEES AND AGENTS WILL NOT BE LIABLE
           FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR
-          PUNITIVE DAMAGES — INCLUDING LOST PROFITS, LOST DATA OR BUSINESS
-          INTERRUPTION — ARISING OUT OF OR RELATED TO YOUR USE OF, OR INABILITY
+          PUNITIVE DAMAGES, INCLUDING LOST PROFITS, LOST DATA OR BUSINESS
+          INTERRUPTION, ARISING OUT OF OR RELATED TO YOUR USE OF, OR INABILITY
           TO USE, THIS WEBSITE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY
           OF SUCH DAMAGES. OUR TOTAL AGGREGATE LIABILITY FOR ALL CLAIMS RELATING
           TO THE WEBSITE WILL NOT EXCEED ONE HUNDRED US DOLLARS (USD $100).

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const KEY = "aivanta-cookie-consent"; // "granted" | "denied"
+const KEY = "kestridge-cookie-consent"; // "granted" | "denied"
 
 function loadAnalytics(gaId: string) {
   if (document.getElementById("ga-script")) return;
@@ -66,7 +66,7 @@ export function CookieConsent({ gaId }: { gaId?: string }) {
     >
       <p className="text-sm leading-relaxed text-muted">
         We use a few cookies to understand how this site is used. You can
-        accept or decline — details in our{" "}
+        accept or decline. Details are in our{" "}
         <Link
           href="/privacy"
           className="font-medium text-accent underline-offset-4 hover:underline"

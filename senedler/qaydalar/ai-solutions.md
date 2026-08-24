@@ -1,4 +1,4 @@
-# AI Solutions — İş Qaydaları
+# AI Solutions - İş Qaydaları
 
 [Ümumi qaydalar](00-umumi.md) tam keçərlidir. Aşağıdakılar AI
 layihələrinə xas əməli qaydalar, tool stack və prosedurlardır.
@@ -18,9 +18,9 @@ layihələrinə xas əməli qaydalar, tool stack və prosedurlardır.
 
 ## 2. Müştəridən nə istəyirik
 
-- **Data nümunəsi** — qiymətləndirmə üçün (anonimləşdirilmiş ola bilər).
-- **Data sahibi ilə birbaşa əlaqə** — sxem/məna sualları üçün.
-- **Domain ekspertinin vaxtı** — həftədə min. 1–2 saat.
+- **Data nümunəsi** - qiymətləndirmə üçün (anonimləşdirilmiş ola bilər).
+- **Data sahibi ilə birbaşa əlaqə** - sxem/məna sualları üçün.
+- **Domain ekspertinin vaxtı** - həftədə min. 1 to 2 saat.
 - **İş mühiti:** on-prem işlənəcəksə GPU-lu VM (tipik: NVIDIA 24 GB+ VRAM,
   8 vCPU, 32 GB RAM, 200 GB SSD); cloud-dursa ayrıca project + GPU instance
   kvotası. Smeta əvvəlcədən verilir.
@@ -28,19 +28,19 @@ layihələrinə xas əməli qaydalar, tool stack və prosedurlardır.
 ## 3. Data və model qaydaları
 
 - **Reproduksiya məcburidir:** hansı model, hansı data (DVC hash), hansı
-  parametrlə (MLflow run) — hamısı qeyddə. "Bu nəticəni necə aldıq"
+  parametrlə (MLflow run) - hamısı qeyddə. "Bu nəticəni necə aldıq"
   sualının cavabı həmişə olmalıdır.
 - **Data lineage** təhvil paketinə daxildir.
 - PII training datasından mümkün qədər çıxarılır / maskalanır.
 - Test dataseti training-dən ayrı; qəbul yalnız test datası nəticəsi ilə.
 
-## 4. Üçüncü tərəf LLM (OpenAI / Anthropic / və s.) — data governance
+## 4. Üçüncü tərəf LLM (OpenAI / Anthropic / və s.) - data governance
 
 Bu, ən çox unudulan risk. Qayda:
 
 - **Standart: müştəri datası (xüsusən PII) 3-cü tərəf API-yə göndərilmir.**
 - Göndəriləcəksə: (1) **əvvəlcədən yazılı razılıq**, (2) hansı data,
-  hansı provayderə — sənədləşir, (3) mümkün olan yerdə PII göndərişdən
+  hansı provayderə - sənədləşir, (3) mümkün olan yerdə PII göndərişdən
   əvvəl **redaksiya/maskalama**.
 - Provayderin **"zero-retention" / enterprise** rejimi seçilir (data
   training üçün saxlanmasın).
@@ -54,16 +54,16 @@ Bu, ən çox unudulan risk. Qayda:
 - Qəbul kriteriyası müqavilədə **rəqəmlə**: min. dəqiqlik / precision-recall
   / cavab müddəti.
 - Metrik POC-da ölçülür; hədəf realdırsa təsdiqlənir, deyilsə birlikdə
-  yenidən baxılır — sonda sürpriz olmur.
+  yenidən baxılır - sonda sürpriz olmur.
 
 ## 6. Production qaydaları
 
 - Model canlıya çıxanda **monitorinq:** performans, cavab müddəti, data
-  drift (Evidently). Alert kimə gedir — runbook-da.
+  drift (Evidently). Alert kimə gedir - runbook-da.
 - Yüksək riskli qərarlarda **human-in-the-loop** dizaynda əvvəlcədən var.
 - Yeni model versiyası prod-a yalnız köhnə ilə **müqayisə testindən** sonra;
   rollback həmişə mümkün.
-- **GPU instansları boş qalanda söndürülür** — xərc yeyir (unudulan nüans).
+- **GPU instansları boş qalanda söndürülür** - xərc yeyir (unudulan nüans).
 
 ## 7. Təhvildə əlavə olaraq
 

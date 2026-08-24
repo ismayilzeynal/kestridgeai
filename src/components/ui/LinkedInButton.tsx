@@ -3,7 +3,7 @@ import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
 import { site } from "@/lib/site";
 
 export function LinkedInButton({
-  label = "Follow us on LinkedIn",
+  label = "View our LinkedIn page",
   variant = "ghost",
   className = "",
 }: {

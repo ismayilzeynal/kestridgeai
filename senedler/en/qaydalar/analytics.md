@@ -1,4 +1,4 @@
-# Analytics — Delivery Rules
+# Analytics - Delivery Rules
 
 The [General Rules](00-umumi.md) fully apply. Below are the operational
 rules, tool stack and procedures specific to analytics projects.
@@ -16,12 +16,12 @@ rules, tool stack and procedures specific to analytics projects.
 ## 2. What we ask from the client
 
 - **Read-only access:** a read-only replica or a dedicated analytics user.
-  **We never ask for write access to a production database — never.**
-- Contact with the source-system owners (CRM admin, DB admin) — for schema
+  **We never ask for write access to a production database - never.**
+- Contact with the source-system owners (CRM admin, DB admin) - for schema
   questions.
 - **A KPI owner:** a business-side owner for every metric (they approve
   its definition).
-- **Working environment:** where the warehouse lives — the client's cloud
+- **Working environment:** where the warehouse lives - the client's cloud
   (separate project) or a VM (standard spec; disk can grow with data
   volume). The BI tool follows existing licenses.
 
@@ -33,17 +33,17 @@ rules, tool stack and procedures specific to analytics projects.
   business hours / against a replica; the first run is agreed with the DB
   admin.
 - **Runaway-cost** control: an uncontrolled heavy query on
-  Snowflake/BigQuery can create a large bill — queries are optimized and
+  Snowflake/BigQuery can create a large bill - queries are optimized and
   limited (a forgotten risk).
 - PII fields appear in dashboards only when necessary + behind
   **role-based access (RLS)**; with **masking** where needed.
 
 ## 4. Metric rules (semantic layer)
 
-- **A metric definitions document is mandatory:** for every KPI — name,
+- **A metric definitions document is mandatory:** for every KPI - name,
   formula, source fields, filters, exceptions. The KPI owner approves it
   in writing.
-- A single source (dbt / semantic layer) — **every dashboard uses the same
+- A single source (dbt / semantic layer) - **every dashboard uses the same
   definition.** Otherwise executives see conflicting numbers (the most
   common problem).
 - When a definition changes, the document is updated + dated.
@@ -58,10 +58,10 @@ rules, tool stack and procedures specific to analytics projects.
 
 ## 6. Refresh and testing
 
-- **dbt tests:** freshness, uniqueness, not-null — part of the pipeline.
+- **dbt tests:** freshness, uniqueness, not-null - part of the pipeline.
 - The refresh schedule is documented: which data, how often, how much lag
   is normal (freshness SLA).
-- On a pipeline failure → who gets the alert and what to do — in the
+- On a pipeline failure → who gets the alert and what to do - in the
   runbook.
 - Refresh windows are away from the source's peak hours.
 
@@ -72,4 +72,4 @@ rules, tool stack and procedures specific to analytics projects.
   dashboard (dbt docs).
 - A guide for adding a user / granting access.
 - A short path for adding a new metric in the future (whether they do it
-  or we do — same rules).
+  or we do - same rules).

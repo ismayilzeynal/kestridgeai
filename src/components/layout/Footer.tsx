@@ -13,8 +13,8 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-muted">
-              An American technology company building AI, automation, security
-              and analytics around what your business actually needs.
+              A United States technology company in Illinois. We build, run and
+              support AI, automation, IT security, and data analytics systems.
             </p>
             <div className="mt-6">
               <LinkedInButton />
@@ -22,9 +22,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-mono text-[11px] uppercase tracking-label text-faint">
+            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
               Services
-            </h4>
+            </h3>
             <ul className="mt-5 flex flex-col gap-3">
               {services.map((s) => (
                 <li key={s.id}>
@@ -40,16 +40,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-mono text-[11px] uppercase tracking-label text-faint">
+            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
               Company
-            </h4>
+            </h3>
             <ul className="mt-5 flex flex-col gap-3">
               <li>
                 <Link
-                  href="/about"
+                  href="/#company"
                   className="link-underline text-sm text-muted hover:text-ink"
                 >
-                  About
+                  Company
                 </Link>
               </li>
               <li>
@@ -72,9 +72,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-mono text-[11px] uppercase tracking-label text-faint">
-              Get in touch
-            </h4>
+            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
+              Contact
+            </h3>
             <ul className="mt-5 flex flex-col gap-4">
               <li>
                 <Link
@@ -85,7 +85,7 @@ export function Footer() {
                     className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5"
                     strokeWidth={1.7}
                   />
-                  Send us a message
+                  Contact form
                 </Link>
               </li>
               <li>
@@ -120,13 +120,9 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <p className="text-xs text-faint">
-            © {new Date().getFullYear()} {site.legalName} American-based ·
-            Global engineering resources.
+            © {new Date().getFullYear()} {site.legalName}
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p className="text-xs text-faint">
-              All information you share with us is kept strictly confidential.
-            </p>
             <Link
               href="/privacy"
               className="text-xs text-faint transition-colors hover:text-ink"

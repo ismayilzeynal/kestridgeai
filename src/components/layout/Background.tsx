@@ -3,7 +3,7 @@ export function Background() {
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {/* base wash */}
       <div className="absolute inset-0 bg-bg" />
-      {/* soft tints — plain radial gradients (no blur filters: cheap to paint) */}
+      {/* soft tints - plain radial gradients (no blur filters: cheap to paint) */}
       <div
         className="absolute -top-40 left-1/2 h-[620px] w-[1100px] -translate-x-1/2"
         style={{

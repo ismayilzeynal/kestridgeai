@@ -1,11 +1,15 @@
-# AIVanta — service site (frontend)
+# Kestridge AI - service site (frontend)
 
-Marketing site for **AIVanta**, an American (Illinois, USA) technology company
-offering **AI Solutions, Automation, IT Security, and Analytics** to US business.
+Marketing site for **Kestridge AI**, a United States (Illinois) technology company
+offering **AI Solutions, Automation, IT Security, and Data Analytics** to US
+businesses.
 
-Frontend only — **Next.js 14 (App Router) · TypeScript · Tailwind CSS ·
+Frontend only - **Next.js 14 (App Router) · TypeScript · Tailwind CSS ·
 framer-motion**. No backend yet: the contact form is a simulated client-side
 submit (wire it up later).
+
+The site is one scrolling page plus two legal pages. `/about` used to be its own
+route; it now redirects to the `#company` section on the home page.
 
 ## Run
 
@@ -21,48 +25,80 @@ npm run start    # serve the production build
 ```
 src/
   app/
-    layout.tsx        chrome (Navbar/Footer/Background) + fonts + SEO metadata + JSON-LD + GA hook
-    globals.css       light-theme design tokens (RGB-channel CSS vars) + utilities
-    page.tsx          home section assembly
-    about/page.tsx    About page
+    layout.tsx           chrome (Navbar/Footer/Background) + fonts + SEO metadata + JSON-LD + GA hook
+    globals.css          light-theme design tokens (RGB-channel CSS vars) + utilities
+    page.tsx             home section assembly
+    privacy/ terms/      legal pages
+    opengraph-image.tsx  social preview image, rendered per request by next/og on the edge
     sitemap.ts robots.ts manifest.ts   SEO route handlers
-    icon.svg          favicon (placeholder mark)
+    icon.svg             favicon (placeholder mark)
   components/
-    layout/           Navbar, Footer, Background, ScrollProgress, MobileCTA
-    sections/         Hero, TrustBar, WhyChooseUs, Services, Team, Security, FAQ, CTABand, Contact
-    ui/               Reveal, Logo, LinkedInButton, MarqueeLogos, SectionHeading
-  data/               services.ts, team.ts, companies.ts
-  lib/                site.ts (brand/contact/nav), scroll.ts (nav-offset scrolling)
+    layout/     Navbar, Footer, Background, ScrollProgress, MobileCTA
+    sections/   Hero, TrustBar, Company, Services, WhyChooseUs, Team, Security, FAQ, Contact
+    legal/      shared layout for the privacy and terms pages
+    ui/         Reveal, Logo, LinkedInButton, LinkedInIcon, MarqueeLogos
+    CookieConsent.tsx  consent-gated Google Analytics loader
+    SmoothAnchors.tsx  routes in-page hash links through lib/scroll.ts
+    Providers.tsx      framer-motion reduced-motion config
+  data/         services.ts, team.ts, companies.ts
+  lib/          site.ts (brand/contact/nav), scroll.ts (nav-offset scrolling + focus move)
+public/
+  brand/        logo mark and lockups (placeholder art)
+  logos/        company logos for the marquee, sourced from each organization
+  team/         founder portraits
 ```
 
-## Placeholders to replace before launch
+Section ids used by the navigation: `top`, `company`, `services`, `process`,
+`founders`, `security`, `questions`, `contact`.
+
+## Open before launch
 
 | What | Where | Note |
 | --- | --- | --- |
-| Logo artwork | `ui/Logo.tsx`, `app/icon.svg` | name is final (AIVanta); logo art is a temporary mark |
-| Production domain | `lib/site.ts` (`url`) | currently the Vercel URL — update when the custom domain is live |
-| Contact email | `lib/site.ts` (`email`) | `info@aivanta.com` placeholder |
-| LinkedIn URL | `lib/site.ts` (`linkedin`) | placeholder company URL |
-| Office address | `about/page.tsx`, `lib/site.ts` | "Illinois, USA" until a precise address is set |
-| Team members + photos | `data/team.ts` | placeholder faces from randomuser.me |
-| "Previously worked at" logos | `data/companies.ts` | placeholder brand marks via Simple Icons CDN |
+| Logo artwork | `public/brand/`, `app/icon.svg`, `app/apple-icon.png` | name is final (Kestridge AI); logo art is a temporary mark |
+| Production domain | `lib/site.ts` (`url`) | currently the Vercel URL, update when the custom domain is live |
+| Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
+| Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
 | Form submit | `components/sections/Contact.tsx` (`onSubmit`) | replace the simulated `setTimeout` with a real API call |
+| Spam protection | contact form | honeypot field or Cloudflare Turnstile |
+
+## Copy
+
+All user-facing strings were rewritten in one pass. The full before/after record,
+with the reason for each change, is in `copy-deck.json` at the repo root.
+
+House rules the copy follows: no marketing language, no slogans, no rhetorical
+question headings, plain American business English, sentence case for headings
+and buttons, and **no em dash or en dash characters anywhere** (plain hyphens
+only).
 
 ## SEO & analytics
 
-- **Metadata**: title/description/OpenGraph/Twitter + canonical per page (`layout.tsx`, `about/page.tsx`).
-- **Structured data (JSON-LD)**: `Organization` + `WebSite` in `layout.tsx`; `FAQPage` in `components/sections/FAQ.tsx` — helps Google rich results and AI answer engines.
-- **Crawling**: `sitemap.ts` → `/sitemap.xml`, `robots.ts` → `/robots.txt`, `manifest.ts` → `/manifest.webmanifest`.
-- **Google Analytics / Ads**: set env var `NEXT_PUBLIC_GA_ID` (e.g. `G-XXXX` or `AW-XXXX`) in Vercel → the gtag script in `layout.tsx` activates automatically. Add conversion events at campaign time.
-- **Done at campaign time (post-deploy)**: verify the domain in Google Search Console, submit the sitemap, create the Google Ads account + conversion pixel. Nothing else in the code blocks this.
+- **Metadata**: title/description/OpenGraph/Twitter + canonical per page
+  (`layout.tsx`, `privacy/page.tsx`, `terms/page.tsx`).
+- **Social image**: `app/opengraph-image.tsx` renders it from `site.brand`, so it
+  tracks the brand name automatically. There is no separate `twitter-image` route;
+  Next reuses the OpenGraph image for Twitter/X cards.
+- **Structured data (JSON-LD)**: `Organization` + `WebSite` in `layout.tsx`;
+  `FAQPage` in `components/sections/FAQ.tsx`.
+- **Crawling**: `sitemap.ts` → `/sitemap.xml`, `robots.ts` → `/robots.txt`,
+  `manifest.ts` → `/manifest.webmanifest`.
+- **Google Analytics**: set env var `NEXT_PUBLIC_GA_ID` in Vercel and the gtag
+  script in `layout.tsx` activates. It is consent-gated: nothing loads until the
+  visitor accepts the cookie notice, and the Global Privacy Control signal keeps
+  it off.
+- **Vercel Web Analytics** runs on every visit. It is cookieless, so it needs no
+  consent, and it is disclosed in the Privacy Policy.
 
 ## Notes
 
-- Design is a **light**, serious/premium editorial theme: near-white surfaces,
-  near-black (ink) primary buttons, one surgical deep-teal accent. Colors are CSS
+- Design is a **light**, serious editorial theme: near-white surfaces, near-black
+  (ink) primary buttons, one deep-teal accent used sparingly. Colors are CSS
   variables in `globals.css`; neutrals are RGB channels so Tailwind opacity
   modifiers (`bg-surface/70`) work.
-- Fixed navbar offset for in-page anchors is handled globally via
-  `scroll-padding-top` (`globals.css`) + `lib/scroll.ts` for JS-driven scrolls.
-- Motion uses `whileInView` scroll reveals; a `<noscript>` fallback in `layout.tsx`
-  keeps content visible without JS. Respects `prefers-reduced-motion`.
+- The navigation switches to its desktop row at `lg`, not `md`: six nav items plus
+  the contact button need about 930px.
+- In-page anchors go through `lib/scroll.ts`, which honors each section's
+  `scroll-margin-top` and moves keyboard focus along with the scroll.
+- Motion uses scroll reveals; a `<noscript>` fallback in `layout.tsx` keeps
+  content visible without JS. Respects `prefers-reduced-motion`.

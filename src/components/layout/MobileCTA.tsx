@@ -21,7 +21,7 @@ export function MobileCTA() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Hide while the contact form or the footer is on screen — the pill must
+  // Hide while the contact form or the footer is on screen - the pill must
   // never cover the form it points to, nor the footer's last lines.
   useEffect(() => {
     const zones = [
@@ -48,7 +48,8 @@ export function MobileCTA() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 transition-all duration-300 ease-smooth sm:hidden ${
+      id="mobile-cta"
+      className={`fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 transition-all duration-300 ease-smooth lg:hidden ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
       }`}
     >
@@ -64,7 +65,7 @@ export function MobileCTA() {
         className="btn-primary group w-full"
         tabIndex={show ? 0 : -1}
       >
-        Start a project
+        Contact us
         <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
     </div>

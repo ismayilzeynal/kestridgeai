@@ -2,9 +2,10 @@ import { Brain, Workflow, ShieldCheck, BarChart3, type LucideIcon } from "lucide
 
 export type DeliveryStep = {
   phase: string;
-  summary: string; // one crafted line for the desktop stepper
+  summary: string; // one line for the desktop stepper
   what: string; // full copy, shown on smaller screens
-  timeline: string;
+  /** Only the ongoing steps carry a timing value; the rest are set in the plan. */
+  timeline?: string;
 };
 
 export type Service = {
@@ -21,29 +22,26 @@ export type Service = {
 
 const CONSULT: DeliveryStep = {
   phase: "Consultation",
-  summary: "We learn your requirements in depth.",
-  what: "We meet with you, gather all the requirements, and make sure we fully understand what needs to be built.",
-  timeline: "1–2 weeks",
+  summary: "We gather requirements with your team.",
+  what: "We go through what the system needs to do, and confirm the requirements with you.",
 };
 
 const DESIGN: DeliveryStep = {
   phase: "Solution Design",
-  summary: "We agree the solution together.",
-  what: "We come back with a proposed solution and work through it with you until it is agreed and ready to build.",
-  timeline: "1–2 weeks",
+  summary: "We write the plan and agree on it with you.",
+  what: "You get the solution, scope, and schedule in writing, revised until you approve it.",
 };
 
 const BUILD: DeliveryStep = {
-  phase: "Build & Integrate",
-  summary: "We build it in your environment.",
-  what: "We put together the right team and start building and integrating the solution into your environment.",
-  timeline: "Project scope",
+  phase: "Build and Integration",
+  summary: "We build the system and connect it.",
+  what: "We build it, connect it to your existing systems, and test it with your team.",
 };
 
 const DELIVER: DeliveryStep = {
-  phase: "Delivery & Support",
-  summary: "Production, monitoring, support.",
-  what: "We push to production, monitor everything, fix any issues — then continue with ongoing support or hand off to your team.",
+  phase: "Go Live and Support",
+  summary: "We put the system into use and support it.",
+  what: "The system goes into daily use. You choose whether we keep running it or hand it over with documentation.",
   timeline: "Ongoing",
 };
 
@@ -52,15 +50,15 @@ export const services: Service[] = [
     id: "ai",
     index: "01",
     name: "AI Solutions",
-    tagline: "Production AI that fits how you operate.",
-    cardLabel: "Decision support & LLM systems",
+    tagline: "AI for work that involves documents and judgment",
+    cardLabel: "Forecasting and assistants for your staff",
     description:
-      "We design and deploy AI that fits how your business actually operates — smarter decision-making, automated insights from your data, and intelligent systems that deliver measurable results.",
+      "We build software that handles work your staff now does by hand.",
     icon: Brain,
     highlights: [
-      "Decision-support & predictive models",
-      "LLM assistants & retrieval systems",
-      "Production-grade outcomes",
+      "Forecasting from your past records",
+      "A search tool for your own documents",
+      "Sorting and routing of incoming requests",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
@@ -68,15 +66,15 @@ export const services: Service[] = [
     id: "automation",
     index: "02",
     name: "Automation",
-    tagline: "The manual work, removed from your week.",
-    cardLabel: "Connected systems, zero manual steps",
+    tagline: "Automation of repeated, rule based steps",
+    cardLabel: "Routine steps run without manual work",
     description:
-      "We study how your team works, find what can be automated, and build it — connecting your systems and eliminating manual steps so everything runs reliably on its own.",
+      "Automation follows rules you set and runs the same way every time. We build it around the steps your team repeats by hand.",
     icon: Workflow,
     highlights: [
-      "Workflow & systems orchestration",
-      "No-touch, reliable pipelines",
-      "Hours saved, errors removed",
+      "Automated approval routing",
+      "Records passed between systems without retyping",
+      "Automated data entry",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
@@ -84,56 +82,53 @@ export const services: Service[] = [
     id: "security",
     index: "03",
     name: "IT Security",
-    tagline: "Secured before problems happen.",
-    cardLabel: "Assess, harden, monitor — 24/7",
+    tagline: "Review and correction of security weaknesses",
+    cardLabel: "Assessment, access rules, and monitoring",
     description:
-      "We assess your environment, fix vulnerabilities, and put the right controls in place — keeping you compliant with US regulations and monitored around the clock.",
+      "We review your systems and report what we find. You decide what to fix, and we fix it.",
     icon: ShieldCheck,
     highlights: [
-      "Assessment & hardening",
-      "US compliance & certification readiness",
-      "24/7 monitoring & response",
+      "Testing of systems and networks",
+      "Access rules and encryption",
+      "Around the clock monitoring",
     ],
     steps: [
       {
         phase: "Consultation",
-        summary: "We learn your environment and concerns.",
-        what: "We meet with you and learn about your current environment, your concerns, and what you are trying to protect.",
-        timeline: "1–2 weeks",
+        summary: "We review what you need to protect.",
+        what: "We go through your current systems and record what needs protection and who can reach it today.",
       },
       {
         phase: "Assessment",
-        summary: "We map vulnerabilities and risks.",
-        what: "We go through your systems, identify any vulnerabilities, and give you a clear picture of where you stand.",
-        timeline: "1–2 weeks",
+        summary: "We test the systems and list the weaknesses.",
+        what: "You receive a written report of the weaknesses we find, ordered by how serious each one is.",
       },
       {
         phase: "Implementation",
-        summary: "We fix and harden your systems.",
-        what: "We fix the issues, put the right controls in place, and make sure everything is configured correctly.",
-        timeline: "Project scope",
+        summary: "We fix the findings and set up controls.",
+        what: "We correct the findings you choose, set up access rules, encryption, and backups, and confirm each item is closed.",
       },
       {
-        phase: "Monitoring & Support",
-        summary: "Around-the-clock protection.",
-        what: "We monitor your environment on an ongoing basis and stay available 24/7 if something needs immediate attention.",
-        timeline: "Ongoing · 24/7",
+        phase: "Monitoring and Support",
+        summary: "We monitor and respond to issues.",
+        what: "We monitor the systems we run for you and respond to issues that need attention.",
+        timeline: "Ongoing",
       },
     ],
   },
   {
     id: "analytics",
     index: "04",
-    name: "Analytics",
-    tagline: "A clear picture of the business, every day.",
-    cardLabel: "Pipelines, dashboards & reporting",
+    name: "Data Analytics",
+    tagline: "Business reporting from your own records",
+    cardLabel: "Dashboards and business reporting",
     description:
-      "We clean up your data, build reliable pipelines, and set up dashboards and reports — so the right people always have a clear, accurate picture of the business.",
+      "We pull your data together, check it for errors, and build the reports your people need.",
     icon: BarChart3,
     highlights: [
-      "Reliable data pipelines",
-      "Dashboards & self-serve reporting",
-      "A clear picture, every day",
+      "Data cleanup and checks",
+      "Management dashboards",
+      "Scheduled reports",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },

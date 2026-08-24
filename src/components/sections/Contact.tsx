@@ -13,7 +13,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { site, serviceOptions } from "@/lib/site";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { LinkedInButton } from "@/components/ui/LinkedInButton";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
@@ -28,6 +27,8 @@ export function Contact() {
   const [errors, setErrors] = useState<Errors>({});
   const [service, setService] = useState("");
   const [name, setName] = useState("");
+  // Live region must exist before the message lands, or nothing is announced.
+  const [errorSummary, setErrorSummary] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -54,9 +55,9 @@ export function Contact() {
     if (!email) next.email = "Please enter your email address.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       next.email = "Please enter a valid email address.";
-    if (!svc) next.service = "Please select an area.";
+    if (!svc) next.service = "Please select a service area.";
     if (!msg || msg.length < 10)
-      next.message = "Please add at least a sentence about your project.";
+      next.message = "Please add at least one sentence about the work.";
     return next;
   };
 
@@ -66,6 +67,10 @@ export function Contact() {
     const found = validate(data);
     setErrors(found);
     if (Object.keys(found).length > 0) {
+      const n = Object.keys(found).length;
+      setErrorSummary(
+        n === 1 ? "1 field needs attention." : `${n} fields need attention.`
+      );
       // Bring the first invalid field into view and focus it.
       const first = (["name", "email", "service", "message"] as const).find(
         (k) => found[k]
@@ -78,6 +83,7 @@ export function Contact() {
       return;
     }
 
+    setErrorSummary("");
     setName((data.get("name") as string)?.trim() || "");
     setStatus("submitting");
     // Frontend-only: simulate a request. Wire to a backend later.
@@ -88,27 +94,29 @@ export function Contact() {
     clearTimeout(timerRef.current);
     setStatus("idle");
     setErrors({});
+    setErrorSummary("");
     setService("");
     formRef.current?.reset();
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-2 lg:pt-12">
+    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-9 lg:pt-12">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
-          {/* Left — invitation + contact rails */}
+          {/* Left - invitation + contact rails */}
           <div className="lg:self-start">
 
-            <SectionHeading
-              eyebrow="Let's talk"
-              title={
-                <>
-                  Tell us what you&apos;re{" "}
-                  <span className="text-accent-grad">trying to solve</span>
-                </>
-              }
-              description={`A short description of your project and how to reach you is all we need. We'll get back to you ${site.responseTime}.`}
-            />
+            <Reveal>
+              <h2 className="text-balance text-4xl text-signal sm:text-5xl">
+                Send us a <span className="text-accent-grad">message</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
+                Describe the work and how to reach you. A founder reads every
+                message and replies by email.
+              </p>
+            </Reveal>
 
             <div className="mt-9 flex flex-col gap-3 lg:mt-6">
               <a
@@ -140,7 +148,7 @@ export function Contact() {
                   <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
                     LinkedIn
                   </span>
-                  <span className="text-[16px] text-ink">Follow our work</span>
+                  <span className="text-[16px] text-ink">Company page</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -160,7 +168,7 @@ export function Contact() {
 
           </div>
 
-          {/* Right — the form */}
+          {/* Right - the form */}
           <Reveal delay={0.06}>
             <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9 lg:p-6">
               <AnimatePresence mode="wait" initial={false}>
@@ -181,16 +189,13 @@ export function Contact() {
                       Thank you{name ? `, ${name.split(" ")[0]}` : ""}.
                     </h3>
                     <p className="mt-3 max-w-sm text-pretty leading-relaxed text-muted">
-                      Your message is in. We&apos;ll review it and get back to
-                      you {site.responseTime}.
+                      Your message has been received. We will reply by email to
+                      the address you provided.
                     </p>
                     <div className="mt-8 flex flex-col items-center gap-4">
-                      <p className="text-sm text-faint">
-                        Need to add anything? Email us and reference your message.
-                      </p>
                       <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <a href={`mailto:${site.email}`} className="btn-primary group">
-                          Email us directly
+                          Email us
                           <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </a>
                         <LinkedInButton />
@@ -224,7 +229,7 @@ export function Contact() {
                         error={errors.name}
                       />
                       <Field
-                        label="Email"
+                        label="Email address"
                         name="email"
                         type="email"
                         placeholder="jane@company.com"
@@ -243,7 +248,7 @@ export function Contact() {
                         autoComplete="organization"
                       />
                       <Field
-                        label="Phone"
+                        label="Phone number"
                         name="phone"
                         type="tel"
                         placeholder="(555) 000-0000"
@@ -254,7 +259,7 @@ export function Contact() {
 
                     {/* Service select */}
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="service">What can we help with?</Label>
+                      <Label htmlFor="service">Service area</Label>
                       <div className="relative">
                         <select
                           id="service"
@@ -268,7 +273,7 @@ export function Contact() {
                           } ${errors.service ? "border-red-500/70" : "border-line"}`}
                         >
                           <option value="" disabled hidden>
-                            Select an area…
+                            Select a service area
                           </option>
                           {serviceOptions.map((o) => (
                             <option key={o.value} value={o.value} className="text-ink">
@@ -285,12 +290,12 @@ export function Contact() {
 
                     {/* Message */}
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="message">Brief project description</Label>
+                      <Label htmlFor="message">Description of the work</Label>
                       <textarea
                         id="message"
                         name="message"
                         rows={3}
-                        placeholder="A sentence or two about what you're trying to build or solve…"
+                        placeholder="A short description of the work and the systems involved."
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "message-error" : undefined}
                         className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
@@ -302,6 +307,10 @@ export function Contact() {
                       )}
                     </div>
 
+                    <p aria-live="polite" className="sr-only">
+                      {errorSummary}
+                    </p>
+
                     <button
                       type="submit"
                       disabled={status === "submitting"}
@@ -310,7 +319,7 @@ export function Contact() {
                       {status === "submitting" ? (
                         <>
                           <Loader2 className="h-[18px] w-[18px] animate-spin" />
-                          Sending…
+                          Sending
                         </>
                       ) : (
                         <>
@@ -363,7 +372,7 @@ function ErrorText({
   id?: string;
 }) {
   return (
-    <span id={id} aria-live="polite" className="text-[13px] font-medium text-red-600">
+    <span id={id} className="text-[13px] font-medium text-red-600">
       {children}
     </span>
   );

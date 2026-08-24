@@ -1,22 +1,23 @@
 // Single source of truth for brand + contact details.
-// Logo artwork is not final yet — the wordmark "AIVanta" stands in for it.
+// Logo artwork is not final yet: the wordmark stands in until the kit lands.
 export const site = {
-  brand: "AIVanta",
-  legalName: "AIVanta Inc.",
-  // Public production URL — update when the custom domain is live.
+  brand: "Kestridge AI",
+  legalName: "Kestridge AI Inc.",
+  // Public production URL: update when the custom domain is live.
   url: "https://testlogo-site.vercel.app",
-  tagline: "Applied AI, automation, security & analytics for American business.",
-  location: "Illinois, USA",
+  tagline: "AI, automation, IT security, and data analytics for US businesses.",
+  location: "Illinois, United States",
   region: "IL",
   country: "United States",
-  email: "info@aivanta.com", // placeholder until the domain mailbox is live
-  linkedin: "https://www.linkedin.com/company/aivanta",
-  responseTime: "as soon as possible",
+  email: "info@kestridge.com",
+  linkedin: "https://www.linkedin.com/company/kestridge-ai",
   nav: [
     { label: "Services", href: "/#services" },
-    { label: "About", href: "/about" },
-    { label: "Team", href: "/#team" },
+    { label: "Process", href: "/#process" },
+    { label: "Company", href: "/#company" },
+    { label: "Founders", href: "/#founders" },
     { label: "Security", href: "/#security" },
+    { label: "Questions", href: "/#questions" },
   ],
 };
 
@@ -26,6 +27,6 @@ export const serviceOptions: ServiceOption[] = [
   { value: "ai", label: "AI Solutions" },
   { value: "automation", label: "Automation" },
   { value: "security", label: "IT Security" },
-  { value: "analytics", label: "Analytics" },
-  { value: "general", label: "General / Not sure yet" },
+  { value: "analytics", label: "Data Analytics" },
+  { value: "general", label: "General inquiry" },
 ];

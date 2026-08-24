@@ -70,7 +70,7 @@ export function Reveal({
   );
 }
 
-/** Staggered group — each direct child reveals with an incremental delay. */
+/** Staggered group - each direct child reveals with an incremental delay. */
 export function Stagger({
   children,
   className,
@@ -92,7 +92,7 @@ export function Stagger({
   );
 }
 
-/** Kept for API compatibility — Stagger now handles the reveal itself. */
+/** Kept for API compatibility - Stagger now handles the reveal itself. */
 export function StaggerItem({
   children,
   className,

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  /* Fonts — Archivo (matches the AIVanta wordmark) + Geist Mono for labels */
+  /* Fonts: Archivo for display + Geist Mono for labels */
   --font-display: var(--font-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Surfaces — light, clean paper with white elevated cards (RGB channels for alpha) */
+  /* Surfaces - light, clean paper with white elevated cards (RGB channels for alpha) */
   --bg: 245 246 249;
   --bg-soft: 238 240 244;
   --surface: 255 255 255;
@@ -20,15 +20,15 @@
   /* Text (RGB channels for alpha) */
   --text: 17 24 33;
   --text-muted: 74 83 96;
-  --text-faint: 110 119 132;
+  --text-faint: 99 108 121;
 
-  /* Accent — deep, serious teal used surgically */
+  /* Accent - deep, serious teal used surgically */
   --accent: #0b7a67;
   --accent-strong: #12a58c;
   --accent-deep: #075044;
   --accent-glow: rgba(11, 122, 103, 0.18);
 
-  /* Ink used for primary buttons — near-black reads premium on light */
+  /* Ink used for primary buttons - near-black reads premium on light */
   --ink-btn: #14181f;
 
   --grid: rgba(15, 23, 42, 0.04);
@@ -132,7 +132,7 @@ body {
     box-shadow: 0 0 10px 1px var(--accent-glow);
   }
 
-  /* Heading colors — solid ink and one disciplined teal (no gradient text) */
+  /* Heading colors - solid ink and one disciplined teal (no gradient text) */
   .text-signal {
     color: rgb(var(--text));
   }
@@ -197,7 +197,7 @@ body {
     background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
   }
 
-  /* Legal documents (privacy / terms) — quiet, readable long-form prose */
+  /* Legal documents (privacy / terms) - quiet, readable long-form prose */
   .legal-prose {
     @apply text-[15.5px] leading-relaxed text-muted;
   }
@@ -259,7 +259,7 @@ body {
     box-shadow: 0 20px 60px -24px var(--accent-glow);
   }
 
-  /* Entrance animations — pure CSS so they run before hydration */
+  /* Entrance animations - pure CSS so they run before hydration */
   @keyframes rise {
     from {
       opacity: 0;

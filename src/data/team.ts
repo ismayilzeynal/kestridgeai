@@ -1,68 +1,43 @@
 export type Member = {
   name: string;
+  initials: string;
   role: string;
   focus: string;
+  /** Local portrait. Empty string renders the initials avatar instead. */
   photo: string;
-  linkedin: string;
 };
 
-// NOTE: portraits are placeholder faces from randomuser.me until real
-// team photography is approved. Names/roles are illustrative.
+// The four founders. Names and portraits come from their own LinkedIn
+// profiles. Personal profile links are deliberately not published here.
+// Sarvjeet and Robert have no photo on LinkedIn, so their cards show initials
+// until they send a portrait. Sarvjeet's surname is Lnu.
 export const team: Member[] = [
   {
-    name: "Daniel Hart",
-    role: "Principal AI Engineer",
-    focus: "Decision systems & applied ML",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
+    name: "Sarvjeet Lnu",
+    initials: "SL",
+    role: "Founder",
+    focus: "Data, analytics and AI platforms",
+    photo: "",
   },
   {
-    name: "Sofia Marchetti",
-    role: "Head of Security",
-    focus: "Threat modeling & compliance",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
+    name: "Robert Tomczyk",
+    initials: "RT",
+    role: "Founder",
+    focus: "Software engineering and integration",
+    photo: "",
   },
   {
-    name: "Marcus Bell",
-    role: "Automation Lead",
-    focus: "Systems orchestration & integration",
-    photo: "https://randomuser.me/api/portraits/men/64.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
+    name: "Faig Garayev",
+    initials: "FG",
+    role: "Founder",
+    focus: "Technology strategy and IT security",
+    photo: "/team/faig-garayev.jpg",
   },
   {
-    name: "Priya Nair",
-    role: "Analytics Lead",
-    focus: "Data pipelines & visualization",
-    photo: "https://randomuser.me/api/portraits/women/68.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
-  },
-  {
-    name: "Jonas Weber",
-    role: "Solutions Architect",
-    focus: "Cloud infrastructure & delivery",
-    photo: "https://randomuser.me/api/portraits/men/76.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
-  },
-  {
-    name: "Amara Okafor",
-    role: "ML Research Engineer",
-    focus: "LLM systems & retrieval",
-    photo: "https://randomuser.me/api/portraits/women/90.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
-  },
-  {
-    name: "Elena Vasquez",
-    role: "Client Engagement Lead",
-    focus: "Requirements & delivery management",
-    photo: "https://randomuser.me/api/portraits/women/12.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
-  },
-  {
-    name: "Tomáš Novák",
-    role: "Senior Security Engineer",
-    focus: "Monitoring & incident response",
-    photo: "https://randomuser.me/api/portraits/men/41.jpg",
-    linkedin: "https://www.linkedin.com/company/aivanta",
+    name: "Chingiz Abdilov",
+    initials: "CA",
+    role: "Founder",
+    focus: "Technology operations and delivery",
+    photo: "/team/chingiz-abdilov.jpg",
   },
 ];

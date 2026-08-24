@@ -1,4 +1,4 @@
-// Official filled LinkedIn glyph — the one glyph used site-wide.
+// Official filled LinkedIn glyph - the one glyph used site-wide.
 export function LinkedInIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={`${className} fill-current`} aria-hidden>

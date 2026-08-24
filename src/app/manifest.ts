@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "AIVanta",
-    short_name: "AIVanta",
+    name: "Kestridge AI",
+    short_name: "Kestridge",
     description:
-      "American technology company delivering applied AI, automation, security and analytics.",
+      "United States technology company building AI, automation, IT security, and data analytics systems.",
     start_url: "/",
     display: "standalone",
     background_color: "#f5f6f9",

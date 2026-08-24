@@ -24,15 +24,22 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    const main = document.getElementById("main");
-    const footer = document.getElementById("site-footer");
+    // Everything focusable outside the sheet has to be inert while it claims
+    // aria-modal, otherwise Tab walks straight out of the dialog.
+    const outside = [
+      "main",
+      "site-footer",
+      "skip-link",
+      "nav-brand",
+      "mobile-cta",
+    ]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
     if (open) {
-      main?.setAttribute("inert", "");
-      footer?.setAttribute("inert", "");
+      outside.forEach((el) => el.setAttribute("inert", ""));
       firstLinkRef.current?.focus();
     } else {
-      main?.removeAttribute("inert");
-      footer?.removeAttribute("inert");
+      outside.forEach((el) => el.removeAttribute("inert"));
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) {
@@ -43,14 +50,13 @@ export function Navbar() {
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
-      main?.removeAttribute("inert");
-      footer?.removeAttribute("inert");
+      outside.forEach((el) => el.removeAttribute("inert"));
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
   // Same-page hash links: close the menu first, restore body scroll, THEN
-  // scroll — a hash jump while the menu holds `overflow:hidden` is silently
+  // scroll - a hash jump while the menu holds `overflow:hidden` is silently
   // blocked on iOS. Cross-page links fall through to normal navigation.
   const onNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     const hashIndex = href.indexOf("#");
@@ -72,6 +78,13 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
+      <a
+        id="skip-link"
+        href="#main"
+        className="sr-only rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50"
+      >
+        Skip to main content
+      </a>
       <div
         className={`transition-all duration-500 ease-smooth ${
           scrolled
@@ -83,9 +96,11 @@ export function Navbar() {
           aria-label="Main"
           className="container-x flex h-[68px] items-center justify-between"
         >
-          <Logo />
+          <span id="nav-brand">
+            <Logo />
+          </span>
 
-          <div className="hidden items-center gap-9 md:flex">
+          <div className="hidden items-center gap-9 lg:flex">
             {site.nav.map((n) => (
               <Link
                 key={n.href}
@@ -98,13 +113,13 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Link
               href="/#contact"
               onClick={(e) => onNavClick(e, "/#contact")}
               className="btn-primary !py-3 !px-5 text-sm group"
             >
-              Start a project
+              Contact us
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -112,7 +127,7 @@ export function Navbar() {
           <button
             ref={toggleRef}
             onClick={() => setOpen((v) => !v)}
-            className="grid h-11 w-11 place-items-center rounded-lg border border-line-strong text-ink md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-lg border border-line-strong text-ink lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -129,7 +144,7 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Site menu"
         aria-hidden={!open}
-        className={`fixed inset-0 top-[68px] z-40 origin-top bg-bg transition-all duration-300 md:hidden ${
+        className={`fixed inset-0 top-[68px] z-40 origin-top bg-bg transition-all duration-300 lg:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -152,7 +167,7 @@ export function Navbar() {
             tabIndex={open ? 0 : -1}
             className="btn-primary mt-6 w-full"
           >
-            Start a project
+            Contact us
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -1,13 +1,13 @@
 # General Delivery Rules (all service areas)
 
 This document applies to every project and is the operational manual for
-the engineer doing the work — "in this situation, do this, with this tool,
+the engineer doing the work - "in this situation, do this, with this tool,
 under this rule". Area-specific additions live in separate files.
 Everything here is agreed with the client at kickoff; changes only with
 written approval.
 
-> **Golden rules (never broken):** ① Least privilege — access only to
-> what's needed, at the minimum level. ② Staging-first — production is
+> **Golden rules (never broken):** ① Least privilege - access only to
+> what's needed, at the minimum level. ② Staging-first - production is
 > never touched directly. ③ Every decision is confirmed in writing by
 > email. ④ We never ask for a client's password. ⑤ We do not hand over
 > and leave until we are sure it fully works.
@@ -23,7 +23,7 @@ written approval.
 | Security officer | 1 person (can be shared) | Access, secrets, offboarding audit |
 | Client POC | 1 person from client | Decisions, access approval, sign-off |
 
-There is **one POC** on each side — all formal decisions flow through them.
+There is **one POC** on each side - all formal decisions flow through them.
 
 ---
 
@@ -49,7 +49,7 @@ We connect to a client system only from a device that meets these terms:
 - **Full-disk encryption** enabled (BitLocker / FileVault / LUKS).
 - Screen lock ≤ 5 min, strong login password + device MFA.
 - Antivirus / EDR active, OS and browser patched.
-- **Client data is never stored on personal / unmanaged devices** — only
+- **Client data is never stored on personal / unmanaged devices** - only
   in the project environment. Any local copy lives in an encrypted folder
   and is deleted when the work ends.
 - No client data moved via personal USB or personal cloud (Google
@@ -68,15 +68,15 @@ We connect to a client system only from a device that meets these terms:
   single **service account** is created for us.
 - **MFA is mandatory** on all accounts; a hardware key (YubiKey) or
   authenticator app where possible (not SMS).
-- Access is **time-boxed — 30 days by default.** For ongoing projects, an
+- Access is **time-boxed - 30 days by default.** For ongoing projects, an
   extension email is sent at each month-end (who, which access, why, how
   long). That email is the record for both sides.
 - All access is kept in an **access register:** who / which system /
   level / granted date / expiry date.
 
-### 4.2 Connection method — order of preference
+### 4.2 Connection method - order of preference
 
-We choose **top-down** — the first viable option is taken.
+We choose **top-down** - the first viable option is taken.
 
 | Order | Method | When | Controls |
 | --- | --- | --- | --- |
@@ -98,11 +98,11 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
   # ~/.ssh/config
   Host client-bastion
       HostName bastion.client.com
-      User aivanta.name
+      User kestridge.name
       IdentityFile ~/.ssh/client_ed25519
   Host client-app
       HostName 10.0.1.20
-      User aivanta.name
+      User kestridge.name
       ProxyJump client-bastion
       IdentityFile ~/.ssh/client_ed25519
   ```
@@ -112,15 +112,15 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 ### 4.4 Windows servers (RDP)
 
-- RDP **never from the internet directly** — only behind a VPN or bastion.
+- RDP **never from the internet directly** - only behind a VPN or bastion.
 - **NLA (Network Level Authentication)** on, named account + MFA.
 - Long sessions are logged; the session is closed (logout) when done.
 
 ### 4.5 Cloud consoles (AWS / Azure / GCP)
 
 - **Login via SSO** (Google/Microsoft); the root/owner account is not used.
-- We get a **scoped IAM role** — only the services the project needs.
-- **We do not create long-lived access keys** — temporary credentials:
+- We get a **scoped IAM role** - only the services the project needs.
+- **We do not create long-lived access keys** - temporary credentials:
   `aws sso login` / STS, `az login`, `gcloud auth login`.
 - Every action stays in the cloud audit log (CloudTrail / Activity Log).
 
@@ -128,7 +128,7 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 - A **read-only user** for us (a separate, limited one if writes are
   required).
-- The database is **not exposed to the internet** — via SSH tunnel or
+- The database is **not exposed to the internet** - via SSH tunnel or
   bastion:
 
   ```
@@ -149,15 +149,15 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 ## 5. Secrets (passwords, keys, tokens) management
 
-- Central: a **password manager / vault** — 1Password or Bitwarden; a
+- Central: a **password manager / vault** - 1Password or Bitwarden; a
   separate shared folder (vault) per client.
 - **Never lands in Git.** `.env` files in `.gitignore`; an `.env.example`
   (valueless) for reference.
 - **Secret scanning** before commit: `gitleaks` (as a pre-commit hook
-  where possible). If something slips in — rotate immediately and purge
+  where possible). If something slips in - rotate immediately and purge
   from history.
 - Secrets are transferred **over encrypted channels** (vault share /
-  encrypted link) — never in plain text via email, message or Slack.
+  encrypted link) - never in plain text via email, message or Slack.
 - Rotation: at project end and whenever a team member changes, all shared
   secrets are rotated.
 
@@ -165,18 +165,18 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 ## 6. Working environment and infrastructure
 
-- **Standard request — one dedicated VM:** min. 4 vCPU / 16 GB RAM /
+- **Standard request - one dedicated VM:** min. 4 vCPU / 16 GB RAM /
   100 GB SSD, Ubuntu 22.04 LTS (or the client's OS standard).
   Area-specific needs (e.g. GPU for AI) are in the area document.
 - Environment tiers are separate: **dev / staging / production.** Testing
   in staging; production only via approved deployment.
-- **Naming:** `aivanta-<client>-<env>-<role>` (e.g.
-  `aivanta-acme-staging-app`).
+- **Naming:** `kestridge-<client>-<env>-<role>` (e.g.
+  `kestridge-acme-staging-app`).
 - **Infrastructure as Code** where possible: Terraform (resources),
-  Ansible (server config) — manual "click-ops" is minimized so things can
+  Ansible (server config) - manual "click-ops" is minimized so things can
   be rebuilt.
-- Containerization: **Docker** — removes environment differences.
-- **Cloud cost stays on the client's account** — they keep full
+- Containerization: **Docker** - removes environment differences.
+- **Cloud cost stays on the client's account** - they keep full
   visibility.
 
 ---
@@ -204,7 +204,7 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 - All code / IaC / config **in Git** (GitHub / GitLab, private repo).
 - Work in branches; **mandatory PR review** into `main` (at least 1
   reviewer).
-- **No direct push to production** — only in an approved deployment
+- **No direct push to production** - only in an approved deployment
   window.
 - Before every deploy, a **snapshot / backup** (see Section 9) and a ready
   rollback plan.
@@ -225,7 +225,7 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 ## 10. Logging, monitoring and audit
 
-- **Session logs** on the bastion and servers — who, when, what.
+- **Session logs** on the bastion and servers - who, when, what.
 - Cloud audit trails on (CloudTrail / Activity Log / Cloud Audit Logs).
 - Monitoring + alerts on critical systems (see area documents).
 - Logs belong to the client and are confidential; only the project team
@@ -237,12 +237,10 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 - Channels: **email** (formal decisions), **video** (Google Meet / Zoom),
   **Slack / Teams** for day-to-day if the client prefers.
-- **Weekly status:** a fixed day. Format — what was done / what is being
-  done / what is blocking. 15–30 minutes.
-- Our response times: routine question — 1 business day; blocking issue —
-  4 business hours.
-- Work tracking: an **issue tracker** (Jira / Linear / GitHub Issues) —
-  every task is tracked.
+- **Weekly status:** a fixed day. Format - what was done / what is being
+  done / what is blocking. 15 to 30 minutes.
+- Our response times: routine question - 1 business day; blocking issue - 4 business hours.
+- Work tracking: an **issue tracker** (Jira / Linear / GitHub Issues) - every task is tracked.
 
 ---
 
@@ -250,7 +248,7 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 - A new request = **a change request:** written by email, effort and
   schedule impact estimated, added to the plan after approval.
-- "It's tiny, let's just add it now" — does not exist. Even a small change
+- "It's tiny, let's just add it now" - does not exist. Even a small change
   is recorded; its estimation is simply fast.
 
 ---
@@ -269,14 +267,13 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 
 ---
 
-## 14. Legal / compliance — what the engineer must know
+## 14. Legal / compliance - what the engineer must know
 
 - An **NDA** can be signed at any stage; client information is never
   shared with third parties.
 - In security work, **nothing starts without a written authorization
   letter** (see IT Security rules).
-- **Scope discipline:** a system that isn't authorized is not touched —
-  even if it looks interesting.
+- **Scope discipline:** a system that isn't authorized is not touched - even if it looks interesting.
 
 ---
 
@@ -293,9 +290,9 @@ shared accounts, direct `0.0.0.0/0` access without a VPN.
 ## 16. Handover package (identical on every project)
 
 1. Architecture diagram + configuration document.
-2. **Runbook** — how to start/stop the system, typical problems and their
+2. **Runbook** - how to start/stop the system, typical problems and their
    fixes, who to contact.
 3. Secure transfer of secrets/passwords (vault or encrypted channel).
-4. Training session (1–2 hours, recorded).
+4. Training session (1 to 2 hours, recorded).
 5. Access revocation + data deletion confirmation.
 6. Support terms: what's included, how to reach us, response times.

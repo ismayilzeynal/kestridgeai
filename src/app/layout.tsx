@@ -19,35 +19,32 @@ const sans = Archivo({
   display: "swap",
 });
 
-const TITLE = "AIVanta — Applied AI, Automation, Security & Analytics";
+const TITLE = "Kestridge AI | AI, Automation and IT Security in Illinois";
 const DESCRIPTION =
-  "AIVanta is an American technology company delivering applied AI, automation, cybersecurity and analytics — engineered around your business, backed by access to global engineering talent.";
+  "Kestridge AI is a United States technology company based in Illinois. We build AI, automation, IT security, and data analytics systems for US businesses.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: TITLE,
-    template: "%s · AIVanta",
+    template: "%s | Kestridge AI",
   },
   description: DESCRIPTION,
-  applicationName: "AIVanta",
+  applicationName: site.brand,
   keywords: [
-    "AIVanta",
+    site.brand,
     "AI solutions",
     "AI consulting",
-    "applied AI",
     "automation",
-    "cybersecurity",
     "IT security",
+    "cybersecurity",
     "data analytics",
-    "American AI company",
-    "enterprise AI",
     "Illinois",
     "United States",
   ],
-  authors: [{ name: "AIVanta" }],
-  creator: "AIVanta",
-  publisher: "AIVanta",
+  authors: [{ name: site.brand }],
+  creator: site.brand,
+  publisher: site.brand,
   alternates: { canonical: "/" },
   openGraph: {
     title: TITLE,
@@ -55,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: site.url,
-    siteName: "AIVanta",
+    siteName: site.brand,
   },
   twitter: {
     card: "summary_large_image",
@@ -79,16 +76,16 @@ export const viewport: Viewport = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "AIVanta",
+  name: site.brand,
   legalName: site.legalName,
   url: site.url,
+  logo: `${site.url}/opengraph-image`,
   email: site.email,
   description: DESCRIPTION,
-  slogan: site.tagline,
   areaServed: { "@type": "Country", name: "United States" },
   address: {
     "@type": "PostalAddress",
-    addressRegion: "Illinois",
+    addressRegion: site.region,
     addressCountry: "US",
   },
   sameAs: [site.linkedin],
@@ -104,9 +101,9 @@ const organizationSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "AIVanta",
+  name: site.brand,
   url: site.url,
-  publisher: { "@type": "Organization", name: "AIVanta" },
+  publisher: { "@type": "Organization", name: site.brand },
 };
 
 export default function RootLayout({
@@ -128,7 +125,9 @@ export default function RootLayout({
           <Background />
           <ScrollProgress />
           <Navbar />
-          <main id="main">{children}</main>
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
           <Footer />
           <MobileCTA />
         </Providers>
@@ -145,7 +144,7 @@ export default function RootLayout({
             accepts the cookie notice. */}
         <CookieConsent gaId={gaId} />
 
-        {/* Vercel Web Analytics — cookieless and anonymous, so it needs no
+        {/* Vercel Web Analytics - cookieless and anonymous, so it needs no
             consent banner. */}
         <Analytics />
       </body>
