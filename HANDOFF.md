@@ -1,8 +1,9 @@
 # HANDOFF - Kestridge AI saytı
 
 Son yenilənmə: 24 avqust 2026
-Branch: `main`. Commit edilməyib; `public/logos/` və `public/team/` **stage-dədir**.
+Branch: `main`. Son commit: `cf67f83`. Canlı: https://testlogo-site.vercel.app
 Build: `npx next build` təmiz. `npx tsc --noEmit` səhvsiz.
+Deploy GitHub push ilə OLMUR - hər dəfə `npx vercel --prod --yes` lazımdır.
 
 Mətnlərin köhnə/yeni müqayisəsi (sahibin təsdiqi üçün):
 https://claude.ai/code/artifact/9fecfe06-c7f9-4613-8405-1ada916d16b6
@@ -67,35 +68,36 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
 
 ## 2. Sizdən gözlənilən
 
-1. **Logo.** Hazır olanda dəyişməli fayllar: `public/brand/`, `src/app/icon.svg`,
+1. **Form endpoint.** Vercel-də `NEXT_PUBLIC_FORM_ENDPOINT` təyin edin
+   (Formspree / Web3Forms / Basin). Kod hazırdır. Dəyişən boş olduğu müddətdə
+   forma saxta "göndərildi" demir - istifadəçinin mail proqramını hazır mesajla
+   açır.
+2. **Logo.** Hazır olanda: `public/brand/`, `src/app/icon.svg`,
    `src/app/apple-icon.png`, `src/app/opengraph-image.tsx`.
-   `media-logo-assets/` bütünlüklə köhnə brenddir - **silmək lazımdır** (7 SVG-nin
-   içində hələ də "AIVanta" yazısı var; TAMAMLANACAQ-ISLER.txt sizi o faylları
-   LinkedIn-ə yükləməyə yönləndirir). Deyin, silim.
-2. **Domen.** `site.ts` -> `url` hələ `testlogo-site.vercel.app`.
-3. **Sarvjeet-in soyadı.** Digər üçü tam addır; o, tək adla və tək hərfli
-   avatarla qalıb.
-4. **Sarvjeet + Robert üçün şəkil** (istəsəniz).
-5. **Telefon nömrəsi.** Form müştəridən nömrə istəyir, sayt özü nömrə vermir.
-6. **Qiymət.** "How is cost determined?" var, rəqəm yoxdur. Səhifədəki ən böyük
-   cavabsız sual.
+   `media-logo-assets/` bütünlüklə köhnə brenddir (7 SVG-də hələ "AIVanta"
+   yazısı var). Deyin, silim.
+3. **Domen.** `site.ts` -> `url` hələ `testlogo-site.vercel.app`.
+4. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
+   üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
+5. **Loqo lenti:** Northwestern, Clark, Robert Morris universitetləri iş yeri
+   idi, yoxsa təhsil? Təhsildirsə həmin sətirlər `companies.ts`-dən çıxarılmalı.
+6. **`senedler/word/` köhnədir:** fayl adları hələ "AIVanta", məzmun isə
+   rebrend və son düzəlişlərdən əvvəlkidir. Yenidən generasiya lazımdır.
 7. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
    demir.
-8. **Xaricdəki mütəxəssislər hansı ölkələrdədir, müştəri datası ABŞ-dan çıxırmı?**
 
 ---
 
 ## 3. Texniki qalıqlar
 
-1. **Contact form saxtadır.** `Contact.tsx` -> `onSubmit` `setTimeout` ilə saxta
-   "success" verir. Launch üçün real backend lazımdır (API route + Resend, ya da
-   Formspree). Spam qoruması da (honeypot / Turnstile).
-2. **Commit edilməyib.** `git status` ilə baxın. `public/logos` və `public/team`
-   stage-dədir, qalanı işçi qovluqdadır.
-3. **Mobil vizual yoxlama yarımçıqdır.** Kod səviyyəsində breakpoint-lər
-   yoxlanıldı və düzəldildi; 375px-də real gözlə baxılmadı, çünki brauzer
-   sizinlə paylaşılırdı.
-4. `copy-deck.json` və `qa-plan` referans üçün kökdədir; lazım deyilsə silin.
+1. **Anchor offset-ləri padding-ə bağlıdır.** Hər bölmə
+   `scroll-mt = 6rem - öz padding-top-u` daşıyır (breakpoint başına). Bölmənin
+   `py` dəyərini dəyişsəniz, `scroll-mt` də dəyişməlidir. Səbəbi: brauzerin öz
+   `#hash` sıçrayışı ilə JS animatoru eyni nəticəni verməlidir.
+2. **Bütün ölçülər rem-dir.** Klasslarda arbitrary `px` qalmayıb (yalnız 1-3px
+   hairline-lar). Root `106.25%`-dir, yəni oxucunun brauzer şrift ölçüsünü izləyir.
+3. `copy-deck.json` yalnız ilk yazılış qeydidir, sonrakı redaktələr orada yoxdur.
+   Cari mətnlərin yeganə mənbəyi `src/` fayllarıdır.
 
 ---
 
