@@ -1,9 +1,13 @@
 # HANDOFF - Kestridge AI saytı
 
 Son yenilənmə: 24 avqust 2026
-Branch: `main`. Son commit: `cf67f83`. Canlı: https://testlogo-site.vercel.app
+Repo: https://github.com/ismayilzeynal/kestridgeai (əvvəl `testlogo-site` idi)
+Branch: `main`. Canlı: https://testlogo-site.vercel.app
 Build: `npx next build` təmiz. `npx tsc --noEmit` səhvsiz.
 Deploy GitHub push ilə OLMUR - hər dəfə `npx vercel --prod --yes` lazımdır.
+
+**Backend yazan üçün:** `README.md` -> "Backend" bölməsi. Formanın POST
+kontraktı (sahələr, honeypot, gözlənilən cavab) orada yazılıb.
 
 Mətnlərin köhnə/yeni müqayisəsi (sahibin təsdiqi üçün):
 https://claude.ai/code/artifact/9fecfe06-c7f9-4613-8405-1ada916d16b6

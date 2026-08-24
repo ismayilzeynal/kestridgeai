@@ -57,12 +57,55 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 
 | What | Where | Note |
 | --- | --- | --- |
-| Logo artwork | `public/brand/`, `app/icon.svg`, `app/apple-icon.png` | name is final (Kestridge AI); logo art is a temporary mark |
 | Production domain | `lib/site.ts` (`url`) | currently the Vercel URL, update when the custom domain is live |
 | Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
 | Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
 | Form endpoint | `.env` / Vercel env | set `NEXT_PUBLIC_FORM_ENDPOINT`, otherwise the form falls back to a mailto handoff |
 | Spam protection | contact form | a `_gotcha` honeypot ships; add Turnstile if the endpoint gets abused |
+
+## Backend
+
+Nothing server-side exists yet. The only thing the site needs from a backend is
+somewhere for the contact form to POST.
+
+`Contact.tsx` reads `NEXT_PUBLIC_FORM_ENDPOINT` and posts the form to it:
+
+| | |
+| --- | --- |
+| Method | `POST` |
+| Body | `multipart/form-data` (a plain `FormData`) |
+| Headers | `Accept: application/json` |
+| Fields | `name`, `email`, `service`, `message`, `_gotcha` |
+| `service` values | `ai`, `automation`, `security`, `analytics`, `general` (see `serviceOptions` in `lib/site.ts`) |
+| Success | any `2xx`. Anything else, or a network error, shows the error state |
+
+`_gotcha` is a hidden honeypot. A real person always leaves it empty, so treat a
+non-empty value as spam and drop the message (still answer `2xx`, or the bot
+learns).
+
+Two ways to provide the endpoint:
+
+1. **In this repo.** Add `src/app/api/contact/route.ts` and set
+   `NEXT_PUBLIC_FORM_ENDPOINT=/api/contact`. A relative URL is fine, and it keeps
+   the mail credentials server-side.
+2. **A hosted form service** (Formspree, Web3Forms, Basin). Set the full URL.
+
+The variable is `NEXT_PUBLIC_`, so it ships to the browser: whatever sits behind
+it is public and needs its own rate limiting and abuse protection. Do not put a
+secret in it.
+
+With the variable unset the form does not fake a send. It opens the visitor's
+mail client with the message prefilled and tells them so, so nothing is ever
+silently lost while the backend is being written.
+
+## Deploying
+
+The Vercel project is **not** connected to GitHub. Pushing to `main` deploys
+nothing. Every release is a CLI deploy from a working tree:
+
+```bash
+npx vercel --prod --yes
+```
 
 ## Copy
 
@@ -96,12 +139,21 @@ only).
 ## Notes
 
 - Design is a **light**, serious editorial theme: near-white surfaces, near-black
-  (ink) primary buttons, one deep-teal accent used sparingly. Colors are CSS
-  variables in `globals.css`; neutrals are RGB channels so Tailwind opacity
-  modifiers (`bg-surface/70`) work.
+  (ink) primary buttons, one petrol accent used sparingly. Every colour comes from
+  the brand kit in `Logo/` (see `Logo/03-SITE-NOTES.md` and
+  `Logo/08-site/kestridge-tokens.css`) and lives as a CSS variable in
+  `globals.css`; neutrals are RGB channels so Tailwind opacity modifiers
+  (`bg-surface/70`) work. The contrast matrix is computed for that exact ramp, so
+  the neutrals move as a set or not at all.
+- Logo artwork is final. Source of truth is `Logo/`; the files the site actually
+  serves were copied from `Logo/08-site/`.
 - The navigation switches to its desktop row at `lg`, not `md`: six nav items plus
   the contact button need about 930px.
 - In-page anchors go through `lib/scroll.ts`, which honors each section's
-  `scroll-margin-top` and moves keyboard focus along with the scroll.
+  `scroll-margin-top` exactly as the browser's own `#hash` jump does, and moves
+  keyboard focus along with the scroll. Each section sets
+  `scroll-mt = 6rem - its own padding-top` per breakpoint, so its heading lands
+  2rem below the 4rem navbar. **Change a section's `py` and its `scroll-mt` has
+  to move with it.**
 - Motion uses scroll reveals; a `<noscript>` fallback in `layout.tsx` keeps
   content visible without JS. Respects `prefers-reduced-motion`.
