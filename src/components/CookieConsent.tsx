@@ -62,7 +62,7 @@ export function CookieConsent({ gaId }: { gaId?: string }) {
     <div
       role="dialog"
       aria-label="Cookie notice"
-      className="anim-rise card fixed bottom-4 left-4 right-4 z-[70] rounded-2xl p-5 sm:left-auto sm:right-6 sm:w-[370px]"
+      className="anim-rise card fixed bottom-4 left-4 right-4 z-[70] rounded-2xl p-5 sm:left-auto sm:right-6 sm:w-[21.7647rem]"
     >
       <p className="text-sm leading-relaxed text-muted">
         We use a few cookies to understand how this site is used. You can
@@ -78,13 +78,13 @@ export function CookieConsent({ gaId }: { gaId?: string }) {
       <div className="mt-4 flex gap-2.5">
         <button
           onClick={() => choose("granted")}
-          className="btn-primary flex-1 !px-5 !py-2.5 !text-[14px]"
+          className="btn-primary flex-1 !px-5 !py-2.5 !text-[0.8235rem]"
         >
           Accept
         </button>
         <button
           onClick={() => choose("denied")}
-          className="btn-ghost flex-1 !px-5 !py-2.5 !text-[14px]"
+          className="btn-ghost flex-1 !px-5 !py-2.5 !text-[0.8235rem]"
         >
           Decline
         </button>

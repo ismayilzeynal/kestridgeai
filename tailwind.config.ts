@@ -32,8 +32,8 @@ const config: Config = {
         label: "0.22em",
       },
       maxWidth: {
-        content: "1200px",
-        prose: "640px",
+        content: "70.5882rem",
+        prose: "37.6471rem",
       },
       borderRadius: {
         xl2: "1.4rem",

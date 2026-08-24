@@ -49,7 +49,7 @@ export function Services() {
   };
 
   return (
-    <section id="services" className="relative scroll-mt-[52px] py-12 sm:scroll-mt-8 sm:py-16 lg:scroll-mt-7 lg:py-12">
+    <section id="services" className="relative scroll-mt-12 py-12 sm:scroll-mt-8 sm:py-16 lg:scroll-mt-12 lg:py-12">
       <div className="container-x">
         <Reveal>
           <h2 className="text-balance text-4xl text-signal sm:text-5xl">
@@ -97,10 +97,10 @@ export function Services() {
                     <s.icon className="h-5 w-5" strokeWidth={1.6} />
                   </span>
                   <span className="flex-1">
-                    <span className="block font-mono text-[11px] text-faint">
+                    <span className="block font-mono text-[0.6471rem] text-faint">
                       {s.index}
                     </span>
-                    <span className="block text-[16.5px] font-semibold tracking-tight text-ink">
+                    <span className="block text-[0.9706rem] font-semibold tracking-tight text-ink">
                       {s.name}
                     </span>
                   </span>
@@ -140,7 +140,7 @@ export function Services() {
         </div>
 
         {/* ============ DESKTOP: tab rail + panel ============ */}
-        <div className="mt-5 hidden gap-5 lg:grid lg:grid-cols-[300px_minmax(0,1fr)]">
+        <div className="mt-5 hidden gap-5 lg:grid lg:grid-cols-[17.6471rem_minmax(0,1fr)]">
           {/* Tab rail */}
           <Reveal>
             <div>
@@ -187,11 +187,11 @@ export function Services() {
                         <s.icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
-                        <span className="block font-mono text-[11px] text-faint">
+                        <span className="block font-mono text-[0.6471rem] text-faint">
                           {s.index}
                         </span>
                         <span
-                          className={`block text-[15.5px] font-semibold tracking-tight ${
+                          className={`block text-[0.9118rem] font-semibold tracking-tight ${
                             isActive ? "text-ink" : "text-muted group-hover:text-ink"
                           }`}
                         >
@@ -232,7 +232,7 @@ export function Services() {
                   {svc.tagline}
                 </h3>
 
-                <p className="mt-2.5 max-w-3xl text-pretty text-[15.5px] leading-relaxed text-muted">
+                <p className="mt-2.5 max-w-3xl text-pretty text-[0.9118rem] leading-relaxed text-muted">
                   {svc.description}
                 </p>
 
@@ -240,7 +240,7 @@ export function Services() {
                   {svc.highlights.map((h) => (
                     <li
                       key={h}
-                      className="inline-flex items-center gap-2 text-[14.5px] font-medium text-ink"
+                      className="inline-flex items-center gap-2 text-[0.8529rem] font-medium text-ink"
                     >
                       <Check className="h-4 w-4 text-accent" strokeWidth={2.4} />
                       {h}
@@ -256,40 +256,35 @@ export function Services() {
                   />
                   {svc.steps.map((step, i) => (
                     <li key={step.phase} className="relative">
-                      <span className="relative z-10 grid h-7 w-7 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[12.5px] font-medium text-accent">
+                      <span className="relative z-10 grid h-7 w-7 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[0.7353rem] font-medium text-accent">
                         {i + 1}
                       </span>
-                      <h4 className="mt-2.5 text-[15px] font-semibold tracking-tight text-ink">
+                      <h4 className="mt-2.5 text-[0.8824rem] font-semibold tracking-tight text-ink">
                         {step.phase}
                       </h4>
-                      <p className="mt-1 text-[13.5px] leading-snug text-muted">
+                      <p className="mt-1 text-[0.7941rem] leading-snug text-muted">
                         {step.summary}
                       </p>
-                      {step.timeline && (
-                        <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-wide text-faint">
-                          {step.timeline}
-                        </span>
-                      )}
                     </li>
                   ))}
                 </ol>
 
-                <p className="mt-3 text-[13px] text-faint">
+                <p className="mt-3 text-[0.7647rem] text-faint">
                   Each step is scheduled in the written plan before work begins.
                 </p>
 
                 {/* Footer: confidentiality + contact */}
                 <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-3 sm:flex-row sm:items-center">
-                  <p className="flex items-center gap-2.5 text-[13.5px] text-faint">
+                  <p className="flex items-center gap-2.5 text-[0.7941rem] text-faint">
                     <Lock className="h-4 w-4 shrink-0 text-accent" strokeWidth={1.7} />
                     Your information stays confidential.
                   </p>
                   <button
                     onClick={() => startProject(svc.id)}
-                    className="btn-primary group shrink-0 !py-3 !px-6 text-[15px]"
+                    className="btn-primary group shrink-0 !py-3 !px-6 text-[0.8824rem]"
                   >
                     Contact us about {svc.name}
-                    <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
               </motion.div>
@@ -305,10 +300,10 @@ export function Services() {
 function AccordionBody({ svc }: { svc: Service }) {
   return (
     <div>
-      <h3 className="text-balance text-[19px] font-bold tracking-tight text-ink">
+      <h3 className="text-balance text-[1.1176rem] font-bold tracking-tight text-ink">
         {svc.tagline}
       </h3>
-      <p className="mt-2 text-pretty text-[15px] leading-relaxed text-muted">
+      <p className="mt-2 text-pretty text-[0.8824rem] leading-relaxed text-muted">
         {svc.description}
       </p>
 
@@ -316,7 +311,7 @@ function AccordionBody({ svc }: { svc: Service }) {
         {svc.highlights.map((h) => (
           <li
             key={h}
-            className="inline-flex items-center gap-2.5 text-[14.5px] font-medium text-ink"
+            className="inline-flex items-center gap-2.5 text-[0.8529rem] font-medium text-ink"
           >
             <Check className="h-4 w-4 shrink-0 text-accent" strokeWidth={2.4} />
             {h}
@@ -327,7 +322,7 @@ function AccordionBody({ svc }: { svc: Service }) {
       {/* Vertical delivery timeline */}
       <div className="mt-6">
         <div className="mb-3 flex items-center gap-3">
-          <span className="font-mono text-[10.5px] uppercase tracking-label text-faint">
+          <span className="font-mono text-[0.6176rem] uppercase tracking-label text-faint">
             Project steps
           </span>
           <span className="hairline flex-1" />
@@ -338,24 +333,17 @@ function AccordionBody({ svc }: { svc: Service }) {
               {i < svc.steps.length - 1 && (
                 <span
                   aria-hidden
-                  className="absolute bottom-0 left-[15px] top-8 w-px bg-[color:var(--border-strong)]"
+                  className="absolute bottom-0 left-[0.8824rem] top-8 w-px bg-[color:var(--border-strong)]"
                 />
               )}
-              <span className="relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[12.5px] font-medium text-accent">
+              <span className="relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-accent bg-surface font-mono text-[0.7353rem] font-medium text-accent">
                 {i + 1}
               </span>
               <div className="pt-1">
-                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <h4 className="text-[15.5px] font-semibold tracking-tight text-ink">
-                    {step.phase}
-                  </h4>
-                  {step.timeline && (
-                    <span className="font-mono text-[11px] uppercase tracking-wide text-faint">
-                      {step.timeline}
-                    </span>
-                  )}
-                </div>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-muted">
+                <h4 className="text-[0.9118rem] font-semibold tracking-tight text-ink">
+                  {step.phase}
+                </h4>
+                <p className="mt-1.5 text-[0.8235rem] leading-relaxed text-muted">
                   {step.what}
                 </p>
               </div>
@@ -364,18 +352,18 @@ function AccordionBody({ svc }: { svc: Service }) {
         </ol>
       </div>
 
-      <p className="mt-1 text-[13px] text-faint">
+      <p className="mt-1 text-[0.7647rem] text-faint">
         Each step is scheduled in the written plan before work begins.
       </p>
 
       <button
         onClick={() => startProject(svc.id)}
-        className="btn-primary group mt-5 w-full !py-3.5 text-[15px]"
+        className="btn-primary group mt-5 w-full !py-3.5 text-[0.8824rem]"
       >
         Contact us about {svc.name}
-        <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 group-hover:translate-x-1" />
       </button>
-      <p className="mt-3 flex items-center justify-center gap-2 text-center text-[12.5px] text-faint">
+      <p className="mt-3 flex items-center justify-center gap-2 text-center text-[0.7353rem] text-faint">
         <Lock className="h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={1.7} />
         Your information stays confidential.
       </p>

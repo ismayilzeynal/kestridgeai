@@ -4,8 +4,6 @@ export type DeliveryStep = {
   phase: string;
   summary: string; // one line for the desktop stepper
   what: string; // full copy, shown on smaller screens
-  /** Only the ongoing steps carry a timing value; the rest are set in the plan. */
-  timeline?: string;
 };
 
 export type Service = {
@@ -42,7 +40,6 @@ const DELIVER: DeliveryStep = {
   phase: "Go Live and Support",
   summary: "We put the system into use and support it.",
   what: "The system goes into daily use. You choose whether we keep running it or hand it over with documentation.",
-  timeline: "Ongoing",
 };
 
 export const services: Service[] = [
@@ -57,7 +54,7 @@ export const services: Service[] = [
     icon: Brain,
     highlights: [
       "Forecasting from your past records",
-      "A search tool for your own documents",
+      "An AI assistant that answers from your own documents",
       "Sorting and routing of incoming requests",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
@@ -66,7 +63,7 @@ export const services: Service[] = [
     id: "automation",
     index: "02",
     name: "Automation",
-    tagline: "Automation of repeated, rule based steps",
+    tagline: "Automation of repeated, rule-based steps",
     cardLabel: "Routine steps run without manual work",
     description:
       "Automation follows rules you set and runs the same way every time. We build it around the steps your team repeats by hand.",
@@ -90,7 +87,7 @@ export const services: Service[] = [
     highlights: [
       "Testing of systems and networks",
       "Access rules and encryption",
-      "Around the clock monitoring",
+      "Ongoing monitoring",
     ],
     steps: [
       {
@@ -111,8 +108,7 @@ export const services: Service[] = [
       {
         phase: "Monitoring and Support",
         summary: "We monitor and respond to issues.",
-        what: "We monitor the systems we run for you and respond to issues that need attention.",
-        timeline: "Ongoing",
+        what: "We monitor the systems we run for you and act on the issues that come up.",
       },
     ],
   },

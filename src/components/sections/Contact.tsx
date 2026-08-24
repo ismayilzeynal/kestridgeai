@@ -9,6 +9,7 @@ import {
   Mail,
   MapPin,
   CheckCircle2,
+  AlertCircle,
   Loader2,
   ChevronDown,
 } from "lucide-react";
@@ -17,7 +18,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { LinkedInButton } from "@/components/ui/LinkedInButton";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
 
-type Status = "idle" | "submitting" | "success";
+type Status = "idle" | "submitting" | "success" | "handoff" | "error";
 type Errors = Partial<Record<"name" | "email" | "service" | "message", string>>;
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -30,7 +31,6 @@ export function Contact() {
   // Live region must exist before the message lands, or nothing is announced.
   const [errorSummary, setErrorSummary] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   // Preselect the service when a "Start a … project" button is clicked.
   useEffect(() => {
@@ -41,9 +41,6 @@ export function Contact() {
     window.addEventListener("prefill-service", handler);
     return () => window.removeEventListener("prefill-service", handler);
   }, []);
-
-  // Clear any pending simulated-submit timer on unmount.
-  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const validate = (data: FormData): Errors => {
     const next: Errors = {};
@@ -84,14 +81,41 @@ export function Contact() {
     }
 
     setErrorSummary("");
-    setName((data.get("name") as string)?.trim() || "");
+    const sender = (data.get("name") as string)?.trim() || "";
+    setName(sender);
     setStatus("submitting");
-    // Frontend-only: simulate a request. Wire to a backend later.
-    timerRef.current = setTimeout(() => setStatus("success"), 1100);
+
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
+    const label =
+      serviceOptions.find((o) => o.value === data.get("service"))?.label ?? "";
+
+    // No form endpoint configured yet. Hand the message to the visitor's own
+    // mail client rather than tell them we received something we never got.
+    if (!endpoint) {
+      const body = [
+        `Name: ${sender}`,
+        `Email: ${data.get("email")}`,
+        `Service: ${label}`,
+        "",
+        (data.get("message") as string) ?? "",
+      ].join("\n");
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
+        `Project inquiry: ${label || "General"}`
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("handoff");
+      return;
+    }
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: data,
+    })
+      .then((r) => setStatus(r.ok ? "success" : "error"))
+      .catch(() => setStatus("error"));
   };
 
   const reset = () => {
-    clearTimeout(timerRef.current);
     setStatus("idle");
     setErrors({});
     setErrorSummary("");
@@ -100,7 +124,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-5 pb-24 pt-16 sm:pb-32 sm:pt-20 lg:scroll-mt-9 lg:pt-12">
+    <section id="contact" className="relative scroll-mt-8 pb-24 pt-16 sm:scroll-mt-4 sm:pb-32 sm:pt-20 lg:scroll-mt-12 lg:pt-12">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
           {/* Left - invitation + contact rails */}
@@ -113,8 +137,7 @@ export function Contact() {
             </Reveal>
             <Reveal delay={0.12}>
               <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
-                Describe the work and how to reach you. A founder reads every
-                message and replies by email.
+                Describe the work and how to reach you. We reply by email.
               </p>
             </Reveal>
 
@@ -127,10 +150,10 @@ export function Contact() {
                   <Mail className="h-5 w-5" strokeWidth={1.6} />
                 </span>
                 <span className="flex-1">
-                  <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
+                  <span className="block font-mono text-[0.6471rem] uppercase tracking-label text-faint">
                     Email
                   </span>
-                  <span className="text-[16px] text-ink">{site.email}</span>
+                  <span className="text-[0.9412rem] text-ink">{site.email}</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -145,10 +168,10 @@ export function Contact() {
                   <LinkedInIcon className="h-5 w-5" />
                 </span>
                 <span className="flex-1">
-                  <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
+                  <span className="block font-mono text-[0.6471rem] uppercase tracking-label text-faint">
                     LinkedIn
                   </span>
-                  <span className="text-[16px] text-ink">Company page</span>
+                  <span className="text-[0.9412rem] text-ink">Company page</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -158,10 +181,10 @@ export function Contact() {
                   <MapPin className="h-5 w-5" strokeWidth={1.6} />
                 </span>
                 <span className="flex-1">
-                  <span className="block font-mono text-[11px] uppercase tracking-label text-faint">
+                  <span className="block font-mono text-[0.6471rem] uppercase tracking-label text-faint">
                     Based in
                   </span>
-                  <span className="text-[16px] text-ink">{site.location}</span>
+                  <span className="text-[0.9412rem] text-ink">{site.location}</span>
                 </span>
               </div>
             </div>
@@ -170,33 +193,56 @@ export function Contact() {
 
           {/* Right - the form */}
           <Reveal delay={0.06}>
-            <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9 lg:p-6">
+            <div className="card relative overflow-hidden rounded-[1.6rem] p-6 sm:p-9 lg:p-5">
               <AnimatePresence mode="wait" initial={false}>
-                {status === "success" ? (
+                {status === "success" ||
+                status === "handoff" ||
+                status === "error" ? (
                   <motion.div
-                    key="success"
+                    key="result"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, ease }}
-                    className="flex min-h-[420px] flex-col items-center justify-center text-center"
+                    className="flex min-h-[24.7059rem] flex-col items-center justify-center text-center"
                   >
-                    <span className="relative mb-6 grid h-16 w-16 place-items-center rounded-full border border-line-strong bg-surface text-accent">
-                      <span className="absolute inset-0 rounded-full glow-accent" />
-                      <CheckCircle2 className="h-8 w-8" strokeWidth={1.6} />
+                    <span
+                      className={`relative mb-6 grid h-16 w-16 place-items-center rounded-full border border-line-strong bg-surface ${
+                        status === "error" ? "text-red-500" : "text-accent"
+                      }`}
+                    >
+                      {status !== "error" && (
+                        <span className="absolute inset-0 rounded-full glow-accent" />
+                      )}
+                      {status === "success" && (
+                        <CheckCircle2 className="h-8 w-8" strokeWidth={1.6} />
+                      )}
+                      {status === "handoff" && (
+                        <Mail className="h-8 w-8" strokeWidth={1.6} />
+                      )}
+                      {status === "error" && (
+                        <AlertCircle className="h-8 w-8" strokeWidth={1.6} />
+                      )}
                     </span>
                     <h3 className="font-display text-3xl text-ink">
-                      Thank you{name ? `, ${name.split(" ")[0]}` : ""}.
+                      {status === "success" &&
+                        `Thank you${name ? `, ${name.split(" ")[0]}` : ""}.`}
+                      {status === "handoff" && "One step left."}
+                      {status === "error" && "That did not go through."}
                     </h3>
                     <p className="mt-3 max-w-sm text-pretty leading-relaxed text-muted">
-                      Your message has been received. We will reply by email to
-                      the address you provided.
+                      {status === "success" &&
+                        "Your message has been received. We will reply by email to the address you provided."}
+                      {status === "handoff" &&
+                        `Your email app should have opened with the message ready to send. If it did not, write to ${site.email}.`}
+                      {status === "error" &&
+                        `We could not send the message. Please write to ${site.email} instead.`}
                     </p>
                     <div className="mt-8 flex flex-col items-center gap-4">
                       <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <a href={`mailto:${site.email}`} className="btn-primary group">
                           Email us
-                          <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </a>
                         <LinkedInButton />
                       </div>
@@ -217,7 +263,7 @@ export function Contact() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex flex-col gap-5 lg:gap-4"
+                    className="flex flex-col gap-5 lg:gap-3.5"
                   >
                     <div className="grid gap-5 sm:grid-cols-2">
                       <Field
@@ -268,7 +314,7 @@ export function Contact() {
                           onChange={(e) => setService(e.target.value)}
                           aria-invalid={!!errors.service}
                           aria-describedby={errors.service ? "service-error" : undefined}
-                          className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+                          className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                             service ? "text-ink" : "text-faint"
                           } ${errors.service ? "border-red-500/70" : "border-line"}`}
                         >
@@ -298,7 +344,7 @@ export function Contact() {
                         placeholder="A short description of the work and the systems involved."
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "message-error" : undefined}
-                        className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+                        className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                           errors.message ? "border-red-500/70" : "border-line"
                         }`}
                       />
@@ -311,6 +357,15 @@ export function Contact() {
                       {errorSummary}
                     </p>
 
+                    <input
+                      type="text"
+                      name="_gotcha"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="hidden"
+                    />
+
                     <button
                       type="submit"
                       disabled={status === "submitting"}
@@ -318,18 +373,18 @@ export function Contact() {
                     >
                       {status === "submitting" ? (
                         <>
-                          <Loader2 className="h-[18px] w-[18px] animate-spin" />
+                          <Loader2 className="h-[1.0588rem] w-[1.0588rem] animate-spin" />
                           Sending
                         </>
                       ) : (
                         <>
                           Send message
-                          <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
+                          <ArrowRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 group-hover:translate-x-1" />
                         </>
                       )}
                     </button>
 
-                    <p className="-mt-1 text-center text-[12px] leading-snug text-faint lg:-mt-2">
+                    <p className="-mt-1 text-center text-[0.7059rem] leading-snug text-faint lg:-mt-2">
                       By sending this message, you agree to our{" "}
                       <Link
                         href="/privacy"
@@ -372,7 +427,7 @@ function ErrorText({
   id?: string;
 }) {
   return (
-    <span id={id} className="text-[13px] font-medium text-red-600">
+    <span id={id} className="text-[0.7647rem] font-medium text-red-600">
       {children}
     </span>
   );
@@ -402,7 +457,7 @@ function Field({
       <span className="flex items-center justify-between">
         <Label htmlFor={name}>{label}</Label>
         {optional && (
-          <span className="font-mono text-[10.5px] uppercase tracking-wider text-faint">
+          <span className="font-mono text-[0.6176rem] uppercase tracking-wider text-faint">
             optional
           </span>
         )}
@@ -416,7 +471,7 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
-        className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[16px] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
+        className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
           error ? "border-red-500/70" : "border-line"
         }`}
       />

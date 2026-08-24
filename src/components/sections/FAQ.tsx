@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 const faqs = [
   {
     q: "What does Kestridge AI do?",
-    a: "We build the four kinds of systems listed above, connect them to what you already run, and support them after launch.",
+    a: "We build AI, automation, IT security, and data analytics systems, connect them to what you already run, and support them after launch.",
   },
   {
     q: "What kinds of work do you take on?",
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "How do you handle our data?",
-    a: "We encrypt your data, limit who can reach it, and use it only for your work. A nondisclosure agreement is available on request.",
+    a: "We limit who can reach it and use it only for your work. Encryption is applied where the work calls for it. A nondisclosure agreement is available on request.",
   },
   {
     q: "What size companies do you work with?",
@@ -50,7 +50,7 @@ export function FAQ() {
   return (
     <section
       id="questions"
-      className="relative scroll-mt-5 pb-20 pt-16 sm:pb-28 sm:pt-20"
+      className="relative scroll-mt-8 pb-20 pt-16 sm:scroll-mt-4 sm:pb-28 sm:pt-20"
     >
       <div className="container-x">
         <Reveal>
@@ -60,17 +60,17 @@ export function FAQ() {
         </Reveal>
 
         {/* Answers stay open by design: short pairs, no expanding panels. */}
-        <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:mt-12 xl:grid-cols-3 xl:gap-x-8">
+        <dl className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
           {faqs.map((f, i) => (
             <Reveal
               key={f.q}
               delay={(i % 2) * 0.05}
               className="border-t border-line pt-5"
             >
-              <dt className="text-[16px] font-semibold tracking-tight text-ink">
+              <dt className="text-[0.9412rem] font-semibold tracking-tight text-ink">
                 {f.q}
               </dt>
-              <dd className="mt-2 text-pretty text-[14.5px] leading-relaxed text-muted">
+              <dd className="mt-2 text-pretty text-[0.8529rem] leading-relaxed text-muted">
                 {f.a}
               </dd>
             </Reveal>
@@ -78,7 +78,7 @@ export function FAQ() {
         </dl>
 
         <Reveal delay={0.1}>
-          <p className="mt-10 text-[15px] text-muted">
+          <p className="mt-8 text-[0.8824rem] text-muted">
             For anything not covered here, write to us at{" "}
             <a
               href={`mailto:${site.email}`}

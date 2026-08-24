@@ -14,7 +14,7 @@ function LogoRow() {
             loading="lazy"
             className="h-9 w-9 shrink-0 rounded-lg object-contain opacity-85 saturate-[0.85] transition duration-500 ease-smooth group-hover:opacity-100 group-hover:saturate-100"
           />
-          <span className="whitespace-nowrap text-[14px] font-medium text-muted transition-colors duration-500 group-hover:text-ink">
+          <span className="whitespace-nowrap text-[0.8235rem] font-medium text-muted transition-colors duration-500 group-hover:text-ink">
             {c.name}
           </span>
         </li>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { scrollToId } from "@/lib/scroll";
+import { navigateToId, scrollToId } from "@/lib/scroll";
 
 // Global click delegation: every same-page anchor ("#id" or "/#id" while on
 // "/") scrolls through the one shared animator, so in-page navigation feels
@@ -29,11 +29,38 @@ export function SmoothAnchors() {
       const id = decodeURIComponent(href.slice(hashIndex + 1));
       if (!id || !document.getElementById(id)) return;
       e.preventDefault();
-      history.pushState(null, "", `#${id}`);
-      scrollToId(id);
+      navigateToId(id);
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  // A hash already in the URL (a shared link, or the /about redirect) was
+  // jumped to natively before hydration, using the raw border box. Re-place it
+  // through the same math. Twice: once after hydration and once after the last
+  // image settles, since a late layout shift moves the target underneath us.
+  // Both placements stand down the moment the reader scrolls on their own.
+  useEffect(() => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id || !document.getElementById(id)) return;
+    let owned = true;
+    const release = () => {
+      owned = false;
+    };
+    const place = () => owned && scrollToId(id, true);
+    const timers = [window.setTimeout(place, 60), window.setTimeout(place, 450)];
+    const opts = { passive: true } as const;
+    window.addEventListener("wheel", release, opts);
+    window.addEventListener("touchstart", release, opts);
+    window.addEventListener("keydown", release, opts);
+    window.addEventListener("load", place);
+    return () => {
+      timers.forEach(window.clearTimeout);
+      window.removeEventListener("wheel", release);
+      window.removeEventListener("touchstart", release);
+      window.removeEventListener("keydown", release);
+      window.removeEventListener("load", place);
+    };
   }, []);
   return null;
 }

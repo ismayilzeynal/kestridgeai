@@ -28,11 +28,11 @@ export function Company() {
   return (
     <section
       id="company"
-      className="relative scroll-mt-5 py-20 sm:py-28 lg:scroll-mt-8"
+      className="relative scroll-mt-4 py-20 sm:-scroll-mt-4 sm:py-28"
     >
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-24 lg:self-start">
             <Reveal>
               <h2 className="text-balance text-4xl text-signal sm:text-5xl">
                 A United States{" "}
@@ -42,12 +42,12 @@ export function Company() {
           </div>
 
           <div>
-            <div className="flex flex-col gap-5 text-pretty text-[17.5px] leading-relaxed text-muted">
+            <div className="flex flex-col gap-5 text-pretty text-[1.0294rem] leading-relaxed text-muted">
               <Reveal>
                 <p>
-                  Kestridge AI is a technology company in Illinois. We work
-                  with US businesses in four areas: AI solutions, automation,
-                  IT security, and data analytics.
+                  Kestridge AI is a technology company in Illinois. We work in
+                  four areas: AI solutions, automation, IT security, and data
+                  analytics.
                 </p>
               </Reveal>
               <Reveal delay={0.06}>
@@ -65,10 +65,10 @@ export function Company() {
                     <div className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-bg-soft text-accent">
                       <c.icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
-                    <h3 className="mt-3.5 font-sans text-[16px] font-semibold tracking-tight text-ink">
+                    <h3 className="mt-3.5 font-sans text-[0.9412rem] font-semibold tracking-tight text-ink">
                       {c.title}
                     </h3>
-                    <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted">
+                    <p className="mt-1.5 text-[0.8529rem] leading-relaxed text-muted">
                       {c.body}
                     </p>
                   </div>

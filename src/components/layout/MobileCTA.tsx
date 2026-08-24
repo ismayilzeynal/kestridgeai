@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { scrollToId } from "@/lib/scroll";
+import { navigateToId } from "@/lib/scroll";
 
 // Persistent mobile call-to-action. Appears once the hero is scrolled past and
 // hides while the contact form itself is on screen (so it never covers it).
@@ -59,14 +59,14 @@ export function MobileCTA() {
         onClick={(e) => {
           if (pathname === "/") {
             e.preventDefault();
-            scrollToId("contact");
+            navigateToId("contact");
           }
         }}
         className="btn-primary group w-full"
         tabIndex={show ? 0 : -1}
       >
         Contact us
-        <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1" />
+        <ArrowRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
     </div>
   );

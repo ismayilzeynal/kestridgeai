@@ -17,7 +17,7 @@ export function LegalHeader({
         <h1 className="mt-5 max-w-3xl text-balance text-[clamp(2rem,6vw,3rem)] leading-[1.05] text-signal">
           {title}
         </h1>
-        <p className="mt-4 font-mono text-[12px] uppercase tracking-label text-faint">
+        <p className="mt-4 font-mono text-[0.7059rem] uppercase tracking-label text-faint">
           Last updated: {updated}
         </p>
         <p className="mt-6 max-w-3xl text-pretty text-lg leading-relaxed text-muted">

@@ -5,21 +5,21 @@ konkret rəqəmlər müqavilədə dəqiqləşir.
 
 | # | Mərhələ | Müddət | Nəticə |
 | --- | --- | --- | --- |
-| 0 | Müraciət və cavab | 1 to 2 iş günü | Görüş vaxtı təyin olunub |
-| 1 | İlk görüş (discovery) | 30 to 45 dəq | Problem və hədəf aydındır |
-| 2 | Texniki qiymətləndirmə | 3 to 5 iş günü | Data auditi + həll variantı |
-| 3 | Təklif və müqavilə | 2 to 3 iş günü | İmzalanmış scope + qiymət |
+| 0 | Müraciət və cavab | 1-2 iş günü | Görüş vaxtı təyin olunub |
+| 1 | İlk görüş (discovery) | 30-45 dəq | Problem və hədəf aydındır |
+| 2 | Texniki qiymətləndirmə | 3-5 iş günü | Data auditi + həll variantı |
+| 3 | Təklif və müqavilə | 2-3 iş günü | İmzalanmış scope + qiymət |
 | 4 | Kickoff | ~1 həftə | Girişlər, mühit, data hazır |
-| 5 | POC / pilot | 2 to 4 həftə | İşlək prototip, go/no-go |
+| 5 | POC / pilot | 2-4 həftə | İşlək prototip, go/no-go |
 | 6 | Tam icra | sprintlərlə | Model + inteqrasiya hazır |
-| 7 | Test və validasiya | 1 to 2 həftə | Hədəflər real datada təsdiqlənib |
-| 8 | Canlıya keçid | 1 to 3 gün | Production-da işləyir |
-| 9 | Stabilizasiya | 2 to 4 həftə | Sistem sübut olunmuş şəkildə stabil |
-| 10 | Təhvil-təslim | 2 to 3 gün | Sənədlər, təlim, girişlərin ləğvi |
+| 7 | Test və validasiya | 1-2 həftə | Hədəflər real datada təsdiqlənib |
+| 8 | Canlıya keçid | 1-3 gün | Production-da işləyir |
+| 9 | Stabilizasiya | 2-4 həftə | Sistem sübut olunmuş şəkildə stabil |
+| 10 | Təhvil-təslim | 2-3 gün | Sənədlər, təlim, girişlərin ləğvi |
 
 ## Addımlar
 
-**0. Müraciət və cavab.** Form / email ilə müraciət gəlir. 1 to 2 iş günü
+**0. Müraciət və cavab.** Form / email ilə müraciət gəlir. 1-2 iş günü
 içində cavab yazılır, ilk görüş üçün vaxt təyin edilir.
 
 **1. İlk görüş.** Müştərinin problemi, mövcud sistemləri, datanın vəziyyəti

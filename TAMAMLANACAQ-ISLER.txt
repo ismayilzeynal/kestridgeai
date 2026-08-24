@@ -24,7 +24,8 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → Real URL kodda yenilənməli: src/lib/site.ts içində `linkedin`
 [ ] [ORTA]  Logo son təsdiq (hazırkı kit saytda inteqrasiya olunub;
       dəyişsə: public/brand/, src/app/icon.svg, apple-icon.png,
-      opengraph-image.png, twitter-image.png yenilənməlidir)
+      src/app/opengraph-image.tsx yenilənməlidir - Twitter kartı
+      da bundan götürülür)
 [ ] [ORTA]  Logomark-a dizayner baxışı: review-da qeyd olundu ki, mark
       kiçik ölçülərdə (navbar 34px, favicon 16px) incə "|" xəttinə
       bənzəyir və krem rəngi saytın soyuq boz+teal palitrasından
@@ -35,29 +36,32 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
 [ ] [VACIB] Komanda bölməsi - real üzvlər:
       → Real ad, vəzifə, fokus sahəsi
-      → Real fotolar (hazırda randomuser.me placeholder-ləri - real şəxslərin şəkilləridir, canlı saytda qalması hüquqi riskdir!)
-      → Hər üzvün ŞƏXSİ LinkedIn profil linki
+      → Sarvjeet və Robert üçün real foto (hazırda baş hərfli avatar
+        göstərilir; Chingiz və Faig-in fotoları public/team/ içindədir)
+      → ŞƏXSİ LinkedIn profil linkləri DƏRC EDİLMİR - saytda yalnız
+        şirkət səhifəsi göstərilir (src/lib/site.ts -> `linkedin`)
       → Fayl: src/data/team.ts
-[ ] [VACIB] "Companies our team has worked with" - real şirkətlər:
-      → Hazırkı loqolar (Anthropic, NVIDIA, McDonald's və s.) placeholder-dir.
-        Komandanın həqiqətən işlədiyi şirkətlərlə əvəzlənməlidir,
-        əks halda yanlış təqdimat (false advertising) riski var.
+[ ] [VACIB] "Companies our team has worked with" - sahib təsdiqi:
+      → 17 real qurum yerləşdirilib, loqolar public/logos/ içindədir.
+        Northwestern, Clark və Robert Morris universitetləri iş yeri
+        idi, yoxsa təhsil? Təhsildirsə həmin sətirlər çıxarılmalıdır.
       → Fayl: src/data/companies.ts
 [ ] [ORTA]  Dəqiq ofis ünvanı:
-      → About səhifəsi (src/app/about/page.tsx), src/lib/site.ts,
+      → src/components/sections/Company.tsx, src/lib/site.ts,
         layout.tsx içindəki Organization JSON-LD
-[ ] [ORTA]  Bütün mətnlərin yekun biznes təsdiqi (iddialar: 24/7,
-      NDA-first, 100% confidential, cavab müddəti "as soon as possible")
+[ ] [ORTA]  Bütün mətnlərin yekun biznes təsdiqi (saytdakı iddialar:
+      "An NDA is available on request", "Encryption", "Ongoing monitoring")
 
 ────────────────────────────────────────────────────────────────
  3. BACKEND VƏ CONTACT FORM
 ────────────────────────────────────────────────────────────────
-[ ] [VACIB] Form göndərişini real backend-ə bağlamaq
-      → Hazırda simulyasiyadır: src/components/sections/Contact.tsx
-        içində onSubmit (setTimeout ilə saxta "success")
-      → Sadə yol: Next.js API route + Resend/SendGrid ilə email
-      → Alternativ: Formspree / Basin kimi hazır servis
-[ ] [VACIB] Spam qoruması (Cloudflare Turnstile və ya honeypot sahə)
+[ ] [VACIB] Form endpoint-i qoşmaq: Vercel-də NEXT_PUBLIC_FORM_ENDPOINT
+      → Formspree / Web3Forms / Basin - multipart POST qəbul edib 2xx
+        qaytaran istənilən servis işləyir. Kod hazırdır.
+      → Dəyişən boşdursa forma saxta "göndərildi" DEMİR: istifadəçinin
+        mail proqramını hazır mesajla açır və bunu ona bildirir.
+[x] [VACIB] Spam qoruması - honeypot (`_gotcha`) əlavə olunub.
+      Sui-istifadə olsa Cloudflare Turnstile əlavə edilə bilər.
 [ ] [ORTA]  Müraciətlərin qeydiyyatı (email inbox kifayətdir; istəsəniz
       DB / Google Sheets / CRM inteqrasiyası)
 [ ] [ORTA]  Yeni müraciət üçün komandaya bildiriş (email notification)

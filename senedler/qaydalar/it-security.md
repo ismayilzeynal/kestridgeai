@@ -74,7 +74,7 @@ Tanınmış çərçivələrə əsaslanırıq - "öz bildiyimiz kimi" yox:
 - Qoşulan log mənbələri + saxlama müddəti sənədləşir.
 - **Eskalasiya matrisi:** hansı severity → kim, hansı kanal, hansı müddət
   (gecə saatları daxil) - kickoff-da təsdiqlənir.
-- İlk 2 to 4 həftə tuning (yalançı alarm təmizlənməsi); bu dövrdə alert çox
+- İlk 2-4 həftə tuning (yalançı alarm təmizlənməsi); bu dövrdə alert çox
   ola bilər.
 - Aylıq hesabat: insidentlər, trendlər, tövsiyələr.
 

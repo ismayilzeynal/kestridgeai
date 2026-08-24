@@ -20,7 +20,7 @@ const points = [
   {
     icon: LifeBuoy,
     title: "We support it after launch",
-    body: "We monitor the systems we run for you and fix issues as they come up.",
+    body: "We monitor the systems we run for you and respond to issues that come up.",
   },
 ];
 
@@ -29,11 +29,11 @@ export function WhyChooseUs() {
     <section
       id="process"
       aria-label="How we run a project"
-      className="relative scroll-mt-5 py-20 sm:py-28 lg:scroll-mt-8"
+      className="relative scroll-mt-4 py-20 sm:-scroll-mt-4 sm:py-28"
     >
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-24 lg:self-start">
             <Reveal>
               <h2 className="text-balance text-4xl text-signal sm:text-5xl">
                 How we <span className="text-accent-grad">run</span> a project
@@ -52,7 +52,7 @@ export function WhyChooseUs() {
               <Reveal key={p.title} delay={i * 0.05}>
                 <div className="group grid grid-cols-[auto_1fr] gap-5 border-t border-line py-7 transition-colors duration-300 first:border-t-0 hover:border-line-strong">
                   <div className="grid h-12 w-12 place-items-center rounded-2xl border border-line bg-surface text-accent transition-all duration-500 ease-smooth group-hover:border-line-strong group-hover:shadow-glow-accent">
-                    <p.icon className="h-[22px] w-[22px]" strokeWidth={1.6} />
+                    <p.icon className="h-[1.2941rem] w-[1.2941rem]" strokeWidth={1.6} />
                   </div>
                   <div className="pt-1">
                     <h3 className="font-display text-[1.35rem] font-medium text-ink">

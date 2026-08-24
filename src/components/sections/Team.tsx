@@ -5,7 +5,7 @@ export function Team() {
   return (
     <section
       id="founders"
-      className="relative scroll-mt-5 pb-20 pt-16 sm:pb-28 sm:pt-20 lg:scroll-mt-9"
+      className="relative scroll-mt-8 pb-20 pt-16 sm:scroll-mt-4 sm:pb-28 sm:pt-20"
     >
       <div className="container-x">
         <Reveal>
@@ -25,13 +25,13 @@ export function Team() {
               <article className="card card-hover group flex h-full flex-col items-start gap-5 rounded-2xl p-6 sm:flex-row sm:items-center lg:flex-col lg:items-start">
                 <Portrait member={m} />
                 <div>
-                  <h3 className="font-sans text-[17px] font-semibold tracking-tight text-ink">
+                  <h3 className="font-sans text-[1rem] font-semibold tracking-tight text-ink">
                     {m.name}
                   </h3>
-                  <p className="mt-0.5 text-[14px] font-medium text-accent">
+                  <p className="mt-0.5 text-[0.8235rem] font-medium text-accent">
                     {m.role}
                   </p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-muted">
+                  <p className="mt-2 text-[0.8235rem] leading-relaxed text-muted">
                     {m.focus}
                   </p>
                 </div>
@@ -47,12 +47,12 @@ export function Team() {
 /** Photo when we have one, otherwise a quiet initials avatar. */
 function Portrait({ member }: { member: Member }) {
   const base =
-    "grid h-[72px] w-[72px] shrink-0 place-items-center overflow-hidden rounded-full border border-line";
+    "grid h-[4.2353rem] w-[4.2353rem] shrink-0 place-items-center overflow-hidden rounded-full border border-line";
 
   if (!member.photo) {
     return (
       <span className={`${base} bg-bg-soft`} aria-hidden>
-        <span className="font-sans text-[20px] font-semibold tracking-tight text-muted">
+        <span className="font-sans text-[1.1765rem] font-semibold tracking-tight text-muted">
           {member.initials}
         </span>
       </span>

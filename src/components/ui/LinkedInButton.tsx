@@ -18,7 +18,7 @@ export function LinkedInButton({
       rel="noopener noreferrer"
       className={`${variant === "primary" ? "btn-primary" : "btn-ghost"} group ${className}`}
     >
-      <LinkedInIcon className="h-[17px] w-[17px]" />
+      <LinkedInIcon className="h-4 w-4" />
       <span>{label}</span>
       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </a>

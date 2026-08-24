@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { site } from "@/lib/site";
-import { scrollToId } from "@/lib/scroll";
+import { navigateToId } from "@/lib/scroll";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -59,6 +59,8 @@ export function Navbar() {
   // scroll - a hash jump while the menu holds `overflow:hidden` is silently
   // blocked on iOS. Cross-page links fall through to normal navigation.
   const onNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Modified clicks belong to the browser: let them open a new tab.
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const hashIndex = href.indexOf("#");
     if (hashIndex === -1) {
       setOpen(false);
@@ -70,7 +72,7 @@ export function Navbar() {
       e.preventDefault();
       setOpen(false);
       // wait one tick so overflow:hidden is lifted before scrolling
-      window.setTimeout(() => scrollToId(id), 60);
+      window.setTimeout(() => navigateToId(id), 60);
     } else {
       setOpen(false);
     }
@@ -94,7 +96,7 @@ export function Navbar() {
       >
         <nav
           aria-label="Main"
-          className="container-x flex h-[68px] items-center justify-between"
+          className="container-x flex h-16 items-center justify-between"
         >
           <span id="nav-brand">
             <Logo />
@@ -144,7 +146,7 @@ export function Navbar() {
         aria-modal="true"
         aria-label="Site menu"
         aria-hidden={!open}
-        className={`fixed inset-0 top-[68px] z-40 origin-top bg-bg transition-all duration-300 lg:hidden ${
+        className={`fixed inset-0 top-16 z-40 origin-top bg-bg transition-all duration-300 lg:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >

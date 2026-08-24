@@ -61,4 +61,4 @@ vulnerabilities are actually closed.**
 
 If monitoring is ordered, stages 5 to 9 become: connecting log sources →
 2 to 4 weeks of tuning (clearing false alarms) → escalation matrix sign-off
-→ switch to 24/7 operation → monthly reports.
+→ switch to the agreed monitoring hours → monthly reports.

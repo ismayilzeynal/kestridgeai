@@ -21,7 +21,7 @@ const sans = Archivo({
 
 const TITLE = "Kestridge AI | AI, Automation and IT Security in Illinois";
 const DESCRIPTION =
-  "Kestridge AI is a United States technology company based in Illinois. We build AI, automation, IT security, and data analytics systems for US businesses.";
+  "Kestridge AI is a United States technology company based in Illinois. We build AI, automation, IT security, and data analytics systems, connect them to the software a business already runs, and support them after launch.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -82,7 +82,6 @@ const organizationSchema = {
   logo: `${site.url}/opengraph-image`,
   email: site.email,
   description: DESCRIPTION,
-  areaServed: { "@type": "Country", name: "United States" },
   address: {
     "@type": "PostalAddress",
     addressRegion: site.region,

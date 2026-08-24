@@ -22,7 +22,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
+            <h3 className="font-mono text-[0.6471rem] uppercase tracking-label text-faint">
               Services
             </h3>
             <ul className="mt-5 flex flex-col gap-3">
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
+            <h3 className="font-mono text-[0.6471rem] uppercase tracking-label text-faint">
               Company
             </h3>
             <ul className="mt-5 flex flex-col gap-3">
@@ -72,7 +72,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-[11px] uppercase tracking-label text-faint">
+            <h3 className="font-mono text-[0.6471rem] uppercase tracking-label text-faint">
               Contact
             </h3>
             <ul className="mt-5 flex flex-col gap-4">

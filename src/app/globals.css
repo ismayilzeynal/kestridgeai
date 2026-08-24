@@ -39,12 +39,16 @@
 }
 
 html {
-  font-size: 17px; /* larger, more comfortable base scale */
+  /* 106.25% of the reader's own base size = 17px by default, but it still
+     follows their browser setting instead of pinning the whole scale. */
+  font-size: 106.25%;
   /* No CSS smooth-scrolling: all in-page scrolls go through the JS animator
      (lib/scroll.ts) so the behavior is identical everywhere. Direct visits to
      a #hash land instantly at the correctly offset position. */
-  /* Anchor offsets are tuned per-section via scroll-margin-top so the section
-     HEADING (not the padded section edge) lands just under the fixed navbar. */
+  /* Anchor offsets: every section sets scroll-mt to (6rem - its own padding-top)
+     at each breakpoint, so its HEADING - not the padded section edge - lands
+     6rem down, 2rem clear of the 4rem navbar. Change a section's py and its
+     scroll-mt has to move with it. */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -121,7 +125,7 @@ body {
 
   /* Eyebrow / mono label */
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 font-mono text-[12px] font-medium uppercase tracking-[0.2em] text-muted;
+    @apply inline-flex items-center gap-2.5 font-mono text-[0.7059rem] font-medium uppercase tracking-[0.2em] text-muted;
   }
   .eyebrow::before {
     content: "";
@@ -160,7 +164,7 @@ body {
     @apply relative inline-flex select-none items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-smooth;
   }
   .btn-primary {
-    @apply btn px-7 py-4 text-[16px] text-white;
+    @apply btn px-7 py-4 text-[0.9412rem] text-white;
     background: var(--ink-btn);
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16), 0 12px 28px -12px rgba(15, 23, 42, 0.4);
   }
@@ -170,7 +174,7 @@ body {
     box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18), 0 18px 40px -12px rgba(15, 23, 42, 0.45);
   }
   .btn-ghost {
-    @apply btn px-7 py-4 text-[16px] text-ink;
+    @apply btn px-7 py-4 text-[0.9412rem] text-ink;
     background: rgb(var(--surface));
     border: 1px solid var(--border-strong);
   }
@@ -199,7 +203,7 @@ body {
 
   /* Legal documents (privacy / terms) - quiet, readable long-form prose */
   .legal-prose {
-    @apply text-[15.5px] leading-relaxed text-muted;
+    @apply text-[0.9118rem] leading-relaxed text-muted;
   }
   .legal-prose h2 {
     @apply mb-3 mt-10 font-sans text-[1.3rem] font-semibold tracking-tight text-ink;

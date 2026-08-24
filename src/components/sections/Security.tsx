@@ -6,7 +6,6 @@ import {
   EyeOff,
   Radar,
   FileText,
-  Globe2,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -14,7 +13,7 @@ const commitments = [
   {
     icon: FileSignature,
     title: "Confidentiality on every project",
-    body: "It applies from the first conversation. A nondisclosure agreement is available on request.",
+    body: "It starts at the first conversation. An NDA is available on request.",
   },
   {
     icon: KeyRound,
@@ -24,27 +23,22 @@ const commitments = [
   {
     icon: LockKeyhole,
     title: "Encryption",
-    body: "Your data is scrambled in transit and in storage, readable only by people we authorize.",
+    body: "We encrypt data in transit and in storage when the work requires it.",
   },
   {
     icon: EyeOff,
     title: "Your data stays yours",
-    body: "We use it only for your project, never to teach AI systems that serve other companies.",
+    body: "We use it only for your project, never to train AI for anyone else.",
   },
   {
     icon: FileText,
     title: "A written record",
-    body: "You receive a document listing who has access, what is encrypted, and what is monitored.",
-  },
-  {
-    icon: Globe2,
-    title: "Specialists abroad",
-    body: "They work under the same terms as our own engineers, and we name everyone assigned to your project.",
+    body: "You receive a document listing who has access and what is monitored.",
   },
   {
     icon: Radar,
-    title: "Monitoring around the clock",
-    body: "We monitor the systems we run for you and respond to issues at any hour.",
+    title: "Ongoing monitoring",
+    body: "We monitor the systems we run for you and act on issues that arise.",
   },
 ];
 
@@ -52,10 +46,10 @@ export function Security() {
   return (
     <section
       id="security"
-      className="relative scroll-mt-5 pb-20 pt-16 sm:pb-28 sm:pt-20 lg:scroll-mt-[26px]"
+      className="relative scroll-mt-8 pb-20 pt-16 sm:scroll-mt-4 sm:pb-28 sm:pt-20"
     >
       <div className="container-x">
-        <div className="relative rounded-[2rem] border border-line bg-bg-soft/60 p-6 sm:p-10 lg:py-10">
+        <div className="relative rounded-[2rem] border border-line bg-bg-soft/60 p-6 sm:p-10 lg:py-8">
           {/* Decoration is clipped by its own wrapper so the panel itself can
               stay overflow-visible, otherwise it becomes the scrollport for the
               sticky column below and the column never pins. */}
@@ -78,25 +72,25 @@ export function Security() {
               </h2>
               <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted">
                 We work inside the systems your business runs on. Security
-                review is part of every project, not an add-on.
+                review is part of that work.
               </p>
-              <p className="mt-5 flex items-center gap-2.5 text-[15px] text-muted">
+              <p className="mt-5 flex items-center gap-2.5 text-[0.8824rem] text-muted">
                 <ShieldCheck className="h-5 w-5 shrink-0 text-accent" strokeWidth={1.7} />
-                These terms apply to every project.
+                These practices apply to every project.
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3 xl:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:gap-3">
               {commitments.map((c, i) => (
                 <Reveal key={c.title} delay={(i % 2) * 0.06}>
                   <div className="card card-hover h-full rounded-2xl p-5 lg:p-4">
                     <div className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-accent">
                       <c.icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
-                    <h3 className="mt-3 font-sans text-[16px] font-semibold tracking-tight text-ink">
+                    <h3 className="mt-3 font-sans text-[0.9412rem] font-semibold tracking-tight text-ink">
                       {c.title}
                     </h3>
-                    <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted">
+                    <p className="mt-1.5 text-[0.8529rem] leading-relaxed text-muted">
                       {c.body}
                     </p>
                   </div>

@@ -10,11 +10,25 @@ export type Member = {
 // The four founders. Names and portraits come from their own LinkedIn
 // profiles. Personal profile links are deliberately not published here.
 // Sarvjeet and Robert have no photo on LinkedIn, so their cards show initials
-// until they send a portrait. Sarvjeet's surname is Lnu.
+// until they send a portrait.
 export const team: Member[] = [
   {
-    name: "Sarvjeet Lnu",
-    initials: "SL",
+    name: "Chingiz Abdilov",
+    initials: "CA",
+    role: "Founder",
+    focus: "Technology operations and delivery",
+    photo: "/team/chingiz-abdilov.jpg",
+  },
+  {
+    name: "Faig Garayev",
+    initials: "FG",
+    role: "Founder",
+    focus: "Technology strategy and IT security",
+    photo: "/team/faig-garayev.jpg",
+  },
+  {
+    name: "Sarvjeet",
+    initials: "S",
     role: "Founder",
     focus: "Data, analytics and AI platforms",
     photo: "",
@@ -25,19 +39,5 @@ export const team: Member[] = [
     role: "Founder",
     focus: "Software engineering and integration",
     photo: "",
-  },
-  {
-    name: "Faig Garayev",
-    initials: "FG",
-    role: "Founder",
-    focus: "Technology strategy and IT security",
-    photo: "/team/faig-garayev.jpg",
-  },
-  {
-    name: "Chingiz Abdilov",
-    initials: "CA",
-    role: "Founder",
-    focus: "Technology operations and delivery",
-    photo: "/team/chingiz-abdilov.jpg",
   },
 ];

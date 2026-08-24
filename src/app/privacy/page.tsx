@@ -217,10 +217,10 @@ export default function PrivacyPage() {
         <h2>11. Visitors from outside the United States</h2>
         <p>
           We are based in the United States, and the information you provide is
-          processed and stored in the United States, where privacy laws may
-          differ from those of your country. By using this website, you
-          understand that your information will be transferred to and processed
-          in the United States.
+          processed and stored here. Where a project calls for it, specialists
+          we engage outside the United States may also handle it, under
+          confidentiality obligations. Privacy laws in those countries may
+          differ from those of your country.
         </p>
 
         <h2>12. Third-party websites</h2>

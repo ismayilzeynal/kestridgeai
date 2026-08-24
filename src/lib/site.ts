@@ -5,7 +5,7 @@ export const site = {
   legalName: "Kestridge AI Inc.",
   // Public production URL: update when the custom domain is live.
   url: "https://testlogo-site.vercel.app",
-  tagline: "AI, automation, IT security, and data analytics for US businesses.",
+  tagline: "AI, automation, IT security, and data analytics for businesses.",
   location: "Illinois, United States",
   region: "IL",
   country: "United States",

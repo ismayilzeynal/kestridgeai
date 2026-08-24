@@ -1,12 +1,14 @@
 # Kestridge AI - service site (frontend)
 
 Marketing site for **Kestridge AI**, a United States (Illinois) technology company
-offering **AI Solutions, Automation, IT Security, and Data Analytics** to US
-businesses.
+offering **AI Solutions, Automation, IT Security, and Data Analytics**.
 
 Frontend only - **Next.js 14 (App Router) · TypeScript · Tailwind CSS ·
-framer-motion**. No backend yet: the contact form is a simulated client-side
-submit (wire it up later).
+framer-motion**. The contact form posts to a hosted form endpoint given by
+`NEXT_PUBLIC_FORM_ENDPOINT` (Formspree, Web3Forms, Basin, anything that accepts
+multipart POST and answers 2xx). With the variable unset the form does not
+pretend to send: it opens the visitor's mail client with the message prefilled
+and says so.
 
 The site is one scrolling page plus two legal pages. `/about` used to be its own
 route; it now redirects to the `#company` section on the home page.
@@ -59,13 +61,14 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 | Production domain | `lib/site.ts` (`url`) | currently the Vercel URL, update when the custom domain is live |
 | Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
 | Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
-| Form submit | `components/sections/Contact.tsx` (`onSubmit`) | replace the simulated `setTimeout` with a real API call |
-| Spam protection | contact form | honeypot field or Cloudflare Turnstile |
+| Form endpoint | `.env` / Vercel env | set `NEXT_PUBLIC_FORM_ENDPOINT`, otherwise the form falls back to a mailto handoff |
+| Spam protection | contact form | a `_gotcha` honeypot ships; add Turnstile if the endpoint gets abused |
 
 ## Copy
 
-All user-facing strings were rewritten in one pass. The full before/after record,
-with the reason for each change, is in `copy-deck.json` at the repo root.
+`copy-deck.json` at the repo root records the first copy rewrite, before and
+after, with the reason for each change. It covers that pass only: later edits are
+not in it, so the source files are the one authority for the current strings.
 
 House rules the copy follows: no marketing language, no slogans, no rhetorical
 question headings, plain American business English, sentence case for headings

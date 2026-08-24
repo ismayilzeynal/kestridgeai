@@ -230,7 +230,7 @@ paylaşılan hesab, VPN-siz birbaşa 0.0.0.0/0 giriş.
 - Kanallar: **email** (rəsmi qərarlar), **video** (Google Meet / Zoom),
   müştəri istəsə **Slack / Teams** (gündəlik operativ).
 - **Həftəlik status:** sabit gün. Format - nə edildi / nə edilir / nə mane
-  olur. 15 to 30 dəqiqə.
+  olur. 15-30 dəqiqə.
 - Cavab müddətimiz: adi sual - 1 iş günü; bloklayan məsələ - 4 iş saatı.
 - İş idarəetməsi: **issue tracker** (Jira / Linear / GitHub Issues) - hər tapşırıq izlənir.
 
@@ -287,6 +287,6 @@ paylaşılan hesab, VPN-siz birbaşa 0.0.0.0/0 giriş.
 2. **Runbook** - sistemi necə işə salmalı / dayandırmalı, tipik problemlər
    və həlləri, kimlə əlaqə.
 3. Secrets / parolların təhlükəsiz ötürülməsi (vault və ya şifrəli kanal).
-4. Təlim sessiyası (1 to 2 saat, video yazıya alınır).
+4. Təlim sessiyası (1-2 saat, video yazıya alınır).
 5. Girişlərin ləğvi + data silinməsi təsdiqi.
 6. Dəstək şərtləri: nə daxildir, necə müraciət, cavab müddətləri.

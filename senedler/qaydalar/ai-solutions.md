@@ -20,7 +20,7 @@ layihələrinə xas əməli qaydalar, tool stack və prosedurlardır.
 
 - **Data nümunəsi** - qiymətləndirmə üçün (anonimləşdirilmiş ola bilər).
 - **Data sahibi ilə birbaşa əlaqə** - sxem/məna sualları üçün.
-- **Domain ekspertinin vaxtı** - həftədə min. 1 to 2 saat.
+- **Domain ekspertinin vaxtı** - həftədə min. 1-2 saat.
 - **İş mühiti:** on-prem işlənəcəksə GPU-lu VM (tipik: NVIDIA 24 GB+ VRAM,
   8 vCPU, 32 GB RAM, 200 GB SSD); cloud-dursa ayrıca project + GPU instance
   kvotası. Smeta əvvəlcədən verilir.

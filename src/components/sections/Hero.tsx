@@ -24,11 +24,11 @@ export function Hero() {
               style={{ animationDelay: "0.08s" }}
             >
               We build AI, automation, IT security, and data analytics{" "}
-              <span className="text-accent-grad">systems for US businesses.</span>
+              <span className="text-accent-grad">systems for businesses.</span>
             </h1>
 
             <p
-              className="anim-rise mt-6 max-w-xl text-pretty text-[19px] leading-relaxed text-muted"
+              className="anim-rise mt-6 max-w-xl text-pretty text-[1.1176rem] leading-relaxed text-muted"
               style={{ animationDelay: "0.3s" }}
             >
               We connect them to the software your business already uses, and
@@ -46,7 +46,7 @@ export function Hero() {
                 className="btn-ghost group"
               >
                 See our services
-                <ArrowUpRight className="h-[18px] w-[18px] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
           </div>
@@ -56,7 +56,7 @@ export function Hero() {
             <div className="card glow-accent overflow-hidden rounded-[1.6rem] p-1.5">
               <div className="rounded-[1.25rem] border border-line bg-bg-soft p-2">
                 <div className="px-4 py-3.5">
-                  <span className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted">
+                  <span className="font-mono text-[0.7059rem] uppercase tracking-[0.18em] text-muted">
                     Areas of work
                   </span>
                 </div>
@@ -67,19 +67,19 @@ export function Hero() {
                       onClick={() => openService(s.id)}
                       className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-4 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
                     >
-                      <span className="font-mono text-[13px] text-faint">{s.index}</span>
+                      <span className="font-mono text-[0.7647rem] text-faint">{s.index}</span>
                       <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
                         <s.icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
-                        <span className="block text-[16px] font-semibold text-ink">
+                        <span className="block text-[0.9412rem] font-semibold text-ink">
                           {s.name}
                         </span>
-                        <span className="block text-[13px] text-faint">
+                        <span className="block text-[0.7647rem] text-faint">
                           {s.cardLabel}
                         </span>
                       </span>
-                      <ArrowUpRight className="h-[18px] w-[18px] text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </button>
                   ))}
                 </div>

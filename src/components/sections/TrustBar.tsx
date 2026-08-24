@@ -6,10 +6,10 @@ export function TrustBar() {
     <section className="border-y border-line bg-surface py-14">
       <div className="container-x">
         <Reveal>
-          {/* Precise by design: these are the founders' employers, not
+          {/* Precise by design: these are places our team has worked, not
               clients of Kestridge AI. */}
-          <p className="mb-10 text-center text-[15px] font-medium text-muted">
-            Where our founders have worked
+          <p className="mb-10 text-center text-[1rem] font-semibold tracking-tight text-ink sm:text-[1.1176rem]">
+            Companies our team has worked with
           </p>
         </Reveal>
       </div>
