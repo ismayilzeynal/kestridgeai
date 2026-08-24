@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="192" height="192" shape-rendering="geometricPrecision">
+  <circle cx="12" cy="12" r="12" fill="#FAFAF7"/>
+  <g transform="translate(0.800000 0.800000) scale(0.933333)">
+    <path fill="#0F1317" d="M3,3 L7,3 L7,21 L3,21 Z"/>
+    <path fill="#0F1317" d="M9.7,10.65 L14.025,10.65 L18.3,6.375 L18.3,5.7 L13.975,5.7 L9.7,9.975 Z"/>
+    <path fill="#0F1317" d="M9.7,13.35 L14.025,13.35 L21,20.325 L21,21 L16.675,21 L9.7,14.025 Z"/>
+  </g>
+</svg>

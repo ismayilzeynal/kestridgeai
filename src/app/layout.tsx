@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f6f9",
+  themeColor: "#fafaf7",
   width: "device-width",
   initialScale: 1,
 };
@@ -79,7 +79,7 @@ const organizationSchema = {
   name: site.brand,
   legalName: site.legalName,
   url: site.url,
-  logo: `${site.url}/opengraph-image`,
+  logo: `${site.url}/brand/logo.png`,
   email: site.email,
   description: DESCRIPTION,
   address: {

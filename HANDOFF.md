@@ -72,18 +72,10 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
    (Formspree / Web3Forms / Basin). Kod hazırdır. Dəyişən boş olduğu müddətdə
    forma saxta "göndərildi" demir - istifadəçinin mail proqramını hazır mesajla
    açır.
-2. **Logo.** Hazır olanda: `public/brand/`, `src/app/icon.svg`,
-   `src/app/apple-icon.png`, `src/app/opengraph-image.tsx`.
-   `media-logo-assets/` bütünlüklə köhnə brenddir (7 SVG-də hələ "AIVanta"
-   yazısı var). Deyin, silim.
-3. **Domen.** `site.ts` -> `url` hələ `testlogo-site.vercel.app`.
-4. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
+2. **Domen.** `site.ts` -> `url` hələ `testlogo-site.vercel.app`.
+3. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
    üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
-5. **Loqo lenti:** Northwestern, Clark, Robert Morris universitetləri iş yeri
-   idi, yoxsa təhsil? Təhsildirsə həmin sətirlər `companies.ts`-dən çıxarılmalı.
-6. **`senedler/word/` köhnədir:** fayl adları hələ "AIVanta", məzmun isə
-   rebrend və son düzəlişlərdən əvvəlkidir. Yenidən generasiya lazımdır.
-7. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
+4. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
    demir.
 
 ---

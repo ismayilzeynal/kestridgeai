@@ -1,0 +1,63 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [ 5 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 224
+>>
+stream
+1 0 0 1 0 0 cm  .058824 .07451 .090196 rg
+n 0 144 m 32 144 l 32 0 l 0 0 l h 53.6 82.8 m 88.2 82.8 l 122.4 117 l 122.4 122.4 l 87.8 122.4 l 53.6 88.2 l h 53.6 61.2 m 88.2 61.2 l 144 5.4 l 144 0 l 109.4 0 l 53.6 55.8 l h
+f*
+ 
+
+endstream
+endobj
+5 0 obj
+<<
+/Contents 4 0 R
+/MediaBox [ 0 0 144 144 ]
+/Resources <<
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000113 00000 n 
+0000000162 00000 n 
+0000000437 00000 n 
+trailer
+<<
+/Size 6
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+614
+%%EOF

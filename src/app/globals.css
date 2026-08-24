@@ -7,31 +7,38 @@
   --font-display: var(--font-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* Surfaces - light, clean paper with white elevated cards (RGB channels for alpha) */
-  --bg: 245 246 249;
-  --bg-soft: 238 240 244;
+  /* Every value below comes from the Kestridge AI brand system
+     (Logo/08-site/kestridge-tokens.css and Logo/02-BRAND-GUIDELINES.md).
+     The contrast matrix is computed for this exact ramp, so the neutrals
+     move as a set or not at all. */
+
+  /* Surfaces - neutral-025 paper with white elevated cards (RGB for alpha) */
+  --bg: 250 250 247;
+  --bg-soft: 242 243 239;
   --surface: 255 255 255;
-  --surface-2: 248 249 251;
+  --surface-2: 247 247 243;
 
-  /* Lines */
-  --border: rgba(15, 23, 42, 0.1);
-  --border-strong: rgba(15, 23, 42, 0.16);
+  /* Lines - neutral-150 hairline */
+  --border: rgba(15, 19, 23, 0.11);
+  --border-strong: rgba(15, 19, 23, 0.18);
 
-  /* Text (RGB channels for alpha) */
-  --text: 17 24 33;
-  --text-muted: 74 83 96;
-  --text-faint: 99 108 121;
+  /* Text - neutral-950 / 700 / 600 (RGB for alpha) */
+  --text: 15 19 23;
+  --text-muted: 67 77 87;
+  --text-faint: 90 100 110;
 
-  /* Accent - deep, serious teal used surgically */
-  --accent: #0b7a67;
-  --accent-strong: #12a58c;
-  --accent-deep: #075044;
-  --accent-glow: rgba(11, 122, 103, 0.18);
+  /* Accent - petrol. The site is light only, so the brand's light-background
+     step (petrol-600, 5.9:1 on paper) carries text and icons, and petrol-500
+     is kept for glow and hover where contrast rules do not apply. */
+  --accent: #0e6a82;
+  --accent-strong: #1187a5;
+  --accent-deep: #0b5568;
+  --accent-glow: rgba(17, 135, 165, 0.18);
 
-  /* Ink used for primary buttons - near-black reads premium on light */
-  --ink-btn: #14181f;
+  /* Ink used for primary buttons - neutral-950 */
+  --ink-btn: #0f1317;
 
-  --grid: rgba(15, 23, 42, 0.04);
+  --grid: rgba(15, 19, 23, 0.04);
 }
 
 * {

@@ -1,0 +1,33 @@
+/* Kestridge AI - brend tokenleri
+   Olchulmush: accent #0B7A67, ink #111821, muted #4A5360, muted_2 #636C79, theme_color #F5F6F9 (canli sayt, 2026-08-24)
+   Bunlar onlarin evezidir. Sebeb: delivery/08-site/SITE-NOTES.md */
+:root {
+  --k-ink:        #0F1317;   /* neutral-950 */
+  --k-surface:    #171D23;   /* neutral-900 */
+  --k-paper:      #FAFAF7;   /* neutral-025 */
+  --k-muted:      #434D57;   /* neutral-700 */
+  --k-muted-2:    #5A646E;   /* neutral-600 */
+  --k-accent:     #1187A5;   /* petrol-500 - BREND */
+  --k-accent-alt: #0E6A82;   /* petrol-600 - achiq fonda link */
+  --k-hairline:   #DDE2E6;   /* neutral-150 */
+}
+
+/* Semantik renglər BREND DEYIL - yalniz status uchun.
+   Saytin cari akssenti #0B7A67 (hue 170) success-600 (hue 149) ile
+   20 derece araliqdadir; petrol-500 (hue 192) 43 derece uzaqdir. */
+:root {
+  --k-success: #007439;
+  --k-warning: #7D5A00;
+  --k-danger:  #A13832;
+  --k-info:    #3F59AF;
+}
+
+.kestridge-wordmark {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wght' 600, 'wdth' 100;
+  font-feature-settings: 'kern' 1;
+  letter-spacing: -0.014em;   /* cap 72 px, bax brend qaydalari 4.4 */
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}

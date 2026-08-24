@@ -1,0 +1,1712 @@
+{
+  "project": "kestridge-ai-brand",
+  "generated_utc": "2026-08-24T09:04:18Z",
+  "decisions": {
+    "ink": "#0F1317",
+    "knockout": "#FAFAF7",
+    "paper": "#FAFAF7",
+    "surface": "#171D23",
+    "accent": "#1187A5",
+    "mono_dark": "#000000",
+    "mono_light": "#FFFFFF",
+    "lockup_gates_open": false,
+    "text_full": "KESTRIDGE AI",
+    "text_short": "KESTRIDGE",
+    "descriptor_text": "AUTOMATION SECURITY ANALYTICS",
+    "descriptor_family": "Archivo",
+    "descriptor_weight": 500,
+    "descriptor_width": 100,
+    "descriptor_cap_u": 4.050000000000001,
+    "descriptor_tracking_pm": 180.0,
+    "descriptor_space_mode": "font_plus_tracking",
+    "descriptor_floor_cap_px": 9.0,
+    "lockup_plus_descriptor_ink_u": [
+      155.0093,
+      25.2708
+    ],
+    "stacked_floor_px": 64.0,
+    "cap_floor_px": {
+      "70": 12.0,
+      "100": 10.0
+    },
+    "mark_floor_px": 16.0,
+    "cuts_shipped": [
+      "main"
+    ]
+  },
+  "lockup_note": "default = KESTRIDGE AI, reserve = KESTRIDGE. C2 sherti hokmdur: U1 (huquqi shexs adindan AI dushmesi) ve U2 (02-collision-scan shert 5-in resmi duzelishi) odenene qeder default KESTRIDGE AI qalir. Bax build/01-DECISION-RECORD.md bolme 2.",
+  "geometry": {
+    "c": 2.7,
+    "k": 0.675,
+    "board": 24.0,
+    "cuts": {
+      "main": [
+        4.0,
+        5.0
+      ],
+      "dense": [
+        4.4,
+        5.5
+      ]
+    },
+    "ink_box_main": [
+      3.0,
+      3.0,
+      21.0,
+      21.0
+    ],
+    "ink_box_dense": [
+      2.55,
+      3.0,
+      21.45,
+      21.0
+    ],
+    "coverage_main": 0.2327929687500001,
+    "coverage_dense": 0.25623046875000005
+  },
+  "files": [
+    {
+      "file": "01-master/kestridge-mark-main-positive.svg",
+      "category": "master-svg",
+      "bytes": 493,
+      "sha256": "a18e207ec33176bde72b7ae13d5b81cc7f32ed761135ad58bf07d01e17e43309",
+      "note": "nishan, main kesik, positive",
+      "cut": "main",
+      "variant": "positive"
+    },
+    {
+      "file": "01-master/kestridge-mark-main-knockout.svg",
+      "category": "master-svg",
+      "bytes": 493,
+      "sha256": "34a9331fd5584226de3228201d6df4e969cbd55c691b9d1105d151dbc313f41e",
+      "note": "nishan, main kesik, knockout",
+      "cut": "main",
+      "variant": "knockout"
+    },
+    {
+      "file": "01-master/kestridge-mark-main-mono-black.svg",
+      "category": "master-svg",
+      "bytes": 495,
+      "sha256": "0f3a6f4c3f913ca56b008c1ec6c371c701d4a7bbc3e5c0f8fd3e2614bc4df812",
+      "note": "nishan, main kesik, mono-black",
+      "cut": "main",
+      "variant": "mono-black"
+    },
+    {
+      "file": "01-master/kestridge-mark-main-mono-white.svg",
+      "category": "master-svg",
+      "bytes": 495,
+      "sha256": "4a73929ee0331bf0870e83dff3b74f8fbeaac12f90d54d05c64581675af4a26a",
+      "note": "nishan, main kesik, mono-white",
+      "cut": "main",
+      "variant": "mono-white"
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-default-positive.svg",
+      "category": "master-svg",
+      "bytes": 3119,
+      "sha256": "9ded0f8d1acc1a05a8c1ef1b76fd4e0371bb64e3ce223a5d6bf113e34fc138a6",
+      "note": "horizontal kilid, KESTRIDGE AI, positive",
+      "text": "KESTRIDGE AI",
+      "kind": "horizontal",
+      "variant": "positive",
+      "ar": 8.6055
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-default-knockout.svg",
+      "category": "master-svg",
+      "bytes": 3119,
+      "sha256": "a29bfd3793c8db0bea34ed83e99d256a6c5b7b796490f67ebe86aa95ea8f637c",
+      "note": "horizontal kilid, KESTRIDGE AI, knockout",
+      "text": "KESTRIDGE AI",
+      "kind": "horizontal",
+      "variant": "knockout",
+      "ar": 8.6055
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-default-mono-black.svg",
+      "category": "master-svg",
+      "bytes": 3119,
+      "sha256": "0dbf081cdb8c04bafed4d1862247405ddbeee64aba06903844be599dba9427d1",
+      "note": "horizontal kilid, KESTRIDGE AI, mono-black",
+      "text": "KESTRIDGE AI",
+      "kind": "horizontal",
+      "variant": "mono-black",
+      "ar": 8.6055
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-default-mono-white.svg",
+      "category": "master-svg",
+      "bytes": 3119,
+      "sha256": "9fc3a197f1c515517c0c67c814b8c0dd5961cd78c871f4a4fdebd8c87aa566e6",
+      "note": "horizontal kilid, KESTRIDGE AI, mono-white",
+      "text": "KESTRIDGE AI",
+      "kind": "horizontal",
+      "variant": "mono-white",
+      "ar": 8.6055
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-reserve-positive.svg",
+      "category": "master-svg",
+      "bytes": 2830,
+      "sha256": "f80daa55e34e4c98ffff56f8ff5696ba6c82fdf6dbbb4a429fcfb9127f2d8833",
+      "note": "horizontal kilid, KESTRIDGE, positive",
+      "text": "KESTRIDGE",
+      "kind": "horizontal",
+      "variant": "positive",
+      "ar": 7.2381
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-reserve-knockout.svg",
+      "category": "master-svg",
+      "bytes": 2830,
+      "sha256": "c2b4bc2cbacb21b9712238e10adba69be1dd88a141dde36cd84ac92d3735e87e",
+      "note": "horizontal kilid, KESTRIDGE, knockout",
+      "text": "KESTRIDGE",
+      "kind": "horizontal",
+      "variant": "knockout",
+      "ar": 7.2381
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-reserve-mono-black.svg",
+      "category": "master-svg",
+      "bytes": 2830,
+      "sha256": "1923432babfe605f6696c9e69012e2f7d06f425b4b64b989e44629ec3f7ff474",
+      "note": "horizontal kilid, KESTRIDGE, mono-black",
+      "text": "KESTRIDGE",
+      "kind": "horizontal",
+      "variant": "mono-black",
+      "ar": 7.2381
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-reserve-mono-white.svg",
+      "category": "master-svg",
+      "bytes": 2830,
+      "sha256": "35f84ffaafcd7b9010d24a4dc8fed75c4188ea66192a3db67f2e76ff6aba6436",
+      "note": "horizontal kilid, KESTRIDGE, mono-white",
+      "text": "KESTRIDGE",
+      "kind": "horizontal",
+      "variant": "mono-white",
+      "ar": 7.2381
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-default-positive.svg",
+      "category": "master-svg",
+      "bytes": 3193,
+      "sha256": "11c3b18d663bf847f621cb214282b57dfce9f42c181537b28d0f2fb338c73980",
+      "note": "stacked kilid, KESTRIDGE AI, positive",
+      "text": "KESTRIDGE AI",
+      "kind": "stacked",
+      "variant": "positive",
+      "ar": 1.715
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-default-knockout.svg",
+      "category": "master-svg",
+      "bytes": 3193,
+      "sha256": "76df02f3b6b655bce4978a70a0efe1d117038bee81025381774af6b3b0d8379b",
+      "note": "stacked kilid, KESTRIDGE AI, knockout",
+      "text": "KESTRIDGE AI",
+      "kind": "stacked",
+      "variant": "knockout",
+      "ar": 1.715
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-default-mono-black.svg",
+      "category": "master-svg",
+      "bytes": 3193,
+      "sha256": "2f20456584a948b37701af2e3384899ea5dd1d53928f32757c6aec6dee35d0d0",
+      "note": "stacked kilid, KESTRIDGE AI, mono-black",
+      "text": "KESTRIDGE AI",
+      "kind": "stacked",
+      "variant": "mono-black",
+      "ar": 1.715
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-default-mono-white.svg",
+      "category": "master-svg",
+      "bytes": 3193,
+      "sha256": "5f8db9886afbad520fa799eaa7de4b3ce2049a015b04509ea9364cf7d4417e4f",
+      "note": "stacked kilid, KESTRIDGE AI, mono-white",
+      "text": "KESTRIDGE AI",
+      "kind": "stacked",
+      "variant": "mono-white",
+      "ar": 1.715
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-reserve-positive.svg",
+      "category": "master-svg",
+      "bytes": 2883,
+      "sha256": "211c44e46f041b62c600b840552c299db75aefbb162243d7f2dfd96d9e20b5bd",
+      "note": "stacked kilid, KESTRIDGE, positive",
+      "text": "KESTRIDGE",
+      "kind": "stacked",
+      "variant": "positive",
+      "ar": 1.375
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-reserve-knockout.svg",
+      "category": "master-svg",
+      "bytes": 2883,
+      "sha256": "40d45cc29a9a12e6a1d38fda4a724fdc63dea29664ae89b76a7ab7aee031c0ab",
+      "note": "stacked kilid, KESTRIDGE, knockout",
+      "text": "KESTRIDGE",
+      "kind": "stacked",
+      "variant": "knockout",
+      "ar": 1.375
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-reserve-mono-black.svg",
+      "category": "master-svg",
+      "bytes": 2883,
+      "sha256": "076b7b566c79bc552b6dd0564a7f8f4fbf46fbf1e5772aefb46dd8cfa2ad08e0",
+      "note": "stacked kilid, KESTRIDGE, mono-black",
+      "text": "KESTRIDGE",
+      "kind": "stacked",
+      "variant": "mono-black",
+      "ar": 1.375
+    },
+    {
+      "file": "01-master/kestridge-lockup-stacked-reserve-mono-white.svg",
+      "category": "master-svg",
+      "bytes": 2883,
+      "sha256": "9015ab081d7162596fea3d64f163ccffc8fab9ef2a411ae06f6c90e5cb362f57",
+      "note": "stacked kilid, KESTRIDGE, mono-white",
+      "text": "KESTRIDGE",
+      "kind": "stacked",
+      "variant": "mono-white",
+      "ar": 1.375
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-descriptor-positive.svg",
+      "category": "master-svg",
+      "bytes": 10402,
+      "sha256": "c09ac6a778e8bb36572e5734319437151c838eac5ff501ade94fb9a3d86f12ea",
+      "note": "yatiq kilid + deskriptor, positive",
+      "text": "KESTRIDGE AI",
+      "descriptor": "AUTOMATION SECURITY ANALYTICS",
+      "variant": "positive",
+      "combined_ar": 6.1339
+    },
+    {
+      "file": "01-master/kestridge-lockup-horizontal-descriptor-knockout.svg",
+      "category": "master-svg",
+      "bytes": 10402,
+      "sha256": "44534306d75d6847e37db08857af06f522ec135709479273339546926cebf318",
+      "note": "yatiq kilid + deskriptor, knockout",
+      "text": "KESTRIDGE AI",
+      "descriptor": "AUTOMATION SECURITY ANALYTICS",
+      "variant": "knockout",
+      "combined_ar": 6.1339
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-16.png",
+      "category": "png",
+      "bytes": 250,
+      "sha256": "d3f5de8f3b3afa84aed404f474dbb9f5b2820dac362b9edd5bb238400251faaa",
+      "note": "nishan, main, 16 px, alfa",
+      "px": 16,
+      "cut": "main",
+      "mean_lum": 0.7644
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-24.png",
+      "category": "png",
+      "bytes": 288,
+      "sha256": "5b52616ca1ede1471d01f21e1eb0a3d95b0fb9957579a7ae36008fe658351bb9",
+      "note": "nishan, main, 24 px, alfa",
+      "px": 24,
+      "cut": "main",
+      "mean_lum": 0.7648
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-32.png",
+      "category": "png",
+      "bytes": 318,
+      "sha256": "4bc7983e672f6bf972838c986c74226b71d8bf277e2b94d79f04777f87460837",
+      "note": "nishan, main, 32 px, alfa",
+      "px": 32,
+      "cut": "main",
+      "mean_lum": 0.7644
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-48.png",
+      "category": "png",
+      "bytes": 377,
+      "sha256": "eb5d5acef7a5d17af3e86f3f6e1b7f042d72a86b9ad1a8a1fb08ba89bb04a761",
+      "note": "nishan, main, 48 px, alfa",
+      "px": 48,
+      "cut": "main",
+      "mean_lum": 0.765
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-64.png",
+      "category": "png",
+      "bytes": 426,
+      "sha256": "cb42a90ee478aca9294f046cbb9850f3bd5786f4d70c25706475343d570f8836",
+      "note": "nishan, main, 64 px, alfa",
+      "px": 64,
+      "cut": "main",
+      "mean_lum": 0.7644
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-128.png",
+      "category": "png",
+      "bytes": 682,
+      "sha256": "eda040e18edd0a4d700e0d484406332c5a48c80c8b70a4c04613b50ed0c624b3",
+      "note": "nishan, main, 128 px, alfa",
+      "px": 128,
+      "cut": "main",
+      "mean_lum": 0.7672
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-180.png",
+      "category": "png",
+      "bytes": 1080,
+      "sha256": "3dac4d5ae99515464ccc34883485f81279cdf2f033b165fd620b99da84d4b13b",
+      "note": "nishan, main, 180 px, alfa",
+      "px": 180,
+      "cut": "main",
+      "mean_lum": 0.7674
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-192.png",
+      "category": "png",
+      "bytes": 1105,
+      "sha256": "996499c2268057e56b1bb6b51c072ab9dd74587b8945de203a2071bd54ab016e",
+      "note": "nishan, main, 192 px, alfa",
+      "px": 192,
+      "cut": "main",
+      "mean_lum": 0.7673
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-256.png",
+      "category": "png",
+      "bytes": 1510,
+      "sha256": "d3a49c116dad084eb9fbecc48bf45d3d7ca952d7182a56ddb4990d1482dffbc7",
+      "note": "nishan, main, 256 px, alfa",
+      "px": 256,
+      "cut": "main",
+      "mean_lum": 0.7679
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-512.png",
+      "category": "png",
+      "bytes": 3799,
+      "sha256": "b7b47036907fe7a1db547c155950e431267bdc17b410d74d691680315548ab42",
+      "note": "nishan, main, 512 px, alfa",
+      "px": 512,
+      "cut": "main",
+      "mean_lum": 0.7682
+    },
+    {
+      "file": "02-raster/kestridge-mark-main-1024.png",
+      "category": "png",
+      "bytes": 9467,
+      "sha256": "502917bbc2e22f9537306b0530ac9e0fe3203ac5132624ac58e291676f26de55",
+      "note": "nishan, main, 1024 px, alfa",
+      "px": 1024,
+      "cut": "main",
+      "mean_lum": 0.7683
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-64.png",
+      "category": "png",
+      "bytes": 6715,
+      "sha256": "935d47a3abb87f320a5a44ce97364da23eeddd098d27f8487819bd27ed95cf57",
+      "note": "horizontal kilid, KESTRIDGE AI, h=64",
+      "height": 64,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-64.jpg",
+      "category": "jpg",
+      "bytes": 12821,
+      "sha256": "443bcd0005259680b07c2e8fa6ad291573e17c000f33b6ce844832849c7b3b2d",
+      "note": "horizontal kilid, KESTRIDGE AI, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-64.webp",
+      "category": "webp",
+      "bytes": 4338,
+      "sha256": "1518e8b3a54c4460f671f7208ce8257223e15afb61610c30749aad2d1a9e9f5e",
+      "note": "horizontal kilid, KESTRIDGE AI, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-128.png",
+      "category": "png",
+      "bytes": 12997,
+      "sha256": "c0308fa481649e430e8409618c570f783f587ef21739b9c8d5f1f363b090d847",
+      "note": "horizontal kilid, KESTRIDGE AI, h=128",
+      "height": 128,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-128.jpg",
+      "category": "jpg",
+      "bytes": 26076,
+      "sha256": "554cb01affbb3dc74fdc031fc373e1dfe08b48216d27fcbe3d342dd822e3f40c",
+      "note": "horizontal kilid, KESTRIDGE AI, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-128.webp",
+      "category": "webp",
+      "bytes": 7054,
+      "sha256": "419346d4c8fd60937223bd6b7ac6c04ab2bc100c73862af030bd636f15b5258c",
+      "note": "horizontal kilid, KESTRIDGE AI, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-256.png",
+      "category": "png",
+      "bytes": 26152,
+      "sha256": "ac388d9d556b5f2aa9d26c142f6505f985cc0fc71b219b601996de9792b87bb3",
+      "note": "horizontal kilid, KESTRIDGE AI, h=256",
+      "height": 256,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-256.jpg",
+      "category": "jpg",
+      "bytes": 51819,
+      "sha256": "5320e6b10b1724718dc3362c5878256bde35777e78b7a4288892fd8d4e2ad5e4",
+      "note": "horizontal kilid, KESTRIDGE AI, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-256.webp",
+      "category": "webp",
+      "bytes": 13038,
+      "sha256": "22e2287a356ca4e420e98bee4b3001dbdce1405f22ddf1a742835f5fa33f8731",
+      "note": "horizontal kilid, KESTRIDGE AI, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-512.png",
+      "category": "png",
+      "bytes": 56238,
+      "sha256": "60443c9e47ccac45f3e7ef3eb2941d34de038253bf19b9654670210ea905a264",
+      "note": "horizontal kilid, KESTRIDGE AI, h=512",
+      "height": 512,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-512.jpg",
+      "category": "jpg",
+      "bytes": 114262,
+      "sha256": "9f699d5b46a38b8b5f8f4885d67aca38fc2c12e52d44595b2ffdf3fe76dff6c1",
+      "note": "horizontal kilid, KESTRIDGE AI, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-512.webp",
+      "category": "webp",
+      "bytes": 25172,
+      "sha256": "75ff824753841a6f64cf5358105a1d9e3ed0d02a32813be68bb0516d6c2f011c",
+      "note": "horizontal kilid, KESTRIDGE AI, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-1024.png",
+      "category": "png",
+      "bytes": 125143,
+      "sha256": "c7cdd17bd56154413105b2a8e65f3bf98a5b46ca164492367c14efde313ef405",
+      "note": "horizontal kilid, KESTRIDGE AI, h=1024",
+      "height": 1024,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-1024.jpg",
+      "category": "jpg",
+      "bytes": 280837,
+      "sha256": "ca673da000522d8f67924a7ad4c25fa9953bf6cb4bce852a73d065ff2467ef1e",
+      "note": "horizontal kilid, KESTRIDGE AI, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-default-1024.webp",
+      "category": "webp",
+      "bytes": 54862,
+      "sha256": "15ca6e99de819731476c52bb71324ff5514421c0612fc9ce2ba886b7c7bc548f",
+      "note": "horizontal kilid, KESTRIDGE AI, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-64.png",
+      "category": "png",
+      "bytes": 5744,
+      "sha256": "a3769ae8990cd782c46dd7495c1d3eeac0ddcf0b131a5346bd839f8da42459c7",
+      "note": "horizontal kilid, KESTRIDGE, h=64",
+      "height": 64,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-64.jpg",
+      "category": "jpg",
+      "bytes": 11399,
+      "sha256": "c6c0b6f565c41569d9af5b02f5cde0c75f6b1a764862dfe7edf0829708ddd074",
+      "note": "horizontal kilid, KESTRIDGE, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-64.webp",
+      "category": "webp",
+      "bytes": 3780,
+      "sha256": "844c94decc2c4b8431419fce12cc8b27688f9561aa57812b83fc6ab96d549724",
+      "note": "horizontal kilid, KESTRIDGE, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-128.png",
+      "category": "png",
+      "bytes": 10978,
+      "sha256": "1864df9a7a1162addc2660b7fb107928a6add2eab140135bf3e09c081c3c6a74",
+      "note": "horizontal kilid, KESTRIDGE, h=128",
+      "height": 128,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-128.jpg",
+      "category": "jpg",
+      "bytes": 22781,
+      "sha256": "17f2812462d46a71ab4a7ea5c41e34c62936113f40492d3d51a79994b0dbe3d0",
+      "note": "horizontal kilid, KESTRIDGE, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-128.webp",
+      "category": "webp",
+      "bytes": 6130,
+      "sha256": "12aa8ad28bd23a38498c9b63ddc8e488d2c70eee555e815a171e2bbff9654c2d",
+      "note": "horizontal kilid, KESTRIDGE, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-256.png",
+      "category": "png",
+      "bytes": 21917,
+      "sha256": "67caf574ad82b37b2a402f1340e97508d1e2d0d59ffb9dad582b780a455cedfb",
+      "note": "horizontal kilid, KESTRIDGE, h=256",
+      "height": 256,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-256.jpg",
+      "category": "jpg",
+      "bytes": 44892,
+      "sha256": "b3ca9cd575a7afe7249abccbe33b57d25bf019fc8c9f6e52e71daa55dd266419",
+      "note": "horizontal kilid, KESTRIDGE, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-256.webp",
+      "category": "webp",
+      "bytes": 10950,
+      "sha256": "137eb8de64af2c6dbbe6c2a0f0bb30ff943a17849b93f2b0853481096e324053",
+      "note": "horizontal kilid, KESTRIDGE, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-512.png",
+      "category": "png",
+      "bytes": 47187,
+      "sha256": "4a7d53aff3520df14c991dcc9f008f46b98bfec53366334de0055e84d474957b",
+      "note": "horizontal kilid, KESTRIDGE, h=512",
+      "height": 512,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-512.jpg",
+      "category": "jpg",
+      "bytes": 98668,
+      "sha256": "17fb826d541d77f816a38218a4606f8fe02e51966197e85ec2eb4386ba99318a",
+      "note": "horizontal kilid, KESTRIDGE, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-512.webp",
+      "category": "webp",
+      "bytes": 21410,
+      "sha256": "9b858cc3d6d18159986caf6ae723d936956060679b3033c35a56f2f409ef9fba",
+      "note": "horizontal kilid, KESTRIDGE, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-1024.png",
+      "category": "png",
+      "bytes": 104988,
+      "sha256": "f608f8e88ba52e15ed8abe5fd745a54f246334c8847cc9ae87b8cd220f4bd624",
+      "note": "horizontal kilid, KESTRIDGE, h=1024",
+      "height": 1024,
+      "kind": "horizontal"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-1024.jpg",
+      "category": "jpg",
+      "bytes": 241932,
+      "sha256": "297c77a119ccc6e286ef2d90acbd9062d3b8760b0ace67ccf0f584c7ea776bca",
+      "note": "horizontal kilid, KESTRIDGE, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-horizontal-reserve-1024.webp",
+      "category": "webp",
+      "bytes": 46552,
+      "sha256": "82350dbf31a9b414272813fbc81e5cf26be5fc3d9447f790f4ddf9207b058987",
+      "note": "horizontal kilid, KESTRIDGE, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-64.png",
+      "category": "png",
+      "bytes": 2396,
+      "sha256": "562f20a58ab3a29c0ef3c27474f9ddaaeab0a20c036aba09611648b1440e5b2f",
+      "note": "stacked kilid, KESTRIDGE AI, h=64",
+      "height": 64,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-64.jpg",
+      "category": "jpg",
+      "bytes": 3751,
+      "sha256": "fd572dc81a6cda711a0c9af388e817f4e511d0b78487336fc60ba95da7803e97",
+      "note": "stacked kilid, KESTRIDGE AI, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-64.webp",
+      "category": "webp",
+      "bytes": 1572,
+      "sha256": "3dbac0adc0c72d9984543de01724a4c0b36229563249d539a43728c8a2b0e82d",
+      "note": "stacked kilid, KESTRIDGE AI, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-128.png",
+      "category": "png",
+      "bytes": 4313,
+      "sha256": "8646403857ce9313a205b1e26dd45de748935b58754091bfcbd9ad70713b45bb",
+      "note": "stacked kilid, KESTRIDGE AI, h=128",
+      "height": 128,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-128.jpg",
+      "category": "jpg",
+      "bytes": 7845,
+      "sha256": "83386e34d1dd8776a6802534d4f23e42207b3c56f309f9dab5b136dd34537a87",
+      "note": "stacked kilid, KESTRIDGE AI, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-128.webp",
+      "category": "webp",
+      "bytes": 3030,
+      "sha256": "1bbd625131fe3819330a69aa296feac08c595cd16729278dc4b07c2dfa31cc9b",
+      "note": "stacked kilid, KESTRIDGE AI, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-256.png",
+      "category": "png",
+      "bytes": 8444,
+      "sha256": "868092950289487336b93259a8bf37a2619b34d93692f82bce500eba93e2aa46",
+      "note": "stacked kilid, KESTRIDGE AI, h=256",
+      "height": 256,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-256.jpg",
+      "category": "jpg",
+      "bytes": 17267,
+      "sha256": "8b3ef4ab490457fca655521676c91013aea617b2255cc3c215e26ead8719d70b",
+      "note": "stacked kilid, KESTRIDGE AI, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-256.webp",
+      "category": "webp",
+      "bytes": 4986,
+      "sha256": "177c88973cb68f1469d14a50e78e59fd13c02698adf23142fb44072b02e794a9",
+      "note": "stacked kilid, KESTRIDGE AI, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-512.png",
+      "category": "png",
+      "bytes": 17253,
+      "sha256": "180c7eb91e51471bea263e51bcfc7e6f97ea518514cb7c0f4ab5608ef980f0e3",
+      "note": "stacked kilid, KESTRIDGE AI, h=512",
+      "height": 512,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-512.jpg",
+      "category": "jpg",
+      "bytes": 36528,
+      "sha256": "4d82d18706fccf39d5425f992d82e0518c2255704d611d6f0e02f066f57ab43c",
+      "note": "stacked kilid, KESTRIDGE AI, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-512.webp",
+      "category": "webp",
+      "bytes": 9170,
+      "sha256": "f8551b5168ef0bccd0af6ccfd26c1147ee8d1a793d0f3e769e411edfc51e5d2e",
+      "note": "stacked kilid, KESTRIDGE AI, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-1024.png",
+      "category": "png",
+      "bytes": 37722,
+      "sha256": "cc4cd76fd0c461de95f80d46bc62a6aacc4915a1dc4cd91986a384202e5f118a",
+      "note": "stacked kilid, KESTRIDGE AI, h=1024",
+      "height": 1024,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-1024.jpg",
+      "category": "jpg",
+      "bytes": 82655,
+      "sha256": "1b9f6aee4dc45a0c86d54ea1bd48044a08364cd30a2636af76e3b039d91e86d6",
+      "note": "stacked kilid, KESTRIDGE AI, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-default-1024.webp",
+      "category": "webp",
+      "bytes": 17892,
+      "sha256": "b874da0734d0d5f6e20b88425402210bb4b9664d9160521eb88592cf190d8920",
+      "note": "stacked kilid, KESTRIDGE AI, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-64.png",
+      "category": "png",
+      "bytes": 2146,
+      "sha256": "b3f491bcaec6c547adf09b171044ce95eed7d96c8c41fe993ab16af37d4c3330",
+      "note": "stacked kilid, KESTRIDGE, h=64",
+      "height": 64,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-64.jpg",
+      "category": "jpg",
+      "bytes": 3350,
+      "sha256": "97239f254e46ed2305276cdca331dcd3508716c7701c5a022a9853be69e02f9d",
+      "note": "stacked kilid, KESTRIDGE, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-64.webp",
+      "category": "webp",
+      "bytes": 1384,
+      "sha256": "583d603a3e4f78ff4b7f41439a1ff7b09ef077b0720e500ed5202a5d68951b4d",
+      "note": "stacked kilid, KESTRIDGE, h=64"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-128.png",
+      "category": "png",
+      "bytes": 3729,
+      "sha256": "1e443cf30c1f325e57506ca6d69f22b797dddf06cea009112c19226bab1a78f3",
+      "note": "stacked kilid, KESTRIDGE, h=128",
+      "height": 128,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-128.jpg",
+      "category": "jpg",
+      "bytes": 6932,
+      "sha256": "83802755db036c16e6a27c74c3f5899e9d553a059fe6000dcb1ae79d11d570e0",
+      "note": "stacked kilid, KESTRIDGE, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-128.webp",
+      "category": "webp",
+      "bytes": 2728,
+      "sha256": "65e7871a2037c6b3caa102382ff5e923cf8990f1495c924d869cb43f16dc79ac",
+      "note": "stacked kilid, KESTRIDGE, h=128"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-256.png",
+      "category": "png",
+      "bytes": 7189,
+      "sha256": "745c799162c069d1fdf88a10493117c411d66f9fa5ec442913c3e8ffcc0c8bb2",
+      "note": "stacked kilid, KESTRIDGE, h=256",
+      "height": 256,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-256.jpg",
+      "category": "jpg",
+      "bytes": 15254,
+      "sha256": "deb4c0bef0dd9c32b1eec4c1874a7b71a63be1f1a2300f3753e27555c0f0de7f",
+      "note": "stacked kilid, KESTRIDGE, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-256.webp",
+      "category": "webp",
+      "bytes": 4408,
+      "sha256": "6963f7be08e2e2eb3269e147f8d02b71ee642a1efb3e3df17b89507df0695f61",
+      "note": "stacked kilid, KESTRIDGE, h=256"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-512.png",
+      "category": "png",
+      "bytes": 14675,
+      "sha256": "b2ffd13b63d2e823dec34db0841d9ccbf9b5f7b1784e19da78b7d8053ae6a8f2",
+      "note": "stacked kilid, KESTRIDGE, h=512",
+      "height": 512,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-512.jpg",
+      "category": "jpg",
+      "bytes": 32534,
+      "sha256": "40dd4b7166229be51176f073e12e4e965d8c422be79dc8a8b0089cacd5786dc7",
+      "note": "stacked kilid, KESTRIDGE, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-512.webp",
+      "category": "webp",
+      "bytes": 8062,
+      "sha256": "4967c6e65694c61ac9c01e4cdeb0e987873a71050481232c0c7314f411e25340",
+      "note": "stacked kilid, KESTRIDGE, h=512"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-1024.png",
+      "category": "png",
+      "bytes": 32023,
+      "sha256": "78db9d1657f012d0dcba9c023487af3a6c63091e21d4c22777b7c2c2d3ec27e4",
+      "note": "stacked kilid, KESTRIDGE, h=1024",
+      "height": 1024,
+      "kind": "stacked"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-1024.jpg",
+      "category": "jpg",
+      "bytes": 73618,
+      "sha256": "58868f56b34a0d11441b62ae8159d37b124c9bae787c77eb7a7a3f50514567d9",
+      "note": "stacked kilid, KESTRIDGE, h=1024"
+    },
+    {
+      "file": "02-raster/kestridge-lockup-stacked-reserve-1024.webp",
+      "category": "webp",
+      "bytes": 15628,
+      "sha256": "79c0cd4689cddc3c85559a05b7563d9a9a5165eb1fc9e15e96ca6b2298f8149f",
+      "note": "stacked kilid, KESTRIDGE, h=1024"
+    },
+    {
+      "file": "03-icons/favicon.ico",
+      "category": "ico",
+      "bytes": 3969,
+      "sha256": "72549611a00ed86b4efa06dde6bccdbeb11956bb5986d65a9b65f0d089d8c413",
+      "note": "favicon, kadrlar: 16,24,32,48,64,128,256 px",
+      "frames": [
+        16,
+        24,
+        32,
+        48,
+        64,
+        128,
+        256
+      ]
+    },
+    {
+      "file": "03-icons/kestridge-tile-square-192.svg",
+      "category": "svg",
+      "bytes": 505,
+      "sha256": "184ef161f5a6ea8aa6b57f7ea78ad498ebddb43675a953d675be77e8f78f0b65",
+      "note": "square plite, ink/plite = 0.75",
+      "frac": 0.75,
+      "half_diagonal": 12.7279,
+      "clips": false
+    },
+    {
+      "file": "03-icons/kestridge-tile-square-512.svg",
+      "category": "svg",
+      "bytes": 505,
+      "sha256": "e6b6327727f9a2119d363e1b669c4797e793529d9d7b9ada0d5f9bff24d9d349",
+      "note": "square plite, ink/plite = 0.75",
+      "frac": 0.75,
+      "half_diagonal": 12.7279,
+      "clips": false
+    },
+    {
+      "file": "03-icons/kestridge-tile-square-1024.svg",
+      "category": "svg",
+      "bytes": 507,
+      "sha256": "93732fb4a3a56c3bfa9ac2adfa1d5011819c22ae88d45320ffeacd1e4fe91df7",
+      "note": "square plite, ink/plite = 0.75",
+      "frac": 0.75,
+      "half_diagonal": 12.7279,
+      "clips": false
+    },
+    {
+      "file": "03-icons/kestridge-tile-circle-192.svg",
+      "category": "svg",
+      "bytes": 507,
+      "sha256": "07db68a5218e785346844221f3810cc59bc05ba10cc6ddc9267b3dc66c4aa307",
+      "note": "circle plite, ink/plite = 0.7",
+      "frac": 0.7,
+      "half_diagonal": 11.8794,
+      "clips": false
+    },
+    {
+      "file": "03-icons/kestridge-tile-circle-512.svg",
+      "category": "svg",
+      "bytes": 507,
+      "sha256": "fa7cbcb0c278d8a2baec82eeb220f8c69a864718cf8730eee4b5fdfda1e7cd8f",
+      "note": "circle plite, ink/plite = 0.7",
+      "frac": 0.7,
+      "half_diagonal": 11.8794,
+      "clips": false
+    },
+    {
+      "file": "03-icons/kestridge-tile-circle-1024.svg",
+      "category": "svg",
+      "bytes": 509,
+      "sha256": "68dcea101797efe5f2c75313fd37291748b6ef38afac994fa0a933a917d56ba2",
+      "note": "circle plite, ink/plite = 0.7",
+      "frac": 0.7,
+      "half_diagonal": 11.8794,
+      "clips": false
+    },
+    {
+      "file": "04-pdf/kestridge-mark-positive.pdf",
+      "category": "pdf",
+      "bytes": 809,
+      "sha256": "8e9b42284b1d443945f8a412ef6c94fdcb2c4a32e8cd3c081a2d7dcd61927946",
+      "note": "nishan, vektor, 2 in",
+      "w_pt": 144.0,
+      "h_pt": 144.0
+    },
+    {
+      "file": "04-pdf/kestridge-lockup-horizontal-default.pdf",
+      "category": "pdf",
+      "bytes": 8804,
+      "sha256": "88f00a39f2385b9cc6559527f052402d12f6d752ef416a768d2d45394d8b16a2",
+      "note": "horizontal kilid, KESTRIDGE AI, vektor",
+      "w_pt": 493.23,
+      "h_pt": 72.0
+    },
+    {
+      "file": "04-pdf/kestridge-lockup-horizontal-reserve.pdf",
+      "category": "pdf",
+      "bytes": 8094,
+      "sha256": "9e54314788d8d36ff0628147a11151b516acb9a9fa82fa8b5d6f9092b5b7974a",
+      "note": "horizontal kilid, KESTRIDGE, vektor",
+      "w_pt": 417.5,
+      "h_pt": 72.0
+    },
+    {
+      "file": "04-pdf/kestridge-lockup-stacked-default.pdf",
+      "category": "pdf",
+      "bytes": 8797,
+      "sha256": "3d0b30e8d7aef7771bcec15739df1cd247d85b5012cab8f5b0fbe7a88935bcff",
+      "note": "stacked kilid, KESTRIDGE AI, vektor",
+      "w_pt": 115.41,
+      "h_pt": 72.0
+    },
+    {
+      "file": "04-pdf/kestridge-lockup-stacked-reserve.pdf",
+      "category": "pdf",
+      "bytes": 8082,
+      "sha256": "25ce5c0f8eb5c21982deb8d71ca4e01cbeb92107a2699d25d6807e6afc6d8152",
+      "note": "stacked kilid, KESTRIDGE, vektor",
+      "w_pt": 94.77,
+      "h_pt": 72.0
+    },
+    {
+      "file": "05-collateral/business-card-front.png",
+      "category": "collateral",
+      "bytes": 13279,
+      "sha256": "8f6f8486f487cbdfed71c719710f0f3e2a11eb24f04c56c3adf73bb2478159e5",
+      "note": "business-card-front, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "business-card-front",
+      "verified": "yes",
+      "spec_src": "S1,S2"
+    },
+    {
+      "file": "05-collateral/business-card-front-guides.png",
+      "category": "collateral",
+      "bytes": 29475,
+      "sha256": "8a7e784bbe7791e5e7f74f06ca1a542222081108352e8c4d7a6b8e0cd8f9ec50",
+      "note": "business-card-front-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "business-card-front-guides",
+      "verified": "yes",
+      "spec_src": "S1,S2"
+    },
+    {
+      "file": "05-collateral/business-card-back.png",
+      "category": "collateral",
+      "bytes": 10750,
+      "sha256": "7054c182bad58311215ab2f7ffc161e7712def590ce382ffe3471015a88ed643",
+      "note": "business-card-back, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "business-card-back",
+      "verified": "yes",
+      "spec_src": "S1,S2"
+    },
+    {
+      "file": "05-collateral/business-card-back-guides.png",
+      "category": "collateral",
+      "bytes": 26108,
+      "sha256": "f6aed20aa7f0a0177cfb496528353d0431fb9339d78c1d376bfbe151180c3c42",
+      "note": "business-card-back-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "business-card-back-guides",
+      "verified": "yes",
+      "spec_src": "S1,S2"
+    },
+    {
+      "file": "05-collateral/letterhead-p1.png",
+      "category": "collateral",
+      "bytes": 43670,
+      "sha256": "f74fb725e060d872ee297f054da0a14af99c4d9e9daf0646b509558449c65664",
+      "note": "letterhead-p1, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "letterhead-p1",
+      "verified": "yes",
+      "spec_src": "S5,S7"
+    },
+    {
+      "file": "05-collateral/letterhead-p1-guides.png",
+      "category": "collateral",
+      "bytes": 61448,
+      "sha256": "717c27c8e127d62aebdfdd180635c9c5bc6d66f203d722861919e111d1514ca4",
+      "note": "letterhead-p1-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "letterhead-p1-guides",
+      "verified": "yes",
+      "spec_src": "S5,S7"
+    },
+    {
+      "file": "05-collateral/envelope-10-front.png",
+      "category": "collateral",
+      "bytes": 65679,
+      "sha256": "8499d8ea7b19cb963bc1f0d687a94481ece5dfc1e5f78da8b40e2deefcd82357",
+      "note": "envelope-10-front, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "envelope-10-front",
+      "verified": "yes",
+      "spec_src": "S10,S11"
+    },
+    {
+      "file": "05-collateral/envelope-10-front-guides.png",
+      "category": "collateral",
+      "bytes": 113507,
+      "sha256": "fb9f8dc85d217c5faae9dd13fdd35e00d8199ba71900c7d7c96c3495e4383cc5",
+      "note": "envelope-10-front-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "envelope-10-front-guides",
+      "verified": "yes",
+      "spec_src": "S10,S11"
+    },
+    {
+      "file": "05-collateral/slide-title-hd.png",
+      "category": "collateral",
+      "bytes": 19103,
+      "sha256": "53854fcb8af2728caba48bb0d7706feeeb4425c8312ea5443b56278de4bd3fc5",
+      "note": "slide-title-hd, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-title-hd",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/slide-title-hd-guides.png",
+      "category": "collateral",
+      "bytes": 28509,
+      "sha256": "702ba24bafdcc120005249fdf6e8652488072f47abb5a4bf54f5b10025596de4",
+      "note": "slide-title-hd-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-title-hd-guides",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/slide-divider-hd.png",
+      "category": "collateral",
+      "bytes": 24546,
+      "sha256": "c8294d6ccd9206b627f5e7c87024f8c71d4072f9a9d087a537054c3019863d80",
+      "note": "slide-divider-hd, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-divider-hd",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/slide-divider-hd-guides.png",
+      "category": "collateral",
+      "bytes": 33343,
+      "sha256": "2ccbdcbab5425b1e35054ff5678ca00c1c150708afbeab513aac1b3ee63d25ff",
+      "note": "slide-divider-hd-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-divider-hd-guides",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/slide-content-hd.png",
+      "category": "collateral",
+      "bytes": 24471,
+      "sha256": "362c311edd1ae4141e2b67f79e2ea2f11ea06f62990bc58947efd684b64fe2d3",
+      "note": "slide-content-hd, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-content-hd",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/slide-content-hd-guides.png",
+      "category": "collateral",
+      "bytes": 33854,
+      "sha256": "4c4902ecea4f81fde87a4218d0bfef91f973048afddd4bd8655d25670294dcac",
+      "note": "slide-content-hd-guides, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "slide-content-hd-guides",
+      "verified": "yes",
+      "spec_src": "S13,S14,S15"
+    },
+    {
+      "file": "05-collateral/email-sig-logo-1x.png",
+      "category": "collateral",
+      "bytes": 5782,
+      "sha256": "3c0336f6ce9cd1be13c5d627170e21ce8d1170f4d980df02006fee4d72468228",
+      "note": "email-sig-logo-1x, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "email-sig-logo-1x",
+      "verified": "yes",
+      "spec_src": "S26e,S28"
+    },
+    {
+      "file": "05-collateral/email-sig-logo-2x.png",
+      "category": "collateral",
+      "bytes": 11332,
+      "sha256": "f1f81df23c9a5d1589913c20c7be829e6996205a87db6591d461eb45d2107673",
+      "note": "email-sig-logo-2x, US-COLLATERAL-SPEC.md bolme 10",
+      "asset": "email-sig-logo-2x",
+      "verified": "yes",
+      "spec_src": "S26e,S27e,S28"
+    },
+    {
+      "file": "06-fonts/Archivo-Variable.ttf",
+      "category": "font",
+      "bytes": 658596,
+      "sha256": "0e094a7d3c7c4c25cf1310c4b30014f1dae9332220b1c2c88f4fa996f0b05053",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "06-fonts/Inter-Variable.ttf",
+      "category": "font",
+      "bytes": 879708,
+      "sha256": "4989b125924991b90d05b2d16e0e388c48f7d5bb8b30539bbf9c755278d0ccaf",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "06-fonts/JetBrainsMono-Variable.ttf",
+      "category": "font",
+      "bytes": 187208,
+      "sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "06-fonts/OFL-Archivo.txt",
+      "category": "license",
+      "bytes": 4388,
+      "sha256": "108b4e57c9c796d3d38d0428ca7ee39de47ad93187302718d9b2d8864b9b716b",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "06-fonts/OFL-Inter.txt",
+      "category": "license",
+      "bytes": 4377,
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "06-fonts/OFL-JetBrainsMono.txt",
+      "category": "license",
+      "bytes": 4399,
+      "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d",
+      "note": "SIL Open Font License 1.1"
+    },
+    {
+      "file": "07-platform/youtube-profile-picture-kanal-shekli-avatar-98x98.png",
+      "category": "platform",
+      "bytes": 706,
+      "sha256": "e6c98b7af3b9aea6e0c52e1809d8b66c91bf6ee71126ae211f7cbeb2b0b52b3b",
+      "note": "YouTube (kanal) - profile picture (kanal shekli / avatar)",
+      "platform": "YouTube (kanal)",
+      "slot": "profile picture (kanal shekli / avatar)",
+      "px": "98x98",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/10456525?hl=en&co=GENIE.Platform%3DDesktop",
+      "composition": "nishan, circle plite, ink/plite = 0.7"
+    },
+    {
+      "file": "07-platform/youtube-banner-channel-art-minimum-upload-olchusu-2048x1152.png",
+      "category": "platform",
+      "bytes": 56449,
+      "sha256": "ce0c5f7f3ab2c241f9cccdfa129c0dcd5d1847e44918a4ccc02a4c4a1debf319",
+      "note": "YouTube (kanal) - banner / channel art - minimum upload olchusu",
+      "platform": "YouTube (kanal)",
+      "slot": "banner / channel art - minimum upload olchusu",
+      "px": "2048x1152",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/10456525?hl=en&co=GENIE.Platform%3DDesktop",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/youtube-banner-channel-art-tovsiye-olunan-olchu-tv-uchun-2560x1440.png",
+      "category": "platform",
+      "bytes": 68838,
+      "sha256": "6d976311d1b311adfc6b655408bf5afd84fc43338f749ba719a8c8f392782b10",
+      "note": "YouTube (kanal) - banner / channel art - tovsiye olunan olchu (TV uchun)",
+      "platform": "YouTube (kanal)",
+      "slot": "banner / channel art - tovsiye olunan olchu (TV uchun)",
+      "px": "2560x1440",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/10456525?hl=en&co=GENIE.Platform%3DDesktop",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/youtube-banner-safe-area-metn-ve-loqo-uchun-minimum-olchude-1235x338.png",
+      "category": "platform",
+      "bytes": 12708,
+      "sha256": "b2dcb378b893cb3c75212721d24e0eb8daafa6d8e53e905b172651c772bd31ca",
+      "note": "YouTube (kanal) - banner safe area - metn ve loqo uchun (minimum olchude)",
+      "platform": "YouTube (kanal)",
+      "slot": "banner safe area - metn ve loqo uchun (minimum olchude)",
+      "px": "1235x338",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/10456525?hl=en&co=GENIE.Platform%3DDesktop",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/youtube-video-kichik-shekli-thumbnail-video-3840x2160.png",
+      "category": "platform",
+      "bytes": 111796,
+      "sha256": "65048e4e9ae0162b497dc778acc95f6756ad281d0159d69486a376b306a7c19a",
+      "note": "YouTube (kanal) - video kichik shekli (thumbnail) - video",
+      "platform": "YouTube (kanal)",
+      "slot": "video kichik shekli (thumbnail) - video",
+      "px": "3840x2160",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/72431?hl=en",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/youtube-video-kichik-shekli-thumbnail-shorts-2160x3840.png",
+      "category": "platform",
+      "bytes": 97016,
+      "sha256": "0167e5208a0bef0eaa97badb12a3aed056ee16da0c7ae3e50296da662dc463e1",
+      "note": "YouTube (kanal) - video kichik shekli (thumbnail) - Shorts",
+      "platform": "YouTube (kanal)",
+      "slot": "video kichik shekli (thumbnail) - Shorts",
+      "px": "2160x3840",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/72431?hl=en",
+      "composition": "stacked kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/youtube-branding-watermark-video-uzerinde-abune-loqosu-150x150.png",
+      "category": "platform",
+      "bytes": 903,
+      "sha256": "e421f71342275e4e84d76a25349ac13fe16358a379bb9ceefedaba7eba8dd8de",
+      "note": "YouTube (kanal) - branding watermark (video uzerinde abune loqosu)",
+      "platform": "YouTube (kanal)",
+      "slot": "branding watermark (video uzerinde abune loqosu)",
+      "px": "150x150",
+      "status": "verified",
+      "source_url": "https://support.google.com/youtube/answer/10456525?hl=en&co=GENIE.Platform%3DDesktop",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/github-repository-social-preview-repo-sosial-onbaxish-shekli-1280x640.png",
+      "category": "platform",
+      "bytes": 34093,
+      "sha256": "3648e4177e452fd2c1bd56c7e5e08edfbf832daa46ed9d12e502beb38638fca1",
+      "note": "GitHub (teshkilat / organization profili) - resmi menbe: docs.github.com - repository social preview (repo sosial onbaxish shekli)",
+      "platform": "GitHub (teshkilat / organization profili) - resmi menbe: docs.github.com",
+      "slot": "repository social preview (repo sosial onbaxish shekli)",
+      "px": "1280x640",
+      "status": "verified",
+      "source_url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/github-personal-account-profile-picture-shexsi-hesab-teshkilat-uc-500x500.png",
+      "category": "platform",
+      "bytes": 3388,
+      "sha256": "654868f9c2409dbb5d4fc2eafe162623adbd99bb00390aaa1610b11a98665008",
+      "note": "GitHub (teshkilat / organization profili) - resmi menbe: docs.github.com - personal account profile picture (SHEXSI hesab - teshkilat ucun tesdiqlenmeyib, yalniz istinad)",
+      "platform": "GitHub (teshkilat / organization profili) - resmi menbe: docs.github.com",
+      "slot": "personal account profile picture (SHEXSI hesab - teshkilat ucun tesdiqlenmeyib, yalniz istinad)",
+      "px": "500x500",
+      "status": "verified",
+      "source_url": "https://docs.github.com/en/account-and-profile/reference/profile-reference",
+      "composition": "nishan, circle plite, ink/plite = 0.7"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-company-page-logo-profile-400x400.png",
+      "category": "platform",
+      "bytes": 2323,
+      "sha256": "b38c5d238e47015430d10b266ab36fea94ef245c18b8128081ff2a805c15d8b4",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - company page logo (profile)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "company page logo (profile)",
+      "px": "400x400",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "nishan, circle plite, ink/plite = 0.7"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-company-page-cover-banner-1512x256.png",
+      "category": "platform",
+      "bytes": 10369,
+      "sha256": "5ade3151bfe46cd0b9516319a1811852a720bad5614b5d8aa3f94a3e5e386f66",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - company page cover / banner",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "company page cover / banner",
+      "px": "1512x256",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-page-post-image-url-link-share-1200x627.png",
+      "category": "platform",
+      "bytes": 32028,
+      "sha256": "93c446b86104ed99a10d466a896143cb2a3c47769e9cb72e8416c65dc6024d3a",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - page post image - URL / link share",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "page post image - URL / link share",
+      "px": "1200x627",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-feed-image-horizontal-single-image-ad-sponsored-content-1200x628.png",
+      "category": "platform",
+      "bytes": 32036,
+      "sha256": "da376076b08e8053aa4db5f0049ea98a7084054d62e7b60348b4c4e181bad31a",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - feed image - horizontal (single image ad / Sponsored Content)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "feed image - horizontal (single image ad / Sponsored Content)",
+      "px": "1200x628",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a426534",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-feed-image-square-single-image-ad-sponsored-content-1200x1200.png",
+      "category": "platform",
+      "bytes": 10185,
+      "sha256": "21aff1201b272467b8795538824a15855556025ef6a1541cd42815a2610e1189",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - feed image - square (single image ad / Sponsored Content)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "feed image - square (single image ad / Sponsored Content)",
+      "px": "1200x1200",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a426534",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-feed-image-vertical-single-image-ad-sponsored-content-720x900.png",
+      "category": "platform",
+      "bytes": 13431,
+      "sha256": "fdc16122d4a374f3099b29a859a27152cb795a729424fa785c14d8748c555946",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - feed image - vertical (single image ad / Sponsored Content)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "feed image - vertical (single image ad / Sponsored Content)",
+      "px": "720x900",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a426534",
+      "composition": "stacked kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-life-tab-main-image-career-pages-1128x376.png",
+      "category": "platform",
+      "bytes": 13663,
+      "sha256": "64dc26736891804371949b62e72c9aba72f5e8eaacae50d65ae0613ddf098b62",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - Life tab - main image (Career Pages)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "Life tab - main image (Career Pages)",
+      "px": "1128x376",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-life-tab-custom-modules-career-pages-502x282.png",
+      "category": "platform",
+      "bytes": 13852,
+      "sha256": "96cb315eaaaa09193c13264373604c98dc3fb7952e586cbac38c576faf6e4ee6",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - Life tab - custom modules (Career Pages)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "Life tab - custom modules (Career Pages)",
+      "px": "502x282",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/linkedin-shirket-sehifesi-life-tab-company-photos-career-pages-900x600.png",
+      "category": "platform",
+      "bytes": 9989,
+      "sha256": "24a018a165cce3e100fbbd6fb6b37c71409b9cd343b213b35dd1a1057e1f5e30",
+      "note": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page) - Life tab - company photos (Career Pages)",
+      "platform": "LinkedIn shirket sehifesi (LinkedIn Pages / Company Page)",
+      "slot": "Life tab - company photos (Career Pages)",
+      "px": "900x600",
+      "status": "verified",
+      "source_url": "https://www.linkedin.com/help/linkedin/answer/a563309/image-specifications-for-your-linkedin-pages-and-career-pages",
+      "composition": "stacked kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/x-profile-photo-avatar-400x400.png",
+      "category": "platform",
+      "bytes": 2323,
+      "sha256": "b38c5d238e47015430d10b266ab36fea94ef245c18b8128081ff2a805c15d8b4",
+      "note": "X (Twitter) - profil - profile photo (avatar)",
+      "platform": "X (Twitter) - profil",
+      "slot": "profile photo (avatar)",
+      "px": "400x400",
+      "status": "verified",
+      "source_url": "https://help.x.com/en/managing-your-account/common-issues-when-uploading-profile-photo",
+      "composition": "nishan, circle plite, ink/plite = 0.7"
+    },
+    {
+      "file": "07-platform/x-header-banner-cover-1500x500.png",
+      "category": "platform",
+      "bytes": 19000,
+      "sha256": "091cc9e0bd1ceeba880c01c6ef0ea805ffefe1f56f0dc4f4c6344decf04fdbda",
+      "note": "X (Twitter) - profil - header / banner (cover)",
+      "platform": "X (Twitter) - profil",
+      "slot": "header / banner (cover)",
+      "px": "1500x500",
+      "status": "verified",
+      "source_url": "https://help.x.com/en/managing-your-account/common-issues-when-uploading-profile-photo",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/x-image-ad-promoted-shekli-1-91-1-x-business-ad-spec-1200x628.png",
+      "category": "platform",
+      "bytes": 32036,
+      "sha256": "da376076b08e8053aa4db5f0049ea98a7084054d62e7b60348b4c4e181bad31a",
+      "note": "X (Twitter) - profil - Image Ad (Promoted) shekli, 1.91:1 - X business ad spec",
+      "platform": "X (Twitter) - profil",
+      "slot": "Image Ad (Promoted) shekli, 1.91:1 - X business ad spec",
+      "px": "1200x628",
+      "status": "verified",
+      "source_url": "https://business.x.com/en/help/campaign-setup/creative-ad-specifications",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/x-image-ad-promoted-shekli-1-1-kvadrat-x-business-ad-spec-1200x1200.png",
+      "category": "platform",
+      "bytes": 10185,
+      "sha256": "21aff1201b272467b8795538824a15855556025ef6a1541cd42815a2610e1189",
+      "note": "X (Twitter) - profil - Image Ad (Promoted) shekli, 1:1 kvadrat - X business ad spec",
+      "platform": "X (Twitter) - profil",
+      "slot": "Image Ad (Promoted) shekli, 1:1 kvadrat - X business ad spec",
+      "px": "1200x1200",
+      "status": "verified",
+      "source_url": "https://business.x.com/en/help/campaign-setup/creative-ad-specifications",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-og-image-tovsiye-olunan-olchu-meta-facebook-resmi-implemen-1200x630.png",
+      "category": "platform",
+      "bytes": 31632,
+      "sha256": "03967ec74dd1f1060cd0b383a7f947148a0486a6c675739ba2428bf30c9cecfb",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - og:image - tovsiye olunan olchu (Meta/Facebook resmi implementasiya senedi)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "og:image - tovsiye olunan olchu (Meta/Facebook resmi implementasiya senedi)",
+      "px": "1200x630",
+      "status": "verified",
+      "source_url": "https://developers.facebook.com/documentation/sharing/webmasters/images",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/veb-standartlari-og-image-mutleq-minimum-olchu-200x200.png",
+      "category": "platform",
+      "bytes": 1193,
+      "sha256": "0ad9c912d6efc968429b2af8f01d7cf30e98abd4910d7789ca1a4381e285c271",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - og:image - mutleq minimum olchu",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "og:image - mutleq minimum olchu",
+      "px": "200x200",
+      "status": "verified",
+      "source_url": "https://developers.facebook.com/documentation/sharing/webmasters/images",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-x-website-card-shekli-x-in-canli-resmi-kart-shekli-spesifi-800x418.png",
+      "category": "platform",
+      "bytes": 22026,
+      "sha256": "595aff7d02cc5044eafb15f779752951880bc67e9210c0b09d3bb6b5d383928b",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - X Website Card shekli (X-in canli resmi kart shekli spesifikasiyasi)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "X Website Card shekli (X-in canli resmi kart shekli spesifikasiyasi)",
+      "px": "800x418",
+      "status": "verified",
+      "source_url": "https://business.x.com/en/help/campaign-setup/creative-ad-specifications",
+      "composition": "yatiq kilid, merkezlenmish"
+    },
+    {
+      "file": "07-platform/veb-standartlari-favicon-klassik-olchu-16x16.png",
+      "category": "platform",
+      "bytes": 272,
+      "sha256": "076c96746f6649057b8630582a959ea8e26c29508bcd344075eb28c8803333ab",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - favicon - klassik olchu",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "favicon - klassik olchu",
+      "px": "16x16",
+      "status": "verified",
+      "source_url": "https://developer.mozilla.org/en-US/docs/Glossary/Favicon",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-apple-touch-icon-iphone-retina-3x-180x180.png",
+      "category": "platform",
+      "bytes": 1156,
+      "sha256": "6890c636701e6d62e88aad4f23644f1e810092397a558fd56ae8459669cf2842",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - apple-touch-icon - iPhone retina (3x)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "apple-touch-icon - iPhone retina (3x)",
+      "px": "180x180",
+      "status": "verified",
+      "source_url": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-apple-touch-icon-ipad-pro-retina-167x167.png",
+      "category": "platform",
+      "bytes": 895,
+      "sha256": "3c790371db1d619b78e01527d4f39b776f745774fff87febef608b2a12f669b2",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - apple-touch-icon - iPad Pro retina",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "apple-touch-icon - iPad Pro retina",
+      "px": "167x167",
+      "status": "verified",
+      "source_url": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-apple-touch-icon-ipad-non-retina-standart-152x152.png",
+      "category": "platform",
+      "bytes": 901,
+      "sha256": "9bad58b01279b5c79b72b117184218de418a11d87b0ab97862b593a991aa56dc",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - apple-touch-icon - iPad (non-retina / standart)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "apple-touch-icon - iPad (non-retina / standart)",
+      "px": "152x152",
+      "status": "verified",
+      "source_url": "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-pwa-android-manifest-ikonu-mecburi-kichik-olchu-chromium-192x192.png",
+      "category": "platform",
+      "bytes": 1192,
+      "sha256": "748d90a1863db0700f5c5b1cd68870a44ce42f374c035b23b4eadc5ac773a745",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - PWA / Android manifest ikonu - mecburi kichik olchu (Chromium)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "PWA / Android manifest ikonu - mecburi kichik olchu (Chromium)",
+      "px": "192x192",
+      "status": "verified",
+      "source_url": "https://web.dev/articles/add-manifest",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-pwa-android-manifest-ikonu-mecburi-boyuk-olchu-chromium-512x512.png",
+      "category": "platform",
+      "bytes": 3597,
+      "sha256": "6e8d8289ca353713e94c375360efab671c1b0bcd58e323791102ddac9db82787",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - PWA / Android manifest ikonu - mecburi boyuk olchu (Chromium)",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "PWA / Android manifest ikonu - mecburi boyuk olchu (Chromium)",
+      "px": "512x512",
+      "status": "verified",
+      "source_url": "https://web.dev/articles/add-manifest",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "07-platform/veb-standartlari-pwa-maskable-ikon-minimum-olchu-512x512.png",
+      "category": "platform",
+      "bytes": 3597,
+      "sha256": "6e8d8289ca353713e94c375360efab671c1b0bcd58e323791102ddac9db82787",
+      "note": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest) - PWA maskable ikon - minimum olchu",
+      "platform": "Veb standartlari (Open Graph, HTML favicon, apple-touch-icon, PWA manifest)",
+      "slot": "PWA maskable ikon - minimum olchu",
+      "px": "512x512",
+      "status": "verified",
+      "source_url": "https://web.dev/learn/pwa/web-app-manifest",
+      "composition": "nishan, square plite, ink/plite = 0.75"
+    },
+    {
+      "file": "08-site/icon.svg",
+      "category": "site",
+      "bytes": 505,
+      "sha256": "635b83eb6e5099830c2cada16c1b51f8caa6fbd8f597b9b00dfd80ae25d36c5d",
+      "note": "tund plite, knockout nishan, kunc radiusu 0",
+      "drops_into": "app/icon.svg"
+    },
+    {
+      "file": "08-site/icon-light.svg",
+      "category": "site",
+      "bytes": 505,
+      "sha256": "e6b6327727f9a2119d363e1b669c4797e793529d9d7b9ada0d5f9bff24d9d349",
+      "note": "achiq plite, musbet nishan",
+      "drops_into": "(ehtiyat)"
+    },
+    {
+      "file": "08-site/apple-icon.png",
+      "category": "site",
+      "bytes": 8349,
+      "sha256": "9b28cdadf620efaae66d4115bc7bcf933110889fe53327ead1861cb87a102459",
+      "note": "1024 x 1024, tund plite, ink/plite = 0.75",
+      "drops_into": "app/apple-icon.png"
+    },
+    {
+      "file": "08-site/opengraph-image.png",
+      "category": "site",
+      "bytes": 17008,
+      "sha256": "52acdc24aa9aa1acf17e1fcd7f85ddb5cfa2ee7f2d903916b94c02e191d3d8d4",
+      "note": "1200 x 630, yatiq kilid",
+      "drops_into": "app/opengraph-image.png"
+    },
+    {
+      "file": "08-site/opengraph-image-dark.png",
+      "category": "site",
+      "bytes": 17049,
+      "sha256": "f16bf953ef7195648d5e679ce355a954713ec15b5648c222bdd20702ff8b9470",
+      "note": "1200 x 630, tund",
+      "drops_into": "(ehtiyat)"
+    },
+    {
+      "file": "08-site/favicon.ico",
+      "category": "site",
+      "bytes": 3969,
+      "sha256": "72549611a00ed86b4efa06dde6bccdbeb11956bb5986d65a9b65f0d089d8c413",
+      "note": "kadrlar: 16, 24, 32, 48, 64, 128, 256",
+      "drops_into": "public/favicon.ico"
+    },
+    {
+      "file": "08-site/header-lockup.svg",
+      "category": "site",
+      "bytes": 3119,
+      "sha256": "9ded0f8d1acc1a05a8c1ef1b76fd4e0371bb64e3ce223a5d6bf113e34fc138a6",
+      "note": "yatiq kilid, AR 8.6055",
+      "drops_into": "komponent"
+    },
+    {
+      "file": "08-site/header-lockup-dark.svg",
+      "category": "site",
+      "bytes": 3119,
+      "sha256": "a29bfd3793c8db0bea34ed83e99d256a6c5b7b796490f67ebe86aa95ea8f637c",
+      "note": "yatiq kilid, AR 8.6055",
+      "drops_into": "komponent"
+    },
+    {
+      "file": "08-site/kestridge-tokens.css",
+      "category": "site",
+      "bytes": 1236,
+      "sha256": "6c569fe834f336a377e3ced259f85aef4002540cf269a6dc425323acfa27d776",
+      "note": "CSS deyishenler",
+      "drops_into": "styles/"
+    },
+    {
+      "file": "02-BRAND-GUIDELINES.md",
+      "category": "doc",
+      "bytes": 24160,
+      "sha256": "dc4bff107342a049444c279c0e2a51db8a70979b8ba4cdcdcce16f64ddc4f18f",
+      "note": "build/02-BRAND-GUIDELINES.md nusxesi"
+    },
+    {
+      "file": "00-BUILD-RECORD.md",
+      "category": "doc",
+      "bytes": 22137,
+      "sha256": "6a216f8badcd5618a4d7d6b505b86fb5abc206748e6a04a5d9acaab2251919e3",
+      "note": "build/00-BUILD-RECORD.md nusxesi"
+    },
+    {
+      "file": "01-DECISION-RECORD.md",
+      "category": "doc",
+      "bytes": 48894,
+      "sha256": "5322afeb94657a61f1278fb49b6435abf3459c49d014ad4866e10bb259686430",
+      "note": "build/01-DECISION-RECORD.md nusxesi"
+    },
+    {
+      "file": "03-SITE-NOTES.md",
+      "category": "doc",
+      "bytes": 5638,
+      "sha256": "1996e524619591d04c7c38b5ea046f35a8134ea1f7f6a1d544a58b7fd9cde4c6",
+      "note": "build/03-SITE-NOTES.md nusxesi"
+    }
+  ]
+}

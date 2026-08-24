@@ -19,17 +19,18 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
       → Kodda yenilənməli: src/lib/site.ts içində `email` sahəsi
 [ ] [VACIB] LinkedIn şirkət səhifəsi yaratmaq
-      → Hazır assetlər: media-logo-assets/banner/kestridge-linkedin-1584x396.png
-        (cover) və media-logo-assets/avatar/ (profil şəkli)
+      → Hazır assetlər: Logo/07-platform/ içində LinkedIn üçün hazır
+        ölçülər var (cover 1512x256, profil 400x400, feed şəkilləri)
       → Real URL kodda yenilənməli: src/lib/site.ts içində `linkedin`
-[ ] [ORTA]  Logo son təsdiq (hazırkı kit saytda inteqrasiya olunub;
-      dəyişsə: public/brand/, src/app/icon.svg, apple-icon.png,
-      src/app/opengraph-image.tsx yenilənməlidir - Twitter kartı
-      da bundan götürülür)
-[ ] [ORTA]  Logomark-a dizayner baxışı: review-da qeyd olundu ki, mark
-      kiçik ölçülərdə (navbar 34px, favicon 16px) incə "|" xəttinə
-      bənzəyir və krem rəngi saytın soyuq boz+teal palitrasından
-      kənardır. Kiçik ölçüdə daha oxunaqlı variant nəzərdən keçirin.
+[x] [ORTA]  Logo - final kit inteqrasiya olundu (Logo/08-site/):
+      icon.svg, apple-icon.png, favicon.ico, opengraph-image.png,
+      public/brand/lockup-*.svg, manifest ikonları. Köhnə lələk nişanı
+      və AIVanta assetləri silindi.
+[x] [ORTA]  Brend rəngi: teal #0B7A67 -> petrol #1187A5 ailəsi. Səbəb
+      Logo/03-SITE-NOTES.md 2-ci bölmədə: köhnə aksent status yaşılına
+      (success-600) 20 dərəcə yaxın idi; monitorinq satan şirkətdə brend
+      "hər şey qaydasındadır" siqnalı kimi oxunurdu. Neytral pilləkən də
+      sistemin ölçülmüş dəyərlərinə keçdi (Logo/08-site/kestridge-tokens.css).
 
 ────────────────────────────────────────────────────────────────
  2. KONTENT (real məlumatlar)
