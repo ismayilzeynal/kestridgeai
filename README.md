@@ -100,12 +100,17 @@ silently lost while the backend is being written.
 
 ## Deploying
 
-The Vercel project is **not** connected to GitHub. Pushing to `main` deploys
-nothing. Every release is a CLI deploy from a working tree:
+The Vercel project is `kestridgeai`, linked to `ismayilzeynal/kestridgeai`
+with `main` as the production branch: pushing to `main` deploys. To ship a
+working tree without a push:
 
 ```bash
-npx vercel --prod --yes
+npx vercel --prod
 ```
+
+The site serves on `kestridge.com`; `www.kestridge.com` 308-redirects to it.
+`site.ts` -> `url` is the origin every canonical tag, the sitemap, the OG
+image and the JSON-LD are built from, so it has to stay the apex.
 
 ## Copy
 

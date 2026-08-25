@@ -1,7 +1,7 @@
 ================================================================
   KESTRIDGE AI SAYTI - TAMAMLANACAQ İŞLƏR SİYAHISI
   Hazırlanma tarixi: 14 iyul 2026
-  Canlı sayt: https://testlogo-site.vercel.app
+  Canlı sayt: https://kestridge.com
 ================================================================
 
 Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müddət sonra

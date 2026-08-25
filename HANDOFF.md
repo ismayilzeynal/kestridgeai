@@ -2,9 +2,11 @@
 
 Son yenilənmə: 24 avqust 2026
 Repo: https://github.com/ismayilzeynal/kestridgeai (əvvəl `testlogo-site` idi)
-Branch: `main`. Canlı: https://testlogo-site.vercel.app
+Branch: `main`. Canlı: https://kestridge.com (www apex-ə 308 yönlənir).
 Build: `npx next build` təmiz. `npx tsc --noEmit` səhvsiz.
-Deploy GitHub push ilə OLMUR - hər dəfə `npx vercel --prod --yes` lazımdır.
+Vercel layihəsi: `kestridgeai`, GitHub `ismayilzeynal/kestridgeai` reposuna
+bağlıdır - `main`-ə push avtomatik production deploy edir. Əl ilə deploy
+lazım olsa: `npx vercel --prod`.
 
 **Backend yazan üçün:** `README.md` -> "Backend" bölməsi. Formanın POST
 kontraktı (sahələr, honeypot, gözlənilən cavab) orada yazılıb.
@@ -76,10 +78,9 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
    (Formspree / Web3Forms / Basin). Kod hazırdır. Dəyişən boş olduğu müddətdə
    forma saxta "göndərildi" demir - istifadəçinin mail proqramını hazır mesajla
    açır.
-2. **Domen.** `site.ts` -> `url` hələ `testlogo-site.vercel.app`.
-3. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
+2. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
    üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
-4. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
+3. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
    demir.
 
 ---

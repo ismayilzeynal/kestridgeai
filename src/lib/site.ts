@@ -1,10 +1,11 @@
 // Single source of truth for brand + contact details.
-// Logo artwork is not final yet: the wordmark stands in until the kit lands.
 export const site = {
   brand: "Kestridge AI",
   legalName: "Kestridge AI Inc.",
-  // Public production URL: update when the custom domain is live.
-  url: "https://testlogo-site.vercel.app",
+  // Canonical production origin. Everything derived from it - canonical
+  // tags, sitemap, OG images, JSON-LD - so it has to be the apex the site
+  // actually serves on: www.kestridge.com 308-redirects here.
+  url: "https://kestridge.com",
   tagline: "AI, automation, IT security, and data analytics for businesses.",
   location: "Illinois, United States",
   region: "IL",
