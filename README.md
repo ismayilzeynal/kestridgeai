@@ -57,10 +57,10 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 
 | What | Where | Note |
 | --- | --- | --- |
-| Production domain | `lib/site.ts` (`url`) | currently the Vercel URL, update when the custom domain is live |
 | Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
 | Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
 | Form endpoint | `.env` / Vercel env | set `NEXT_PUBLIC_FORM_ENDPOINT`, otherwise the form falls back to a mailto handoff |
+| Mailbox for `info@kestridge.com` | DNS zone | the zone has no MX record, so mail to the address the site publishes bounces |
 | Spam protection | contact form | a `_gotcha` honeypot ships; add Turnstile if the endpoint gets abused |
 
 ## Backend

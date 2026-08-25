@@ -13,6 +13,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: site.brand,
+    // A child openGraph replaces the parent's rather than merging, and the root
+    // opengraph-image.png file convention only attaches to the root segment, so
+    // without this the page ships a large-image card with no image.
+    images: ["/opengraph-image.png"],
+  },
+  // Same reason in reverse: define no twitter block and the root's homepage
+  // title and description leak onto this page.
+  twitter: {
+    card: "summary_large_image",
+    title: `Privacy Policy | ${site.brand}`,
+    description: `How ${site.legalName} collects, uses, protects and shares personal information on this website.`,
+    images: ["/opengraph-image.png"],
   },
 };
 
