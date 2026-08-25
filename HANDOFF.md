@@ -18,6 +18,14 @@ https://claude.ai/code/artifact/9fecfe06-c7f9-4613-8405-1ada916d16b6
 
 ## 1. Bitmiş işlər
 
+**Domen: kestridge.com canlıdır.** NS-lər onsuz da Vercel-ə yönəlmişdi, amma
+domen layihəyə əlavə edilmədiyi üçün Vercel-in nameserver-ləri öz hostlamadığı
+zona üçün SERVFAIL qaytarırdı - domen heç yerə açılmırdı. Apex + www layihəyə
+əlavə olundu, `www` apex-ə 308 yönləndirildi, Vercel layihəsi `testlogo-site` ->
+`kestridgeai` adlandırıldı və köhnə `testlogo-site.vercel.app` silindi (indi 404).
+`site.ts` -> `url` tək mənbədir: canonical, sitemap, robots, OG və JSON-LD
+hamısı ondan törəyir.
+
 **Brend** AIVanta -> Kestridge AI. `site.ts`, metadata, manifest, logo, brand SVG,
 privacy/terms, senedler/, README, TAMAMLANACAQ-ISLER.txt. Kodda və sənədlərdə
 `AIVanta` sıfır. Köhnə OG şəkli (üstündə AIVanta yazılıydı) silindi; indi
@@ -74,13 +82,21 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
 
 ## 2. Sizdən gözlənilən
 
-1. **Form endpoint.** Vercel-də `NEXT_PUBLIC_FORM_ENDPOINT` təyin edin
+1. **Poçt.** Provayder hələ seçilməyib (cavab gözlənilir). Seçiləndən sonra
+   onun MX + SPF + DKIM yazıları Vercel DNS zonasına əlavə olunmalıdır - zona
+   indi boşdur, ona görə `info@kestridge.com`-a yazılan məktub hazırda geri
+   qayıdır. Domen işi bunu pozmayıb, poçt heç vaxt qurulmamışdı.
+   `npx vercel dns add kestridge.com "" MX <host> <priority>`
+   Bu, launch üçün maneədir: sayt həmin ünvanı Contact bölməsində, footer-də və
+   JSON-LD-də elan edir, forma da endpoint boş olduğu müddətdə ora `mailto:` ilə
+   yönəldir.
+2. **Form endpoint.** Vercel-də `NEXT_PUBLIC_FORM_ENDPOINT` təyin edin
    (Formspree / Web3Forms / Basin). Kod hazırdır. Dəyişən boş olduğu müddətdə
    forma saxta "göndərildi" demir - istifadəçinin mail proqramını hazır mesajla
    açır.
-2. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
+3. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
    üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
-3. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
+4. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
    demir.
 
 ---
