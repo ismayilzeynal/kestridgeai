@@ -7,10 +7,9 @@ export type Member = {
   photo: string;
 };
 
-// The four founders. Names and portraits come from their own LinkedIn
-// profiles. Personal profile links are deliberately not published here.
-// Sarvjeet and Robert have no photo on LinkedIn, so their cards show initials
-// until they send a portrait.
+// The four founders. Personal profile links are deliberately not published
+// here. Portraits are cropped square around the head: the card renders them
+// in a 72px circle with object-cover, so anything off-centre loses the face.
 export const team: Member[] = [
   {
     name: "Chingiz Abdilov",
@@ -31,13 +30,13 @@ export const team: Member[] = [
     initials: "S",
     role: "Founder",
     focus: "Data, analytics and AI platforms",
-    photo: "",
+    photo: "/team/sarvjeet.jpg",
   },
   {
     name: "Robert Tomczyk",
     initials: "RT",
     role: "Founder",
     focus: "Software engineering and integration",
-    photo: "",
+    photo: "/team/robert-tomczyk.jpg",
   },
 ];
