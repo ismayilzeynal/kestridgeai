@@ -57,6 +57,7 @@ export const services: Service[] = [
       "Machine learning",
       "Agentic AI and generative AI",
       "Deep learning",
+      "Other services on request",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
@@ -75,6 +76,7 @@ export const services: Service[] = [
       "Report generation",
       "Reminders and follow-ups",
       "Data entry from forms and emails",
+      "Other services on request",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
@@ -93,6 +95,7 @@ export const services: Service[] = [
       "Configuration audits",
       "Remediation",
       "Staff training and certification preparation",
+      "Other services on request",
     ],
     steps: [
       {
@@ -130,6 +133,7 @@ export const services: Service[] = [
       "Data cleanup and checks",
       "Management dashboards",
       "Scheduled reports",
+      "Other services on request",
     ],
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },

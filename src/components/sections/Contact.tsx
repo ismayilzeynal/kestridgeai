@@ -305,15 +305,15 @@ export function Contact() {
 
                     {/* Service select */}
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="service">Service area</Label>
+                      <Label htmlFor="contact-service">Service area</Label>
                       <div className="relative">
                         <select
-                          id="service"
+                          id="contact-service"
                           name="service"
                           value={service}
                           onChange={(e) => setService(e.target.value)}
                           aria-invalid={!!errors.service}
-                          aria-describedby={errors.service ? "service-error" : undefined}
+                          aria-describedby={errors.service ? "contact-service-error" : undefined}
                           className={`peer w-full appearance-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                             service ? "text-ink" : "text-faint"
                           } ${errors.service ? "border-red-500/70" : "border-line"}`}
@@ -330,26 +330,26 @@ export function Contact() {
                         <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint peer-focus:text-accent" />
                       </div>
                       {errors.service && (
-                        <ErrorText id="service-error">{errors.service}</ErrorText>
+                        <ErrorText id="contact-service-error">{errors.service}</ErrorText>
                       )}
                     </div>
 
                     {/* Message */}
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="message">Description of the work</Label>
+                      <Label htmlFor="contact-message">Description of the work</Label>
                       <textarea
-                        id="message"
+                        id="contact-message"
                         name="message"
                         rows={3}
                         placeholder="A short description of the work and the systems involved."
                         aria-invalid={!!errors.message}
-                        aria-describedby={errors.message ? "message-error" : undefined}
+                        aria-describedby={errors.message ? "contact-message-error" : undefined}
                         className={`w-full resize-none rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
                           errors.message ? "border-red-500/70" : "border-line"
                         }`}
                       />
                       {errors.message && (
-                        <ErrorText id="message-error">{errors.message}</ErrorText>
+                        <ErrorText id="contact-message-error">{errors.message}</ErrorText>
                       )}
                     </div>
 
@@ -455,7 +455,7 @@ function Field({
   return (
     <div className="flex flex-col gap-2">
       <span className="flex items-center justify-between">
-        <Label htmlFor={name}>{label}</Label>
+        <Label htmlFor={`contact-${name}`}>{label}</Label>
         {optional && (
           <span className="font-mono text-[0.6176rem] uppercase tracking-wider text-faint">
             optional
@@ -463,19 +463,19 @@ function Field({
         )}
       </span>
       <input
-        id={name}
+        id={`contact-${name}`}
         name={name}
         type={type}
         placeholder={placeholder}
         required={required}
         autoComplete={autoComplete}
         aria-invalid={!!error}
-        aria-describedby={error ? `${name}-error` : undefined}
+        aria-describedby={error ? `contact-${name}-error` : undefined}
         className={`w-full rounded-xl border bg-bg-soft px-4 py-3.5 text-[0.9412rem] text-ink outline-none transition-colors duration-200 placeholder:text-faint focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent ${
           error ? "border-red-500/70" : "border-line"
         }`}
       />
-      {error && <ErrorText id={`${name}-error`}>{error}</ErrorText>}
+      {error && <ErrorText id={`contact-${name}-error`}>{error}</ErrorText>}
     </div>
   );
 }

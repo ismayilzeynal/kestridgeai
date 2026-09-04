@@ -45,9 +45,8 @@ export function Company() {
             <div className="flex flex-col gap-5 text-pretty text-[1.0294rem] leading-relaxed text-muted">
               <Reveal>
                 <p>
-                  Kestridge AI is a technology company based in Illinois. We work
-                  in four areas: AI solutions, automation, IT security, and data
-                  analytics.
+                  Kestridge AI is based in Illinois. We work in four areas: AI
+                  solutions, automation, IT security, and data analytics.
                 </p>
               </Reveal>
             </div>
