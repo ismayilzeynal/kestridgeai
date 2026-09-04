@@ -13,7 +13,7 @@ const commitments = [
   {
     icon: FileSignature,
     title: "Confidentiality on every project",
-    body: "It starts at the first conversation. An NDA is available on request.",
+    body: "It starts at the first conversation. We sign an NDA for the project.",
   },
   {
     icon: KeyRound,

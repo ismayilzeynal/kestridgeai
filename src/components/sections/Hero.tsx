@@ -23,16 +23,16 @@ export function Hero() {
               className="anim-rise mt-7 text-balance text-[clamp(2rem,4.1vw,2.95rem)] font-bold leading-[1.1] text-signal"
               style={{ animationDelay: "0.08s" }}
             >
-              We build AI, automation, IT security, and data analytics{" "}
-              <span className="text-accent-grad">systems for businesses.</span>
+              We build smart systems that{" "}
+              <span className="text-accent-grad">run business better.</span>
             </h1>
 
             <p
               className="anim-rise mt-6 max-w-xl text-pretty text-[1.1176rem] leading-relaxed text-muted"
               style={{ animationDelay: "0.3s" }}
             >
-              We connect them to the software your business already uses, and
-              support them once they are running.
+              We work with your business to understand what matters, evaluate the
+              ROI, and carry it through to a secure implementation.
             </p>
 
             {/* One button only: the navigation bar already carries the

@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "How do you handle our data?",
-    a: "We limit who can reach it and use it only for your work. Encryption is applied where the work calls for it. A nondisclosure agreement is available on request.",
+    a: "Only authorized people can reach your data, and we use it only for your work. We sign a nondisclosure agreement for the project.",
   },
   {
     q: "What size companies do you work with?",
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: "What do you need from us during a project?",
-    a: "One person who knows the process, and access to the systems involved.",
+    a: "Access to the systems involved, and someone on your team who knows the process.",
   },
 ];
 
@@ -60,7 +60,7 @@ export function FAQ() {
         </Reveal>
 
         {/* Answers stay open by design: short pairs, no expanding panels. */}
-        <dl className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
+        <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
           {faqs.map((f, i) => (
             <Reveal
               key={f.q}
@@ -78,7 +78,7 @@ export function FAQ() {
         </dl>
 
         <Reveal delay={0.1}>
-          <p className="mt-8 text-[0.8824rem] text-muted">
+          <p className="mt-6 text-[0.8824rem] text-muted">
             For anything not covered here, write to us at{" "}
             <a
               href={`mailto:${site.email}`}

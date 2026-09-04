@@ -13,8 +13,8 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-muted">
-              A United States technology company in Illinois. We build, run and
-              support AI, automation, IT security, and data analytics systems.
+              A United States technology company based in Illinois. We build, run
+              and support AI, automation, IT security, and data analytics systems.
             </p>
             <div className="mt-6">
               <LinkedInButton />

@@ -53,7 +53,7 @@ export function Services() {
       <div className="container-x">
         <Reveal>
           <h2 className="text-balance text-4xl text-signal sm:text-5xl">
-            <span className="text-accent-grad">Four</span> service areas
+            <span className="text-accent-grad">Core</span> services
           </h2>
         </Reveal>
 
