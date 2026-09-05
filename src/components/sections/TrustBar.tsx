@@ -9,7 +9,7 @@ export function TrustBar() {
           {/* Precise by design: these are places our team has worked, not
               clients of Kestridge AI. */}
           <p className="mb-10 text-center text-[1rem] font-semibold tracking-tight text-ink sm:text-[1.1176rem]">
-            Companies our team has worked with
+            Our talents worked here.
           </p>
         </Reveal>
       </div>

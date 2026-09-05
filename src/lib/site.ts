@@ -24,10 +24,11 @@ export const site = {
 
 export type ServiceOption = { value: string; label: string };
 
+// Same order as the services array, so the form dropdown matches the page.
 export const serviceOptions: ServiceOption[] = [
   { value: "ai", label: "AI Solutions" },
+  { value: "analytics", label: "Data Analytics" },
   { value: "automation", label: "Automation" },
   { value: "security", label: "IT Security" },
-  { value: "analytics", label: "Data Analytics" },
   { value: "general", label: "General inquiry" },
 ];

@@ -62,8 +62,25 @@ export const services: Service[] = [
     steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
   {
-    id: "automation",
+    id: "analytics",
     index: "02",
+    name: "Data Analytics",
+    tagline: "Business reports from your data",
+    cardLabel: "Dashboards and business reporting",
+    description:
+      "We pull your data together, check it for errors, and build the reports you need.",
+    icon: BarChart3,
+    highlights: [
+      "Data cleanup and checks",
+      "Management dashboards",
+      "Scheduled reports",
+      "Other services on request",
+    ],
+    steps: [CONSULT, DESIGN, BUILD, DELIVER],
+  },
+  {
+    id: "automation",
+    index: "03",
     name: "Automation",
     tagline: "Automation for repetitive work",
     cardLabel: "Routine steps run without manual work",
@@ -82,7 +99,7 @@ export const services: Service[] = [
   },
   {
     id: "security",
-    index: "03",
+    index: "04",
     name: "IT Security",
     tagline: "Security review and correction",
     cardLabel: "Assessment, access rules, and monitoring",
@@ -119,22 +136,5 @@ export const services: Service[] = [
         what: "We monitor the systems we run for you and act on the issues that come up.",
       },
     ],
-  },
-  {
-    id: "analytics",
-    index: "04",
-    name: "Data Analytics",
-    tagline: "Business reports from your data",
-    cardLabel: "Dashboards and business reporting",
-    description:
-      "We pull your data together, check it for errors, and build the reports you need.",
-    icon: BarChart3,
-    highlights: [
-      "Data cleanup and checks",
-      "Management dashboards",
-      "Scheduled reports",
-      "Other services on request",
-    ],
-    steps: [CONSULT, DESIGN, BUILD, DELIVER],
   },
 ];

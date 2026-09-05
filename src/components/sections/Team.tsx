@@ -10,13 +10,8 @@ export function Team() {
       <div className="container-x">
         <Reveal>
           <h2 className="text-balance text-4xl text-signal sm:text-5xl">
-            The four <span className="text-accent-grad">founders</span>
+            The <span className="text-accent-grad">founders</span>
           </h2>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted">
-            The company has four founders. The same four people run it today.
-          </p>
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">

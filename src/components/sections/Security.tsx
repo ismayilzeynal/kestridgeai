@@ -13,32 +13,32 @@ const commitments = [
   {
     icon: FileSignature,
     title: "Confidentiality on every project",
-    body: "It starts at the first conversation. We sign an NDA for the project.",
+    body: "Confidentiality starts at the first conversation. We sign an NDA for every project.",
   },
   {
     icon: KeyRound,
     title: "Limited access",
-    body: "Each engineer reaches only the systems their part of the work needs.",
+    body: "Each engineer has access only to the systems their part of the work requires.",
   },
   {
     icon: LockKeyhole,
     title: "Encryption",
-    body: "We encrypt data in transit and in storage when the work requires it.",
+    body: "Data is encrypted in transit and at rest when the work requires it.",
   },
   {
     icon: EyeOff,
     title: "Your data stays yours",
-    body: "We use it only for your project, never to train AI for anyone else.",
+    body: "It is used only for your project unless you give permission otherwise.",
   },
   {
     icon: FileText,
     title: "A written record",
-    body: "You receive a document listing who has access and what is monitored.",
+    body: "You receive a written record of who has access and what is being monitored.",
   },
   {
     icon: Radar,
     title: "Ongoing monitoring",
-    body: "We monitor the systems we run for you and act on issues that arise.",
+    body: "We monitor the systems we operate on your behalf and respond to issues as they arise.",
   },
 ];
 
@@ -49,7 +49,7 @@ export function Security() {
       className="relative scroll-mt-8 pb-20 pt-16 sm:scroll-mt-4 sm:pb-28 sm:pt-20"
     >
       <div className="container-x">
-        <div className="relative rounded-[2rem] border border-line bg-bg-soft/60 p-6 sm:p-10 lg:py-8">
+        <div className="relative rounded-[2rem] border border-line bg-bg-soft/60 p-6 sm:p-10 lg:py-5">
           {/* Decoration is clipped by its own wrapper so the panel itself can
               stay overflow-visible, otherwise it becomes the scrollport for the
               sticky column below and the column never pins. */}
@@ -67,12 +67,12 @@ export function Security() {
           <div className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
             <div className="lg:sticky lg:top-24 lg:self-start">
               <h2 className="text-balance text-4xl text-signal sm:text-5xl">
-                How we handle{" "}
-                <span className="text-accent-grad">your systems and data</span>
+                Security and{" "}
+                <span className="text-accent-grad">data handling</span>
               </h2>
               <p className="mt-5 max-w-md text-pretty text-lg leading-relaxed text-muted">
-                We work inside the systems your business runs on. Security
-                review is part of that work.
+                Every engagement includes a security review before work begins on
+                your systems.
               </p>
               <p className="mt-5 flex items-center gap-2.5 text-[0.8824rem] text-muted">
                 <ShieldCheck className="h-5 w-5 shrink-0 text-accent" strokeWidth={1.7} />
@@ -80,11 +80,11 @@ export function Security() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:gap-3">
+            <div className="grid gap-4 sm:grid-cols-2 lg:gap-2.5">
               {commitments.map((c, i) => (
                 <Reveal key={c.title} delay={(i % 2) * 0.06}>
-                  <div className="card card-hover h-full rounded-2xl p-5 lg:p-4">
-                    <div className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-accent">
+                  <div className="card card-hover h-full rounded-2xl p-5 lg:p-3.5">
+                    <div className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-surface text-accent lg:h-9 lg:w-9">
                       <c.icon className="h-5 w-5" strokeWidth={1.6} />
                     </div>
                     <h3 className="mt-3 font-sans text-[0.9412rem] font-semibold tracking-tight text-ink">

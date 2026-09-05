@@ -28,7 +28,7 @@ export function WhyChooseUs() {
   return (
     <section
       id="process"
-      aria-label="How we run a project"
+      aria-label="Our process"
       className="relative scroll-mt-4 py-20 sm:-scroll-mt-4 sm:py-28"
     >
       <div className="container-x">
@@ -36,13 +36,13 @@ export function WhyChooseUs() {
           <div className="lg:sticky lg:top-24 lg:self-start">
             <Reveal>
               <h2 className="text-balance text-4xl text-signal sm:text-5xl">
-                How we <span className="text-accent-grad">run</span> a project
+                Our <span className="text-accent-grad">process</span>
               </h2>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
-                We follow the same method on every project, from the first
-                consultation to support after launch.
+                We apply the same process to every project - consultation,
+                planning, implementation, and support after launch.
               </p>
             </Reveal>
           </div>
