@@ -1,0 +1,9 @@
+# Vercel runs scripts/vercel-ignore.sh on Linux. A CRLF checkout there makes
+# bash fail on the shebang line, and the failure shows up as a broken deploy
+# rather than as anything about line endings. Pin it, whatever core.autocrlf
+# is set to locally.
+*.sh text eol=lf
+
+# Windows tooling reads these; keep them CRLF so Notepad and sc.exe behave.
+*.ps1 text eol=crlf
+*.cnf text eol=crlf
