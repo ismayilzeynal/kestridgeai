@@ -48,6 +48,7 @@ public/
   brand/        logo mark and lockups (placeholder art)
   logos/        company logos for the marquee, sourced from each organization
   team/         founder portraits
+backend/        ASP.NET Core 9 + MySQL contact API (see backend/README.md)
 ```
 
 Section ids used by the navigation: `top`, `company`, `services`, `process`,
@@ -59,44 +60,64 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 | --- | --- | --- |
 | Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
 | Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
-| Form endpoint | `.env` / Vercel env | set `NEXT_PUBLIC_FORM_ENDPOINT`, otherwise the form falls back to a mailto handoff |
+| Form endpoint | `.env` / Vercel env | the backend is in `backend/`; set `NEXT_PUBLIC_FORM_ENDPOINT` to its `/api/contact` URL and rebuild, otherwise the form falls back to a mailto handoff |
 | Mailbox for `info@kestridge.com` | DNS zone | the zone has no MX record, so mail to the address the site publishes bounces |
 | Spam protection | contact form | a `_gotcha` honeypot ships; add Turnstile if the endpoint gets abused |
 
 ## Backend
 
-Nothing server-side exists yet. The only thing the site needs from a backend is
-somewhere for the contact form to POST.
+The backend lives in this repository, in `backend/`. ASP.NET Core 9 + MySQL 8,
+one process, two endpoints. See `backend/README.md`.
 
-`Contact.tsx` reads `NEXT_PUBLIC_FORM_ENDPOINT` and posts the form to it:
+It exists to receive this form, keep every inquiry, and notify the team. It
+serves no page content: the copy in `src/data/*.ts` stays in code, and
+`backend/README.md` records why.
+
+`Contact.tsx` is unchanged and stays unchanged. It reads
+`NEXT_PUBLIC_FORM_ENDPOINT` and posts the form to it:
 
 | | |
 | --- | --- |
 | Method | `POST` |
 | Body | `multipart/form-data` (a plain `FormData`) |
 | Headers | `Accept: application/json` |
-| Fields | `name`, `email`, `service`, `message`, `_gotcha` |
-| `service` values | `ai`, `automation`, `security`, `analytics`, `general` (see `serviceOptions` in `lib/site.ts`) |
+| Fields | `name`, `email`, `company`, `phone`, `service`, `message`, `_gotcha` |
+| `service` values | `ai`, `analytics`, `automation`, `security`, `general` (see `serviceOptions` in `lib/site.ts`) |
 | Success | any `2xx`. Anything else, or a network error, shows the error state |
+
+All seven fields are always sent, in that DOM order. `company` and `phone` are
+optional in the UI but still transmitted, as empty-string parts, so a backend
+that rejects unknown or blank fields rejects every submission.
+
+The client reads `Response.ok` and nothing else: no `.json()`, no timeout, no
+retry. Both request headers are CORS-safelisted, so the POST is a **simple
+request and the browser sends no preflight**. A response missing
+`Access-Control-Allow-Origin` therefore does not stop the submission, it only
+blocks the read: the message is stored and mailed, the visitor sees "That did
+not go through", and resubmits. Duplicate mail plus a "broken form" report with
+no matching server error is that bug.
 
 `_gotcha` is a hidden honeypot. A real person always leaves it empty, so treat a
 non-empty value as spam and drop the message (still answer `2xx`, or the bot
 learns).
 
-Two ways to provide the endpoint:
+To point the site at the backend, set in Vercel:
 
-1. **In this repo.** Add `src/app/api/contact/route.ts` and set
-   `NEXT_PUBLIC_FORM_ENDPOINT=/api/contact`. A relative URL is fine, and it keeps
-   the mail credentials server-side.
-2. **A hosted form service** (Formspree, Web3Forms, Basin). Set the full URL.
+```
+NEXT_PUBLIC_FORM_ENDPOINT = https://api.kestridge.com/api/contact
+```
 
-The variable is `NEXT_PUBLIC_`, so it ships to the browser: whatever sits behind
-it is public and needs its own rate limiting and abuse protection. Do not put a
-secret in it.
+and **trigger a rebuild**. `NEXT_PUBLIC_*` values are inlined at build time, so
+redeploying the same artifact changes nothing. The variable ships to the browser,
+so whatever sits behind it is public and needs its own rate limiting and abuse
+protection; never put a secret in it.
+
+A hosted form service (Formspree, Web3Forms, Basin) still works as a fallback:
+set the full URL instead.
 
 With the variable unset the form does not fake a send. It opens the visitor's
 mail client with the message prefilled and tells them so, so nothing is ever
-silently lost while the backend is being written.
+silently lost while the backend is being wired up.
 
 ## Deploying
 

@@ -1,0 +1,8 @@
+backend/**/bin/
+backend/**/obj/
+backend/**/TestResults/
+backend/**/*.user
+Logo/
+senedler/
+copy-deck.json
+TAMAMLANACAQ-ISLER.txt

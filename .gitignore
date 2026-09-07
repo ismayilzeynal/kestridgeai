@@ -20,8 +20,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
-.env
+.env*
+!.env.example
 
 # typescript
 *.tsbuildinfo
@@ -31,7 +31,85 @@ next-env.d.ts
 .playwright-mcp/
 *.screenshot.jpeg
 
-# internal docs (confidential brief — not part of the app)
+# internal docs (confidential brief - not part of the app)
 Website_info.docx
 
 .vercel
+
+# .NET build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+artifacts/
+
+# .NET / MSBuild intermediates
+*.dll
+*.pdb
+*.exe
+*.cache
+*.tlog
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+*.binlog
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+*.csproj.user
+launchSettings.json
+
+# Secrets and local config
+secrets.json
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Local.json
+appsettings.*.Local.json
+*.pubxml
+*.pubxml.user
+PublishProfiles/
+*.publishsettings
+
+# Test and coverage
+[Tt]est[Rr]esult*/
+TestResults/
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+BenchmarkDotNet.Artifacts/
+
+# EF Core / local databases
+*.mdf
+*.ldf
+*.ndf
+*.db
+*.db-shm
+*.db-wal
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# ASP.NET local dev certs
+*.pfx
+
+# Backups
+backend/ops/backups/
