@@ -22,6 +22,18 @@ binlog_expire_logs_seconds = 604800
 # that every inquiry body would land in a plaintext file.
 general_log = OFF
 
+# Load bearing, not just hardening. Every account in ops/01-provision.sql is
+# created as 'name'@'127.0.0.1', and the app connects over TCP to 127.0.0.1.
+# With name resolution on, MySQL reverse-resolves that to "localhost" and looks
+# for 'name'@'localhost', which does not exist, so the app fails with
+# "Access denied for user 'kestridge_app'@'localhost' (using password: YES)"
+# while the credential and the grants are both correct. Turning it off also
+# keeps DNS out of the authentication path.
+#
+# Connections over the Unix socket are still reported as localhost, so
+# root@localhost via auth_socket keeps working.
+skip_name_resolve = ON
+
 character-set-server      = utf8mb4
 collation-server          = utf8mb4_0900_ai_ci
 innodb_default_row_format = dynamic
