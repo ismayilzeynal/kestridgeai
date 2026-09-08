@@ -11,7 +11,7 @@
 --   kestridge_ops        SELECT, UPDATE, DELETE on kestridge.contact_submissions
 --                        SELECT                 on kestridge.job_runs
 --                        SELECT, INSERT, UPDATE on kestridge.dsr_log
---   kestridge_backup     SELECT, LOCK TABLES, SHOW VIEW, PROCESS on kestridge.*
+--   kestridge_backup     SELECT, LOCK TABLES, SHOW VIEW on kestridge.* (no PROCESS: global only)
 --   kestridge_test       ALL on kestridge_test.* only
 
 SHOW GRANTS FOR 'kestridge_app'@'127.0.0.1';

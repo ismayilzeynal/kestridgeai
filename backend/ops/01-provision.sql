@@ -47,9 +47,14 @@ CREATE USER IF NOT EXISTS 'kestridge_ops'@'127.0.0.1'
   IDENTIFIED WITH caching_sha2_password BY '<OPS_PASSWORD>';
 
 -- mysqldump only. Database-level.
+-- No PROCESS: it is a GLOBAL-only privilege, so naming it here fails the
+-- whole script with ERROR 1221, and mysqldump only needs it to collect
+-- tablespace information. ops/linux/backup.sh passes --no-tablespaces, so
+-- it never asks for that, and granting a global privilege to a backup
+-- account to work around a flag would be the wrong trade.
 CREATE USER IF NOT EXISTS 'kestridge_backup'@'127.0.0.1'
   IDENTIFIED WITH caching_sha2_password BY '<BACKUP_PASSWORD>';
-GRANT SELECT, LOCK TABLES, SHOW VIEW, PROCESS ON kestridge.* TO 'kestridge_backup'@'127.0.0.1';
+GRANT SELECT, LOCK TABLES, SHOW VIEW ON kestridge.* TO 'kestridge_backup'@'127.0.0.1';
 
 -- Test runner. Owns kestridge_test outright, has nothing on kestridge.
 CREATE USER IF NOT EXISTS 'kestridge_test'@'127.0.0.1'

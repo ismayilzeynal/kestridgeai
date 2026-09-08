@@ -48,7 +48,9 @@ FILE="$DEST/kestridge-$STAMP.sql.gz"
 
 # --single-transaction gives a consistent snapshot of InnoDB without locking
 # writers out, which matters because the contact endpoint writes at any hour.
-# --no-tablespaces avoids needing the PROCESS privilege beyond what is granted.
+# --no-tablespaces is required, not cosmetic: without it mysqldump asks for the
+# PROCESS privilege, which is GLOBAL-only and which kestridge_backup is
+# deliberately not given.
 mysqldump --defaults-extra-file="$DEFAULTS" \
     --single-transaction \
     --no-tablespaces \
