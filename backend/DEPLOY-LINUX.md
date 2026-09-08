@@ -1,11 +1,18 @@
 # Deploying the backend to a Linux VPS
 
-Written for **Ubuntu 24.04 LTS**. Paste the blocks in order. Every command is
+Written for **Ubuntu 24.04 LTS**, and run end to end on one: Contabo, 8 GB,
+Ubuntu 24.04.4, with .NET 10.0.11, MySQL 8.0.46, nginx 1.24.0 and certbot 2.9.0
+from the distribution feeds. Paste the blocks in order. Every command is
 non-interactive except the ones marked **YOU**, which ask for values only you
 have.
 
 The frontend stays on Vercel. The only frontend change is one environment
 variable, in step 10.
+
+> **If DNS is not ready yet**, skip to [Staging from the bare IP](#staging-from-the-bare-ip)
+> at the end. It brings the API and a copy of the site up on one origin over
+> plain HTTP so the contact form can be exercised, and leaves a three-step
+> cutover for when the DNS record exists.
 
 ---
 
@@ -360,3 +367,99 @@ Two specific claims worth confirming rather than assuming:
   `http://127.0.0.1:5199/api/contact` and see what status comes back. The 64 KB
   ceiling holds either way through `FormOptions`, but the code may differ.
 - Whether nginx has an enforcing AppArmor profile on your image.
+
+---
+
+## Staging from the bare IP
+
+Use this only while `api.kestridge.com` does not resolve. It exists because the
+live site is HTTPS: a form on `https://kestridge.com` cannot post to
+`http://<ip>/api/contact` at all, the browser blocks it as mixed content. Serving
+the site and the API from one origin sidesteps that and lets the whole path be
+exercised for real.
+
+**This is not production.** There is no TLS, so submissions cross the network in
+cleartext. Do not put real client data through it.
+
+Run steps 1 to 3 above first, then:
+
+```bash
+# Node, for the site
+curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource.sh
+sudo bash /tmp/nodesource.sh && sudo apt-get install -y nodejs
+
+# Build the site with a relative endpoint, so the POST is same-origin
+cd ~/kestridgeai
+npm ci
+NEXT_PUBLIC_FORM_ENDPOINT=/api/contact npm run build
+
+# Install it where the service account can read it
+sudo install -d -o root -g kestridge -m 0750 /srv/kestridge-web
+sudo rsync -a --exclude .git --exclude backend ~/kestridgeai/ /srv/kestridge-web/
+sudo chown -R root:kestridge /srv/kestridge-web
+sudo find /srv/kestridge-web -type d -exec chmod 0750 {} +
+sudo find /srv/kestridge-web -type f -exec chmod 0640 {} +
+sudo chown -R kestridge:kestridge /srv/kestridge-web/.next
+sudo find /srv/kestridge-web/.next -type d -exec chmod 0750 {} +
+
+sudo install -m 0644 backend/ops/linux/kestridge-web.service /etc/systemd/system/
+sudo systemctl daemon-reload && sudo systemctl enable --now kestridge-web
+```
+
+Then nginx, and the one configuration change the API needs:
+
+```bash
+cd ~/kestridgeai/backend
+sudo cp ops/linux/nginx-staging-ip.conf /etc/nginx/sites-available/kestridge-staging
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo ln -sf /etc/nginx/sites-available/kestridge-staging /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+The origin guard allows the real domain and localhost, and nothing else. Add the
+staging origin, exactly, with no scheme or port drift:
+
+```bash
+sudo python3 - <<'PY'
+import json
+p = "/srv/kestridge-api/appsettings.Production.json"
+d = json.load(open(p))
+d["Kestridge"]["Cors"]["AdditionalOrigins"] = ["http://YOUR.VPS.IP.HERE"]
+json.dump(d, open(p, "w"), indent=2)
+PY
+sudo chown root:kestridge /srv/kestridge-api/appsettings.Production.json
+sudo chmod 0640 /srv/kestridge-api/appsettings.Production.json
+sudo systemctl restart kestridge-api
+```
+
+Verify from your own machine:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' http://YOUR.VPS.IP.HERE/
+curl -s http://YOUR.VPS.IP.HERE/api/health
+curl -i -H "Origin: http://YOUR.VPS.IP.HERE" \
+  -F name="Staging" -F email="you@example.com" -F company="" -F phone="" \
+  -F service=general -F message="Staging check." -F _gotcha="" \
+  http://YOUR.VPS.IP.HERE/api/contact
+curl -m 5 -i http://YOUR.VPS.IP.HERE:5199/api/health   # must NOT answer
+```
+
+### Seeing the notification without a mail provider
+
+Until an SMTP provider is chosen, point the API at a local catcher so the
+notification path is exercised and the message can be read. `ops/linux/` does not
+ship one; any local SMTP sink on 127.0.0.1:2525 works, with
+`Kestridge:Smtp:Host` set to `127.0.0.1`, `Port` 2525 and `UseStartTls` false.
+Rows reach `notify_state='sent'` and the captured message is the exact text the
+team would receive.
+
+### Cutover, once DNS exists
+
+1. Add the A record, wait for it, and run steps 6 and 7 above (certbot, then
+   `nginx-api.conf` in place of the staging config).
+2. `sudo systemctl disable --now kestridge-web`, so the site is served from
+   Vercel only and there are not two copies live on different hosts.
+3. Remove `AdditionalOrigins` from `appsettings.Production.json` and restart the
+   API. Anything left in that list can post to the form.
+4. Set `NEXT_PUBLIC_FORM_ENDPOINT` in Vercel to the full HTTPS URL and trigger a
+   rebuild.
