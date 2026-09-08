@@ -35,7 +35,16 @@ if [ -e "$SETTINGS" ]; then
     exit 1
 fi
 
-gen() { tr -dc 'A-Za-z0-9' </dev/urandom | head -c "${1:-40}"; }
+# Not "tr -dc ... </dev/urandom | head -c N". head closes the pipe once it has
+# N bytes, tr dies of SIGPIPE, and under "set -o pipefail" that is exit 141
+# which "set -e" turns into an abort. The script would die on its first password
+# before printing anything, so the log is empty and the cause is invisible.
+# Here head reads a bounded amount from a file and exits cleanly, and cut
+# consumes all of its input, so no stage ever closes a pipe early.
+gen() {
+    local n=${1:-40}
+    head -c "$(( n * 3 ))" /dev/urandom | base64 | LC_ALL=C tr -dc 'A-Za-z0-9' | cut -c1-"$n"
+}
 
 APP_PW=$(gen 40)
 MIGRATOR_PW=$(gen 40)
