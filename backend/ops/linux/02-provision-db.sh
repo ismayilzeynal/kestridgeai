@@ -49,13 +49,22 @@ read -r -p "From address on the sending domain               : " FROM_ADDRESS
 read -r -p "SMTP host                                        : " SMTP_HOST
 read -r -p "SMTP port [587]                                  : " SMTP_PORT
 SMTP_PORT=${SMTP_PORT:-587}
-read -r -p "SMTP username                                    : " SMTP_USER
-read -r -s -p "SMTP password                                    : " SMTP_PASS
+read -r -p "SMTP STARTTLS? [Y/n]                             : " SMTP_TLS
+read -r -p "SMTP username (blank for an unauthenticated relay): " SMTP_USER
+read -r -s -p "SMTP password (blank if no username)             : " SMTP_PASS
 echo
 
-for v in TO_ADDRESS FROM_ADDRESS SMTP_HOST SMTP_USER; do
+# Username and password are deliberately not required. MailKitEmailSender skips
+# authentication when User is empty, which is what a local relay or an
+# IP-authenticated smarthost needs, and SmtpOptions marks neither as Required.
+for v in TO_ADDRESS FROM_ADDRESS SMTP_HOST; do
     if [ -z "${!v}" ]; then echo "$v cannot be empty." >&2; exit 1; fi
 done
+
+case "${SMTP_TLS:-y}" in
+    [Nn]*) SMTP_STARTTLS=false ;;
+    *)     SMTP_STARTTLS=true ;;
+esac
 
 echo "==> creating databases, accounts and grants"
 # ops/01-provision.sql is the source of truth for the grant matrix. Substitute
@@ -106,7 +115,7 @@ cat > "$SETTINGS" <<JSON
     "Smtp": {
       "Host":        "$SMTP_HOST",
       "Port":        $SMTP_PORT,
-      "UseStartTls": true,
+      "UseStartTls": $SMTP_STARTTLS,
       "User":        "$SMTP_USER",
       "Password":    "$SMTP_PASS"
     },
