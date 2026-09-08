@@ -80,12 +80,29 @@ echo "==> creating databases, accounts and grants"
 # the placeholders rather than restating the grants here, so the two cannot
 # drift. kestridge_test is dropped: it exists for the test suite, not for a
 # production box.
+TEST_PW=$(gen 40)
+
 sed -e "s|<APP_PASSWORD>|$APP_PW|" \
     -e "s|<MIGRATOR_PASSWORD>|$MIGRATOR_PW|" \
     -e "s|<OPS_PASSWORD>|$OPS_PW|" \
     -e "s|<BACKUP_PASSWORD>|$BACKUP_PW|" \
-    -e "s|<TEST_PASSWORD>|$(gen 40)|" \
+    -e "s|<TEST_PASSWORD>|$TEST_PW|" \
     "$REPO_ROOT/ops/01-provision.sql" | mysql
+
+# CREATE USER IF NOT EXISTS leaves an existing account's password alone. After
+# any earlier run, even a failed one that got as far as creating the accounts,
+# the database would keep the old password while this run writes a new one into
+# appsettings.Production.json, and the app fails with Access denied against a
+# credential that looks correct in both places. Set them explicitly so a re-run
+# always converges. setup-dev-db.ps1 does the same for the same reason.
+mysql <<SQL
+ALTER USER 'kestridge_app'@'127.0.0.1'      IDENTIFIED WITH caching_sha2_password BY '$APP_PW';
+ALTER USER 'kestridge_migrator'@'127.0.0.1' IDENTIFIED WITH caching_sha2_password BY '$MIGRATOR_PW';
+ALTER USER 'kestridge_ops'@'127.0.0.1'      IDENTIFIED WITH caching_sha2_password BY '$OPS_PW';
+ALTER USER 'kestridge_backup'@'127.0.0.1'   IDENTIFIED WITH caching_sha2_password BY '$BACKUP_PW';
+ALTER USER 'kestridge_test'@'127.0.0.1'     IDENTIFIED WITH caching_sha2_password BY '$TEST_PW';
+FLUSH PRIVILEGES;
+SQL
 
 echo "==> applying the schema"
 # EF Core writes migrate.sql with a UTF-8 BOM. It is stripped in the repo, but
