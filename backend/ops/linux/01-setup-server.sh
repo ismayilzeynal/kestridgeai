@@ -31,7 +31,12 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "==> SSH before firewall, in that order. Reversing it locks you out."
 ufw allow OpenSSH
-ufw allow 'Nginx Full'
+# By port, not by the 'Nginx Full' application profile. That profile is
+# registered by the nginx package, which is not installed yet at this point in
+# the script, so naming it here fails with "Could not find a profile matching"
+# and set -e aborts the run. 80 and 443 is exactly what the profile opens.
+ufw allow 80/tcp
+ufw allow 443/tcp
 ufw --force enable
 ufw status verbose
 
