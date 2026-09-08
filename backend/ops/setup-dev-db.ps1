@@ -34,9 +34,10 @@ $backendRoot = Split-Path -Parent $PSScriptRoot
 $apiProject  = Join-Path $backendRoot "src\Kestridge.Api\Kestridge.Api.csproj"
 $provision   = Join-Path $PSScriptRoot "01-provision.sql"
 $verify      = Join-Path $PSScriptRoot "03-verify-grants.sql"
+$tableGrants = Join-Path $PSScriptRoot "04-table-grants.sql"
 $migrate     = Join-Path $PSScriptRoot "migrate.sql"
 
-foreach ($required in @($MySqlExe, $apiProject, $provision, $verify, $migrate)) {
+foreach ($required in @($MySqlExe, $apiProject, $provision, $verify, $tableGrants, $migrate)) {
     if (-not (Test-Path $required)) {
         throw "Not found: $required"
     }
@@ -129,6 +130,11 @@ FLUSH PRIVILEGES;
     $migrationSql = Get-Content -LiteralPath $migrate -Raw
     Invoke-MySqlAsRoot -Sql $migrationSql -DefaultsFile $defaultsFile -Database "kestridge"      | Out-Null
     Invoke-MySqlAsRoot -Sql $migrationSql -DefaultsFile $defaultsFile -Database "kestridge_test" | Out-Null
+
+    # After the schema, never before. MySQL refuses a table-level GRANT for a
+    # table that does not exist yet and fails with ERROR 1146.
+    Write-Host "Applying ops/04-table-grants.sql..."
+    Invoke-MySqlAsRoot -Sql (Get-Content -LiteralPath $tableGrants -Raw) -DefaultsFile $defaultsFile | Out-Null
 
     function New-ConnectionString {
         param([string] $Database, [string] $User, [string] $Password)

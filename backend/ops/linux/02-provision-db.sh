@@ -95,6 +95,11 @@ echo "==> applying the schema"
 sed -e '1s/^\xEF\xBB\xBF//' -e 's/\r$//' "$REPO_ROOT/ops/migrate.sql" \
     | mysql --database=kestridge
 
+# After the schema, never before: MySQL refuses a table-level GRANT for a table
+# that does not exist yet and fails the whole run with ERROR 1146.
+echo "==> per-table grants"
+mysql < "$REPO_ROOT/ops/04-table-grants.sql"
+
 echo "==> verifying grants against the matrix"
 mysql < "$REPO_ROOT/ops/03-verify-grants.sql" || true
 
