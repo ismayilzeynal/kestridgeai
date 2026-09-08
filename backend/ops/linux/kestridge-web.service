@@ -1,0 +1,54 @@
+[Unit]
+Description=Kestridge AI marketing site (staging copy on the VPS)
+Documentation=https://github.com/ismayilzeynal/kestridgeai
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# This unit exists only while the site is being served from the VPS by IP,
+# before api.kestridge.com resolves and before there is a certificate.
+# Production serves this app from Vercel; when the cutover happens, disable this
+# unit rather than leaving two copies of the site live on different hosts.
+
+[Service]
+Type=exec
+User=kestridge
+Group=kestridge
+WorkingDirectory=/srv/kestridge-web
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start --port 3000 --hostname 127.0.0.1
+
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kestridge-web
+
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+
+# Next writes its build cache here at runtime.
+ReadWritePaths=/srv/kestridge-web/.next
+
+# Same reasoning as the API unit: AF_NETLINK is needed for glibc name
+# resolution, and MemoryDenyWriteExecute would break the V8 JIT exactly as it
+# breaks RyuJIT.
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target
