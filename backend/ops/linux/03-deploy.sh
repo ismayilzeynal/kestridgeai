@@ -46,11 +46,22 @@ systemctl stop "$UNIT" 2>/dev/null || true
 rsync -a --delete --exclude 'appsettings.Production.json' \
     "$PUBLISH_DIR"/ "$APP_DIR"/
 
+# Set the modes explicitly, do not just narrow them. "rsync -a src/ dst/" also
+# syncs the source directory's own attributes onto dst, and the source here is a
+# mktemp -d, which is 0700. That leaves /srv/kestridge-api at 0700 root:kestridge
+# so the service account cannot even chdir into it, and systemd reports
+# status=200/CHDIR "Changing to the requested working directory failed", which
+# reads like a unit-file problem rather than a permissions one.
 chown -R root:"$SERVICE_USER" "$APP_DIR"
-chmod -R o-rwx "$APP_DIR"
-# Re-assert after the chown -R above, which would otherwise have widened it.
+find "$APP_DIR" -type d -exec chmod 0750 {} +
+find "$APP_DIR" -type f -exec chmod 0640 {} +
+
+# Re-assert after the recursive pass above, which would otherwise have set it.
 chown root:"$SERVICE_USER" "$SETTINGS"
 chmod 0640 "$SETTINGS"
+
+sudo -u "$SERVICE_USER" test -x "$APP_DIR" \
+    || { echo "The service account cannot enter $APP_DIR." >&2; exit 1; }
 
 echo "==> systemd unit"
 install -o root -g root -m 0644 \

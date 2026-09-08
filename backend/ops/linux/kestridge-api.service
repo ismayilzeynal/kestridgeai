@@ -6,7 +6,12 @@ Wants=network-online.target
 # Not Requires=mysql.service. The app answers /api/health with 503 degraded when
 # MySQL is down and keeps the inline mail fallback working, which is more useful
 # than refusing to start.
-After=mysql.service
+
+# These belong in [Unit], not [Service]. systemd moved them here in v229 and
+# silently ignores them in [Service], so a unit that cannot start restarts
+# forever: the first real failure here reached restart counter 31 in a minute.
+StartLimitIntervalSec=300
+StartLimitBurst=5
 
 [Service]
 Type=exec
@@ -31,8 +36,6 @@ Environment=DOTNET_NOLOGO=1
 
 Restart=on-failure
 RestartSec=5
-StartLimitBurst=5
-StartLimitIntervalSec=300
 
 # Above the app's own HostOptions.ShutdownTimeout of 60s, so systemd never
 # SIGKILLs a notify sweep that is draining an in-flight SMTP send.
