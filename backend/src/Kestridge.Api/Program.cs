@@ -52,7 +52,9 @@ builder.Services.AddSingleton<IEmailSender, MailKitEmailSender>();
 
 var originGuard = new OriginGuard(
     allowVercelPreviews: builder.Configuration.GetValue<bool>($"{CorsOptions.Section}:AllowVercelPreviews"),
-    allowLocalhost: builder.Environment.IsDevelopment());
+    allowLocalhost: builder.Environment.IsDevelopment(),
+    additionalOrigins: builder.Configuration
+        .GetSection($"{CorsOptions.Section}:AdditionalOrigins").Get<string[]>());
 builder.Services.AddSingleton(originGuard);
 
 // AutoDetect would open a blocking connection during DI registration, so the

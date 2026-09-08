@@ -57,4 +57,37 @@ public class OriginGuardTests
         Assert.True(Development.IsAllowed(origin));
         Assert.False(Production.IsAllowed(origin));
     }
+
+
+    // The staging escape hatch. Exact strings only, so it cannot widen into a
+    // pattern by accident, and it is emptied at cutover.
+    [Fact]
+    public void Allows_AnAdditionalOrigin_WhenConfigured()
+    {
+        var guard = new OriginGuard(false, false, ["http://195.26.245.188"]);
+        Assert.True(guard.IsAllowed("http://195.26.245.188"));
+    }
+
+    [Fact]
+    public void Rejects_AnAdditionalOrigin_WhenNotConfigured()
+    {
+        var guard = new OriginGuard(false, false);
+        Assert.False(guard.IsAllowed("http://195.26.245.188"));
+    }
+
+    [Fact]
+    public void AdditionalOrigins_AreNotTreatedAsPrefixes()
+    {
+        var guard = new OriginGuard(false, false, ["http://195.26.245.188"]);
+        Assert.False(guard.IsAllowed("http://195.26.245.188.attacker.com"));
+        Assert.False(guard.IsAllowed("http://195.26.245.1"));
+    }
+
+    [Fact]
+    public void AdditionalOrigins_IgnoreBlankEntries()
+    {
+        var guard = new OriginGuard(false, false, ["", "   "]);
+        Assert.False(guard.IsAllowed(""));
+        Assert.False(guard.IsAllowed("   "));
+    }
 }

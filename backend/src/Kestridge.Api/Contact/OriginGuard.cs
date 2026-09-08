@@ -7,7 +7,7 @@ namespace Kestridge.Api.Contact;
 // request, so it reaches the handler whatever the response headers say.
 // An instance, not statics: two WebApplicationFactory hosts run in parallel in
 // the test suite with different settings.
-public sealed partial class OriginGuard(bool allowVercelPreviews, bool allowLocalhost)
+public sealed partial class OriginGuard
 {
     private static readonly string[] Production =
     [
@@ -23,6 +23,25 @@ public sealed partial class OriginGuard(bool allowVercelPreviews, bool allowLoca
         "http://127.0.0.1:3111",
     ];
 
+    private readonly bool allowVercelPreviews;
+    private readonly bool allowLocalhost;
+    private readonly string[] additional;
+
+    public OriginGuard(bool allowVercelPreviews, bool allowLocalhost, string[]? additionalOrigins = null)
+    {
+        this.allowVercelPreviews = allowVercelPreviews;
+        this.allowLocalhost = allowLocalhost;
+
+        // Exact strings only, no pattern, no wildcard. This exists so a staging
+        // host can be reached before its real name and certificate exist, which
+        // is the one case the fixed lists above cannot cover. Anything listed
+        // here can post to the form, so it is emptied at cutover.
+        additional = (additionalOrigins ?? [])
+            .Select(o => o.Trim())
+            .Where(o => o.Length > 0)
+            .ToArray();
+    }
+
     public bool IsAllowed(string? origin)
     {
         if (string.IsNullOrEmpty(origin))
@@ -31,6 +50,11 @@ public sealed partial class OriginGuard(bool allowVercelPreviews, bool allowLoca
         }
 
         if (Array.IndexOf(Production, origin) >= 0)
+        {
+            return true;
+        }
+
+        if (Array.IndexOf(additional, origin) >= 0)
         {
             return true;
         }
