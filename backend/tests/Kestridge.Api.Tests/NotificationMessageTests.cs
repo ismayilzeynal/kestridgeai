@@ -36,7 +36,16 @@ public class NotificationMessageTests
     private static List<string> HeaderLines(ContactSubmission row)
     {
         using var stream = new MemoryStream();
-        NotificationMessage.Build(row, Opts).WriteTo(stream);
+
+        // Pin CRLF. MimeKit's FormatOptions.Default follows the platform, so on
+        // Linux WriteTo emits bare LF, every Split on CRLF below finds nothing,
+        // and the whole header block collapses into one line. CRLF is also what
+        // actually goes over SMTP, so this asserts the wire format rather than
+        // whatever the build agent happens to run.
+        var format = FormatOptions.Default.Clone();
+        format.NewLineFormat = NewLineFormat.Dos;
+
+        NotificationMessage.Build(row, Opts).WriteTo(format, stream);
         var raw = Encoding.UTF8.GetString(stream.ToArray());
 
         var headerBlock = raw.Split(CrLf + CrLf, 2, StringSplitOptions.None)[0];
