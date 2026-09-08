@@ -8,7 +8,7 @@ Vercel layihəsi: `kestridgeai`, GitHub `ismayilzeynal/kestridgeai` reposuna
 bağlıdır - `main`-ə push avtomatik production deploy edir. Əl ilə deploy
 lazım olsa: `npx vercel --prod`.
 
-**Backend yazıldı:** `backend/` qovluğu, ASP.NET Core 9 + MySQL 8.
+**Backend yazıldı:** `backend/` qovluğu, ASP.NET Core 10 + MySQL 8.
 Bax: `backend/README.md` (qurulum), `backend/RUNBOOK.md` (əməliyyat),
 `backend/DSR-PROCESS.md` (hüquqi sorğular). Formanın POST kontraktı `README.md`
 -> "Backend" bölməsində dəqiqləşdirildi: 7 sahə göndərilir, 5 yox.
@@ -84,7 +84,7 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
 
 ## 1a. Backend (yeni)
 
-**Backend yazıldı: `backend/` qovluğu.** ASP.NET Core 9 (`net9.0`) + EF Core 9 +
+**Backend yazıldı: `backend/` qovluğu.** ASP.NET Core 10 (`net10.0`) + EF Core 9 +
 Pomelo 9.0.0 + MySQL 8. Bir proses, iki endpoint, üç cədvəl. Tam sənəd:
 `backend/README.md`, əməliyyat: `backend/RUNBOOK.md`, hüquqi sorğular:
 `backend/DSR-PROCESS.md`.

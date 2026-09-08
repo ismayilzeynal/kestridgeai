@@ -16,7 +16,6 @@
     </PackageReference>
     <PackageReference Include="MailKit" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
-    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
   </ItemGroup>
 
 </Project>

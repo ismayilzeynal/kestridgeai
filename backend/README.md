@@ -1,6 +1,6 @@
 # Kestridge AI - backend
 
-ASP.NET Core 9 (`net9.0`) + EF Core 9 + Pomelo 9.0.0 + MySQL 8. One process,
+ASP.NET Core 10 (`net10.0`) + EF Core 9 + Pomelo 9.0.0 + MySQL 8. One process,
 two endpoints, three tables. It exists to receive the contact form on
 `kestridge.com`, keep every inquiry, and tell the team about it.
 
@@ -39,7 +39,7 @@ that reopens it.
 ```
 backend/
   global.json                 SDK pinned to 9.0.x
-  Directory.Build.props       net9.0, nullable, warnings as errors
+  Directory.Build.props       net10.0, nullable, warnings as errors
   Directory.Packages.props    every package version, centrally
   Kestridge.sln
   src/Kestridge.Api/
@@ -58,7 +58,10 @@ backend/
 
 ## Prerequisites
 
-- .NET SDK 9.0.x. `global.json` pins it, so SDK 10 on the same machine is fine.
+- .NET SDK 10.0.x, pinned in `global.json`. The runtime is .NET 10 LTS,
+  supported to 2028-11-14; .NET 9 goes out of support 2026-11-10 and is not in
+  the Ubuntu 24.04 archive at all. EF Core and Pomelo stay on 9.0.x, which is
+  the newest stable Pomelo and runs fine on the .NET 10 runtime.
 - MySQL 8.0.x on `127.0.0.1:3306`, and the root password.
 - An SMTP account, or a local catcher such as Papercut for development.
 

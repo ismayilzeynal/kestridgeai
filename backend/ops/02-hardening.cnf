@@ -14,10 +14,17 @@
 bind-address               = 127.0.0.1
 general_log                = OFF
 binlog_expire_logs_seconds = 604800
-sql_mode                   = STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
 character-set-server       = utf8mb4
 collation-server           = utf8mb4_0900_ai_ci
 innodb_default_row_format  = dynamic
+
+; sql_mode is deliberately NOT set. MySQL 8.0's default is
+; ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,
+; ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION, which is a strict superset
+; of what this app needs. Writing a shorter list here would silently DROP
+; ONLY_FULL_GROUP_BY, NO_ZERO_IN_DATE and NO_ZERO_DATE, which is a loosening,
+; not a hardening. STRICT_TRANS_TABLES is what makes VARCHAR(5000) a real cap
+; rather than a silent truncation, and SchemaTests asserts it is present.
 
 ; general_log is off by default. It is asserted here so that anyone who turns it
 ; on to debug is reminded that every inquiry body would land in a plaintext file.

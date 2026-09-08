@@ -48,7 +48,7 @@ public/
   brand/        logo mark and lockups (placeholder art)
   logos/        company logos for the marquee, sourced from each organization
   team/         founder portraits
-backend/        ASP.NET Core 9 + MySQL contact API (see backend/README.md)
+backend/        ASP.NET Core 10 + MySQL contact API (see backend/README.md)
 ```
 
 Section ids used by the navigation: `top`, `company`, `services`, `process`,
@@ -66,7 +66,7 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 
 ## Backend
 
-The backend lives in this repository, in `backend/`. ASP.NET Core 9 + MySQL 8,
+The backend lives in this repository, in `backend/`. ASP.NET Core 10 + MySQL 8,
 one process, two endpoints. See `backend/README.md`.
 
 It exists to receive this form, keep every inquiry, and notify the team. It

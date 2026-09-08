@@ -1,0 +1,87 @@
+[Unit]
+Description=Kestridge AI contact API
+Documentation=https://github.com/ismayilzeynal/kestridgeai
+After=network-online.target mysql.service
+Wants=network-online.target
+# Not Requires=mysql.service. The app answers /api/health with 503 degraded when
+# MySQL is down and keeps the inline mail fallback working, which is more useful
+# than refusing to start.
+After=mysql.service
+
+[Service]
+Type=exec
+User=kestridge
+Group=kestridge
+
+# Load bearing. UseWindowsService sets the content root to the assembly
+# directory on Windows only; under "dotnet App.dll" on Linux the content root is
+# the working directory. Get this wrong and appsettings.json and
+# appsettings.Production.json are silently not found, every option binds to its
+# default, and the process dies in options validation naming the wrong thing.
+WorkingDirectory=/srv/kestridge-api
+ExecStart=/usr/bin/dotnet /srv/kestridge-api/Kestridge.Api.dll
+
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://127.0.0.1:5199
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+Environment=DOTNET_NOLOGO=1
+# No EnvironmentFile and no secrets here. That is deliberate: secrets live in
+# appsettings.Production.json, mode 0640 root:kestridge, because a unit file is
+# world readable and so is /proc/<pid>/environ to the same user.
+
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=5
+StartLimitIntervalSec=300
+
+# Above the app's own HostOptions.ShutdownTimeout of 60s, so systemd never
+# SIGKILLs a notify sweep that is draining an in-flight SMTP send.
+TimeoutStopSec=75
+
+# Logging goes to journald. The app selects the systemd console formatter on
+# non-Windows so each record is one line carrying a syslog priority, which is
+# what makes "journalctl -u kestridge-api -p err" work at all.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kestridge-api
+
+# Hardening. Every directive below was checked against the .NET runtime.
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+
+# ProtectSystem=strict makes everything read-only, so name the one path that is
+# not. The app writes nothing today; this exists so a future log file or
+# DataProtection key ring has somewhere to go without weakening the whole unit.
+ReadWritePaths=/var/lib/kestridge-api
+
+# AF_NETLINK is not optional. glibc's getaddrinfo opens an AF_NETLINK socket in
+# __check_pf for RFC 3484 source address selection, so dropping it breaks DNS
+# for outbound SMTP while HTTP keeps working: submissions pile up as pending,
+# and the cause looks like a mail provider problem for hours.
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+# MemoryDenyWriteExecute is deliberately absent. systemd-analyze security will
+# flag it. Do not add it: it installs a seccomp filter refusing mprotect with
+# PROT_EXEC, which is exactly how RyuJIT makes generated code executable. The
+# process dies with "Failed to create CoreCLR, HRESULT: 0x80004005" or a bare
+# SIGSEGV and nothing useful in the journal. Only NativeAOT could run under it,
+# and PublishAot is off on purpose.
+#
+# ProcSubset=pid is absent for the same class of reason: it hides /proc/meminfo
+# and /proc/cpuinfo from the GC.
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,44 @@
+# Kestridge AI backend - MySQL settings for Ubuntu.
+# Install as /etc/mysql/mysql.conf.d/zz-kestridge.cnf, then restart mysql.
+#
+# The Windows equivalent is ops/02-hardening.cnf, which is merged into my.ini.
+# This file is the Linux one and differs from it on purpose, see the notes.
+
+[mysqld]
+
+# The binary log is the item everyone forgets. It is on by default and its row
+# images contain the full message body, so it is a second copy of every inquiry,
+# outside the reach of the 24-month purge and outside any window disclosed to
+# someone who asks for their data to be deleted. Seven days is the ceiling, and
+# DSR-PROCESS.md has to state whatever is set here.
+#
+# On a single non-replicated server, disabling it entirely is preferable.
+# Uncomment skip_log_bin and delete the expiry line if you do not need
+# point-in-time recovery between nightly dumps.
+#skip_log_bin
+binlog_expire_logs_seconds = 604800
+
+# Off by default. Asserted here so anyone who turns it on to debug is reminded
+# that every inquiry body would land in a plaintext file.
+general_log = OFF
+
+character-set-server      = utf8mb4
+collation-server          = utf8mb4_0900_ai_ci
+innodb_default_row_format = dynamic
+
+# Size to the dataset, and leave RAM for Kestrel and nginx. This schema is
+# three small tables; 128M is ample on a 2 GB box.
+innodb_buffer_pool_size = 128M
+
+# bind-address is NOT set here. Ubuntu's own /etc/mysql/mysql.conf.d/mysqld.cnf
+# already sets 127.0.0.1, which is what we want, and the order in which
+# !includedir pulls these files is explicitly undefined: setting the same
+# variable in two files is a coin flip, not a configuration. Verify the result
+# with "SELECT @@bind_address;" rather than by reading either file.
+#
+# sql_mode is NOT set here either. MySQL 8.0's default is
+# ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,
+# ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION and writing a shorter list
+# would silently drop three of those. STRICT_TRANS_TABLES is the one this app
+# depends on: it makes VARCHAR(5000) a real cap instead of a silent truncation.
+# SchemaTests asserts it is present.

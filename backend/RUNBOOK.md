@@ -1,5 +1,11 @@
 # Kestridge AI API - runbook
 
+**Deploying to a Linux VPS? Use [DEPLOY-LINUX.md](DEPLOY-LINUX.md).** It has the
+ordered command list, the scripts in `ops/linux/`, and the failure modes. This
+file covers the Windows service deployment; the two differ in more than paths
+(systemd instead of `sc.exe`, journald instead of the Event Log, file mode
+instead of ACLs, and `sql_mode` is left at the MySQL default on Linux).
+
 Everything here assumes the API runs as the Windows service `KestridgeApi` on
 the same host as MySQL, bound to `http://127.0.0.1:5199`, with a reverse proxy
 terminating TLS for `api.kestridge.com`.

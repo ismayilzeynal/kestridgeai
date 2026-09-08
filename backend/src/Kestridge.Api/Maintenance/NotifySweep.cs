@@ -58,7 +58,13 @@ public sealed class NotifySweep(
 
             try
             {
-                await mail.SendAsync(NotificationMessage.Build(row, contactOptions), ct);
+                // Not ct. A SIGTERM landing after the SMTP server has accepted
+                // DATA would cancel the transaction we cannot un-send: the row
+                // stays pending, the retry delivers a second copy, and the
+                // attempt is burned against MaxAttempts. Cancellation is handled
+                // between rows by the check above; MailKit's own 15 second
+                // timeout bounds a single send, so the drain stays short.
+                await mail.SendAsync(NotificationMessage.Build(row, contactOptions), CancellationToken.None);
 
                 row.NotifyState = NotifyState.Sent;
                 row.NotifiedAt = clock.GetUtcNow().UtcDateTime;

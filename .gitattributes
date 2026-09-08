@@ -4,6 +4,15 @@
 # is set to locally.
 *.sh text eol=lf
 
+# Same reason, for everything that only ever runs on the Linux server. A CR at
+# the end of a systemd directive or an nginx directive is a parse error there.
+*.service text eol=lf
+*.conf    text eol=lf
+backend/ops/linux/** text eol=lf
+
 # Windows tooling reads these; keep them CRLF so Notepad and sc.exe behave.
 *.ps1 text eol=crlf
-*.cnf text eol=crlf
+
+# Not the .cnf files. They are read by MySQL, on Linux as well as Windows, and
+# a trailing CR can end up inside a config value rather than being stripped.
+*.cnf text eol=lf

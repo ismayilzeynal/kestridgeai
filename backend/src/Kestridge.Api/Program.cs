@@ -13,10 +13,22 @@ using System.Net;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseWindowsService();
-builder.Logging.AddSimpleConsole();
+
 if (OperatingSystem.IsWindows())
 {
+    builder.Logging.AddSimpleConsole();
     builder.Logging.AddEventLog();
+}
+else
+{
+    // Not AddSimpleConsole. Under systemd it writes two lines per record with no
+    // syslog priority prefix, so journald files every line as its own entry at
+    // PRIORITY=6 and "journalctl -p err" returns nothing, ever. The systemd
+    // formatter emits one line carrying the priority. Setting
+    // Logging:Console:FormatterName in configuration is not enough: the
+    // Add*Console call registers its own Configure<ConsoleLoggerOptions> after
+    // the configuration binding, and the last registration wins.
+    builder.Logging.AddSystemdConsole();
 }
 
 builder.Services.AddOptions<CorsOptions>().Bind(builder.Configuration.GetSection(CorsOptions.Section))
@@ -68,7 +80,7 @@ builder.Services.AddRateLimiter(options => RateLimiting.Configure(options, rateL
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.KnownNetworks.Clear();
+    options.KnownIPNetworks.Clear();
     options.KnownProxies.Clear();
     options.KnownProxies.Add(IPAddress.Loopback);
     options.KnownProxies.Add(IPAddress.IPv6Loopback);
@@ -92,6 +104,13 @@ builder.WebHost.ConfigureKestrel(kestrel =>
 });
 
 builder.Services.AddHostedService<MaintenanceService>();
+
+// A notify sweep sends one message at a time with an uncancellable SMTP call,
+// bounded by MailKit's 15 second timeout. Set explicitly rather than relying on
+// the host default, which has changed between releases, and keep systemd's
+// TimeoutStopSec strictly above it so systemd never SIGKILLs a drain in progress.
+builder.Services.Configure<HostOptions>(options =>
+    options.ShutdownTimeout = TimeSpan.FromSeconds(60));
 
 var app = builder.Build();
 
