@@ -61,7 +61,7 @@ Section ids used by the navigation: `top`, `company`, `services`, `process`,
 | Office address | `lib/site.ts` (`location`) | "Illinois, United States" until a precise address is set |
 | Two founder portraits | `data/team.ts` | Sarvjeet and Robert have no photo and render an initials avatar |
 | Form endpoint | `.env` / Vercel env | the backend is in `backend/`; set `NEXT_PUBLIC_FORM_ENDPOINT` to its `/api/contact` URL and rebuild, otherwise the form falls back to a mailto handoff |
-| Outgoing mail from the backend | server config | `info@kestridge.com` receives mail, but the API still sends through a local catcher: set the real SMTP credentials on the server or notifications reach nobody |
+| DMARC policy | DNS zone | `p=none` while the reports are watched; tighten to `quarantine` and then `reject` once they come back clean |
 | Spam protection | contact form | a `_gotcha` honeypot ships; add Turnstile if the endpoint gets abused |
 
 ## Backend

@@ -500,12 +500,46 @@ curl -m 5 -i http://YOUR.VPS.IP.HERE:5199/api/health   # must NOT answer
 
 ### Seeing the notification without a mail provider
 
-Until an SMTP provider is chosen, point the API at a local catcher so the
-notification path is exercised and the message can be read. `ops/linux/` does not
-ship one; any local SMTP sink on 127.0.0.1:2525 works, with
-`Kestridge:Smtp:Host` set to `127.0.0.1`, `Port` 2525 and `UseStartTls` false.
-Rows reach `notify_state='sent'` and the captured message is the exact text the
-team would receive.
+Production sends through Zoho Mail as of 10 September 2026, so this is only for
+a server that has no credential yet. Point the API at a local catcher and the
+notification path is exercised end to end and the message can be read.
+`ops/linux/` does not ship one; any local SMTP sink on 127.0.0.1:2525 works,
+with `Kestridge:Smtp:Host` set to `127.0.0.1`, `Port` 2525 and `UseStartTls`
+false. Rows reach `notify_state='sent'` and the captured message is the exact
+text the team would receive.
+
+**A catcher makes rows say `sent` when nothing was delivered.** That is the
+point of it, and it is also the trap: after switching to a real provider, those
+rows still read `sent` and `ops/rearm-notifications.sql` will not pick them up,
+because it looks for `failed`. Re-send them by hand or accept that they were
+only ever test traffic.
+
+### The production mail settings
+
+```json
+"Kestridge": {
+  "Smtp": {
+    "Host": "smtp.zoho.com",
+    "Port": 587,
+    "UseStartTls": true,
+    "User": "chingiz@kestridge.com",
+    "Password": "<Zoho app password, not the account password>"
+  },
+  "Contact": {
+    "ToAddress": "info@kestridge.com",
+    "FromAddress": "info@kestridge.com"
+  }
+}
+```
+
+`User` is a real account and `FromAddress` is an alias on it. Zoho refuses to
+send as an address the authenticated account does not own, so `no-reply@`, which
+exists nowhere, fails with a relaying error that reads like a network problem.
+The app password comes from `accounts.zoho.com` under Security, and only works
+when generated on the account named in `User`.
+
+Replying to a notification does not reply to `info@`: `NotificationMessage`
+sets `Reply-To` to the visitor's own address.
 
 ### Cutover, once DNS exists
 

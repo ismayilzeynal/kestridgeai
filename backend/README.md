@@ -67,7 +67,8 @@ backend/
   the Ubuntu 24.04 archive at all. EF Core and Pomelo stay on 9.0.x, which is
   the newest stable Pomelo and runs fine on the .NET 10 runtime.
 - MySQL 8.0.x on `127.0.0.1:3306`, and the root password.
-- An SMTP account, or a local catcher such as Papercut for development.
+- An SMTP account (production uses Zoho Mail), or a local catcher such as
+  Papercut for development.
 
 ## First run
 

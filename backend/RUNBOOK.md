@@ -217,16 +217,18 @@ widened to `ALL` during a debugging session and never narrowed back.
    answers `200` and logs `contact.db_bypass` at Warning level, but no row is
    stored. That message will not appear in a DSR export or a backup. Search the
    Event Log for `contact.db_bypass` when reconciling.
-2. **Notifications still go nowhere.** `info@kestridge.com` receives mail
-   since 10 September 2026, so the rights-request channel works. Sending does
-   not: `Kestridge:Smtp` on the server still points at the local catcher
-   (`mailsink`, 127.0.0.1:2525), so every notification is written to disk on
-   the VPS and read by nobody. No submission is lost, the rows are in
-   `contact_submissions` and can be re-armed. Set the real SMTP host, user and
-   app password in `appsettings.Production.json` to close this.
-3. **The SMTP provider is a subprocessor with access to every inquiry body.**
-   Register it and sign a DPA before the first real submission. The database is
-   self-hosted, so there is no database subprocessor.
+2. **Zoho Mail is a subprocessor with access to every inquiry body.**
+   Register it and sign the DPA. The database is self-hosted, so there is no
+   database subprocessor. Its US data centre matches where the company and the
+   database already are.
+3. **Notification mail authenticates as a person, not as a service.**
+   `Kestridge:Smtp:User` is `chingiz@kestridge.com` with a Zoho app password,
+   because `info@kestridge.com` is an alias on that account and an alias cannot
+   log in. Two consequences: revoking that person's app password stops every
+   notification, and the alias is what the message is From, so it must stay an
+   alias of whichever account the credential belongs to. Rotating the app
+   password is a one-line change in `appsettings.Production.json` plus a
+   restart.
 
 ## If spam starts arriving
 

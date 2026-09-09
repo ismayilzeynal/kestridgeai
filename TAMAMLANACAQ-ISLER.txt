@@ -96,13 +96,14 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       davamlı retry ilə (1d, 5d, 15d, 1s, 4s, 12s, 24s = ~41 saat).
       SMTP çökərsə heç nə itmir: sətir DB-də qalır və özü yenidən cəhd edir.
 
-[ ] [VACIB] SMTP provayderi seçmək. HƏLƏ DƏ ƏSAS MANEƏ. Bildirişlər
-      indi serverdə lokal tutucuya (mailsink, 127.0.0.1:2525) düşür, yəni
-      heç kimə çatmır. Sətir bazada qalır, provayder qoşulan kimi
-      ops/rearm-notifications.sql ilə yenidən göndərilə bilər.
-      Bu, həm də subprocessor-dur (hər müraciətin mətnini görür) - DPA
-      imzalanmalı və registrə yazılmalıdır. DB self-hosted olduğu üçün
-      başqa subprocessor yoxdur.
+[x] [VACIB] SMTP quruldu: Zoho Mail. 10 sentyabr 2026-da saytın
+      formasından real müraciət göndərildi və bildiriş info@kestridge.com
+      qutusuna çatdı - zəncir tam yoxlanıldı.
+      Qeyd: SMTP girişi chingiz@kestridge.com hesabı iləndir, çünki info@
+      aliasdır və alias giriş edə bilmir. Həmin app password ləğv olunsa
+      bütün bildirişlər dayanır.
+      → QALIR: Zoho subprocessor-dur (hər müraciətin mətnini görür), DPA
+        imzalanmalı və registrə yazılmalıdır.
 
 [ ] [VACIB] Admin hesabı yaratmaq. Panel canlıdır
       (https://api.kestridge.com/admin/) amma hesab yoxdur. Parolu yalnız
