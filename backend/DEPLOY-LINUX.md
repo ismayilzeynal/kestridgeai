@@ -133,17 +133,18 @@ will fail. Fix it here.
 **YOU** - replace the email.
 
 ```bash
-sudo certbot --nginx -d api.kestridge.com \
+sudo certbot certonly --webroot -w /var/www/html -d api.kestridge.com \
   --non-interactive --agree-tos --email you@example.com \
-  --redirect --dry-run
+  --deploy-hook "systemctl reload nginx" --dry-run
 ```
 
 `--dry-run` first, always. It uses the staging environment and costs nothing.
 Only when it succeeds:
 
 ```bash
-sudo certbot --nginx -d api.kestridge.com \
-  --non-interactive --agree-tos --email you@example.com --redirect
+sudo certbot certonly --webroot -w /var/www/html -d api.kestridge.com \
+  --non-interactive --agree-tos --email you@example.com \
+  --deploy-hook "systemctl reload nginx"
 ```
 
 Five failed authorizations for one name per hour and you are locked out of that
