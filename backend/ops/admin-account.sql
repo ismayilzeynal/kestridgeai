@@ -1,6 +1,12 @@
 -- Create or reset an admin account. Run as kestridge_migrator.
 -- Generate the values first, on the server, and never on the command line:
---   /srv/kestridge-api/Kestridge.Api --hash-password --username faig --display-name "Faig Garayev"
+--   cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password --username faig --display-name "Faig Garayev"
+--
+-- Through dotnet, not as ./Kestridge.Api. 03-deploy.sh chmods every file in
+-- the install directory to 0640, so nothing there is executable, and the
+-- unit starts the app the same way. That is deliberate: the apphost never
+-- needs the bit, and not having it means a writable app directory cannot
+-- become a way to run something.
 -- Paste what it prints over the placeholder below, run this, then clear the
 -- scrollback. kestridge_app cannot write these columns, which is the point.
 

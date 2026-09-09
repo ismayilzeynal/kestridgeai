@@ -108,8 +108,9 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 [ ] [VACIB] Admin hesabı yaratmaq. Panel canlıdır
       (https://api.kestridge.com/admin/) amma hesab yoxdur. Parolu yalnız
       siz yaza bilərsiniz:
-      → /srv/kestridge-api/Kestridge.Api --hash-password --username <ad>
-        --display-name "Ad Soyad"
+      → cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password
+        --username <ad> --display-name "Ad Soyad"
+        (dotnet ilə, birbaşa yox: qovluqdakı fayllarda icra biti yoxdur)
       → çap olunan INSERT-i ops/admin-account.sql-ə yapışdırıb
         kestridge_migrator kimi işlədin
       → otpauth:// linkini authenticator tətbiqinə skan edin (TOTP

@@ -175,7 +175,8 @@ never rewrite a password hash, swap a TOTP secret or re-enable a disabled
 account. That is the boundary; do not widen it to fix a lockout.
 
 A lost authenticator is not a lockout, it is a re-enrolment: run
-`Kestridge.Api --hash-password` again for that user and replace the row.
+`cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password` again for that user and replace the row.
+Note the `dotnet`: nothing in the install directory carries an execute bit.
 
 ## Website content
 

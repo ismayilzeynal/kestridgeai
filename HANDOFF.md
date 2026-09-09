@@ -176,8 +176,9 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
    yönəldir.
 2. **Admin hesabı.** Panel `https://api.kestridge.com/admin/` ünvanında
    işləyir, amma bir dənə də hesab yoxdur. Parolu maşın yaza bilməz:
-   `/srv/kestridge-api/Kestridge.Api --hash-password --username <ad>
-   --display-name "Ad Soyad"`, çap olunan `INSERT`-i `ops/admin-account.sql`
+   `cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password --username <ad>
+   --display-name "Ad Soyad"` (məhz dotnet ilə: quraşdırma qovluğundakı
+   heç bir faylda icra biti yoxdur), çap olunan `INSERT`-i `ops/admin-account.sql`
    ilə `kestridge_migrator` kimi işlədin, `otpauth://` linkini authenticator
    tətbiqinə skan edin. TOTP məcburidir.
    (Form endpoint artıq qoşulub və canlı yoxlanılıb.)
