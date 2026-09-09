@@ -7,12 +7,14 @@ import { Team } from "@/components/sections/Team";
 import { Security } from "@/components/sections/Security";
 import { FAQ } from "@/components/sections/FAQ";
 import { Contact } from "@/components/sections/Contact";
-import { faqs } from "@/data/faq";
-import { team } from "@/data/team";
-import { companies } from "@/data/companies";
-import { services } from "@/data/services";
+import { getContent } from "@/lib/content";
 
-export default function Home() {
+export default async function Home() {
+  // One fetch for the whole page. getContent falls back to the constants in
+  // src/data on any failure, so this call cannot fail the build and cannot
+  // render a blank section.
+  const { faq: faqs, team, companies, services } = await getContent();
+
   // Derived, not hand maintained. The select in the contact form is the same
   // list as the page, in the same order, because it is built from it.
   const serviceOptions = [
