@@ -145,9 +145,10 @@ export default function PrivacyPage() {
         <ul>
           <li>
             <strong>Service providers</strong>, companies that help us run
-            this website and our business, such as website hosting, email and
-            analytics providers. They may access information only to perform
-            services for us and are bound by confidentiality obligations;
+            this website and our business, such as website hosting, database
+            hosting, email delivery, email and analytics providers. They may
+            access information only to perform services for us and are bound
+            by confidentiality obligations;
           </li>
           <li>
             <strong>Professional advisers</strong>, lawyers, accountants and
@@ -170,8 +171,10 @@ export default function PrivacyPage() {
           We keep personal information only as long as it is needed for the
           purposes described in this Policy, typically for as long as we are
           corresponding with you about an inquiry or engagement, plus any
-          period required by law or needed to resolve disputes. When
-          information is no longer needed, we delete it or anonymize it.{" "}
+          period required by law or needed to resolve disputes. Contact form
+          submissions are deleted after 24 months unless we are still working
+          together or the law requires us to keep them. When information is no
+          longer needed, we delete it or anonymize it.{" "}
           We may also keep a working copy of an inquiry outside our systems for
           a short time, for example a file exported by a member of our team
           while handling your request, and we delete it when it is no longer

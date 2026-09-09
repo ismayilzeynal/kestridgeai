@@ -26,7 +26,7 @@ const REASONS = {
   newline: "Line breaks are not allowed. This text is shown as one paragraph.",
   angle: "The characters < and > are not allowed.",
   control: "There is an invisible control character in this text.",
-  length: "The length is outside what the layout can hold.",
+  length: "This is empty, or longer than the layout can hold.",
   count: "That would break the page layout.",
   asset: "That image or icon is not one the website ships.",
   immutable: "That cannot be created or changed from here.",
@@ -92,6 +92,7 @@ const SETS = {
     unit: "logos",
     anchor: "top",
     note: "Logos are hidden rather than deleted, so the image stays available to put back.",
+    addAsset: true,
     label: (r) => r.name + (r.hidden ? " (hidden)" : ""),
     endpoint: "/content/companies",
     fields: [
@@ -238,10 +239,63 @@ function draw() {
     left.appendChild(add);
   }
 
+  if (set.addAsset) {
+    left.appendChild(addAsset(set));
+  }
+
   layout.appendChild(left);
   layout.appendChild(form());
   root.appendChild(layout);
 }
+
+// Offered only when the site actually ships an image nobody is using yet. When
+// every logo is in use the control is absent rather than disabled, because
+// "add" with nothing to add is not a state worth explaining.
+function addAsset(set) {
+  const wrap = el("div", null, { class: "field" });
+  const used = new Set(editor.rows.map((r) => r.logoFile));
+  const spare = assets.logos.filter((file) => !used.has(file));
+
+  if (spare.length === 0) {
+    wrap.appendChild(el("p", "Every logo the website ships is already on the page.", { class: "hint" }));
+    return wrap;
+  }
+
+  wrap.appendChild(el("label", "Add a logo"));
+
+  const pick = el("select");
+  for (const file of spare) {
+    pick.appendChild(el("option", file, { value: file }));
+  }
+
+  const go = el("button", "Add");
+  go.addEventListener("click", async () => {
+    if (!leave()) {
+      return;
+    }
+
+    // The file name is the starting point for the display name, not the final
+    // one. The editor opens on the new row so it can be corrected immediately,
+    // which matters for names like "ey" and "eigroup".
+    const file = pick.value;
+    const result = await api(set.endpoint + "/add", { logoFile: file, name: titleFor(file) });
+
+    // Reload rather than splice a row in: the server assigned the id and the
+    // sort order, and guessing either is how the next reorder becomes a 400.
+    await openSite();
+    openEditor("companies");
+    editor.index = Math.max(0, editor.rows.findIndex((r) => r.id === result.row.id));
+    draw();
+    banner(result, "Added to the website. Correct the name if it needs one.");
+  });
+
+  wrap.appendChild(pick);
+  wrap.appendChild(go);
+  wrap.appendChild(el("p", "Only images already committed to the website appear here. To use a different one, a developer has to add the file first.", { class: "hint" }));
+  return wrap;
+}
+
+const titleFor = (file) => file.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
 async function move(from, to) {
   if (!leave()) {
@@ -309,6 +363,12 @@ function form() {
   }
 
   save.addEventListener("click", async () => {
+    const blank = firstBlank(set, values);
+    if (blank) {
+      banner({ ok: false }, blank);
+      return;
+    }
+
     save.disabled = true;
     const body = { id: row.id, ...values };
 
@@ -524,6 +584,47 @@ function stepsBlock(field, steps, mark) {
   });
 
   return block;
+}
+
+// Returns a whole sentence about the first empty field, or null. Read-only
+// fields are skipped: the operator cannot fix those, and a slug is never blank.
+// Only a list line can be removed, so only a list line is offered that.
+function firstBlank(set, values) {
+  for (const field of set.fields) {
+    if (field.readonly || field.check || field.choices) {
+      continue;
+    }
+
+    if (field.list) {
+      const empty = (values[field.key] || []).findIndex((t) => !t || !t.trim());
+      if (empty >= 0) {
+        return field.label + " line " + (empty + 1)
+          + " is empty. Fill it in, or remove the line.";
+      }
+
+      continue;
+    }
+
+    if (field.steps) {
+      for (let i = 0; i < (values[field.key] || []).length; i++) {
+        const step = values[field.key][i];
+        for (const key of ["phase", "summary", "what"]) {
+          if (!step[key] || !step[key].trim()) {
+            return "Step " + (i + 1) + " has an empty field. All four steps are"
+              + " shown on the website, so none of them can be left blank.";
+          }
+        }
+      }
+
+      continue;
+    }
+
+    if (!values[field.key] || !String(values[field.key]).trim()) {
+      return field.label + " is empty.";
+    }
+  }
+
+  return null;
 }
 
 // Visible, and it always says what it changed. The server refuses all of this

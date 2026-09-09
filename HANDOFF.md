@@ -174,10 +174,13 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
    Bu, launch üçün maneədir: sayt həmin ünvanı Contact bölməsində, footer-də və
    JSON-LD-də elan edir, forma da endpoint boş olduğu müddətdə ora `mailto:` ilə
    yönəldir.
-2. **Form endpoint.** Vercel-də `NEXT_PUBLIC_FORM_ENDPOINT` təyin edin
-   (Formspree / Web3Forms / Basin). Kod hazırdır. Dəyişən boş olduğu müddətdə
-   forma saxta "göndərildi" demir - istifadəçinin mail proqramını hazır mesajla
-   açır.
+2. **Admin hesabı.** Panel `https://api.kestridge.com/admin/` ünvanında
+   işləyir, amma bir dənə də hesab yoxdur. Parolu maşın yaza bilməz:
+   `/srv/kestridge-api/Kestridge.Api --hash-password --username <ad>
+   --display-name "Ad Soyad"`, çap olunan `INSERT`-i `ops/admin-account.sql`
+   ilə `kestridge_migrator` kimi işlədin, `otpauth://` linkini authenticator
+   tətbiqinə skan edin. TOTP məcburidir.
+   (Form endpoint artıq qoşulub və canlı yoxlanılıb.)
 3. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
    üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
 4. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
@@ -194,7 +197,13 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
 2. **Bütün ölçülər rem-dir.** Klasslarda arbitrary `px` qalmayıb (yalnız 1-3px
    hairline-lar). Root `106.25%`-dir, yəni oxucunun brauzer şrift ölçüsünü izləyir.
 3. `copy-deck.json` yalnız ilk yazılış qeydidir, sonrakı redaktələr orada yoxdur.
-   Cari mətnlərin yeganə mənbəyi `src/` fayllarıdır.
+4. **`src/data/*.ts` artıq yeganə mənbə deyil.** Xidmətlər, banilər, suallar və
+   loqolar MySQL-dədir və `getContent()` ilə oxunur; həmin fayllar API
+   əlçatmaz olanda işə düşən fallback-dir. Onlar öz-özünə yenilənmir, ona görə
+   `RUNBOOK.md`-də rüblük yeniləmə addımı var. Vercel-dən `API_ORIGIN`-i
+   silmək bütün sayt üçün geri qaytarmadır.
+5. **`senedler/` və bu fayl açıq repodadır.** Repo public-dir; daxili sənədlərin
+   orada qalması qərarı hələ verilməyib.
 
 ---
 
@@ -230,10 +239,15 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
 ## 6. Davam etmək
 
 ```bash
-cd "c:/Users/Asus/Desktop/ABŞ servis/only front"
+cd "C:/Users/Emil/Desktop/Projects/Kestridge"
 npx next dev -p 3111
-npx tsc --noEmit
 npx next build
+
+# Məcburi qəbul yoxlaması: ölü API ünvanı ilə build keçməli və marşrut
+# cədvəlində "/" hələ də static (dairə) qalmalıdır.
+API_ORIGIN=http://127.0.0.1:1 npm run build
+
+cd backend && dotnet test
 ```
 
 LinkedIn üçün CDP ilə Chrome (giriş yadda saxlanılıb):

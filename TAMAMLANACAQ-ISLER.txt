@@ -11,9 +11,9 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 ────────────────────────────────────────────────────────────────
  1. DOMEN VƏ BREND
 ────────────────────────────────────────────────────────────────
-[ ] [VACIB] Custom domen almaq (məs. kestridge.com)
-      → Vercel > Project > Settings > Domains bölməsində qoşmaq
-      → Kodda yenilənməli: src/lib/site.ts içində `url` sahəsi
+[x] [VACIB] Custom domen alındı: kestridge.com. Vercel-də qoşuludur,
+      NS ns1/ns2.vercel-dns.com, GoDaddy yalnız registrardır.
+      api.kestridge.com A qeydi VPS-ə (195.26.245.188) baxır.
 [ ] [VACIB] Domen emaili qurmaq (info@kestridge.com)
       → Google Workspace və ya Zoho Mail
       → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
@@ -63,23 +63,22 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       backend/DSR-PROCESS.md (hüquqi sorğu prosesi).
       Frontend heç dəyişmədi - Contact.tsx-ə toxunulmayıb.
 
-[ ] [VACIB] Endpoint-i qoşmaq: Vercel-də NEXT_PUBLIC_FORM_ENDPOINT
-      → https://api.kestridge.com/api/contact
-      → Sonra REBUILD lazımdır, sadəcə redeploy yox: NEXT_PUBLIC_*
-        dəyişənləri build vaxtı bundle-ın içinə yazılır.
-      → Alternativ olaraq hosted servis (Formspree və s.) hələ də işləyir.
+[x] [VACIB] Endpoint qoşuldu: NEXT_PUBLIC_FORM_ENDPOINT Vercel-də
+      təyin olunub, rebuild edilib, canlı brauzerdən göndərilən müraciət
+      bazada yoxlanılıb.
 
-[ ] [VACIB] api.kestridge.com üçün DNS + TLS + reverse proxy.
-      → Proses 127.0.0.1:5199-da dinləyir, TLS-i proxy bitirir.
-      → Windows servisi kimi qurulur: backend/ops/install-service.ps1
+[x] [VACIB] api.kestridge.com canlıdır. Ubuntu 24.04 VPS, systemd unit
+      (kestridge-api.service), nginx reverse proxy, Let's Encrypt
+      sertifikatı (bitmə: 2026-12-08, avtomatik yenilənmə yoxlanılıb).
+      Proses 127.0.0.1:5199-da dinləyir, TLS-i nginx bitirir.
+      Quraşdırma: backend/ops/linux/, sənəd: backend/DEPLOY-LINUX.md
+      (install-service.ps1 yalnız Windows üçündür, serverdə istifadə
+      olunmur).
 
-[ ] [VACIB] MySQL qurulumu (bir dəfə):
-      → cd backend; dotnet tool restore
-      → powershell -ExecutionPolicy Bypass -File ops/setup-dev-db.ps1
-      → Skript root parolunu soruşur, 5 servis hesabı üçün parol
-        generasiya edir, DB/grant qurur, migrasiyanı tətbiq edir,
-        connection string-i user-secrets-ə yazır.
-      → Repoda heç bir parol saxlanmır.
+[x] [VACIB] MySQL 8.0.46 serverdə quruldu, 5 servis hesabı ayrı-ayrı
+      hüquqlarla. Lokal geliştirmə üçün: ops/setup-dev-db.ps1.
+      Hüquq yoxlaması aylıq: ops/03-verify-grants.sql.
+      Repoda heç bir parol saxlanmır.
 
 [x] [VACIB] Spam qoruması. Sırayla: Origin allowlist (403), IP başına
       10 dəqiqədə 5 sorğu, saatda 200 qlobal, honeypot (_gotcha),
@@ -94,9 +93,31 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       davamlı retry ilə (1d, 5d, 15d, 1s, 4s, 12s, 24s = ~41 saat).
       SMTP çökərsə heç nə itmir: sətir DB-də qalır və özü yenidən cəhd edir.
 
-[ ] [VACIB] SMTP provayderi seçmək. Bu, həm də subprocessor-dur (hər
-      müraciətin mətnini görür) - DPA imzalanmalı və registrə yazılmalıdır.
-      DB self-hosted olduğu üçün başqa subprocessor yoxdur.
+[ ] [VACIB] SMTP provayderi seçmək. HƏLƏ DƏ ƏSAS MANEƏ. Bildirişlər
+      indi serverdə lokal tutucuya (mailsink, 127.0.0.1:2525) düşür, yəni
+      heç kimə çatmır. Sətir bazada qalır, provayder qoşulan kimi
+      ops/rearm-notifications.sql ilə yenidən göndərilə bilər.
+      Bu, həm də subprocessor-dur (hər müraciətin mətnini görür) - DPA
+      imzalanmalı və registrə yazılmalıdır. DB self-hosted olduğu üçün
+      başqa subprocessor yoxdur.
+
+[ ] [VACIB] Admin hesabı yaratmaq. Panel canlıdır
+      (https://api.kestridge.com/admin/) amma hesab yoxdur. Parolu yalnız
+      siz yaza bilərsiniz:
+      → /srv/kestridge-api/Kestridge.Api --hash-password --username <ad>
+        --display-name "Ad Soyad"
+      → çap olunan INSERT-i ops/admin-account.sql-ə yapışdırıb
+        kestridge_migrator kimi işlədin
+      → otpauth:// linkini authenticator tətbiqinə skan edin (TOTP
+        məcburidir, seçim deyil)
+      → sonra: clear && history -c
+
+[x] [ORTA]  Sayt mətnini paneldən redaktə etmək. Xidmətlər, banilər,
+      suallar və loqolar artıq MySQL-dədir; panel > Website tab-ı.
+      Xidmət slug-ları və banilərin sayı dəyişdirilə bilmir (səhifə
+      dizaynı dörd üzərində qurulub). API əlçatmaz olsa sayt
+      src/data/*.ts-dəki mətnə düşür - o fayllar rüblük yenilənməlidir,
+      bax backend/RUNBOOK.md.
 
 NÖVBƏTİ ADDIMLARIN TAM SİYAHISI: backend/RUNBOOK.md → "Go-live checklist"
 
@@ -134,8 +155,10 @@ NÖVBƏTİ ADDIMLARIN TAM SİYAHISI: backend/RUNBOOK.md → "Go-live checklist"
       → Google Analytics: AVTOMATİKDİR - Vercel-də NEXT_PUBLIC_GA_ID
         qoyulan kimi banner çıxır, GA yalnız "Accept"-dən sonra yüklənir
         (kod: src/components/CookieConsent.tsx)
-      → Backend qoşuldu və HEÇ BİR COOKIE YARATMIR: endpoint anonimdir,
-        sessiya yoxdur, antiforgery yoxdur, admin girişi yoxdur.
+      → Backend və admin panel HEÇ BİR COOKIE YARATMIR: contact endpoint
+        anonimdir; admin panel token-i sessionStorage-də saxlayır (tab
+        bağlananda ölür) və api.kestridge.com origin-indədir, ona görə
+        kestridge.com-dakı GA tag-ı ona heç vaxt çata bilmir.
         CookieConsent.tsx toxunulmamışdır və hələ də yalnız
         NEXT_PUBLIC_GA_ID-ə bağlıdır. Test bunu qoruyur
         (Post_SetsNoCookieHeader). Canlıda devtools-da bir dəfə yoxlayın:
@@ -143,20 +166,20 @@ NÖVBƏTİ ADDIMLARIN TAM SİYAHISI: backend/RUNBOOK.md → "Go-live checklist"
       → Başqa xidmət (reklam pikseli, chat widget, video embed) əlavə
         olunanda: həmin xidməti də consent-ə bağla + Privacy Policy-nin
         3-cü bölməsini (Cookies) yenilə
-[ ] [VACIB] Privacy Policy-yə iki düzəliş (BACKEND QOŞULDUĞU ÜÇÜN).
-      Mən bu dəyişiklikləri ETMƏDİM: dərc olunmuş hüquqi mətndir və
-      hüquqşünas yoxlaması hələ gözlənilir. Dəqiq mətn:
-      backend/DSR-PROCESS.md sonundakı siyahı.
-      (a) Saxlama bölməsinə konkret müddət əlavə olunmalıdır:
-          "Contact form submissions are deleted after 24 months unless we
-          are still working together or the law requires us to keep them."
-          Səbəb: hazırkı mətn düzdür, amma DB yarandıqdan sonra
-          yoxlanıla bilən deyil. Purge job məhz 24 ayı icra edir.
-      (b) Paylaşım bölməsində "website hosting, email and analytics
-          providers" siyahısına database hosting və email delivery
-          əlavə olunmalıdır.
-      → Hər ikisi yerləşəndə src/app/privacy/page.tsx sətir 31-dəki
-        UPDATED tarixi yenilənməlidir.
+[x] [VACIB] Privacy Policy backend üçün yeniləndi (10 sentyabr 2026).
+      Üç düzəliş edildi:
+      (a) 6-cı bölmə: "Contact form submissions are deleted after 24
+          months unless we are still working together or the law requires
+          us to keep them." Purge job məhz 24 ayı icra edir.
+      (b) 5-ci bölmə: xidmət təchizatçıları siyahısına "database hosting"
+          və "email delivery" əlavə olundu.
+      (c) 6-cı bölmə: admin paneldən CSV ixracı üçün bir cümlə. İxrac
+          edilən fayl bazadan kənarda şəxsi məlumat nüsxəsidir; heç bir
+          silmə skripti ona çatmır.
+      → HÜQUQŞÜNAS YOXLAMASI HƏLƏ QALIR. Bu, dərc olunmuş hüquqi mətndir.
+      → 3-cü bölmə (Cookies) TOXUNULMADI, çünki hələ də heç bir cookie
+        yoxdur - admin panel token-i sessionStorage-də saxlayır və ayrı
+        origin-dədir (api.kestridge.com).
 [ ] [ORTA]  Şirkətin rəsmi qeydiyyatı (LLC/Inc) - footer-də "Kestridge AI Inc."
       yazılıb; qeydiyyat fərqli olsa kodda yenilənməli: src/lib/site.ts
       içində `legalName`
