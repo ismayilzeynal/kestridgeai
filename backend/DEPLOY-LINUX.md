@@ -24,7 +24,7 @@ variable, in step 10.
 | SSH access as a sudo user | Everything below is `sudo`. |
 | `api.kestridge.com` A record pointing at the VPS | **Publish it before step 7.** certbot fails without it and each failure burns one of your five hourly authorization attempts for that name. |
 | SMTP provider account | Host, port, username, password. Step 4 asks for them. |
-| A mailbox that actually receives mail | `info@kestridge.com` does not resolve today: the zone has no MX record. Until it does, point the notification address at something you read. |
+| A mailbox that actually receives mail | `info@kestridge.com` has received mail since 10 September 2026 (Zoho, US data centre). Point the notification address anywhere else only while testing. |
 
 Do **not** publish an AAAA record unless the VPS IPv6 is fully working.
 Let's Encrypt tries IPv6 first and a half-configured address fails the challenge.

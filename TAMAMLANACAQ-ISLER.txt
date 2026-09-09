@@ -14,10 +14,13 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
 [x] [VACIB] Custom domen alındı: kestridge.com. Vercel-də qoşuludur,
       NS ns1/ns2.vercel-dns.com, GoDaddy yalnız registrardır.
       api.kestridge.com A qeydi VPS-ə (195.26.245.188) baxır.
-[ ] [VACIB] Domen emaili qurmaq (info@kestridge.com)
-      → Google Workspace və ya Zoho Mail
-      → SPF / DKIM / DMARC qeydlərini əlavə etmək (spam-a düşməsin)
-      → Kodda yenilənməli: src/lib/site.ts içində `email` sahəsi
+[x] [VACIB] Domen emaili quruldu: Zoho Mail (ABŞ data mərkəzi),
+      info@kestridge.com. MX + SPF qeydləri Vercel zonasındadır, gələn
+      mesaj əl ilə yoxlanıldı. src/lib/site.ts-dəki `email` sahəsi onsuz
+      da düz idi, dəyişməyə ehtiyac olmadı.
+      → QALIR: DKIM (Zoho Mail Admin > Email Authentication) və DMARC
+        (p=none ilə başlayın, dərhal reject yox).
+      → QALIR: Zoho subprocessor-dur, DPA imzalanmalı və registrə yazılmalı.
 [ ] [VACIB] LinkedIn şirkət səhifəsi yaratmaq
       → Hazır assetlər: Logo/07-platform/ içində LinkedIn üçün hazır
         ölçülər var (cover 1512x256, profil 400x400, feed şəkilləri)

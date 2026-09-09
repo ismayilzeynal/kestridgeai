@@ -30,9 +30,16 @@ Owner:  TO BE ASSIGNED
 Backup: TO BE ASSIGNED
 ```
 
-**Blocker:** `info@kestridge.com` does not resolve today. The DNS zone has no MX
-record, so the channel the Privacy Policy publishes is currently non-functional.
-Fix that before go-live, or the promise is not being kept.
+`info@kestridge.com` is a real mailbox as of 10 September 2026. The zone
+carries Zoho's MX records and an SPF record, and delivery to it was tested by
+hand. The channel the Privacy Policy publishes finally works, which is what
+makes every deadline in this document meaningful: a request nobody can send is
+a request nobody has to answer within 30 days.
+
+Zoho Mail is therefore a **subprocessor** with access to the body of every
+inquiry that is mailed to that address. Sign the DPA and add it to the register
+before treating this as done. Its data centre is the US one, which matches
+where the company and the database already are.
 
 ## Service level
 

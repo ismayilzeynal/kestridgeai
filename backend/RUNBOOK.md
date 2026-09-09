@@ -101,8 +101,9 @@ whenever any failed row exists. Watch for it.
 **No submission is ever lost by a failed notification.** The row is in
 `contact_submissions` and is readable with `ops/status.sql`.
 
-The likely cause today is that `kestridge.com` has no MX record, so
-`info@kestridge.com` hard-bounces. Fix the cause first, then:
+Fix the cause first, then re-arm. Re-arming before the cause is fixed just
+bounces again and gets the sending address throttled by the provider, which is
+a slower problem to recover from than the one you started with.
 
 ```powershell
 mysql.exe -u kestridge_ops -p kestridge < ops/rearm-notifications.sql
@@ -216,10 +217,13 @@ widened to `ALL` during a debugging session and never narrowed back.
    answers `200` and logs `contact.db_bypass` at Warning level, but no row is
    stored. That message will not appear in a DSR export or a backup. Search the
    Event Log for `contact.db_bypass` when reconciling.
-2. **`info@kestridge.com` does not resolve today.** The DNS zone has no MX
-   record, so both the notification target and the rights-request channel the
-   Privacy Policy publishes are non-functional. Until domain mail exists, point
-   `Kestridge:Contact:ToAddress` at a mailbox someone actually reads.
+2. **Notifications still go nowhere.** `info@kestridge.com` receives mail
+   since 10 September 2026, so the rights-request channel works. Sending does
+   not: `Kestridge:Smtp` on the server still points at the local catcher
+   (`mailsink`, 127.0.0.1:2525), so every notification is written to disk on
+   the VPS and read by nobody. No submission is lost, the rows are in
+   `contact_submissions` and can be re-armed. Set the real SMTP host, user and
+   app password in `appsettings.Production.json` to close this.
 3. **The SMTP provider is a subprocessor with access to every inquiry body.**
    Register it and sign a DPA before the first real submission. The database is
    self-hosted, so there is no database subprocessor.
