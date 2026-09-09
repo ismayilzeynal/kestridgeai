@@ -202,6 +202,24 @@ takes effect on the next request, not the next login.
 
 **Unlock.** `ops/admin-unlock.sql`, below.
 
+**"Sign in failed" straight after signing in or out** is almost always a reused
+code, not a wrong password. `totp_last_step` records the step that was accepted
+and anything at or below it is refused, so the six digits on screen are dead
+the moment they are used once. Wait for them to change. The panel says so under
+the code field; the server cannot say it in the error, because a message that
+distinguished a reused code from a wrong password would confirm that the
+username and password were right.
+
+To tell the two apart from the server:
+
+```bash
+sudo mysql kestridge -e "SELECT username, totp_last_step, last_login_at, failed_attempts FROM admin_accounts;"
+sudo journalctl -u kestridge-api --since "10 min ago" --no-pager | grep -i 'admin\.'
+```
+
+`admin.login_ok` followed by `admin.login_failed` within the same 30 second
+window is a reused code and nothing is wrong.
+
 ## Locked out of the admin panel
 
 Five failed sign-ins lock an account for 15 minutes. The lock does not escalate,
