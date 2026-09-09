@@ -159,6 +159,49 @@ Verify after every install:
 icacls C:\Kestridge\api\appsettings.Production.json
 ```
 
+## Admin accounts
+
+Four people, one account each, and no self-service anything. There is no
+password change endpoint and no "forgot password" flow, on purpose: the
+application credential holds `UPDATE` on five named columns of
+`admin_accounts` and `password_hash` is not among them, so a compromised web
+process can never rewrite one. The cost of that is that every account
+operation is a terminal and a SQL script.
+
+**Create.** The person whose account it is should be the one at the keyboard,
+because the CLI reads their password and prints their TOTP secret. Someone else
+running it knows both, and the second factor stops being a second factor.
+
+```bash
+cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password --username faig --display-name "Faig Garayev"
+```
+
+It prints an `INSERT` and an `otpauth://` URI, and never opens MySQL. Scan the
+URI into an authenticator **before** clearing the screen; it is shown once.
+Then apply the insert without putting it through shell history:
+
+```bash
+umask 077 && cat > /root/admin-account.sql   # paste, then Ctrl+D
+sudo mysql kestridge < /root/admin-account.sql && shred -u /root/admin-account.sql
+history -c && clear
+```
+
+**Rotate a password, or re-enrol a lost authenticator.** Same command, then
+replace the row rather than inserting a second one:
+
+```sql
+DELETE FROM admin_accounts WHERE username = 'faig';
+```
+
+then apply the new `INSERT`. Sessions for the old row die with it.
+
+**Disable.** `ops/admin-disable.sql`. This is the offboarding step and it is
+not optional: the panel reads every inquiry the company has ever received, so
+an account that outlives the person is the largest standing exposure here. It
+takes effect on the next request, not the next login.
+
+**Unlock.** `ops/admin-unlock.sql`, below.
+
 ## Locked out of the admin panel
 
 Five failed sign-ins lock an account for 15 minutes. The lock does not escalate,
