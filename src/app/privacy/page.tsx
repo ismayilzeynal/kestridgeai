@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-const UPDATED = "August 24, 2026";
+const UPDATED = "September 10, 2026";
 
 export default function PrivacyPage() {
   return (
@@ -171,7 +171,11 @@ export default function PrivacyPage() {
           purposes described in this Policy, typically for as long as we are
           corresponding with you about an inquiry or engagement, plus any
           period required by law or needed to resolve disputes. When
-          information is no longer needed, we delete it or anonymize it.
+          information is no longer needed, we delete it or anonymize it.{" "}
+          We may also keep a working copy of an inquiry outside our systems for
+          a short time, for example a file exported by a member of our team
+          while handling your request, and we delete it when it is no longer
+          needed.
         </p>
 
         <h2>7. How we protect your information</h2>

@@ -158,6 +158,46 @@ Verify after every install:
 icacls C:\Kestridge\api\appsettings.Production.json
 ```
 
+## Locked out of the admin panel
+
+Five failed sign-ins lock an account for 15 minutes. The lock does not escalate,
+deliberately: anyone who knows a username could otherwise keep an operator
+locked out permanently. To clear one early, as `kestridge_migrator`:
+
+```bash
+mysql -u kestridge_migrator -p kestridge < ops/admin-unlock.sql
+```
+
+The application credential cannot do this. It holds `UPDATE` on five named
+columns of `admin_accounts` and nothing else, so a compromised web process can
+never rewrite a password hash, swap a TOTP secret or re-enable a disabled
+account. That is the boundary; do not widen it to fix a lockout.
+
+A lost authenticator is not a lockout, it is a re-enrolment: run
+`Kestridge.Api --hash-password` again for that user and replace the row.
+
+## Website content
+
+The panel writes to the six `site_*` tables and the site reads them through
+`GET /api/content`. Two things follow that are not obvious.
+
+**A content change rebuilds nothing.** `scripts/vercel-ignore.sh` sees no
+commit, because there is no commit. The page updates through ISR within five
+minutes, or immediately if the revalidate hook is configured. This is correct
+and intended, and it is why the panel never claims a build ran.
+
+**Quarterly: refresh the compiled fallback.** `src/data/*.ts` is what the site
+renders whenever the API is unreachable. It does not update itself, so it drifts
+from live content by exactly as much as gets edited.
+
+```bash
+curl -s https://api.kestridge.com/api/content
+```
+
+Copy the arrays back into `src/data/faq.ts`, `team.ts`, `companies.ts` and
+`services.ts` and commit. Without this, a fallback that fires two years from now
+shows two-year-old copy, and nothing anywhere will warn you.
+
 ## Grant drift
 
 Monthly, as root:

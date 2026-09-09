@@ -5,10 +5,23 @@ access, correction, deletion, objection, and a portable copy, by writing to
 `info@kestridge.com`. This is how those requests get handled once inquiries live
 in a database.
 
-Expected volume is one or two a year. There is deliberately no admin API and no
-account system for this: three SQL scripts and this document cover every
-published obligation, and building an authenticated editor is what would
-reintroduce cookies.
+Expected volume is one or two a year.
+
+There are two routes. The SQL scripts in `ops/` are the process of record and
+the fallback when the API is down. The admin panel at
+`https://api.kestridge.com/admin/` is the second route, and it covers access,
+correction and deletion end to end without an SSH session.
+
+Both write `dsr_log`, with the identical peppered hash, so `prior_requests`
+is correct whichever route was used. Getting that hash wrong in either
+direction is silent and permanent, which is why a test asserts the exact bytes.
+
+The panel sets **no cookie**. It holds an opaque bearer token in
+`sessionStorage`, which dies with the tab, and it is served from
+`api.kestridge.com` rather than `kestridge.com/admin` precisely because
+`sessionStorage` is scoped per origin and not per path: the second would put
+the admin token on the same origin as a page that loads Google Analytics on
+consent. Privacy Policy section 3 is unaffected.
 
 ## Who watches the mailbox
 
@@ -132,6 +145,8 @@ Tell requesters this when it applies. These are the only copies.
 
 | Copy | Window | Notes |
 | --- | --- | --- |
+| Exported CSV | until the operator deletes it | Created only by hand, from the admin panel. It is a copy of personal data in a place no retention job, no `ops/dsr-delete.sql` and no backup rotation reaches. Delete it when the reason for it ends. Never mail it and never put it in shared storage. |
+| Admin browser tab | while the tab is open | An access record shown on screen during a request. Nothing is written to disk. |
 | Nightly backups | 30 days local, plus the offsite copy | `ops/backup.ps1`. Not selectively editable; the copy ages out. |
 | MySQL binary log | 7 days | `binlog_expire_logs_seconds = 604800` in `ops/02-hardening.cnf`. If `skip-log-bin` is used instead, this row is zero and this table must say so. |
 | Notification email | the team mailbox retention | The one copy no SQL script reaches. Delete it from the mailbox by hand as part of a deletion request. |
@@ -139,6 +154,10 @@ Tell requesters this when it applies. These are the only copies.
 
 Do not claim "deleted everywhere immediately". Say the row is deleted now and
 the backup copy ages out within the stated window.
+
+**Before answering a deletion request, confirm that no CSV export containing
+this address is still on anybody's laptop.** The export is the one copy this
+document cannot account for, because nothing on the server knows it exists.
 
 ## Automatic deletion
 

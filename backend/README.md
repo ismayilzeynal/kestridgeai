@@ -16,6 +16,10 @@ frontend change is one Vercel environment variable.
 4. Deletes submissions after 24 months, skipping legal holds, and records each
    purge run as evidence.
 5. Answers a health probe.
+6. Serves an authenticated admin panel at `/admin/`: read and operate on
+   submissions, run the full data subject request flow, and edit the website
+   copy.
+7. Serves that copy to the marketing site as `GET /api/content`.
 
 ## What it deliberately does not do
 
@@ -24,10 +28,10 @@ that reopens it.
 
 | Not built | Why | Revisit when |
 | --- | --- | --- |
-| Content CMS tables for services, team, FAQ, companies | The four people who edit this copy are the four people who deploy. `src/data/services.ts` holds `icon: LucideIcon`, a React component reference that is not serializable and cannot cross the server/client boundary; `Hero.tsx` and `Services.tsx` are `"use client"` and would need splitting; `Services.tsx:252` is `grid-cols-4`, so "exactly four delivery steps" is a layout invariant no DDL can express; `nav[].href` must match a JSX `id` or the link silently no-ops through `scroll.ts`. Every table would also need a code fallback, or an unreachable database ships a blank marketing page. | A non-developer needs weekly copy edits without a deploy. Then add `faqs` **only**: one table, no icon, no asset, no layout invariant, no client boundary, and it fixes `FAQPage` JSON-LD drift as a side effect. Keep a literal `DEFAULT_FAQS` fallback in code. Never start with `services`. |
-| Any `/api/content/*` read endpoint | Same reason, plus it would make `next build` on Vercel depend on this host being reachable. | Same as above. |
-| An admin HTTP API and UI | Volume is a handful of submissions a week and one or two rights requests a year. `ops/status.sql` and the DSR scripts cover every published obligation. | Not at this volume. |
-| Cookies of any kind | A cookie forces `CookieConsent.tsx` back on and a rewrite of Privacy Policy section 3. The endpoint is anonymous, so it needs none. | Never. |
+| Cookies of any kind | A cookie forces `CookieConsent.tsx` back on and a rewrite of Privacy Policy section 3. The contact endpoint is anonymous and the admin panel holds its token in `sessionStorage` on a separate origin, so neither needs one. | Never. |
+| Image upload in the panel | `photo` and `logo_file` name files that git ships in `/public`. Uploads mean object storage, a serving path off the VPS, and a CSP change, to avoid a commit that has to happen anyway because the image itself has to be committed. | Someone needs to publish an image without a developer at all. |
+| Editing headings, section ids or any Tailwind class | No `class`, `className`, `style` or colour column exists in the schema. The moment the database can carry a class name, the design can no longer be changed from the design files. | Never. |
+| Creating or renaming a service slug | The same string is a DOM id, an ARIA target, a `CustomEvent` payload, the contact form's select value and a member of `Kestridge:Contact:AllowedServices`. A new one is a 400 at the live API until someone edits `appsettings.Production.json` and restarts the unit. | The layout stops assuming four services. |
 | A separate outbox table | One message kind, one process. State on the row means no second copy of the message body to scrub and no orphan reaper. A DSR delete removes the pending notification for free. | A second message kind or a second app instance exists. |
 | `ip_address`, `user_agent`, `referer` columns | The Privacy Policy discloses automatic technical data only as visit telemetry used in aggregate. On the same row as a name and an email it becomes identified personal data serving a purpose section 4 does not list. This is one line of code and the default in every tutorial, which is why `SchemaTests` asserts the columns do not exist. | Never, without amending two sections of the published policy first. |
 | Storing honeypot hits as rows | Personal data collected for no disclosed purpose. A log counter answers every question the row would. | Never. |
@@ -234,6 +238,47 @@ Three rules behind that table:
 
 `GET /api/health` answers `200 {"status":"ok"}` or `503 {"status":"degraded"}`.
 No counts, no version, no host name, no exception text.
+
+## The content contract
+
+`GET /api/content` is public, takes no token, and carries only what the website
+already shows every visitor. Its field names are chosen to match the TypeScript
+types in `src/data/*.ts` exactly, so those files are the fallback with no
+adapter between them.
+
+```json
+{
+  "generatedAt": "2026-09-10T12:00:00Z",
+  "faq":       [{ "q": "...", "a": "..." }],
+  "team":      [{ "name": "...", "initials": "CA", "role": "...", "focus": "...",
+                  "photo": "/team/chingiz-abdilov.jpg" }],
+  "companies": [{ "name": "Avanade", "file": "avanade" }],
+  "services":  [{ "id": "ai", "name": "...", "tagline": "...", "cardLabel": "...",
+                  "description": "...", "icon": "Brain",
+                  "highlights": ["..."],
+                  "steps": [{ "phase": "...", "summary": "...", "what": "..." }] }]
+}
+```
+
+Hidden companies are excluded. Order is `sort_order, id`. **Empty tables answer
+200 with empty arrays, never a 500**: the site decides to fall back, not the
+API, and before `ops/05-seed-content.sql` has run, empty is the honest answer.
+
+Three things about this endpoint that are easy to undo by accident:
+
+- It has its own rate-limit partition. In the contact form's partition, ISR
+  revalidation from one Vercel address is five calls per ten minutes before a
+  429, after which the site quietly serves stale constants forever.
+- It is the one response here that carries `public, max-age=60,
+  stale-while-revalidate=600`. Everything else carries `no-store`, and a test
+  pins that.
+- It gets no `RequireCors`. It is called server to server and never from a
+  browser.
+
+The admin write surface lives under `/api/admin/content/*`, behind the same
+token filter as the rest of the panel, and every mutation including delete is a
+POST. `nginx-api.conf` answers 405 to PUT, PATCH and DELETE, and that 405
+carries no `Access-Control-Allow-Origin`.
 
 ## Notes for whoever changes this next
 

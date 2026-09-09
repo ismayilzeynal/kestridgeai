@@ -286,6 +286,59 @@ Migrations go in as `kestridge_migrator`, never as the app. The application
 credential holds DML only, on purpose. If you "fix" a startup error by granting
 the app DDL, you have broken the access model.
 
+**Migrate first, always. The order is not symmetric.** An old build against a
+new schema is fine: it selects the columns it knows and ignores the rest. A new
+build against an old schema breaks every contact form INSERT, because EF names
+every column in the statement and MySQL refuses the whole thing. So the window
+between the two steps is a window where the public form is either fine or
+completely broken, depending only on which one you did first.
+
+Table-level grants come after the migration, never with it. MySQL refuses a
+`GRANT` for a table that does not exist yet (`ERROR 1146`), which is the whole
+reason `ops/04-table-grants.sql` is a separate file from `ops/01-provision.sql`.
+
+### Deploying the content tables (stage 2)
+
+```bash
+cd ~/kestridgeai/backend
+
+# 1. Schema, as the migrator.
+mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge < ops/migrate.sql
+
+# 2. Grants, after the migration or ERROR 1146.
+sudo mysql < ops/04-table-grants.sql
+
+# 3. Seed the tables with the copy the site already ships. Once. Every block
+#    is guarded on emptiness, so a second run after real edits does nothing.
+mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge < ops/05-seed-content.sql
+
+# 4. Only if the revalidate hook is wanted. Both keys, or neither: an empty
+#    value means the API never calls out and the panel says so honestly.
+sudo nano /srv/kestridge-api/appsettings.Production.json
+#   "Kestridge": { "Admin": {
+#       "RevalidateUrl": "https://kestridge.com/api/revalidate",
+#       "RevalidateSecret": "<the same value you put in Vercel>" } }
+
+# 5. Deploy.
+sudo bash ops/linux/03-deploy.sh
+
+# 6. Populated arrays before Vercel is told anything.
+curl -s https://api.kestridge.com/api/content | head -c 400
+
+# 7. Grants again, because step 2 is easy to skip.
+sudo mysql < ops/03-verify-grants.sql
+```
+
+Then, and only then, set `API_ORIGIN=https://api.kestridge.com` in the Vercel
+project environment and redeploy. Setting it before the seed is harmless: empty
+arrays fail validation in `src/lib/content.ts` and the compiled constants
+render, which are the same words.
+
+**Rollback for the whole content feature is removing `API_ORIGIN` from Vercel
+and redeploying.** That puts every section back on the constants in
+`src/data/*.ts` without touching the database or the API, with no build failure
+and no blank page.
+
 ---
 
 ## Where it breaks
