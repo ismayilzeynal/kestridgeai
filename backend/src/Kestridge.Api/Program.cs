@@ -182,6 +182,22 @@ var adminRoot = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "admin"
 
 if (Directory.Exists(adminRoot))
 {
+    // UseDefaultFiles only rewrites a path that already ends in a slash, so
+    // GET /admin would 404 without this. It has to be middleware, not a mapped
+    // route: routing normalises the trailing slash, so MapGet("/admin") also
+    // matches "/admin/" and redirects it to itself forever. PathString compares
+    // exactly and keeps the two apart.
+    app.Use(async (context, next) =>
+    {
+        if (context.Request.Path == "/admin")
+        {
+            context.Response.Redirect("/admin/", permanent: true);
+            return;
+        }
+
+        await next();
+    });
+
     var adminFiles = new PhysicalFileProvider(adminRoot);
 
     app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = adminFiles, RequestPath = "/admin" });

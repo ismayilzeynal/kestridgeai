@@ -13,10 +13,6 @@ public static class AdminEndpoints
 {
     public static void MapAdmin(this IEndpointRouteBuilder app)
     {
-        // UseDefaultFiles only rewrites a path that already ends in a slash, so
-        // without this GET /admin is a 404.
-        app.MapGet("/admin", () => Results.Redirect("/admin/", permanent: true));
-
         // Outside the group on purpose: the token filter must not run on the
         // endpoint whose job is to issue the token.
         app.MapPost("/api/admin/login", AdminLogin.Handle);
