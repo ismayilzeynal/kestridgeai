@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kestridge admin</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header id="bar" hidden>
+  <strong>Kestridge</strong>
+  <nav>
+    <button data-view="inbox">Inbox</button>
+    <button data-view="privacy">Requests</button>
+    <button data-view="jobs">Health</button>
+  </nav>
+  <span id="who"></span>
+  <button id="logout">Sign out</button>
+</header>
+
+<main>
+  <section id="login">
+    <h1>Sign in</h1>
+    <form id="loginForm">
+      <label>Username <input name="username" autocomplete="username" required></label>
+      <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+      <label>Authenticator code <input name="code" inputmode="numeric" autocomplete="one-time-code" required></label>
+      <button type="submit">Sign in</button>
+      <p id="loginError" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="inbox" hidden>
+    <div class="row">
+      <select id="state">
+        <option value="new">New</option>
+        <option value="all">All</option>
+        <option value="handled">Handled</option>
+        <option value="held">Legal hold</option>
+        <option value="notify_failed">Notification failed</option>
+      </select>
+      <form id="searchForm"><input id="q" placeholder="Name, company, or exact email"><button>Search</button></form>
+      <button id="exportBtn">Export CSV</button>
+      <span id="counts"></span>
+    </div>
+    <table><thead><tr><th>Received</th><th>Name</th><th>Company</th><th>Service</th><th>Message</th><th></th></tr></thead>
+    <tbody id="rows"></tbody></table>
+    <button id="more" hidden>Load more</button>
+  </section>
+
+  <section id="detail" hidden></section>
+
+  <section id="privacy" hidden>
+    <h1>Data subject requests</h1>
+    <p>Look a person up by the address they wrote from. Nothing is deleted until you confirm.</p>
+    <form id="dsrForm"><input id="dsrEmail" type="email" placeholder="person@example.com" required><button>Look up</button></form>
+    <div id="dsrResult"></div>
+    <h2>Log</h2>
+    <table><thead><tr><th>Received</th><th>Type</th><th>Rows</th><th>Ids</th><th>By</th><th>Closed</th></tr></thead>
+    <tbody id="dsrRows"></tbody></table>
+  </section>
+
+  <section id="jobs" hidden></section>
+</main>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

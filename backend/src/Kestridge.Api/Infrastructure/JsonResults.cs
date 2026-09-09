@@ -22,4 +22,19 @@ public static class JsonResults
 
     public static IResult Unavailable() =>
         Results.Json(new { ok = false, error = "unavailable" }, statusCode: StatusCodes.Status503ServiceUnavailable);
+
+    // One shape for every admin auth failure: wrong password, unknown user,
+    // wrong code, replayed code, disabled, locked. A distinct code for "locked"
+    // would turn the endpoint into an account existence oracle, because only a
+    // real account can be locked.
+    public static IResult Auth() =>
+        Results.Json(new { ok = false, error = "auth" }, statusCode: StatusCodes.Status401Unauthorized);
+
+    public static IResult Missing() =>
+        Results.Json(new { ok = false, error = "not_found" }, statusCode: StatusCodes.Status404NotFound);
+
+    // The id set changed between the preview and the confirm, so the operator
+    // would be deleting something they never saw.
+    public static IResult Stale() =>
+        Results.Json(new { ok = false, error = "stale" }, statusCode: StatusCodes.Status409Conflict);
 }

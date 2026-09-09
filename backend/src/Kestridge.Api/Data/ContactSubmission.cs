@@ -12,6 +12,7 @@ public sealed class ContactSubmission
     private DateTime _createdAt;
     private DateTime? _notifyNextAttemptAt;
     private DateTime? _notifiedAt;
+    private DateTime? _handledAt;
 
     public long Id { get; set; }
 
@@ -50,6 +51,17 @@ public sealed class ContactSubmission
     }
 
     public string NotifyError { get; set; } = string.Empty;
+
+    // Set from the admin panel when someone has replied. Null means new. Not an
+    // enum: "handled" is a timestamp and a person, and the two are always set
+    // and cleared together.
+    public DateTime? HandledAt
+    {
+        get => _handledAt;
+        set => _handledAt = value is null ? null : Micro(value.Value);
+    }
+
+    public string HandledBy { get; set; } = string.Empty;
 
     public static DateTime Micro(DateTime value)
         => new(value.Ticks - (value.Ticks % 10), value.Kind);

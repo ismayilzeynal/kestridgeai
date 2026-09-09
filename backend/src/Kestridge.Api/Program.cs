@@ -1,3 +1,4 @@
+using Kestridge.Api.Admin;
 using Kestridge.Api.Contact;
 using Kestridge.Api.Data;
 using Kestridge.Api.Email;
@@ -7,10 +8,23 @@ using Kestridge.Api.Maintenance;
 using Kestridge.Api.Options;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// A CLI mode, before any host is built, so it needs no database and no
+// configuration beyond the iteration count. It prints SQL for a human to run as
+// the migrator; it never writes to MySQL itself. See AdminBootstrap for why.
+if (args.Contains(AdminBootstrap.Flag))
+{
+    return AdminBootstrap.Run(
+        args,
+        builder.Configuration.GetSection(AdminOptions.Section).Get<AdminOptions>()?.PasswordIterations
+            ?? new AdminOptions().PasswordIterations);
+}
 
 builder.Host.UseWindowsService();
 
@@ -45,6 +59,20 @@ builder.Services.AddOptions<NotifyOptions>().Bind(builder.Configuration.GetSecti
     .ValidateDataAnnotations().ValidateOnStart();
 builder.Services.AddOptions<DsrOptions>().Bind(builder.Configuration.GetSection(DsrOptions.Section))
     .ValidateDataAnnotations().ValidateOnStart();
+builder.Services.AddOptions<AdminOptions>().Bind(builder.Configuration.GetSection(AdminOptions.Section))
+    .ValidateDataAnnotations().ValidateOnStart();
+
+// Read eagerly, the same documented way rateLimits is below: this is consumed
+// at registration time by Configure<PasswordHasherOptions>, before any request.
+var adminSettings = builder.Configuration.GetSection(AdminOptions.Section).Get<AdminOptions>() ?? new AdminOptions();
+
+builder.Services.Configure<PasswordHasherOptions>(o =>
+{
+    o.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV3;
+    o.IterationCount = adminSettings.PasswordIterations;
+});
+builder.Services.AddSingleton<IPasswordHasher<AdminAccount>, PasswordHasher<AdminAccount>>();
+builder.Services.AddScoped<AdminTokenFilter>();
 
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<UtcTimeZoneInterceptor>();
@@ -141,9 +169,59 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// Rooted at wwwroot/admin with RequestPath "/admin", not at wwwroot, so nothing
+// else in the publish output is reachable. Guarded so that
+// "rm -rf /srv/kestridge-api/wwwroot/admin" is a valid UI-only rollback that
+// leaves /api/contact serving.
+//
+// Registered after the no-store middleware, so the panel's own documents are
+// no-store too. Correct for an admin page, and it costs one refetch per load
+// for four users. Do not scope that middleware to /api to avoid the refetch:
+// the risk of accidentally weakening no-store on submission JSON is larger.
+var adminRoot = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "admin");
+
+if (Directory.Exists(adminRoot))
+{
+    var adminFiles = new PhysicalFileProvider(adminRoot);
+
+    app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = adminFiles, RequestPath = "/admin" });
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = adminFiles,
+        RequestPath = "/admin",
+        ServeUnknownFileTypes = false,
+        OnPrepareResponse = ctx =>
+        {
+            var headers = ctx.Context.Response.Headers;
+
+            // require-trusted-types-for 'script' is the load bearing one: it
+            // means the panel can never assign innerHTML. Submission text is
+            // attacker controlled, arriving from a public form, and rendering it
+            // that way would be stored XSS on the origin that holds the token.
+            headers["Content-Security-Policy"] =
+                "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; "
+                + "font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; "
+                + "frame-ancestors 'none'; object-src 'none'; require-trusted-types-for 'script'";
+            headers["Referrer-Policy"] = "no-referrer";
+            headers["X-Frame-Options"] = "DENY";
+            headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+
+            // X-Content-Type-Options and Strict-Transport-Security already come
+            // from the server level add_header in nginx-api.conf. Setting them
+            // here as well would emit each twice.
+        },
+    });
+}
+else
+{
+    app.Logger.LogWarning("admin.static_missing path={Path}", adminRoot);
+}
+
 app.MapContact();
 app.MapHealth();
+app.MapAdmin();
 
 app.Run();
+return 0;
 
 public partial class Program;

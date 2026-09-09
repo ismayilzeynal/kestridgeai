@@ -213,5 +213,140 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    ALTER TABLE `contact_submissions` ADD `handled_at` datetime(6) NULL;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    ALTER TABLE `contact_submissions` ADD `handled_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '';
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    CREATE TABLE `admin_accounts` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `username` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `display_name` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        `password_hash` varchar(256) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `totp_secret` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `totp_last_step` bigint unsigned NOT NULL DEFAULT 0,
+        `disabled` tinyint(1) NOT NULL DEFAULT FALSE,
+        `failed_attempts` smallint unsigned NOT NULL DEFAULT 0,
+        `first_failed_at` datetime(6) NULL,
+        `locked_until` datetime(6) NULL,
+        `created_at` datetime(6) NOT NULL,
+        `last_login_at` datetime(6) NULL,
+        CONSTRAINT `PK_admin_accounts` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    CREATE TABLE `admin_sessions` (
+        `token_hash` char(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `account_id` bigint unsigned NOT NULL,
+        `created_at` datetime(6) NOT NULL,
+        `last_seen_at` datetime(6) NOT NULL,
+        `idle_expires_at` datetime(6) NOT NULL,
+        `absolute_expires_at` datetime(6) NOT NULL,
+        CONSTRAINT `PK_admin_sessions` PRIMARY KEY (`token_hash`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    CREATE UNIQUE INDEX `uk_admin_accounts_username` ON `admin_accounts` (`username`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    CREATE INDEX `ix_admin_sessions_account` ON `admin_sessions` (`account_id`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    CREATE INDEX `ix_admin_sessions_expiry` ON `admin_sessions` (`absolute_expires_at`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909175824_AdminPanel') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260909175824_AdminPanel', '9.0.19');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

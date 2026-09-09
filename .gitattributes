@@ -16,3 +16,7 @@ backend/ops/linux/** text eol=lf
 # Not the .cnf files. They are read by MySQL, on Linux as well as Windows, and
 # a trailing CR can end up inside a config value rather than being stripped.
 *.cnf text eol=lf
+
+# Piped into mysql on the server. The deploy script strips CR defensively, but
+# there is no reason to put it there in the first place.
+*.sql text eol=lf

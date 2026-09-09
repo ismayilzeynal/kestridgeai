@@ -8,6 +8,8 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
     public DbSet<ContactSubmission> ContactSubmissions => Set<ContactSubmission>();
     public DbSet<JobRun> JobRuns => Set<JobRun>();
     public DbSet<DsrLogEntry> DsrLog => Set<DsrLogEntry>();
+    public DbSet<AdminAccount> AdminAccounts => Set<AdminAccount>();
+    public DbSet<AdminSession> AdminSessions => Set<AdminSession>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -56,10 +58,68 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
             e.Property(x => x.NotifyError).HasColumnName("notify_error").HasMaxLength(300)
                 .IsRequired().HasDefaultValue("");
 
+            e.Property(x => x.HandledAt).HasColumnName("handled_at").HasColumnType("datetime(6)");
+            e.Property(x => x.HandledBy).HasColumnName("handled_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+
             e.HasIndex(x => x.DedupeKey).IsUnique().HasDatabaseName("uk_submissions_dedupe");
             e.HasIndex(x => x.Email).HasDatabaseName("ix_submissions_email");
             e.HasIndex(x => new { x.LegalHold, x.PurgeAfter }).HasDatabaseName("ix_submissions_purge");
             e.HasIndex(x => new { x.NotifyState, x.NotifyNextAttemptAt }).HasDatabaseName("ix_submissions_notify");
+        });
+
+        // Both admin blocks sit above the DateTime converter loop at the bottom
+        // of this method. Below it, their datetime(6) columns come back as
+        // DateTimeKind.Unspecified, which on a UTC+4 machine is a four hour
+        // error in session expiry.
+        b.Entity<AdminAccount>(e =>
+        {
+            e.ToTable("admin_accounts");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.Username).HasColumnName("username").HasMaxLength(64)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.DisplayName).HasColumnName("display_name").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+            e.Property(x => x.PasswordHash).HasColumnName("password_hash").HasMaxLength(256)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.TotpSecret).HasColumnName("totp_secret").HasMaxLength(64)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.TotpLastStep).HasColumnName("totp_last_step")
+                .HasColumnType("bigint unsigned").IsRequired().HasDefaultValue(0UL);
+            e.Property(x => x.Disabled).HasColumnName("disabled").HasColumnType("tinyint(1)")
+                .IsRequired().HasDefaultValue(false);
+            e.Property(x => x.FailedAttempts).HasColumnName("failed_attempts")
+                .HasColumnType("smallint unsigned").IsRequired().HasDefaultValue((ushort)0);
+            e.Property(x => x.FirstFailedAt).HasColumnName("first_failed_at").HasColumnType("datetime(6)");
+            e.Property(x => x.LockedUntil).HasColumnName("locked_until").HasColumnType("datetime(6)");
+            e.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.LastLoginAt).HasColumnName("last_login_at").HasColumnType("datetime(6)");
+
+            e.HasIndex(x => x.Username).IsUnique().HasDatabaseName("uk_admin_accounts_username");
+        });
+
+        b.Entity<AdminSession>(e =>
+        {
+            e.ToTable("admin_sessions");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+
+            // The hash is the key. ValueGeneratedNever stops EF treating a
+            // string primary key as something it should populate.
+            e.HasKey(x => x.TokenHash);
+            e.Property(x => x.TokenHash).HasColumnName("token_hash").HasColumnType("char(64)")
+                .HasCharSet("ascii").UseCollation("ascii_bin").ValueGeneratedNever().IsRequired();
+
+            e.Property(x => x.AccountId).HasColumnName("account_id").HasColumnType("bigint unsigned").IsRequired();
+            e.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.LastSeenAt).HasColumnName("last_seen_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.IdleExpiresAt).HasColumnName("idle_expires_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.AbsoluteExpiresAt).HasColumnName("absolute_expires_at").HasColumnType("datetime(6)").IsRequired();
+
+            e.HasIndex(x => x.AccountId).HasDatabaseName("ix_admin_sessions_account");
+            e.HasIndex(x => x.AbsoluteExpiresAt).HasDatabaseName("ix_admin_sessions_expiry");
         });
 
         b.Entity<JobRun>(e =>

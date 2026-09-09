@@ -14,4 +14,18 @@ public sealed class RateLimitOptions
 
     [Range(1, 10000000)]
     public int GlobalPerHour { get; set; } = 200;
+
+    // The admin surface gets its own partitions. Without them every panel click
+    // spends the contact form's per-IP budget and the site-wide hourly one, so
+    // the owner reading thirty submissions makes the public form answer 429 to
+    // real visitors while /api/health stays green and nobody is paged.
+    //
+    // Both reuse WindowMinutes rather than declaring their own, because
+    // RateLimiting.OnRejected hardcodes Retry-After: 600 and two tests assert
+    // that exact value. One window everywhere keeps the header truthful.
+    [Range(1, 1000)]
+    public int LoginPermitsPerWindow { get; set; } = 5;
+
+    [Range(1, 100000)]
+    public int AdminPermitsPerWindow { get; set; } = 600;
 }
