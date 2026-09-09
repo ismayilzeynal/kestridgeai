@@ -147,9 +147,9 @@ public class SchemaTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
 
         string[] expected =
         [
-            "company", "created_at", "dedupe_key", "email", "id", "legal_hold", "message", "name",
-            "notified_at", "notify_attempts", "notify_error", "notify_next_attempt_at", "notify_state",
-            "phone", "purge_after", "service",
+            "company", "created_at", "dedupe_key", "email", "handled_at", "handled_by", "id",
+            "legal_hold", "message", "name", "notified_at", "notify_attempts", "notify_error",
+            "notify_next_attempt_at", "notify_state", "phone", "purge_after", "service",
         ];
 
         Assert.Equal(expected, columns);
@@ -161,7 +161,13 @@ public class SchemaTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
         RequireDatabase();
 
         var rows = await ListAsync(
-            "SELECT CONCAT(s.INDEX_NAME, ':', SUM(c.CHARACTER_OCTET_LENGTH + 8)) "
+            // COALESCE, because CHARACTER_OCTET_LENGTH is NULL for every column
+            // that is not a character type. Without it SUM() returns NULL, CONCAT
+            // returns NULL for the whole row, and the parse below threw
+            // IndexOutOfRange instead of measuring anything. Three indexes here
+            // are on integers and dates, so this test measured nothing at all
+            // from the day it was written. Eight bytes is the widest such column.
+            "SELECT CONCAT(s.INDEX_NAME, ':', SUM(COALESCE(c.CHARACTER_OCTET_LENGTH, 8) + 8)) "
             + "FROM information_schema.STATISTICS s "
             + "JOIN information_schema.COLUMNS c "
             + "  ON c.TABLE_SCHEMA = s.TABLE_SCHEMA AND c.TABLE_NAME = s.TABLE_NAME AND c.COLUMN_NAME = s.COLUMN_NAME "
@@ -170,7 +176,10 @@ public class SchemaTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
         Assert.NotEmpty(rows);
         foreach (var row in rows)
         {
-            var bytes = int.Parse(row.Split(':')[1], System.Globalization.CultureInfo.InvariantCulture);
+            var parts = row.Split(':');
+            Assert.True(parts.Length == 2, "unparseable index row: " + row);
+
+            var bytes = int.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture);
             Assert.True(bytes < 3072, row);
         }
     }

@@ -26,6 +26,15 @@ async function api(path, body, raw) {
 function show(view) {
   for (const id of ["login", "inbox", "detail", "privacy", "jobs", "site"]) $(id).hidden = id !== view;
   $("bar").hidden = view === "login";
+
+  for (const b of document.querySelectorAll("nav button")) {
+    b.classList.toggle("on", b.dataset.view === view);
+  }
+
+  if (view === "login") {
+    $("step1").hidden = false;
+    $("step2").hidden = true;
+  }
 }
 
 const el = (tag, text, attrs) => {
@@ -36,6 +45,46 @@ const el = (tag, text, attrs) => {
 };
 const clear = (n) => { while (n.firstChild) n.removeChild(n.firstChild); };
 const when = (iso) => iso ? new Date(iso).toISOString().replace("T", " ").slice(0, 16) + " UTC" : "";
+
+// Username and password first, then the code, because that is the shape people
+// expect. The split is presentational only: nothing is sent until both steps
+// are filled, so the server never gets the chance to confirm that a password
+// was right before asking for a second factor. A real two-request flow would be
+// an oracle: "wrong password" and "now enter your code" are different answers,
+// and the second one tells an attacker the first half is correct.
+function loginStep(n) {
+  $("step1").hidden = n !== 1;
+  $("step2").hidden = n !== 2;
+  $("loginError").textContent = "";
+  ($(n === 1 ? "lu" : "lc")).focus();
+}
+
+$("next").addEventListener("click", () => {
+  const user = $("lu").value.trim();
+
+  if (!user || !$("lp").value) {
+    $("loginError").textContent = "Enter your username and password.";
+    return;
+  }
+
+  $("asWho").textContent = "Signing in as " + user + ".";
+  loginStep(2);
+});
+
+$("back").addEventListener("click", () => {
+  $("lp").value = "";
+  $("lc").value = "";
+  loginStep(1);
+});
+
+// Enter in the password field continues rather than submitting a form that is
+// still missing the code.
+$("lp").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    $("next").click();
+  }
+});
 
 $("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -49,9 +98,14 @@ $("loginForm").addEventListener("submit", async (e) => {
     openInbox();
   } catch {
     // One message for every failure. The server answers 401 identically for a
-    // wrong password, an unknown user and a locked account, so the panel cannot
-    // be used to discover which usernames exist.
-    $("loginError").textContent = "Sign in failed. Check the password and the current code.";
+    // wrong password, an unknown user, a locked account and a reused code, so
+    // the panel cannot be used to discover which usernames exist. It stays on
+    // the code step because a stale code is the likeliest cause by far; the
+    // button underneath is the way back to the password.
+    $("lc").value = "";
+    $("lc").focus();
+    $("loginError").textContent =
+      "Sign in failed. The code may already have been used, or the password may be wrong.";
   }
 });
 

@@ -22,14 +22,28 @@
 
 <main>
   <section id="login">
+    <p class="mark">Kestridge</p>
     <h1>Sign in</h1>
     <form id="loginForm">
-      <label>Username <input name="username" autocomplete="username" required></label>
-      <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
-      <label>Authenticator code <input name="code" inputmode="numeric" autocomplete="one-time-code" required></label>
-      <button type="submit">Sign in</button>
-      <p class="hint">Each code works once. If you have just signed in or out,
-        wait for the digits to change before trying again.</p>
+      <div id="step1">
+        <label for="lu">Username</label>
+        <input id="lu" name="username" autocomplete="username" required>
+        <label for="lp">Password</label>
+        <input id="lp" name="password" type="password" autocomplete="current-password" required>
+        <button type="button" id="next">Continue</button>
+      </div>
+
+      <div id="step2" hidden>
+        <p id="asWho" class="hint"></p>
+        <label for="lc">Authenticator code</label>
+        <input id="lc" name="code" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+               autocomplete="one-time-code" required>
+        <button type="submit">Sign in</button>
+        <button type="button" id="back" class="quiet">Use a different account</button>
+        <p class="hint">Each code works once. If you have just signed in or out,
+          wait for the digits to change before trying again.</p>
+      </div>
+
       <p id="loginError" role="alert"></p>
     </form>
   </section>
