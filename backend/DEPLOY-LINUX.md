@@ -514,6 +514,27 @@ rows still read `sent` and `ops/rearm-notifications.sql` will not pick them up,
 because it looks for `failed`. Re-send them by hand or accept that they were
 only ever test traffic.
 
+### The test database is not optional
+
+`03-deploy.sh` runs the suite with `CI=1`, which makes `MySqlFixture` throw
+rather than skip when it cannot reach `kestridge_test`. Provision it, or the
+deploy stops:
+
+```bash
+sudo mysql -e "ALTER USER 'kestridge_test'@'127.0.0.1' IDENTIFIED BY 'kestridge_test';"
+mysql -h 127.0.0.1 -u kestridge_test -pkestridge_test -e "SELECT 1;"
+```
+
+That is the credential `MySqlFixture` defaults to, and a weak password is
+acceptable for it and only for it: the account holds `ALL` on
+`kestridge_test.*` and `USAGE` on everything else, so it cannot read one row of
+production data. Override it with `KESTRIDGE_TEST_CONNECTION` if you would
+rather not.
+
+Without this the suite reports "Passed" while skipping 76 tests, including
+every test that checks the schema against the model. It did exactly that from
+the first deploy until 10 September 2026, and it was hiding two real failures.
+
 ### The production mail settings
 
 ```json

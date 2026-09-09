@@ -31,7 +31,13 @@ fi
 
 echo "==> tests"
 # If the box has no test database this skips 52 of them and still runs the rest.
-dotnet test "$REPO_ROOT/Kestridge.sln" --nologo -v q
+# CI=1 makes MySqlFixture throw instead of skipping when it cannot reach the
+# test database. Without it, a wrong or missing kestridge_test credential turns
+# 76 database tests into silent skips and the deploy proceeds on a suite that
+# proved a quarter less than it appears to. That is not hypothetical: it is
+# exactly what happened here until 10 September 2026, and it hid two failing
+# schema tests, one of them since the day it was written.
+CI=1 dotnet test "$REPO_ROOT/Kestridge.sln" --nologo -v q
 
 echo "==> publish"
 dotnet publish "$REPO_ROOT/src/Kestridge.Api/Kestridge.Api.csproj" \
