@@ -177,6 +177,11 @@ function draw() {
     root.appendChild(el("p", set.note));
   }
 
+  // Owned by the root, not by the form. draw() rebuilds the form after every
+  // save, so a message written into the form is gone before it is read.
+  editor.status = el("div");
+  root.appendChild(editor.status);
+
   const layout = el("div", null, { class: "split" });
 
   // Left: the list. Up and down buttons as well as drag, because drag alone is
@@ -258,12 +263,10 @@ async function move(from, to) {
   // The complete id list, every time. A partial list is a 400, which is what
   // makes this impossible to half apply: there is no ordering the panel can
   // send that leaves two rows sharing a position.
-  await api(editor.set.endpoint + "/reorder", { ids: rows.map((r) => r.id) });
   data[editor.key] = rows.map(copy);
 
-  const said = el("p", "Order saved.", { class: "good" });
-  document.getElementById("site").appendChild(said);
-  window.setTimeout(() => said.remove(), 6000);
+  const result = await api(editor.set.endpoint + "/reorder", { ids: rows.map((r) => r.id) });
+  banner(result, "Order saved.");
 }
 
 function form() {
@@ -298,7 +301,6 @@ function form() {
   const save = el("button", "Save");
   save.disabled = true;
   const cancel = el("button", "Cancel");
-  const out = el("div");
 
   function mark() {
     editor.dirty = true;
@@ -315,12 +317,14 @@ function form() {
       Object.assign(row, result.row);
       data[editor.key] = editor.rows.map(copy);
       done(row);
-      banner(out, result, "Saved and published.");
+
+      // Redraw first, then write into the status line the redraw just made.
       draw();
+      banner(result, "Saved and published.");
     } catch (err) {
       save.disabled = false;
       const detail = err.data || {};
-      banner(out, { ok: false }, detail.field
+      banner({ ok: false }, detail.field
         ? detail.field + ": " + (REASONS[detail.reason] || "Refused.")
         : "The change was not saved.");
     }
@@ -343,11 +347,15 @@ function form() {
       }
 
       try {
-        await api(set.endpoint + "/delete", { id: row.id });
+        const result = await api(set.endpoint + "/delete", { id: row.id });
         done(row);
-        openSite();
+        editor.rows.splice(editor.index, 1);
+        editor.index = Math.max(0, editor.index - 1);
+        data[editor.key] = editor.rows.map(copy);
+        draw();
+        banner(result, "Deleted from the website.");
       } catch {
-        banner(out, { ok: false }, "The last question cannot be deleted: it would remove the question and answer section from the page.");
+        banner({ ok: false }, "The last question cannot be deleted: it would remove the question and answer section from the page.");
       }
     });
     actions.appendChild(document.createTextNode(" "));
@@ -355,7 +363,6 @@ function form() {
   }
 
   wrap.appendChild(actions);
-  wrap.appendChild(out);
   return wrap;
 }
 
@@ -565,7 +572,12 @@ function normalize(value) {
 // Three states, and the copy never claims more than the API knows. No build
 // runs when content is saved, and no CDN is purged, so the panel does not say
 // either of those things happened.
-function banner(out, result, message) {
+function banner(result, message) {
+  const out = editor && editor.status;
+  if (!out) {
+    return;
+  }
+
   clear(out);
 
   if (!result.ok) {

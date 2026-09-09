@@ -135,8 +135,7 @@ public static class AdminContentEndpoints
         db.SiteFaq.Remove(row);
         await db.SaveChangesAsync(CancellationToken.None);
 
-        await revalidate.PublishAsync();
-        return JsonResults.Ok();
+        return Results.Json(new { ok = true, published = await revalidate.PublishAsync() });
     }
 
     public static Task<IResult> FaqReorder(
@@ -465,8 +464,9 @@ public static class AdminContentEndpoints
 
         await db.SaveChangesAsync(CancellationToken.None);
 
-        await revalidate.PublishAsync();
-        return JsonResults.Ok();
+        // Reports published the same way a save does, so the panel can say the
+        // same true thing about a reorder as about an edit.
+        return Results.Json(new { ok = true, published = await revalidate.PublishAsync() });
     }
 
     private static async Task<List<ServiceAdminRow>> ServiceRowsAsync(KestridgeDbContext db, CancellationToken ct)
