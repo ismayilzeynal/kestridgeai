@@ -1,5 +1,3 @@
-import { Brain, Workflow, ShieldCheck, BarChart3, type LucideIcon } from "lucide-react";
-
 export type DeliveryStep = {
   phase: string;
   summary: string; // one line for the desktop stepper
@@ -8,15 +6,19 @@ export type DeliveryStep = {
 
 export type Service = {
   id: string;
-  index: string;
   name: string;
   tagline: string;
   cardLabel: string; // short parallel noun phrase for the hero console card
   description: string;
-  icon: LucideIcon;
+  /** A key into SERVICE_ICONS in src/lib/icons.ts, not a component. */
+  icon: string;
   highlights: string[];
   steps: DeliveryStep[];
 };
+
+// index used to live here as a stored "01". It is now computed from the
+// position at render, so reordering renumbers the cards for free and a stored
+// number can never disagree with where the card actually sits.
 
 const CONSULT: DeliveryStep = {
   phase: "Consultation",
@@ -45,13 +47,12 @@ const DELIVER: DeliveryStep = {
 export const services: Service[] = [
   {
     id: "ai",
-    index: "01",
     name: "AI Solutions",
     tagline: "AI solutions that will improve business",
     cardLabel: "Forecasting and assistants for your staff",
     description:
       "We analyze your business with you to identify the AI solution best suited to your needs - including ROI projections, an implementation roadmap, and security considerations.",
-    icon: Brain,
+    icon: "Brain",
     highlights: [
       "Predictive analytics and forecasting",
       "Machine learning",
@@ -63,13 +64,12 @@ export const services: Service[] = [
   },
   {
     id: "analytics",
-    index: "02",
     name: "Data Analytics",
     tagline: "Business reports from your data",
     cardLabel: "Dashboards and business reporting",
     description:
       "We pull your data together, check it for errors, and build the reports you need.",
-    icon: BarChart3,
+    icon: "BarChart3",
     highlights: [
       "Data cleanup and checks",
       "Management dashboards",
@@ -80,13 +80,12 @@ export const services: Service[] = [
   },
   {
     id: "automation",
-    index: "03",
     name: "Automation",
     tagline: "Automation for repetitive work",
     cardLabel: "Routine steps run without manual work",
     description:
       "We document the current manual process and define the conditions under which each step should run automatically.",
-    icon: Workflow,
+    icon: "Workflow",
     highlights: [
       "Invoice matching and processing",
       "Approval routing",
@@ -99,13 +98,12 @@ export const services: Service[] = [
   },
   {
     id: "security",
-    index: "04",
     name: "IT Security",
     tagline: "Security review and correction",
     cardLabel: "Assessment, access rules, and monitoring",
     description:
       "We review your systems, report what we find, and fix what you approve. We provide staff training and certification preparation.",
-    icon: ShieldCheck,
+    icon: "ShieldCheck",
     highlights: [
       "Vulnerability assessment",
       "Access control review",

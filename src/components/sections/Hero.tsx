@@ -1,11 +1,12 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { services } from "@/data/services";
+import { type Service } from "@/data/services";
+import { resolveServiceIcon } from "@/lib/icons";
 import { site } from "@/lib/site";
 import { openService, scrollToId } from "@/lib/scroll";
 
-export function Hero() {
+export function Hero({ services }: { services: Service[] }) {
   return (
     <section id="top" className="relative overflow-hidden pb-16 pt-28 sm:pt-32">
       <div className="container-x">
@@ -61,15 +62,19 @@ export function Hero() {
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  {services.map((s) => (
+                  {services.map((s, i) => {
+                    const Icon = resolveServiceIcon(s.icon);
+                    return (
                     <button
                       key={s.id}
                       onClick={() => openService(s.id)}
                       className="group flex items-center gap-4 rounded-xl border border-transparent px-4 py-4 text-left transition-all duration-300 ease-smooth hover:border-line hover:bg-surface-2"
                     >
-                      <span className="font-mono text-[0.7647rem] text-faint">{s.index}</span>
+                      <span className="font-mono text-[0.7647rem] text-faint">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                       <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-accent transition-colors duration-300 group-hover:border-line-strong">
-                        <s.icon className="h-5 w-5" strokeWidth={1.6} />
+                        <Icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
                         <span className="block text-[0.9412rem] font-semibold text-ink">
@@ -81,7 +86,8 @@ export function Hero() {
                       </span>
                       <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] text-faint transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

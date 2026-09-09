@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, ChevronDown, Lock } from "lucide-react";
-import { services, type Service } from "@/data/services";
+import { type Service } from "@/data/services";
+import { resolveServiceIcon } from "@/lib/icons";
 import { Reveal } from "@/components/ui/Reveal";
 import { scrollToId } from "@/lib/scroll";
 
@@ -14,7 +15,7 @@ function startProject(id: string) {
   scrollToId("contact");
 }
 
-export function Services() {
+export function Services({ services }: { services: Service[] }) {
   const [active, setActive] = useState(0);
   const [openId, setOpenId] = useState<string | null>(null); // mobile accordion
   const svc = services[active];
@@ -32,7 +33,7 @@ export function Services() {
     };
     window.addEventListener("select-service-tab", handler);
     return () => window.removeEventListener("select-service-tab", handler);
-  }, []);
+  }, [services]);
 
   const onTabKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const count = services.length;
@@ -48,6 +49,13 @@ export function Services() {
     }
   };
 
+  // Second line of defence. validate() in src/lib/content.ts already refuses
+  // an empty services array, and if both ever failed this line would take the
+  // whole route down during render at svc.id below.
+  if (!svc) {
+    return null;
+  }
+
   return (
     <section id="services" className="relative scroll-mt-12 py-12 sm:scroll-mt-8 sm:py-16 lg:scroll-mt-12 lg:py-12">
       <div className="container-x">
@@ -59,8 +67,9 @@ export function Services() {
 
         {/* ============ MOBILE / TABLET: vertical accordion ============ */}
         <div className="mt-7 flex flex-col gap-3 lg:hidden">
-          {services.map((s) => {
+          {services.map((s, i) => {
             const open = openId === s.id;
+            const Icon = resolveServiceIcon(s.icon);
             return (
               <div
                 key={s.id}
@@ -94,11 +103,11 @@ export function Services() {
                         : "border-line bg-bg-soft text-muted"
                     }`}
                   >
-                    <s.icon className="h-5 w-5" strokeWidth={1.6} />
+                    <Icon className="h-5 w-5" strokeWidth={1.6} />
                   </span>
                   <span className="flex-1">
                     <span className="block font-mono text-[0.6471rem] text-faint">
-                      {s.index}
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="block text-[0.9706rem] font-semibold tracking-tight text-ink">
                       {s.name}
@@ -153,6 +162,7 @@ export function Services() {
               >
                 {services.map((s, i) => {
                   const isActive = i === active;
+                  const Icon = resolveServiceIcon(s.icon);
                   return (
                     <button
                       key={s.id}
@@ -184,11 +194,11 @@ export function Services() {
                             : "border-line bg-bg-soft text-muted group-hover:text-ink"
                         }`}
                       >
-                        <s.icon className="h-5 w-5" strokeWidth={1.6} />
+                        <Icon className="h-5 w-5" strokeWidth={1.6} />
                       </span>
                       <span className="flex-1">
                         <span className="block font-mono text-[0.6471rem] text-faint">
-                          {s.index}
+                          {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
                           className={`block text-[0.9118rem] font-semibold tracking-tight ${

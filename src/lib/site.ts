@@ -22,13 +22,7 @@ export const site = {
   ],
 };
 
+// serviceOptions used to live here as a second hand-maintained copy of the
+// services array, kept in step by a code comment. page.tsx now derives it from
+// the services themselves, so the two cannot drift.
 export type ServiceOption = { value: string; label: string };
-
-// Same order as the services array, so the form dropdown matches the page.
-export const serviceOptions: ServiceOption[] = [
-  { value: "ai", label: "AI Solutions" },
-  { value: "analytics", label: "Data Analytics" },
-  { value: "automation", label: "Automation" },
-  { value: "security", label: "IT Security" },
-  { value: "general", label: "General inquiry" },
-];

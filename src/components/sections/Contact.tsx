@@ -13,7 +13,7 @@ import {
   Loader2,
   ChevronDown,
 } from "lucide-react";
-import { site, serviceOptions } from "@/lib/site";
+import { site, type ServiceOption } from "@/lib/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { LinkedInButton } from "@/components/ui/LinkedInButton";
 import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
@@ -23,7 +23,7 @@ type Errors = Partial<Record<"name" | "email" | "service" | "message", string>>;
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Contact() {
+export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [service, setService] = useState("");

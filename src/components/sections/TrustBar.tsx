@@ -1,7 +1,8 @@
 import { MarqueeLogos } from "@/components/ui/MarqueeLogos";
 import { Reveal } from "@/components/ui/Reveal";
+import type { Company } from "@/data/companies";
 
-export function TrustBar() {
+export function TrustBar({ companies }: { companies: Company[] }) {
   return (
     <section className="border-y border-line bg-surface py-14">
       <div className="container-x">
@@ -13,7 +14,7 @@ export function TrustBar() {
           </p>
         </Reveal>
       </div>
-      <MarqueeLogos />
+      <MarqueeLogos companies={companies} />
     </section>
   );
 }
