@@ -1,5 +1,6 @@
 using Kestridge.Api.Admin;
 using Kestridge.Api.Contact;
+using Kestridge.Api.Content;
 using Kestridge.Api.Data;
 using Kestridge.Api.Email;
 using Kestridge.Api.Health;
@@ -73,6 +74,11 @@ builder.Services.Configure<PasswordHasherOptions>(o =>
 });
 builder.Services.AddSingleton<IPasswordHasher<AdminAccount>, PasswordHasher<AdminAccount>>();
 builder.Services.AddScoped<AdminTokenFilter>();
+
+// Typed client, so the handler is pooled rather than a new socket per save.
+// It calls exactly one URL, the one in configuration, and it is a no-op until
+// that URL is configured.
+builder.Services.AddHttpClient<Revalidate>();
 
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<UtcTimeZoneInterceptor>();
@@ -163,9 +169,18 @@ app.UseExceptionHandler(branch => branch.Run(async context =>
 app.UseCors("site");
 app.UseRateLimiter();
 
+// /api/content is the one response on this server that a cache should hold:
+// it carries only what the public website already shows, and it is fetched
+// server to server by Vercel's revalidation rather than by a visitor. Path
+// checked rather than scoping the middleware to /api, because getting that
+// wrong weakens no-store on submission JSON, which is the larger risk.
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.CacheControl = "no-store";
+    context.Response.Headers.CacheControl =
+        context.Request.Path.StartsWithSegments("/api/content")
+            ? "public, max-age=60, stale-while-revalidate=600"
+            : "no-store";
+
     await next();
 });
 
@@ -234,6 +249,7 @@ else
 }
 
 app.MapContact();
+app.MapContent();
 app.MapHealth();
 app.MapAdmin();
 

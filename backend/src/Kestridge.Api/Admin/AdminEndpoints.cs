@@ -39,6 +39,28 @@ public static class AdminEndpoints
         admin.MapPost("/dsr/delete", AdminDsrEndpoints.Delete);
         admin.MapGet("/dsr/log", AdminDsrEndpoints.Log);
 
+        admin.MapGet("/content", AdminContentEndpoints.Get);
+        admin.MapGet("/assets", () => AdminContentEndpoints.Assets());
+
+        // Delete is a POST like everything else. nginx-api.conf answers 405 to
+        // PUT, PATCH and DELETE and that 405 carries no Access-Control-Allow-Origin,
+        // so one non-POST mutation is an opaque browser failure with nothing in
+        // the application log.
+        admin.MapPost("/content/faq/save", AdminContentEndpoints.FaqSave);
+        admin.MapPost("/content/faq/delete", AdminContentEndpoints.FaqDelete);
+        admin.MapPost("/content/faq/reorder", AdminContentEndpoints.FaqReorder);
+
+        admin.MapPost("/content/team/save", AdminContentEndpoints.TeamSave);
+        admin.MapPost("/content/team/reorder", AdminContentEndpoints.TeamReorder);
+
+        admin.MapPost("/content/companies/save", AdminContentEndpoints.CompanySave);
+        admin.MapPost("/content/companies/add", AdminContentEndpoints.CompanyAdd);
+        admin.MapPost("/content/companies/reorder", AdminContentEndpoints.CompanyReorder);
+
+        admin.MapGet("/content/services", AdminContentEndpoints.ServicesGet);
+        admin.MapPost("/content/services/save", AdminContentEndpoints.ServiceSave);
+        admin.MapPost("/content/services/reorder", AdminContentEndpoints.ServiceReorder);
+
         // No MapFallbackToFile. It would catch an unmatched /api/admin/* and
         // answer HTML with a 200 where a JSON 404 was intended.
     }

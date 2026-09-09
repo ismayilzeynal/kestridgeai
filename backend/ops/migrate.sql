@@ -348,5 +348,270 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_companies` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `name` varchar(80) CHARACTER SET utf8mb4 NOT NULL,
+        `logo_file` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `hidden` tinyint(1) NOT NULL DEFAULT FALSE,
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        `updated_at` datetime(6) NOT NULL,
+        `updated_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        CONSTRAINT `PK_site_companies` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_faq` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `question` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
+        `answer` varchar(600) CHARACTER SET utf8mb4 NOT NULL,
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        `updated_at` datetime(6) NOT NULL,
+        `updated_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        CONSTRAINT `PK_site_faq` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_service_highlights` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `service_id` bigint unsigned NOT NULL,
+        `text` varchar(80) CHARACTER SET utf8mb4 NOT NULL,
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        CONSTRAINT `PK_site_service_highlights` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_service_steps` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `service_id` bigint unsigned NOT NULL,
+        `phase` varchar(40) CHARACTER SET utf8mb4 NOT NULL,
+        `summary` varchar(80) CHARACTER SET utf8mb4 NOT NULL,
+        `detail` varchar(240) CHARACTER SET utf8mb4 NOT NULL,
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        CONSTRAINT `PK_site_service_steps` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_services` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `slug` varchar(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `name` varchar(60) CHARACTER SET utf8mb4 NOT NULL,
+        `tagline` varchar(120) CHARACTER SET utf8mb4 NOT NULL,
+        `card_label` varchar(60) CHARACTER SET utf8mb4 NOT NULL,
+        `description` varchar(400) CHARACTER SET utf8mb4 NOT NULL,
+        `icon_name` varchar(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        `updated_at` datetime(6) NOT NULL,
+        `updated_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        CONSTRAINT `PK_site_services` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE TABLE `site_team` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `name` varchar(80) CHARACTER SET utf8mb4 NOT NULL,
+        `initials` varchar(4) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+        `role` varchar(60) CHARACTER SET utf8mb4 NOT NULL,
+        `focus` varchar(120) CHARACTER SET utf8mb4 NOT NULL,
+        `photo` varchar(80) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT '',
+        `sort_order` int unsigned NOT NULL DEFAULT 0,
+        `updated_at` datetime(6) NOT NULL,
+        `updated_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        CONSTRAINT `PK_site_team` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_companies_order` ON `site_companies` (`sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE UNIQUE INDEX `uk_site_companies_file` ON `site_companies` (`logo_file`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_faq_order` ON `site_faq` (`sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_service_highlights_service` ON `site_service_highlights` (`service_id`, `sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_service_steps_service` ON `site_service_steps` (`service_id`, `sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_services_order` ON `site_services` (`sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE UNIQUE INDEX `uk_site_services_slug` ON `site_services` (`slug`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    CREATE INDEX `ix_site_team_order` ON `site_team` (`sort_order`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260909210321_SiteContent') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260909210321_SiteContent', '9.0.19');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

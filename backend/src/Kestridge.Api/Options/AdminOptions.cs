@@ -39,4 +39,13 @@ public sealed class AdminOptions
 
     [Range(1, 100000)]
     public int ExportMaxRows { get; set; } = 5000;
+
+    // Both empty by default, and empty means never call out. That is what
+    // lets the revalidate hook be genuinely optional: cut it and every save
+    // still works, the panel just says the change appears within 5 minutes.
+    // The secret lives in appsettings.Production.json (0640 root:kestridge,
+    // already outside rsync --delete) and nowhere in git.
+    public string RevalidateUrl { get; set; } = string.Empty;
+
+    public string RevalidateSecret { get; set; } = string.Empty;
 }

@@ -94,9 +94,12 @@ public class SchemaTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
 
         var rows = await ListAsync(
             "SELECT CONCAT(TABLE_NAME, ':', ENGINE, ':', ROW_FORMAT) FROM information_schema.TABLES "
-            + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME IN ('contact_submissions', 'job_runs', 'dsr_log')");
+            + "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME <> '__EFMigrationsHistory'");
 
-        Assert.Equal(3, rows.Count);
+        // Every table, not a hardcoded list. A list silently stops covering the
+        // next table somebody adds, which is exactly what happened to this test
+        // when the admin panel landed.
+        Assert.Equal(11, rows.Count);
         foreach (var row in rows)
         {
             Assert.Contains(":InnoDB:Dynamic", row, StringComparison.OrdinalIgnoreCase);

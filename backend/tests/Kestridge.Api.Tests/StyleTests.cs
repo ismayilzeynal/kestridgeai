@@ -10,7 +10,12 @@ public class StyleTests
     private static readonly char[] Dashes = ['\u2012', '\u2013', '\u2014', '\u2015'];
 
     private static readonly string[] Extensions =
-        [".cs", ".sql", ".ps1", ".json", ".md", ".props", ".cnf", ".sln", ".editorconfig", ".sh"];
+        [".cs", ".sql", ".ps1", ".json", ".md", ".props", ".cnf", ".sln", ".editorconfig", ".sh",
+
+            // The admin panel is hand written HTML, CSS and ES modules under
+            // wwwroot. Without these three it is the one place in the backend
+            // where a long dash or an emoji can live.
+            ".html", ".css", ".js"];
 
     private static readonly string[] SkipDirectories = ["bin", "obj", "Migrations", ".git", "TestResults"];
 

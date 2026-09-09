@@ -71,12 +71,24 @@ public static class RateLimiting
                     })
                 : RateLimitPartition.GetNoLimiter("not-admin"));
 
+        var contentApi = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            IsContent(context)
+                ? RateLimitPartition.GetFixedWindowLimiter(
+                    "content:" + ClientPartitionKey.For(context),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = limits.ContentPermitsPerWindow,
+                        Window = TimeSpan.FromMinutes(limits.WindowMinutes),
+                        QueueLimit = 0,
+                    })
+                : RateLimitPartition.GetNoLimiter("not-content"));
+
         // adminLogin precedes adminApi for the same refund reason as above: a
         // login request matches both, and the tighter limiter has to refuse
         // first. Note that /api/admin is never given a no-limiter partition,
         // which would leave the public password endpoint unbounded.
         options.GlobalLimiter = PartitionedRateLimiter.CreateChained(
-            perClient, wholeSite, adminLogin, adminApi);
+            perClient, wholeSite, adminLogin, adminApi, contentApi);
 
         options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
         options.OnRejected = (context, _) =>
@@ -87,7 +99,7 @@ public static class RateLimiting
     }
 
     // Health is what the uptime monitor polls, so it gets no limiter at all.
-    // The admin surface gets its own partitions below. What they share is that
+    // The admin surface and /api/content get their own partitions below. What they share is that
     // none of them may spend a permit from the contact form's buckets.
     //
     // Without this the regression is severe and quiet: every panel click would
@@ -101,7 +113,8 @@ public static class RateLimiting
     private static bool HasItsOwnPartition(HttpContext context) =>
         context.Request.Path.StartsWithSegments("/api/health")
         || context.Request.Path.StartsWithSegments("/api/admin")
-        || context.Request.Path.StartsWithSegments("/admin");
+        || context.Request.Path.StartsWithSegments("/admin")
+        || context.Request.Path.StartsWithSegments("/api/content");
 
     // OPTIONS is excluded on purpose. It is unreachable while the panel is same
     // origin, but charging a preflight would halve the real budget if that ever
@@ -110,6 +123,10 @@ public static class RateLimiting
     private static bool IsAdminSurface(HttpContext context) =>
         (context.Request.Path.StartsWithSegments("/api/admin")
          || context.Request.Path.StartsWithSegments("/admin"))
+        && !HttpMethods.IsOptions(context.Request.Method);
+
+    private static bool IsContent(HttpContext context) =>
+        context.Request.Path.StartsWithSegments("/api/content")
         && !HttpMethods.IsOptions(context.Request.Method);
 
     private static bool IsLoginAttempt(HttpContext context) =>

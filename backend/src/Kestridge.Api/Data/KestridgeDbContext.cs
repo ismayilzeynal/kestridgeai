@@ -10,6 +10,12 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
     public DbSet<DsrLogEntry> DsrLog => Set<DsrLogEntry>();
     public DbSet<AdminAccount> AdminAccounts => Set<AdminAccount>();
     public DbSet<AdminSession> AdminSessions => Set<AdminSession>();
+    public DbSet<SiteFaq> SiteFaq => Set<SiteFaq>();
+    public DbSet<SiteTeamMember> SiteTeam => Set<SiteTeamMember>();
+    public DbSet<SiteCompany> SiteCompanies => Set<SiteCompany>();
+    public DbSet<SiteService> SiteServices => Set<SiteService>();
+    public DbSet<SiteServiceStep> SiteServiceSteps => Set<SiteServiceStep>();
+    public DbSet<SiteServiceHighlight> SiteServiceHighlights => Set<SiteServiceHighlight>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -166,6 +172,136 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
 
             e.HasIndex(x => x.SubjectEmailHash).HasDatabaseName("ix_dsr_hash");
             e.HasIndex(x => x.ReceivedOn).HasDatabaseName("ix_dsr_received");
+        });
+
+        // The six content blocks sit above the DateTime converter loop for the
+        // same reason the admin ones do: below it, updated_at reads back as
+        // DateTimeKind.Unspecified and one ToUniversalTime() later the panel
+        // shows a save made a second ago as four hours old.
+        //
+        // No index on any long text column anywhere below.
+        // AllIndexKeyLengths_AreUnder3072Bytes scans the whole database, and a
+        // varchar(600) utf8mb4 index is 2408 octets on its own.
+        b.Entity<SiteFaq>(e =>
+        {
+            e.ToTable("site_faq");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.Question).HasColumnName("question").HasMaxLength(200).IsRequired();
+            e.Property(x => x.Answer).HasColumnName("answer").HasMaxLength(600).IsRequired();
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+            e.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.UpdatedBy).HasColumnName("updated_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+
+            e.HasIndex(x => x.SortOrder).HasDatabaseName("ix_site_faq_order");
+        });
+
+        b.Entity<SiteTeamMember>(e =>
+        {
+            e.ToTable("site_team");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.Name).HasColumnName("name").HasMaxLength(80).IsRequired();
+            e.Property(x => x.Initials).HasColumnName("initials").HasMaxLength(4)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.Role).HasColumnName("role").HasMaxLength(60).IsRequired();
+            e.Property(x => x.Focus).HasColumnName("focus").HasMaxLength(120).IsRequired();
+            e.Property(x => x.Photo).HasColumnName("photo").HasMaxLength(80)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired().HasDefaultValue("");
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+            e.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.UpdatedBy).HasColumnName("updated_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+
+            e.HasIndex(x => x.SortOrder).HasDatabaseName("ix_site_team_order");
+        });
+
+        b.Entity<SiteCompany>(e =>
+        {
+            e.ToTable("site_companies");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.Name).HasColumnName("name").HasMaxLength(80).IsRequired();
+            e.Property(x => x.LogoFile).HasColumnName("logo_file").HasMaxLength(64)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.Hidden).HasColumnName("hidden").HasColumnType("tinyint(1)")
+                .IsRequired().HasDefaultValue(false);
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+            e.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.UpdatedBy).HasColumnName("updated_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+
+            // One row per logo file, so the same image cannot be added twice
+            // and appear twice in the marquee.
+            e.HasIndex(x => x.LogoFile).IsUnique().HasDatabaseName("uk_site_companies_file");
+            e.HasIndex(x => x.SortOrder).HasDatabaseName("ix_site_companies_order");
+        });
+
+        b.Entity<SiteService>(e =>
+        {
+            e.ToTable("site_services");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.Slug).HasColumnName("slug").HasMaxLength(32)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.Name).HasColumnName("name").HasMaxLength(60).IsRequired();
+            e.Property(x => x.Tagline).HasColumnName("tagline").HasMaxLength(120).IsRequired();
+            e.Property(x => x.CardLabel).HasColumnName("card_label").HasMaxLength(60).IsRequired();
+            e.Property(x => x.Description).HasColumnName("description").HasMaxLength(400).IsRequired();
+            e.Property(x => x.IconName).HasColumnName("icon_name").HasMaxLength(32)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired();
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+            e.Property(x => x.UpdatedAt).HasColumnName("updated_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.UpdatedBy).HasColumnName("updated_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+
+            e.HasIndex(x => x.Slug).IsUnique().HasDatabaseName("uk_site_services_slug");
+            e.HasIndex(x => x.SortOrder).HasDatabaseName("ix_site_services_order");
+        });
+
+        b.Entity<SiteServiceStep>(e =>
+        {
+            e.ToTable("site_service_steps");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.ServiceId).HasColumnName("service_id").HasColumnType("bigint unsigned").IsRequired();
+            e.Property(x => x.Phase).HasColumnName("phase").HasMaxLength(40).IsRequired();
+            e.Property(x => x.Summary).HasColumnName("summary").HasMaxLength(80).IsRequired();
+            e.Property(x => x.Detail).HasColumnName("detail").HasMaxLength(240).IsRequired();
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+
+            e.HasIndex(x => new { x.ServiceId, x.SortOrder }).HasDatabaseName("ix_site_service_steps_service");
+        });
+
+        b.Entity<SiteServiceHighlight>(e =>
+        {
+            e.ToTable("site_service_highlights");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.ServiceId).HasColumnName("service_id").HasColumnType("bigint unsigned").IsRequired();
+            e.Property(x => x.Text).HasColumnName("text").HasMaxLength(80).IsRequired();
+            e.Property(x => x.SortOrder).HasColumnName("sort_order").HasColumnType("int unsigned")
+                .IsRequired().HasDefaultValue(0);
+
+            e.HasIndex(x => new { x.ServiceId, x.SortOrder }).HasDatabaseName("ix_site_service_highlights_service");
         });
 
         // MySqlConnector hands back Unspecified. Without this every read value

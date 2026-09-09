@@ -69,6 +69,17 @@ public sealed class MySqlFixture : IAsyncLifetime
         await db.Database.ExecuteSqlRawAsync("DELETE FROM contact_submissions");
         await db.Database.ExecuteSqlRawAsync("DELETE FROM job_runs");
         await db.Database.ExecuteSqlRawAsync("DELETE FROM dsr_log");
+
+        // Sessions before accounts, and the two child tables before the
+        // services they hang off, even though no foreign key enforces either.
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM admin_sessions");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM admin_accounts");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_service_steps");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_service_highlights");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_services");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_faq");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_team");
+        await db.Database.ExecuteSqlRawAsync("DELETE FROM site_companies");
     }
 
     public Task DisposeAsync() => Task.CompletedTask;

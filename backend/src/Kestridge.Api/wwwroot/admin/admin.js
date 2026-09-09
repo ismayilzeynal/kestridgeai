@@ -1,6 +1,8 @@
 // No innerHTML anywhere in this file. The CSP sets require-trusted-types-for
 // 'script', and submission text arrives from a public form: rendering it as
 // markup would be stored XSS on the origin that holds the token.
+import { initSite, openSite } from "./content.js";
+
 const $ = (id) => document.getElementById(id);
 let token = sessionStorage.getItem("k") || "";
 let cursor = null;
@@ -22,7 +24,7 @@ async function api(path, body, raw) {
 }
 
 function show(view) {
-  for (const id of ["login", "inbox", "detail", "privacy", "jobs"]) $(id).hidden = id !== view;
+  for (const id of ["login", "inbox", "detail", "privacy", "jobs", "site"]) $(id).hidden = id !== view;
   $("bar").hidden = view === "login";
 }
 
@@ -59,7 +61,7 @@ $("logout").addEventListener("click", async () => {
 });
 
 for (const b of document.querySelectorAll("nav button")) {
-  b.addEventListener("click", () => ({ inbox: openInbox, privacy: openPrivacy, jobs: openJobs })[b.dataset.view]());
+  b.addEventListener("click", () => ({ inbox: openInbox, site: openSite, privacy: openPrivacy, jobs: openJobs })[b.dataset.view]());
 }
 
 async function openInbox(append) {
@@ -226,6 +228,10 @@ async function openJobs() {
   }
   root.appendChild(t);
 }
+
+// Injected rather than imported the other way round, so admin.js and
+// content.js do not form an import cycle.
+initSite({ api, el, clear, show, when });
 
 // Restore a session across a reload without asking for the code again.
 if (token) {

@@ -42,6 +42,25 @@ GRANT UPDATE (failed_attempts, first_failed_at, locked_until, last_login_at, tot
 -- that is stricter than kestridge_ops, which holds UPDATE for the manual path.
 GRANT SELECT, INSERT                 ON kestridge.dsr_log        TO 'kestridge_app'@'127.0.0.1';
 
+-- Website content. Full read and write for the panel, because editing the
+-- copy is the entire feature. Nothing here is personal data: every row is
+-- already shown to every visitor of kestridge.com.
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_faq                TO 'kestridge_app'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_team               TO 'kestridge_app'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_companies          TO 'kestridge_app'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_services           TO 'kestridge_app'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_service_steps      TO 'kestridge_app'@'127.0.0.1';
+GRANT SELECT, INSERT, UPDATE, DELETE ON kestridge.site_service_highlights TO 'kestridge_app'@'127.0.0.1';
+
+-- Read only for the human path, so a founder can answer "what does the site
+-- say right now" from mysql without going through the panel.
+GRANT SELECT ON kestridge.site_faq                TO 'kestridge_ops'@'127.0.0.1';
+GRANT SELECT ON kestridge.site_team               TO 'kestridge_ops'@'127.0.0.1';
+GRANT SELECT ON kestridge.site_companies          TO 'kestridge_ops'@'127.0.0.1';
+GRANT SELECT ON kestridge.site_services           TO 'kestridge_ops'@'127.0.0.1';
+GRANT SELECT ON kestridge.site_service_steps      TO 'kestridge_ops'@'127.0.0.1';
+GRANT SELECT ON kestridge.site_service_highlights TO 'kestridge_ops'@'127.0.0.1';
+
 -- Keep the manual runbook path able to see who has an account and how many
 -- sessions are open.
 GRANT SELECT ON kestridge.admin_accounts TO 'kestridge_ops'@'127.0.0.1';

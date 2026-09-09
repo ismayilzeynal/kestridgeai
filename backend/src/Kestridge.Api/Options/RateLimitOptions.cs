@@ -28,4 +28,11 @@ public sealed class RateLimitOptions
 
     [Range(1, 100000)]
     public int AdminPermitsPerWindow { get; set; } = 600;
+
+    // Vercel's ISR revalidation calls /api/content from one egress address. In
+    // the contact partition that is 5 calls per 10 minutes before a 429, after
+    // which every revalidation falls back to the compiled constants forever and
+    // nobody notices, because the site keeps rendering perfectly good copy.
+    [Range(1, 100000)]
+    public int ContentPermitsPerWindow { get; set; } = 120;
 }
