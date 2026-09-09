@@ -1,44 +1,552 @@
-:root { color-scheme: light dark; --line: #8883; }
-* { box-sizing: border-box; }
-body { margin: 0; font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-header { display: flex; gap: 1rem; align-items: center; padding: .75rem 1rem; border-bottom: 1px solid var(--line); }
-header nav { display: flex; gap: .25rem; margin-right: auto; }
-main { padding: 1rem; max-width: 1100px; }
-button { font: inherit; padding: .4rem .8rem; cursor: pointer; }
-input, select { font: inherit; padding: .4rem; }
-label { display: block; margin: .5rem 0; }
-label input { display: block; width: 22rem; max-width: 100%; }
-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-th, td { text-align: left; padding: .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; opacity: .7; }
-.row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-.row form { display: flex; gap: .5rem; }
-#loginError:empty { display: none; }
-#loginError { color: #c00; }
-.tag { font-size: .75rem; padding: .1rem .4rem; border: 1px solid var(--line); border-radius: .5rem; }
-.msg { white-space: pre-wrap; padding: .75rem; border: 1px solid var(--line); border-radius: .5rem; }
-.danger { color: #c00; }
-dl { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; }
-dt { opacity: .7; }
-dd { margin: 0; }
+/* The panel's whole stylesheet. No framework, no build step, no npm under
+   backend/, because the only JS toolchain in this repository is Next on Vercel
+   and a bundler here would mean node on the VPS and a second build inside
+   03-deploy.sh. That constraint is about tooling, not about appearance.
 
-/* Website tab. Two columns on a wide screen, stacked on a narrow one. */
-.split { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; margin-top: 1rem; }
-.split > * { flex: 1 1 20rem; min-width: 0; }
-.picker { list-style: none; margin: 0 0 .5rem; padding: 0; }
-.picker li { display: flex; gap: .25rem; align-items: center; padding: .15rem 0; }
-.picker li > button:first-child { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.picker li.on > button:first-child { font-weight: 600; border-color: currentColor; }
-.field { margin: .9rem 0; }
-.field label { font-weight: 600; }
-.field input, .field textarea, .field select { width: 100%; font: inherit; padding: .4rem; }
-.field textarea { min-height: 5rem; resize: vertical; }
-.step { border: 1px solid var(--line); border-radius: .5rem; padding: .5rem .75rem; margin: .5rem 0; }
-.step h3 { margin: .25rem 0; font-size: .9rem; }
-.hint { margin: .25rem 0 0; font-size: .8rem; opacity: .75; }
-.hint:empty { display: none; }
-.fixed { margin: .25rem 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.count { font-size: .75rem; opacity: .7; }
-.count.warn, .warn { color: #a60; }
-.count.danger { opacity: 1; }
-.good { color: #070; }
+   Colours are the site's own tokens, copied from src/app/globals.css, which
+   takes them from Logo/08-site/kestridge-tokens.css. The contrast matrix is
+   computed for this exact ramp, so these move as a set or not at all.
+
+   Typography cannot match the site: the CSP is font-src 'self', so Archivo and
+   Geist Mono are unreachable from here. System fonts, and the proportions are
+   matched instead of the typeface.
+
+   Light only, like the site. Inventing a dark ramp would mean inventing
+   colours outside the brand system. */
+
+:root {
+  --bg: #fafaf7;
+  --bg-soft: #f2f3ef;
+  --surface: #ffffff;
+  --surface-2: #f7f7f3;
+
+  --line: rgba(15, 19, 23, 0.11);
+  --line-strong: rgba(15, 19, 23, 0.18);
+
+  --text: #0f1317;
+  --muted: #434d57;
+  --faint: #5a646e;
+
+  --accent: #0e6a82;
+  --accent-strong: #1187a5;
+  --accent-deep: #0b5568;
+  --accent-glow: rgba(17, 135, 165, 0.14);
+
+  --danger: #a3231d;
+  --danger-soft: rgba(163, 35, 29, 0.08);
+  --warn: #8a5300;
+  --warn-soft: rgba(138, 83, 0, 0.08);
+  --good: #16603f;
+  --good-soft: rgba(22, 96, 63, 0.08);
+
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+}
+
+/* The UA rule for [hidden] is display:none, and any author rule that sets
+   display beats it. header{display:flex} therefore made the top bar visible on
+   the sign-in screen, complete with a Sign out button, for the whole of stage
+   one. This has to stay above every layout rule below. */
+[hidden] {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- chrome */
+
+header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header > strong {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-right: 0.5rem;
+}
+
+header nav {
+  display: flex;
+  gap: 0.25rem;
+  margin-right: auto;
+}
+
+header nav button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+header nav button:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+#who {
+  color: var(--faint);
+  font-size: 0.85rem;
+}
+
+main {
+  padding: 1.75rem 1.25rem 4rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 2rem 0 0.5rem;
+}
+
+h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+/* --------------------------------------------------------------- controls */
+
+button {
+  font: inherit;
+  font-weight: 500;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+button:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button[type="submit"],
+#loginForm button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+button[type="submit"]:hover:not(:disabled),
+#loginForm button:hover:not(:disabled) {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #fff;
+}
+
+button.danger {
+  border-color: rgba(163, 35, 29, 0.45);
+  color: var(--danger);
+}
+
+button.danger:hover:not(:disabled) {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 1px;
+}
+
+label {
+  display: block;
+  margin: 0.75rem 0;
+  font-weight: 500;
+}
+
+label input {
+  display: block;
+  width: 22rem;
+  max-width: 100%;
+  margin-top: 0.3rem;
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------- sign in */
+
+#login {
+  max-width: 25rem;
+  margin: 3.5rem auto 0;
+  padding: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(15, 19, 23, 0.04), 0 12px 32px -18px var(--accent-glow);
+}
+
+#login h1 {
+  margin-bottom: 1.25rem;
+}
+
+#login label input {
+  width: 100%;
+}
+
+#login button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.55rem;
+}
+
+#loginError:empty {
+  display: none;
+}
+
+#loginError {
+  margin-top: 0.9rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+/* ----------------------------------------------------------------- tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover {
+  background: var(--surface-2);
+}
+
+th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  font-weight: 600;
+  background: var(--surface-2);
+}
+
+/* ------------------------------------------------------------------ inbox */
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#counts {
+  color: var(--faint);
+  font-size: 0.875rem;
+  margin-left: auto;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.45rem;
+  margin-right: 0.3rem;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.tag.danger {
+  background: var(--danger-soft);
+  border-color: rgba(163, 35, 29, 0.3);
+  color: var(--danger);
+}
+
+.msg {
+  white-space: pre-wrap;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1.25rem;
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+dt {
+  color: var(--faint);
+  font-size: 0.85rem;
+}
+
+dd {
+  margin: 0;
+}
+
+/* --------------------------------------------------------- website editor */
+
+.split {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.split > * {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+
+.picker {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.picker li {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.12rem 0;
+}
+
+.picker li > button:first-child {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-color: transparent;
+  background: transparent;
+}
+
+.picker li.on > button:first-child {
+  background: var(--accent-glow);
+  border-color: transparent;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+
+.picker li > button:not(:first-child) {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.45rem;
+  color: var(--faint);
+}
+
+.form {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.field {
+  margin: 1.1rem 0;
+}
+
+.field:first-child {
+  margin-top: 0;
+}
+
+.field label {
+  margin: 0 0 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+}
+
+.field textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.4rem;
+}
+
+.step {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.9rem 0.9rem;
+  margin: 0.6rem 0;
+  background: var(--surface-2);
+}
+
+.step h3 {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+
+.hint {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--faint);
+}
+
+.hint:empty {
+  display: none;
+}
+
+.fixed {
+  margin: 0.25rem 0;
+  padding: 0.35rem 0.6rem;
+  background: var(--bg-soft);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.count {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
+/* --------------------------------------------------------------- feedback */
+
+.good,
+.warn,
+.danger {
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.good {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.warn,
+.count.warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.danger,
+.count.danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* The counters sit inline under a field and must not become blocks. */
+.count.warn,
+.count.danger {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  font-weight: 600;
+}
+
+.good a {
+  color: inherit;
+}
