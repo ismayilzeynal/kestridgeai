@@ -27,7 +27,6 @@ export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] })
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [service, setService] = useState("");
-  const [name, setName] = useState("");
   // Live region must exist before the message lands, or nothing is announced.
   const [errorSummary, setErrorSummary] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -82,7 +81,6 @@ export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] })
 
     setErrorSummary("");
     const sender = (data.get("name") as string)?.trim() || "";
-    setName(sender);
     setStatus("submitting");
 
     const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
@@ -137,7 +135,8 @@ export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] })
             </Reveal>
             <Reveal delay={0.12}>
               <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">
-                Describe the work and how to reach you. We reply by email.
+                Tell us about your project. We'll get back to you within a few
+                business days.
               </p>
             </Reveal>
 
@@ -171,7 +170,7 @@ export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] })
                   <span className="block font-mono text-[0.6471rem] uppercase tracking-label text-faint">
                     LinkedIn
                   </span>
-                  <span className="text-[0.9412rem] text-ink">Company page</span>
+                  <span className="text-[0.9412rem] text-ink">Follow us on LinkedIn</span>
                 </span>
                 <ArrowRight className="h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-accent" />
               </a>
@@ -225,26 +224,26 @@ export function Contact({ serviceOptions }: { serviceOptions: ServiceOption[] })
                       )}
                     </span>
                     <h3 className="font-display text-3xl text-ink">
-                      {status === "success" &&
-                        `Thank you${name ? `, ${name.split(" ")[0]}` : ""}.`}
-                      {status === "handoff" && "One step left."}
+                      {status === "success" && "Thank you for reaching out."}
+                      {status === "handoff" && "Your message is ready to send."}
                       {status === "error" && "That did not go through."}
                     </h3>
                     <p className="mt-3 max-w-sm text-pretty leading-relaxed text-muted">
-                      {status === "success" &&
-                        "Your message has been received. We will reply by email to the address you provided."}
+                      {status === "success" && "We'll respond shortly."}
                       {status === "handoff" &&
-                        `Your email app should have opened with the message ready to send. If it did not, write to ${site.email}.`}
+                        `Your email app should have opened with it. If it did not, write to ${site.email}.`}
                       {status === "error" &&
                         `We could not send the message. Please write to ${site.email} instead.`}
                     </p>
                     <div className="mt-8 flex flex-col items-center gap-4">
                       <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <a href={`mailto:${site.email}`} className="btn-primary group">
-                          Email us
-                          <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </a>
-                        <LinkedInButton />
+                        {status !== "success" && (
+                          <a href={`mailto:${site.email}`} className="btn-primary group">
+                            Email us
+                            <ArrowUpRight className="h-[1.0588rem] w-[1.0588rem] transition-transform duration-300 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          </a>
+                        )}
+                        <LinkedInButton variant={status === "success" ? "primary" : "ghost"} />
                       </div>
                       <button
                         onClick={reset}
