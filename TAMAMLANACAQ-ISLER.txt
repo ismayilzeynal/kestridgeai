@@ -105,17 +105,27 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
       → QALIR: Zoho subprocessor-dur (hər müraciətin mətnini görür), DPA
         imzalanmalı və registrə yazılmalıdır.
 
-[ ] [VACIB] Admin hesabı yaratmaq. Panel canlıdır
-      (https://api.kestridge.com/admin/) amma hesab yoxdur. Parolu yalnız
-      siz yaza bilərsiniz:
-      → cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password
-        --username <ad> --display-name "Ad Soyad"
-        (dotnet ilə, birbaşa yox: qovluqdakı fayllarda icra biti yoxdur)
-      → çap olunan INSERT-i ops/admin-account.sql-ə yapışdırıb
-        kestridge_migrator kimi işlədin
-      → otpauth:// linkini authenticator tətbiqinə skan edin (TOTP
-        məcburidir, seçim deyil)
-      → sonra: clear && history -c
+[x] [VACIB] İlk admin hesabı CLI ilə yaradıldı. Panel canlıdır
+      (https://api.kestridge.com/admin/), serverdə giriş 10 sentyabr
+      2026-da işləyirdi. Bu yol (dotnet Kestridge.Api.dll --hash-password,
+      sonra ops/admin-account.sql kestridge_migrator kimi) indi yalnız
+      ilk hesab və heç kim daxil ola bilməyəndə bərpa üçündür.
+      → Ətraflı: backend/RUNBOOK.md → "Admin accounts"
+
+[ ] [ORTA]  Admin istifadəçi idarəsini serverə yükləmək. Kod hazırdır
+      (13 sentyabr 2026), serverə yüklənməyib. Panelə Users tab-ı gəlir:
+      istifadəçi yaratmaq, authenticator sıfırlamaq, hesabı deaktiv etmək,
+      ilk girişi tamamlanmamış istifadəçini silmək. Yeni istifadəçi ilk
+      girişdə özü parol seçir və authenticator qurur.
+      → Sıra: backend/DEPLOY-LINUX.md → "Deploying admin user management
+        (stage 3)": migrate.sql (kestridge_migrator), 04-table-grants.sql
+        (root), 03-verify-grants.sql, deploy, sonra smoke test
+      → Grant-lar deploy-dan ƏVVƏL, yoxsa heç kim panelə daxil ola bilmir
+      → Sonra digər operatorların hesablarını paneldən yaradın; müvəqqəti
+        parolu şəxsə birbaşa verin, email ilə yox
+      → Yenidən aktiv etmək, parol və ad dəyişmək yenə yalnız SQL-dir.
+        Yenidən aktiv etmək iki addımdır: disabled = 0 və admin_disables
+        sətrini silmək (ops/admin-account.sql)
 
 [x] [ORTA]  Sayt mətnini paneldən redaktə etmək. Xidmətlər, banilər,
       suallar və loqolar artıq MySQL-dədir; panel > Website tab-ı.

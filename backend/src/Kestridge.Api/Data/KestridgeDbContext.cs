@@ -10,6 +10,8 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
     public DbSet<DsrLogEntry> DsrLog => Set<DsrLogEntry>();
     public DbSet<AdminAccount> AdminAccounts => Set<AdminAccount>();
     public DbSet<AdminSession> AdminSessions => Set<AdminSession>();
+    public DbSet<AdminEnrollment> AdminEnrollments => Set<AdminEnrollment>();
+    public DbSet<AdminDisable> AdminDisables => Set<AdminDisable>();
     public DbSet<SiteFaq> SiteFaq => Set<SiteFaq>();
     public DbSet<SiteTeamMember> SiteTeam => Set<SiteTeamMember>();
     public DbSet<SiteCompany> SiteCompanies => Set<SiteCompany>();
@@ -74,7 +76,7 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
             e.HasIndex(x => new { x.NotifyState, x.NotifyNextAttemptAt }).HasDatabaseName("ix_submissions_notify");
         });
 
-        // Both admin blocks sit above the DateTime converter loop at the bottom
+        // Every admin block sits above the DateTime converter loop at the bottom
         // of this method. Below it, their datetime(6) columns come back as
         // DateTimeKind.Unspecified, which on a UTC+4 machine is a four hour
         // error in session expiry.
@@ -126,6 +128,55 @@ public sealed class KestridgeDbContext(DbContextOptions<KestridgeDbContext> opti
 
             e.HasIndex(x => x.AccountId).HasDatabaseName("ix_admin_sessions_account");
             e.HasIndex(x => x.AbsoluteExpiresAt).HasDatabaseName("ix_admin_sessions_expiry");
+        });
+
+        b.Entity<AdminEnrollment>(e =>
+        {
+            e.ToTable("admin_enrollments");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.Id);
+
+            e.Property(x => x.Id).HasColumnName("id").HasColumnType("bigint unsigned").ValueGeneratedOnAdd();
+            e.Property(x => x.AccountId).HasColumnName("account_id").HasColumnType("bigint unsigned");
+            e.Property(x => x.Username).HasColumnName("username").HasMaxLength(64)
+                .HasCharSet("ascii").UseCollation("ascii_bin");
+            e.Property(x => x.DisplayName).HasColumnName("display_name").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+            e.Property(x => x.PasswordHash).HasColumnName("password_hash").HasMaxLength(256)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired().HasDefaultValue("");
+            e.Property(x => x.TotpSecret).HasColumnName("totp_secret").HasMaxLength(64)
+                .HasCharSet("ascii").UseCollation("ascii_bin").IsRequired().HasDefaultValue("");
+            e.Property(x => x.TokenHash).HasColumnName("token_hash").HasColumnType("char(64)")
+                .HasCharSet("ascii").UseCollation("ascii_bin");
+            e.Property(x => x.TokenExpiresAt).HasColumnName("token_expires_at").HasColumnType("datetime(6)");
+            e.Property(x => x.CreatedBy).HasColumnName("created_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
+            e.Property(x => x.CreatedByAccountId).HasColumnName("created_by_account_id").HasColumnType("bigint unsigned");
+            e.Property(x => x.CreatedAt).HasColumnName("created_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.ExpiresAt).HasColumnName("expires_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.FailedAttempts).HasColumnName("failed_attempts")
+                .HasColumnType("smallint unsigned").IsRequired().HasDefaultValue((ushort)0);
+            e.Property(x => x.FirstFailedAt).HasColumnName("first_failed_at").HasColumnType("datetime(6)");
+            e.Property(x => x.LockedUntil).HasColumnName("locked_until").HasColumnType("datetime(6)");
+
+            e.HasIndex(x => x.AccountId).IsUnique().HasDatabaseName("uk_admin_enrollments_account");
+            e.HasIndex(x => x.Username).IsUnique().HasDatabaseName("uk_admin_enrollments_username");
+            e.HasIndex(x => x.TokenHash).IsUnique().HasDatabaseName("uk_admin_enrollments_token");
+        });
+
+        // Keyed on the account, so a second disable of the same account is a
+        // duplicate key rather than a second row. No auto increment.
+        b.Entity<AdminDisable>(e =>
+        {
+            e.ToTable("admin_disables");
+            e.HasTableOption("ROW_FORMAT", "DYNAMIC");
+            e.HasKey(x => x.AccountId);
+
+            e.Property(x => x.AccountId).HasColumnName("account_id").HasColumnType("bigint unsigned")
+                .ValueGeneratedNever().IsRequired();
+            e.Property(x => x.DisabledAt).HasColumnName("disabled_at").HasColumnType("datetime(6)").IsRequired();
+            e.Property(x => x.DisabledBy).HasColumnName("disabled_by").HasMaxLength(64)
+                .IsRequired().HasDefaultValue("");
         });
 
         b.Entity<JobRun>(e =>

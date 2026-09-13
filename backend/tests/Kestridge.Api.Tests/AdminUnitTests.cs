@@ -57,6 +57,25 @@ public class TotpTests
     public void Verify_RejectsAnythingThatIsNotSixDigits(string code)
         => Assert.Null(Totp.Verify(RfcSecret, code, DateTime.UtcNow, 1));
 
+    // An account whose authenticator was reset has totp_secret = ''. Step-up
+    // relies on this refusal alone to keep such an account out until it enrols
+    // again, and /login answers such an account early but has it behind that.
+    //
+    // HMAC-SHA1 accepts an empty key, so an empty secret has real codes, and
+    // anyone can compute them. Those are the codes tried here, at every step
+    // the widest skew accepts. Arbitrary codes would pass with the guard gone.
+    [Fact]
+    public void Verify_RefusesEveryCode_ForAnEmptySecret()
+    {
+        var now = new DateTime(2026, 9, 9, 12, 0, 0, DateTimeKind.Utc);
+
+        for (var k = -3; k <= 3; k++)
+        {
+            var code = Totp.Compute(Array.Empty<byte>(), Totp.StepFor(now) + k);
+            Assert.Null(Totp.Verify(string.Empty, code, now, 3));
+        }
+    }
+
     [Fact]
     public void Base32_RoundTrips()
     {

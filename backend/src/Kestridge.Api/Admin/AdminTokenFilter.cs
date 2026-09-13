@@ -48,7 +48,15 @@ public sealed class AdminTokenFilter(
             where s.TokenHash == hash
             select new { Session = s, Account = a }).FirstOrDefaultAsync(http.RequestAborted);
 
-        if (found is null || found.Account.Disabled || !AdminSessions.IsLive(found.Session, now))
+        if (found is null || !AdminSessions.IsLive(found.Session, now))
+        {
+            return JsonResults.Auth();
+        }
+
+        // On every request, not only at sign-in, so a disable from the panel
+        // takes effect on the very next click of whoever was disabled. That
+        // costs one primary key lookup on admin_disables per request.
+        if (await AdminAccess.IsDisabledAsync(db, found.Account, http.RequestAborted))
         {
             return JsonResults.Auth();
         }

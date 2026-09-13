@@ -273,7 +273,8 @@ label input {
   padding: 0.55rem 0.7rem;
 }
 
-#login #lc {
+#login #lc,
+#login #sc {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 1.15rem;
   letter-spacing: 0.35em;
@@ -305,7 +306,8 @@ label input {
   text-underline-offset: 0.2em;
 }
 
-#asWho {
+#asWho,
+#setupWho {
   margin: 0 0 1.1rem;
   padding: 0.45rem 0.65rem;
   background: var(--bg-soft);
@@ -316,6 +318,33 @@ label input {
 #login .hint {
   margin-top: 0.9rem;
   text-align: center;
+}
+
+/* Natural size where it fits: the PNG is drawn at five pixels a module, and
+   scaling it by a fraction smears module edges that a phone camera has to
+   find. pixelated keeps them square when a narrow screen does force it. */
+.qr {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.75rem auto 0;
+  image-rendering: pixelated;
+}
+
+/* Typed into a phone by hand, so larger and darker than .fixed, with room
+   between the groups of four. Eight groups do not fit the card on one line;
+   balance breaks them four and four instead of five and three. Scoped by id
+   because .fixed comes later in this file and would otherwise win every
+   property both set. */
+#login .secret {
+  margin: 0.4rem 0 1.1rem;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  word-spacing: 0.35em;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text);
 }
 
 #loginError:empty {
@@ -408,6 +437,18 @@ th {
   color: var(--danger);
 }
 
+.tag.warn {
+  background: var(--warn-soft);
+  border-color: rgba(138, 83, 0, 0.3);
+  color: var(--warn);
+}
+
+.tag.good {
+  background: var(--good-soft);
+  border-color: rgba(22, 96, 63, 0.3);
+  color: var(--good);
+}
+
 .msg {
   white-space: pre-wrap;
   padding: 0.85rem 1rem;
@@ -497,6 +538,12 @@ dd {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+}
+
+/* Short single line answers, alone on the page rather than beside a picker,
+   so a 68rem wide input would only make them harder to scan. */
+#users .form {
+  max-width: 30rem;
 }
 
 .field {
@@ -603,6 +650,16 @@ dd {
 .count.danger {
   background: var(--danger-soft);
   color: var(--danger);
+}
+
+/* A tag borrows a feedback colour, not the feedback line's padding and size,
+   which the rules above would otherwise hand it because they come later. */
+.tag.good,
+.tag.warn,
+.tag.danger {
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
 }
 
 /* The counters sit inline under a field and must not become blocks. */

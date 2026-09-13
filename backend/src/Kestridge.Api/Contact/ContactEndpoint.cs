@@ -148,6 +148,18 @@ public static class ContactEndpoint
         {
             db.Entry(row).State = EntityState.Detached;
 
+            // Logged whatever the mail does next. EF's own Error lines for a
+            // failed command are turned off in Program.cs, so without this a
+            // failure while SMTP is also down leaves only the mail exception.
+            // The type and MySQL's error number, never the message: a server
+            // message can quote the value it refused, which is a field here.
+            var server = ServerError(ex);
+            log.LogError(
+                "contact.store_error type={ExceptionType} number={ErrorNumber} code={ErrorCode}",
+                ex.GetType().Name,
+                server?.Number,
+                server?.ErrorCode);
+
             // The whole justification for this backend is not losing inquiries,
             // and the client has no retry. One inline attempt, hard-capped, so a
             // MySQL restart does not silently lose a lead.
@@ -167,5 +179,22 @@ public static class ContactEndpoint
                 return JsonResults.Unavailable();
             }
         }
+    }
+
+    // SaveChanges wraps a server error in a DbUpdateException, and the
+    // execution strategy wraps a transient one, such as an unreachable host or
+    // a lock wait timeout, in an InvalidOperationException, so the whole chain
+    // is searched.
+    private static MySqlException? ServerError(Exception ex)
+    {
+        for (Exception? e = ex; e is not null; e = e.InnerException)
+        {
+            if (e is MySqlException server)
+            {
+                return server;
+            }
+        }
+
+        return null;
     }
 }

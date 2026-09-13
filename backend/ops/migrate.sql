@@ -613,5 +613,112 @@ DELIMITER ;
 CALL MigrationsScript();
 DROP PROCEDURE MigrationsScript;
 
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    CREATE TABLE `admin_disables` (
+        `account_id` bigint unsigned NOT NULL,
+        `disabled_at` datetime(6) NOT NULL,
+        `disabled_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        CONSTRAINT `PK_admin_disables` PRIMARY KEY (`account_id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    CREATE TABLE `admin_enrollments` (
+        `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+        `account_id` bigint unsigned NULL,
+        `username` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        `display_name` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        `password_hash` varchar(256) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT '',
+        `totp_secret` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL DEFAULT '',
+        `token_hash` char(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+        `token_expires_at` datetime(6) NULL,
+        `created_by` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+        `created_by_account_id` bigint unsigned NULL,
+        `created_at` datetime(6) NOT NULL,
+        `expires_at` datetime(6) NOT NULL,
+        `failed_attempts` smallint unsigned NOT NULL DEFAULT 0,
+        `first_failed_at` datetime(6) NULL,
+        `locked_until` datetime(6) NULL,
+        CONSTRAINT `PK_admin_enrollments` PRIMARY KEY (`id`)
+    ) CHARACTER SET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    CREATE UNIQUE INDEX `uk_admin_enrollments_account` ON `admin_enrollments` (`account_id`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    CREATE UNIQUE INDEX `uk_admin_enrollments_token` ON `admin_enrollments` (`token_hash`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    CREATE UNIQUE INDEX `uk_admin_enrollments_username` ON `admin_enrollments` (`username`);
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
+DROP PROCEDURE IF EXISTS MigrationsScript;
+DELIMITER //
+CREATE PROCEDURE MigrationsScript()
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM `__EFMigrationsHistory` WHERE `MigrationId` = '20260913122030_AdminUserManagement') THEN
+
+    INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+    VALUES ('20260913122030_AdminUserManagement', '9.0.19');
+
+    END IF;
+END //
+DELIMITER ;
+CALL MigrationsScript();
+DROP PROCEDURE MigrationsScript;
+
 COMMIT;
 

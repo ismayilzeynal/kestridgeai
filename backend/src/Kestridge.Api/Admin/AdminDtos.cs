@@ -2,6 +2,36 @@ namespace Kestridge.Api.Admin;
 
 public sealed record LoginRequest(string? Username, string? Password, string? Code);
 
+public sealed record LoginStartRequest(string? Username, string? Password);
+
+public sealed record LoginEnrollRequest(string? Token, string? Code, string? NewPassword);
+
+public sealed record UserCreateRequest(string? Username, string? DisplayName, string? Password, string? Code);
+
+public sealed record StepUpRequest(string? Code);
+
+// Never the entity. password_hash, totp_secret and the token columns are not
+// shipped to a panel that has no use for them.
+public sealed record PendingUserRow(
+    long Id,
+    string Username,
+    string DisplayName,
+    string CreatedBy,
+    DateTime CreatedAt,
+    DateTime ExpiresAt,
+    bool Expired,
+    DateTime? LockedUntil);
+
+public sealed record AccountRow(
+    long Id,
+    string Username,
+    string DisplayName,
+    string Status,
+    DateTime? LockedUntil,
+    DateTime? LastLoginAt,
+    DateTime CreatedAt,
+    DateTime? ResetExpiresAt);
+
 public sealed record LogoutRequest(bool Everywhere);
 
 public sealed record HandledRequest(bool Handled);

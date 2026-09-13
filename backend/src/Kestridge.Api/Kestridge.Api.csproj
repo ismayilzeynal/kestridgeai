@@ -16,6 +16,7 @@
     </PackageReference>
     <PackageReference Include="MailKit" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" />
+    <PackageReference Include="QRCoder" />
   </ItemGroup>
 
 </Project>

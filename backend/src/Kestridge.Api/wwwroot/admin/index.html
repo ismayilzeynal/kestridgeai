@@ -15,6 +15,7 @@
     <button data-view="site">Website</button>
     <button data-view="privacy">Requests</button>
     <button data-view="jobs">Health</button>
+    <button data-view="users">Users</button>
   </nav>
   <span id="who"></span>
   <button id="logout">Sign out</button>
@@ -23,11 +24,12 @@
 <main>
   <section id="login">
     <p class="mark">Kestridge</p>
-    <h1>Sign in</h1>
     <form id="loginForm">
+      <h1>Sign in</h1>
       <div id="step1">
         <label for="lu">Username</label>
-        <input id="lu" name="username" autocomplete="username" required>
+        <input id="lu" name="username" autocomplete="username" autocapitalize="none" autocorrect="off"
+               spellcheck="false" required>
         <label for="lp">Password</label>
         <input id="lp" name="password" type="password" autocomplete="current-password" required>
         <button type="button" id="next">Continue</button>
@@ -43,9 +45,35 @@
         <p class="hint">Each code works once. If you have just signed in or out,
           wait for the digits to change before trying again.</p>
       </div>
-
-      <p id="loginError" role="alert"></p>
     </form>
+
+    <form id="setupForm" hidden>
+      <h1>Set up your authenticator</h1>
+      <p id="setupWho"></p>
+      <p>Scan this code with an authenticator app on your phone.</p>
+      <p class="hint">Each sign-in shows a new key. If Kestridge is already in your app from an earlier
+        attempt, delete that entry and scan this one.</p>
+      <img id="setupQr" class="qr" alt="QR code to add this account to an authenticator app">
+      <p class="hint">If you cannot scan it, type this key into the app instead.</p>
+      <p id="setupSecret" class="fixed secret"></p>
+
+      <div id="setupPassword" hidden>
+        <label for="sp">New password</label>
+        <input id="sp" type="password" autocomplete="new-password">
+        <label for="sp2">Repeat new password</label>
+        <input id="sp2" type="password" autocomplete="new-password">
+        <p class="hint">The password you were given was temporary. Choose your own, at least 12
+          characters. Nobody else will know it.</p>
+      </div>
+
+      <label for="sc">Authenticator code</label>
+      <input id="sc" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+             autocomplete="one-time-code" required>
+      <button type="submit" id="finish">Finish setup</button>
+      <button type="button" id="setupCancel" class="quiet">Cancel</button>
+    </form>
+
+    <p id="loginError" role="alert"></p>
   </section>
 
   <section id="inbox" hidden>
@@ -81,6 +109,8 @@
   <section id="site" hidden></section>
 
   <section id="jobs" hidden></section>
+
+  <section id="users" hidden></section>
 </main>
 
 <script type="module" src="admin.js"></script>

@@ -96,6 +96,20 @@ public static class Totp
     public static string NewSecret()
         => ToBase32(RandomNumberGenerator.GetBytes(20));
 
+    // The one place the provisioning URI is spelled, shared by the CLI and the
+    // panel. digits and period come from the constants Verify uses, so the URI
+    // cannot tell an app something Verify does not do.
+    //
+    // The username is escaped as the label. A panel-created one never needs it,
+    // but an account made by SQL is not held to that rule. The secret is Base32,
+    // which never does.
+    public static string OtpauthUri(string username, string secret)
+        => "otpauth://totp/Kestridge:" + Uri.EscapeDataString(username)
+           + "?secret=" + secret
+           + "&issuer=Kestridge&algorithm=SHA1&digits="
+           + Digits.ToString(System.Globalization.CultureInfo.InvariantCulture)
+           + "&period=" + StepSeconds.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
     private const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
     public static string ToBase32(byte[] data)

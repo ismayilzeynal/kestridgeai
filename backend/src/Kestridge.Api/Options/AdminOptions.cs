@@ -37,6 +37,18 @@ public sealed class AdminOptions
     [Range(1000, 2000000)]
     public int PasswordIterations { get; set; } = 210_000;
 
+    // How long a new user, or an account whose authenticator was reset, has to
+    // complete first sign-in. Long enough to cover a weekend, short enough that
+    // an initial password handed over and forgotten does not stay live.
+    [Range(1, 720)]
+    public int EnrollHours { get; set; } = 72;
+
+    // Life of the setup token login/start hands out with the QR code. Covers
+    // installing an authenticator app; anything slower signs in again and gets
+    // a fresh secret.
+    [Range(1, 60)]
+    public int EnrollTokenMinutes { get; set; } = 15;
+
     [Range(1, 100000)]
     public int ExportMaxRows { get; set; } = 5000;
 

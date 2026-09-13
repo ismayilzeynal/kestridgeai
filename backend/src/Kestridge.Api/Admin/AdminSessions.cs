@@ -58,9 +58,16 @@ public static class AdminSessions
         }
 
         var token = authorizationHeader["Bearer ".Length..];
-        if (token.Length != TokenChars)
+        return IsWellFormed(token) ? token : null;
+    }
+
+    // Exactly the shape NewToken produces. Shared with the setup token that
+    // login/enroll receives in its body, which is issued the same way.
+    public static bool IsWellFormed(string? token)
+    {
+        if (token is null || token.Length != TokenChars)
         {
-            return null;
+            return false;
         }
 
         foreach (var c in token)
@@ -68,10 +75,10 @@ public static class AdminSessions
             var ok = c is >= 'A' and <= 'Z' or >= 'a' and <= 'z' or >= '0' and <= '9' or '-' or '_';
             if (!ok)
             {
-                return null;
+                return false;
             }
         }
 
-        return token;
+        return true;
     }
 }

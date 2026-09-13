@@ -3,6 +3,7 @@ using Kestridge.Api.Email;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +32,11 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
     // Set to make the handler throw where nothing catches it, so the
     // UseExceptionHandler branch and the CORS safety net get real coverage.
     public bool ThrowFromClock { get; init; }
+
+    // Added to the application's own DbContext, after its interceptors. Filled
+    // before the first client is created, which is when the host is built. Not
+    // init, so a factory made by DatabaseTestBase.CreateFactory can take one.
+    public List<IInterceptor> Interceptors { get; } = [];
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -74,6 +80,11 @@ public sealed class ApiFactory : WebApplicationFactory<Program>
             }
 
             services.RemoveAll<IHostedService>();
+
+            if (Interceptors.Count > 0)
+            {
+                services.ConfigureDbContext<KestridgeDbContext>(options => options.AddInterceptors(Interceptors));
+            }
 
             // An IStartupFilter runs before the application pipeline, which is
             // the only way to set the remote address early enough for the rate

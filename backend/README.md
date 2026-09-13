@@ -1,8 +1,9 @@
 # Kestridge AI - backend
 
-ASP.NET Core 10 (`net10.0`) + EF Core 9 + Pomelo 9.0.0 + MySQL 8. One process,
-two endpoints, three tables. It exists to receive the contact form on
-`kestridge.com`, keep every inquiry, and tell the team about it.
+ASP.NET Core 10 (`net10.0`) + EF Core 9 + Pomelo 9.0.0 + MySQL 8. One process
+and one database. It exists to receive the contact form on `kestridge.com`,
+keep every inquiry, and tell the team about it; the admin panel and the site
+copy it serves grew on top of that.
 
 `Contact.tsx` in the Next.js app is **not** modified by any of this. The only
 frontend change is one Vercel environment variable.
@@ -17,8 +18,13 @@ frontend change is one Vercel environment variable.
    purge run as evidence.
 5. Answers a health probe.
 6. Serves an authenticated admin panel at `/admin/`: read and operate on
-   submissions, run the full data subject request flow, and edit the website
-   copy.
+   submissions, run the full data subject request flow, edit the website copy,
+   and manage the panel's own users. Any operator can create a user, reset
+   another operator's authenticator and disable an account, and a new user sets
+   their own password and authenticator at their first sign-in. Creating and
+   resetting need a fresh code from the operator and send a notice mail to the
+   team. Re-enabling an account and changing a password stay SQL operations;
+   `RUNBOOK.md` has the lifecycle and the database boundary behind it.
 7. Serves that copy to the marketing site as `GET /api/content`.
 
 ## What it deliberately does not do
@@ -32,7 +38,7 @@ that reopens it.
 | Image upload in the panel | `photo` and `logo_file` name files that git ships in `/public`. Uploads mean object storage, a serving path off the VPS, and a CSP change, to avoid a commit that has to happen anyway because the image itself has to be committed. | Someone needs to publish an image without a developer at all. |
 | Editing headings, section ids or any Tailwind class | No `class`, `className`, `style` or colour column exists in the schema. The moment the database can carry a class name, the design can no longer be changed from the design files. | Never. |
 | Creating or renaming a service slug | The same string is a DOM id, an ARIA target, a `CustomEvent` payload, the contact form's select value and a member of `Kestridge:Contact:AllowedServices`. A new one is a 400 at the live API until someone edits `appsettings.Production.json` and restarts the unit. | The layout stops assuming four services. |
-| A separate outbox table | One message kind, one process. State on the row means no second copy of the message body to scrub and no orphan reaper. A DSR delete removes the pending notification for free. | A second message kind or a second app instance exists. |
+| A separate outbox table | One process, and one message kind that needs durable delivery. State on the row means no second copy of the message body to scrub and no orphan reaper. A DSR delete removes the pending notification for free. The second kind, the admin account notice, is sent once after its change commits and never retried; the operator who clicked is told when it did not go. | An account notice has to survive an SMTP outage, a third message kind appears, or a second app instance exists. |
 | `ip_address`, `user_agent`, `referer` columns | The Privacy Policy discloses automatic technical data only as visit telemetry used in aggregate. On the same row as a name and an email it becomes identified personal data serving a purpose section 4 does not list. This is one line of code and the default in every tutorial, which is why `SchemaTests` asserts the columns do not exist. | Never, without amending two sections of the published policy first. |
 | Storing honeypot hits as rows | Personal data collected for no disclosed purpose. A log counter answers every question the row would. | Never. |
 | CAPTCHA / Turnstile | A new subprocessor needing a DPA, a frontend change, and possibly a cookie. Observed spam is zero, because the form has never had a live endpoint. | The honeypot counter and rate-limit rejections show real spam reaching the inbox. The integration shape is written down in RUNBOOK.md. |
@@ -51,7 +57,10 @@ backend/
     Options/                  one POCO per config section, validated on start
     Data/                     entities, DbContext, UTC interceptor, migrations
     Contact/                  the endpoint, form reader, validator, origin guard, dedupe
-    Email/                    message builder, MailKit sender, failure classifier
+    Content/                  GET /api/content and its payload
+    Admin/                    sign-in, TOTP, token filter, every panel endpoint, user management, the CLI
+    wwwroot/admin/            the panel itself: one HTML page, CSS, and JS modules
+    Email/                    message builders, MailKit sender, failure classifier
     Maintenance/              the one BackgroundService: notify sweep + retention purge
     Health/                   the health endpoint
     Infrastructure/           rate limiting, partition key, JSON bodies
@@ -140,6 +149,18 @@ the application credential holds DML only. Granting it DDL to "fix" that breaks
 the access model. MySQL DDL is also not transactional, so a failed multi-statement
 migration leaves partial state; do not assume rollback.
 
+A migration that adds a table is not finished until `ops/04-table-grants.sql`
+grants on it and `ops/03-verify-grants.sql` knows what the grant should be. The
+grants run as root after the migration, because MySQL refuses a grant on a
+table that does not exist yet. `AdminUserManagement` is the example:
+`admin_enrollments` and `admin_disables` are read on every sign-in and every
+panel request, so a build deployed without their grants locks everyone out of
+the panel while `/api/health` stays green.
+
+Access rules live in grants, not in triggers. The idempotent script wraps every
+statement in a stored procedure, and MySQL refuses `CREATE TRIGGER` inside one.
+The header of `ops/04-table-grants.sql` has the rest of the reasoning.
+
 ## Configuration
 
 Environment variables use `__` where the config path uses `:`.
@@ -161,6 +182,13 @@ Environment variables use `__` where the config path uses `:`.
 | `Kestridge:Notify:MaxAttempts` / `SweepSeconds` / `BatchSize` | no | `7` / `30` / `20` | same |
 | `Kestridge:Retention:Months` / `RunHourUtc` / `BatchSize` | no | `24` / `3` / `500` | same |
 | `Kestridge:Dsr:EmailHashPepper` | **yes** | user-secrets | `appsettings.Production.json`, ACLed |
+| `Kestridge:Admin:EnrollHours` | no | `72` | `72` |
+| `Kestridge:Admin:EnrollTokenMinutes` | no | `15` | `15` |
+
+`EnrollHours` (1 to 720) is how long a user created in the panel, or an account
+whose authenticator was reset, has to complete the first sign-in.
+`EnrollTokenMinutes` (1 to 60) is how long one setup screen, with its QR code,
+stays usable before the person has to sign in again and get a new key.
 
 Every section is bound with `ValidateDataAnnotations().ValidateOnStart()`, so a
 missing SMTP host or `ToAddress` crashes the process at boot rather than failing

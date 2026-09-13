@@ -9,11 +9,14 @@ namespace Kestridge.Api.Admin;
 // prints values for a human to paste into ops/admin-account.sql, which the
 // migrator runs.
 //
-// That indirection is the point. It means kestridge_app needs no INSERT on
-// admin_accounts and no privilege over password_hash or totp_secret, so a
-// compromised web process cannot mint itself an account. A bootstrap HTTP
-// endpoint, or an "if the table is empty create one from config" startup path,
-// both re-open exactly that door the moment someone deletes the last row.
+// The panel creates users now, so this is no longer how accounts are made day
+// to day. It stays for the two cases the panel cannot cover by construction:
+// the first account, when nobody exists to sign in and create one, and
+// recovery, when nobody who is left can sign in. Every panel path that grants
+// access requires a signed-in operator and a fresh code from them. A bootstrap
+// HTTP endpoint, or an "if the table is empty create one from config" startup
+// path, would skip both the moment someone deletes the last row, which is why
+// the way in with no operator stays a terminal on the server.
 public static class AdminBootstrap
 {
     public const string Flag = "--hash-password";
@@ -73,7 +76,7 @@ public static class AdminBootstrap
             secret));
         Console.WriteLine();
         Console.WriteLine("-- Scan this into an authenticator app, then clear the scrollback.");
-        Console.WriteLine($"otpauth://totp/Kestridge:{username}?secret={secret}&issuer=Kestridge&algorithm=SHA1&digits=6&period=30");
+        Console.WriteLine(Totp.OtpauthUri(username, secret));
         Console.WriteLine();
 
         return 0;

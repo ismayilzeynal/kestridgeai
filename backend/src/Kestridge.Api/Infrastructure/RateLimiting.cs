@@ -59,6 +59,22 @@ public static class RateLimiting
                     })
                 : RateLimitPartition.GetNoLimiter("not-login"));
 
+        // First sign-in checks a password (start) and hands out a secret, so it
+        // gets the login budget in a partition of its own. Sharing "login:"
+        // would halve the owner's sign-in attempts, since every normal sign-in
+        // now calls start before login.
+        var adminEnroll = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            IsEnrollAttempt(context)
+                ? RateLimitPartition.GetFixedWindowLimiter(
+                    "enroll:" + ClientPartitionKey.For(context),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = limits.LoginPermitsPerWindow,
+                        Window = TimeSpan.FromMinutes(limits.WindowMinutes),
+                        QueueLimit = 0,
+                    })
+                : RateLimitPartition.GetNoLimiter("not-enroll"));
+
         var adminApi = PartitionedRateLimiter.Create<HttpContext, string>(context =>
             IsAdminSurface(context)
                 ? RateLimitPartition.GetFixedWindowLimiter(
@@ -83,12 +99,12 @@ public static class RateLimiting
                     })
                 : RateLimitPartition.GetNoLimiter("not-content"));
 
-        // adminLogin precedes adminApi for the same refund reason as above: a
-        // login request matches both, and the tighter limiter has to refuse
-        // first. Note that /api/admin is never given a no-limiter partition,
-        // which would leave the public password endpoint unbounded.
+        // adminLogin and adminEnroll precede adminApi for the same refund reason
+        // as above: a login request matches both, and the tighter limiter has
+        // to refuse first. Note that /api/admin is never given a no-limiter
+        // partition, which would leave the public password endpoints unbounded.
         options.GlobalLimiter = PartitionedRateLimiter.CreateChained(
-            perClient, wholeSite, adminLogin, adminApi, contentApi);
+            perClient, wholeSite, adminLogin, adminEnroll, adminApi, contentApi);
 
         options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
         options.OnRejected = (context, _) =>
@@ -131,5 +147,26 @@ public static class RateLimiting
 
     private static bool IsLoginAttempt(HttpContext context) =>
         HttpMethods.IsPost(context.Request.Method)
-        && context.Request.Path.Equals("/api/admin/login", StringComparison.Ordinal);
+        && RoutesTo(context, "/api/admin/login");
+
+    private static bool IsEnrollAttempt(HttpContext context) =>
+        HttpMethods.IsPost(context.Request.Method)
+        && (RoutesTo(context, "/api/admin/login/start") || RoutesTo(context, "/api/admin/login/enroll"));
+
+    // Matched the way endpoint routing matches a literal route: ignoring case,
+    // and with one trailing slash allowed. An exact comparison let
+    // POST /api/admin/LOGIN/Start or /api/admin/login/start/ reach the handler
+    // with only the admin budget of 600 charged, so the password endpoints'
+    // 5 per window never fired for anyone who changed a letter.
+    private static bool RoutesTo(HttpContext context, string route)
+    {
+        var path = context.Request.Path.Value ?? string.Empty;
+
+        if (path.EndsWith('/'))
+        {
+            path = path[..^1];
+        }
+
+        return string.Equals(path, route, StringComparison.OrdinalIgnoreCase);
+    }
 }

@@ -3,7 +3,10 @@ using System.Net.Http.Json;
 using Kestridge.Api.Admin;
 using Kestridge.Api.Contact;
 using Kestridge.Api.Data;
-using Kestridge.Api.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MySqlConnector;
 
 namespace Kestridge.Api.Tests;
 
@@ -67,6 +70,18 @@ public class LoggingHygieneTests(MySqlFixture fixture) : DatabaseTestBase(fixtur
 
         Assert.NotEmpty(factory.Logs.Lines);
         AssertClean(factory);
+
+        // With EF's own error lines off, this line is the only record of what
+        // the database said when the mail fails too. The pattern is the whole
+        // line, so it proves the line carries the type and the error number
+        // and nothing else: no exception, and no server message that could
+        // quote a field. 1042 is MySqlConnector's number for a host it cannot
+        // reach, which is what DeadConnection is.
+        var stored = Assert.Single(factory.Logs.Lines, l => l.Contains("contact.store_error", StringComparison.Ordinal));
+        Assert.Matches(
+            @"^Kestridge\.Api\.Contact Error contact\.store_error type=[A-Za-z]+ number=1042 code=UnableToConnectToHost $",
+            stored);
+        Assert.Contains(factory.Logs.Lines, l => l.Contains("contact.store_failed", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -166,33 +181,180 @@ public class LoggingHygieneTests(MySqlFixture fixture) : DatabaseTestBase(fixtur
 
     private const string OperatorName = "ZZOPERATORZZ";
 
-    private async Task<HttpClient> SignedInAsync(ApiFactory factory)
+    // A username, a display name and two passwords, all sentinels, driven
+    // through every users and first sign-in path. The secret and both tokens are
+    // random, so they are checked by value after the fact.
+    [SkippableFact]
+    public async Task AdminUserPaths_LogNoUsernameDisplayNamePasswordSecretOrToken()
     {
-        var now = factory.Clock.GetUtcNow().UtcDateTime;
-        var token = AdminSessions.NewToken();
+        RequireDatabase();
+
+        const string username = "zzuserzz";
+        const string displayName = "ZZDISPLAYZZ";
+        const string initialPassword = "ZZINITIALPASSZZ";
+        const string chosenPassword = "ZZCHOSENPASSZZ";
+
+        using var factory = CreateFactory(AdminTestAccounts.FactorySettings());
+        var op = await AdminTestAccounts.CreateAsync(Db, factory, "logtester", OperatorName);
+        using var client = await AdminTestAccounts.SignedInAsync(Db, factory, op);
+        using var anonymous = factory.CreateClient();
+
+        var created = await client.PostAsJsonAsync("/api/admin/users/create", new
+        {
+            username,
+            displayName,
+            password = initialPassword,
+            code = AdminTestAccounts.Code(factory, op.Secret),
+        });
+        Assert.Equal(System.Net.HttpStatusCode.OK, created.StatusCode);
+
+        await client.GetAsync("/api/admin/users");
+
+        // A wrong password, then the right one, which returns the setup data.
+        await anonymous.PostAsJsonAsync("/api/admin/login/start", new { username, password = chosenPassword });
+        var started = await anonymous.PostAsJsonAsync("/api/admin/login/start", new { username, password = initialPassword });
+        var setup = System.Text.Json.JsonDocument.Parse(await started.Content.ReadAsStringAsync()).RootElement;
+        var setupToken = setup.GetProperty("token").GetString()!;
+        var secret = setup.GetProperty("secret").GetString()!;
+
+        // A refused password, then success.
+        await anonymous.PostAsJsonAsync("/api/admin/login/enroll", new
+        {
+            token = setupToken,
+            code = AdminTestAccounts.Code(factory, secret),
+            newPassword = initialPassword,
+        });
+
+        var enrolled = await anonymous.PostAsJsonAsync("/api/admin/login/enroll", new
+        {
+            token = setupToken,
+            code = AdminTestAccounts.Code(factory, secret),
+            newPassword = chosenPassword,
+        });
+        Assert.Equal(System.Net.HttpStatusCode.OK, enrolled.StatusCode);
+
+        var sessionToken = System.Text.Json.JsonDocument.Parse(await enrolled.Content.ReadAsStringAsync())
+            .RootElement.GetProperty("token").GetString()!;
+
+        long id;
+        await using (var db = Db())
+        {
+            id = db.AdminAccounts.Single(x => x.Username == username).Id;
+        }
+
+        await anonymous.PostAsJsonAsync("/api/admin/login", new
+        {
+            username,
+            password = chosenPassword,
+            code = AdminTestAccounts.Code(factory, secret, 1),
+        });
+
+        factory.Clock.Advance(TimeSpan.FromSeconds(Totp.StepSeconds));
+
+        await client.PostAsJsonAsync(
+            "/api/admin/users/" + id.ToString(CultureInfo.InvariantCulture) + "/reset-authenticator",
+            new { code = AdminTestAccounts.Code(factory, op.Secret) });
+        await client.PostAsync("/api/admin/users/" + id.ToString(CultureInfo.InvariantCulture) + "/disable", null);
+
+        factory.Clock.Advance(TimeSpan.FromSeconds(Totp.StepSeconds));
+
+        await client.PostAsJsonAsync("/api/admin/users/create", new
+        {
+            username = username + "2",
+            displayName,
+            password = initialPassword,
+            code = AdminTestAccounts.Code(factory, op.Secret),
+        });
 
         await using (var db = Db())
         {
-            var account = new AdminAccount
-            {
-                Username = "logtester",
-                DisplayName = OperatorName,
-                PasswordHash = "not-used-on-this-path",
-                TotpSecret = Totp.NewSecret(),
-                CreatedAt = now,
-            };
-
-            db.AdminAccounts.Add(account);
-            await db.SaveChangesAsync();
-
-            db.AdminSessions.Add(AdminSessions.Issue(account.Id, AdminSessions.Hash(token), now, new AdminOptions()));
-            await db.SaveChangesAsync();
+            var pending = db.AdminEnrollments.Single(x => x.Username == username + "2").Id;
+            await client.PostAsync(
+                "/api/admin/users/pending/" + pending.ToString(CultureInfo.InvariantCulture) + "/delete", null);
         }
 
-        var client = factory.CreateClient();
-        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        return client;
+        Assert.NotEmpty(factory.Logs.Lines);
+
+        string[] forbidden = [username, displayName, initialPassword, chosenPassword, OperatorName, secret, setupToken, sessionToken];
+        foreach (var line in factory.Logs.Lines)
+        {
+            foreach (var value in forbidden)
+            {
+                Assert.DoesNotContain(value, line, StringComparison.OrdinalIgnoreCase);
+            }
+        }
     }
+
+    // EF logs a failed save and a failed command at Error with the server's
+    // message, before any catch in the application runs, and for a unique
+    // username index that message is "Duplicate entry '<username>'". Program.cs
+    // turns both events off. Forced through the application's own registered
+    // DbContext, so what is tested is the options the app runs with, not a copy.
+    [SkippableFact]
+    public async Task DuplicateUsername_IsNotLoggedByEntityFramework()
+    {
+        RequireDatabase();
+
+        const string username = "zzdupuserzz";
+
+        using var factory = CreateFactory();
+        var now = factory.Clock.GetUtcNow().UtcDateTime;
+
+        AdminEnrollment Invitation() => new()
+        {
+            Username = username,
+            DisplayName = "Someone",
+            CreatedAt = now,
+            ExpiresAt = now.AddHours(72),
+        };
+
+        using (var scope = factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<KestridgeDbContext>();
+
+            db.AdminEnrollments.Add(Invitation());
+            await db.SaveChangesAsync();
+
+            db.AdminEnrollments.Add(Invitation());
+            var ex = await Assert.ThrowsAsync<DbUpdateException>(() => db.SaveChangesAsync());
+            var server = Assert.IsType<MySqlException>(ex.InnerException);
+            Assert.Equal(1062, server.Number);
+
+            // The value this guards against: the server's message names it.
+            Assert.Contains(username, server.Message, StringComparison.Ordinal);
+
+            // The configured levels let nothing else from EF through here, so an
+            // empty capture would prove nothing. Show it would have seen an
+            // Error in both of EF's categories. The silence asserted next is
+            // then the suppression, not a filter.
+            var loggers = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+            loggers.CreateLogger("Microsoft.EntityFrameworkCore.Update").LogError("zzcapturecheckzz update");
+            loggers.CreateLogger("Microsoft.EntityFrameworkCore.Database.Command").LogError("zzcapturecheckzz command");
+        }
+
+        Assert.Equal(2, factory.Logs.Lines.Count(l => l.Contains("zzcapturecheckzz", StringComparison.Ordinal)));
+        Assert.DoesNotContain(factory.Logs.Lines, l => l.Contains(username, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // The other half of turning those events off: a database error that nothing
+    // catches still reaches UseExceptionHandler, which logs it.
+    [Fact]
+    public async Task UnhandledDatabaseError_IsStillLoggedByTheExceptionHandler()
+    {
+        using var factory = new ApiFactory { ConnectionString = DeadConnection };
+        using var client = factory.CreateClient();
+
+        using var response = await client.PostAsJsonAsync(
+            "/api/admin/login", new { username = "emil", password = "x", code = "123456" });
+
+        Assert.Equal(System.Net.HttpStatusCode.InternalServerError, response.StatusCode);
+        Assert.Contains(factory.Logs.Lines, l =>
+            l.StartsWith("Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware Error", StringComparison.Ordinal)
+            && l.Contains("MySqlException", StringComparison.Ordinal));
+    }
+
+    private Task<HttpClient> SignedInAsync(ApiFactory factory)
+        => AdminTestAccounts.SignedInAsync(Db, factory, "logtester", OperatorName);
 
     // Guards against an accidental log.LogInformation("{Input}", input).
     [Fact]

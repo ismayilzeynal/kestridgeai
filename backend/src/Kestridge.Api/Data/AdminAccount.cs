@@ -1,10 +1,19 @@
 namespace Kestridge.Api.Data;
 
-// Rows are created by ops/admin-account.sql as the migrator, never by the
-// application. kestridge_app holds SELECT plus a column-level UPDATE on the
-// five counters below, so a compromised process cannot rewrite a password hash,
-// swap a TOTP secret, rename an operator, or re-enable a disabled account.
-public sealed class AdminAccount
+// Rows come from two places: the panel, when a new user completes first sign-in
+// (AdminEnroll), and ops/admin-account.sql run as the migrator, which is how the
+// first account and every recovery are made.
+//
+// kestridge_app holds SELECT and INSERT, plus a column-level UPDATE on the lockout
+// counters, last_login_at, totp_last_step and totp_secret, and no DELETE. So a
+// password is written once, by INSERT, and a compromised process can never
+// rewrite a hash, rename an operator, re-enable a disabled account or delete one.
+// It can clear or set totp_secret, which the authenticator reset needs; a new
+// secret is useless without the password it cannot change.
+//
+// Never db.AdminAccounts.Update(entity): EF would emit every column and the
+// grant refuses that with ERROR 1143. Mutate tracked properties only.
+public sealed class AdminAccount : IFailureCounted
 {
     private DateTime _createdAt;
     private DateTime? _firstFailedAt;
@@ -13,15 +22,18 @@ public sealed class AdminAccount
 
     public long Id { get; set; }
 
-    // ascii_bin, so the login handler lowercases before lookup and
-    // admin-account.sql stores lowercase. Same pattern as contact email.
+    // ascii_bin, so the login handler lowercases before lookup, and both the
+    // panel create path and admin-account.sql store lowercase. Same pattern as
+    // contact email.
     public string Username { get; set; } = string.Empty;
 
     public string DisplayName { get; set; } = string.Empty;
 
     public string PasswordHash { get; set; } = string.Empty;
 
-    // Base32, as an authenticator app expects it.
+    // Base32, as an authenticator app expects it. Empty means no authenticator:
+    // Totp.Verify refuses an empty secret, so such an account cannot sign in
+    // until a reset enrolment gives it one.
     public string TotpSecret { get; set; } = string.Empty;
 
     // Replay prevention. Without it a code seen over someone's shoulder is

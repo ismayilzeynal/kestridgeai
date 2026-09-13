@@ -2,11 +2,17 @@
 // 'script', and submission text arrives from a public form: rendering it as
 // markup would be stored XSS on the origin that holds the token.
 import { initSite, openSite } from "./content.js";
+import { initUsers, openUsers } from "./users.js";
 
 const $ = (id) => document.getElementById(id);
 let token = sessionStorage.getItem("k") || "";
 let cursor = null;
 let lastPreview = null;
+
+// The setup token from /login/start. Memory only, never sessionStorage: with
+// the secret shown next to it, it is a finished sign-in for whoever holds it,
+// because the code it needs can be computed from that secret.
+let setup = null;
 
 // sessionStorage, not localStorage: the token dies with the tab.
 const save = (t) => { token = t; if (t) sessionStorage.setItem("k", t); else sessionStorage.removeItem("k"); };
@@ -19,12 +25,12 @@ async function api(path, body, raw) {
   if (r.status === 401) { save(""); show("login"); throw new Error("auth"); }
   if (raw) return r;
   const data = await r.json().catch(() => ({ ok: false, error: "parse" }));
-  if (!r.ok) throw Object.assign(new Error(data.error || "error"), { data });
+  if (!r.ok) throw Object.assign(new Error(data.error || "error"), { data, status: r.status });
   return data;
 }
 
 function show(view) {
-  for (const id of ["login", "inbox", "detail", "privacy", "jobs", "site"]) $(id).hidden = id !== view;
+  for (const id of ["login", "inbox", "detail", "privacy", "jobs", "site", "users"]) $(id).hidden = id !== view;
   $("bar").hidden = view === "login";
 
   for (const b of document.querySelectorAll("nav button")) {
@@ -32,6 +38,7 @@ function show(view) {
   }
 
   if (view === "login") {
+    endSetup();
     $("step1").hidden = false;
     $("step2").hidden = true;
   }
@@ -47,11 +54,17 @@ const clear = (n) => { while (n.firstChild) n.removeChild(n.firstChild); };
 const when = (iso) => iso ? new Date(iso).toISOString().replace("T", " ").slice(0, 16) + " UTC" : "";
 
 // Username and password first, then the code, because that is the shape people
-// expect. The split is presentational only: nothing is sent until both steps
-// are filled, so the server never gets the chance to confirm that a password
-// was right before asking for a second factor. A real two-request flow would be
-// an oracle: "wrong password" and "now enter your code" are different answers,
-// and the second one tells an attacker the first half is correct.
+// expect. Continue asks /login/start first, because an account that has no
+// authenticator yet has no code to type, and the panel has to know that before
+// it asks for one. That call must not become the oracle a two-request flow
+// usually is ("wrong password" and "now enter your code" are different
+// answers). So the server gives one byte identical answer, after one hash
+// check, for an unknown user, a wrong password, a right password, and a
+// disabled or locked account, and the panel goes to the code step on all of
+// them. Only the password of an account waiting for its first sign-in or an
+// authenticator reset gets a different answer, and that answer is the setup
+// itself. For everyone else the password and the code are still judged
+// together, by /login.
 function loginStep(n) {
   $("step1").hidden = n !== 1;
   $("step2").hidden = n !== 2;
@@ -59,7 +72,7 @@ function loginStep(n) {
   ($(n === 1 ? "lu" : "lc")).focus();
 }
 
-$("next").addEventListener("click", () => {
+$("next").addEventListener("click", async () => {
   const user = $("lu").value.trim();
 
   if (!user || !$("lp").value) {
@@ -67,9 +80,130 @@ $("next").addEventListener("click", () => {
     return;
   }
 
-  $("asWho").textContent = "Signing in as " + user + ".";
-  loginStep(2);
+  $("next").disabled = true;
+  $("loginError").textContent = "";
+  try {
+    const d = await api("/login/start", { username: $("lu").value, password: $("lp").value });
+    if (d.enroll) {
+      startSetup(d);
+      return;
+    }
+
+    $("asWho").textContent = "Signing in as " + user + ".";
+    loginStep(2);
+  } catch (err) {
+    $("loginError").textContent = err.status === 429
+      ? "Too many attempts from this network. Wait a few minutes and try again."
+      : "Sign in is not available right now. Try again in a minute.";
+  } finally {
+    $("next").disabled = false;
+  }
 });
+
+// The secret is shown in groups of four because it is read off a screen and
+// typed into a phone, and 32 characters in one run is where people slip.
+function startSetup(d) {
+  setup = { token: d.token, setPassword: d.setPassword };
+
+  // The password was only needed to earn the token, so it does not wait in a
+  // hidden field for the rest of the setup.
+  $("lp").value = "";
+  $("lc").value = "";
+  $("loginError").textContent = "";
+
+  $("setupWho").textContent = "Setting up " + d.username + ".";
+  $("setupQr").setAttribute("src", d.qr);
+  $("setupSecret").textContent = d.secret.match(/.{1,4}/g).join(" ");
+  $("setupPassword").hidden = !d.setPassword;
+
+  $("loginForm").hidden = true;
+  $("setupForm").hidden = false;
+  $(d.setPassword ? "sp" : "sc").focus();
+}
+
+// Cancel, success, a timed out setup and show("login") all end here, so the
+// token and the secret never outlive the screen that needed them.
+function endSetup() {
+  setup = null;
+  $("setupForm").reset();
+  $("setupQr").removeAttribute("src");
+  $("setupSecret").textContent = "";
+  $("setupForm").hidden = true;
+  $("loginForm").hidden = false;
+}
+
+$("setupCancel").addEventListener("click", () => {
+  endSetup();
+  loginStep(1);
+});
+
+$("setupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("loginError").textContent = "";
+
+  const newPassword = setup.setPassword ? $("sp").value : "";
+  if (setup.setPassword) {
+    if (newPassword.length < 12 || newPassword.length > 128) {
+      $("loginError").textContent = "Choose a new password between 12 and 128 characters long.";
+      $("sp").focus();
+      return;
+    }
+
+    if (newPassword !== $("sp2").value) {
+      $("loginError").textContent = "The two new passwords are not the same.";
+      $("sp2").focus();
+      return;
+    }
+  }
+
+  $("finish").disabled = true;
+  try {
+    const d = await api("/login/enroll", { token: setup.token, code: $("sc").value.trim(), newPassword });
+    endSetup();
+    signedIn(d);
+  } catch (err) {
+    const detail = err.data || {};
+
+    // 409, and not 401: api() treats every 401 as a lost session. The token
+    // or the setup ran out, and a new start is the only way to get another,
+    // so the form goes back to the beginning.
+    if (err.status === 409 || detail.field === "token") {
+      endSetup();
+      loginStep(1);
+      $("lp").focus();
+      $("loginError").textContent = "Setup timed out. Sign in again to get a new code, and replace the"
+        + " Kestridge entry in your app with the new one.";
+      return;
+    }
+
+    if (detail.field === "newPassword") {
+      $("loginError").textContent = detail.reason === "same"
+        ? "The new password has to be different from the one you were given."
+        : "Choose a new password between 12 and 128 characters long.";
+      $("sp").focus();
+    } else if (detail.field === "code") {
+      $("sc").value = "";
+      $("sc").focus();
+      // Every start writes a new secret, so an entry scanned from an earlier
+      // setup screen can never match, and waiting for its next code does not help.
+      $("loginError").textContent = "That code did not match. Wait for the next code and try again."
+        + " If you scanned an earlier code, delete that entry and scan the one shown here.";
+    } else {
+      $("loginError").textContent = err.status === 429
+        ? "Too many attempts from this network. Wait a few minutes and try again."
+        : "Setup could not be finished. Try again in a minute.";
+    }
+  } finally {
+    $("finish").disabled = false;
+  }
+});
+
+function signedIn(d) {
+  save(d.token);
+  $("who").textContent = d.displayName;
+  $("loginForm").reset();
+  openInbox();
+}
 
 $("back").addEventListener("click", () => {
   $("lp").value = "";
@@ -92,18 +226,18 @@ $("loginForm").addEventListener("submit", async (e) => {
   const f = new FormData(e.target);
   try {
     const d = await api("/login", { username: f.get("username"), password: f.get("password"), code: f.get("code") });
-    save(d.token);
-    $("who").textContent = d.displayName;
-    e.target.reset();
-    openInbox();
+    signedIn(d);
   } catch {
     // One message for every failure. The server answers 401 identically for a
-    // wrong password, an unknown user, a locked account and a reused code, so
-    // the panel cannot be used to discover which usernames exist. It stays on
-    // the code step because a stale code is the likeliest cause by far; the
-    // button underneath is the way back to the password.
+    // wrong password, an unknown user, a locked account, a reused code and an
+    // account with no authenticator, so the panel cannot be used to discover
+    // which usernames exist. It stays on the code step because a stale code is
+    // the likeliest cause by far; the button underneath is the way back to the
+    // password. api() has already sent the form back to the first step on that
+    // 401, so the code step is shown again here, before the message, because
+    // loginStep() clears it.
+    loginStep(2);
     $("lc").value = "";
-    $("lc").focus();
     $("loginError").textContent =
       "Sign in failed. The code may already have been used, or the password may be wrong.";
   }
@@ -115,7 +249,7 @@ $("logout").addEventListener("click", async () => {
 });
 
 for (const b of document.querySelectorAll("nav button")) {
-  b.addEventListener("click", () => ({ inbox: openInbox, site: openSite, privacy: openPrivacy, jobs: openJobs })[b.dataset.view]());
+  b.addEventListener("click", () => ({ inbox: openInbox, site: openSite, privacy: openPrivacy, jobs: openJobs, users: openUsers })[b.dataset.view]());
 }
 
 async function openInbox(append) {
@@ -283,9 +417,10 @@ async function openJobs() {
   root.appendChild(t);
 }
 
-// Injected rather than imported the other way round, so admin.js and
-// content.js do not form an import cycle.
+// Injected rather than imported the other way round, so admin.js does not form
+// an import cycle with content.js or users.js.
 initSite({ api, el, clear, show, when });
+initUsers({ api, el, clear, show, when });
 
 // Restore a session across a reload without asking for the code again.
 if (token) {

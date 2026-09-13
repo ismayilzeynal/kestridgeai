@@ -14,8 +14,11 @@ public static class AdminEndpoints
     public static void MapAdmin(this IEndpointRouteBuilder app)
     {
         // Outside the group on purpose: the token filter must not run on the
-        // endpoint whose job is to issue the token.
+        // endpoints whose job is to issue the token. Each one runs the origin
+        // check itself instead.
         app.MapPost("/api/admin/login", AdminLogin.Handle);
+        app.MapPost("/api/admin/login/start", AdminEnroll.Start);
+        app.MapPost("/api/admin/login/enroll", AdminEnroll.Complete);
 
         // RequireCors is called on nothing here. The panel is same origin, so
         // the CORS middleware has nothing to do, and the "site" policy already
@@ -60,6 +63,12 @@ public static class AdminEndpoints
         admin.MapGet("/content/services", AdminContentEndpoints.ServicesGet);
         admin.MapPost("/content/services/save", AdminContentEndpoints.ServiceSave);
         admin.MapPost("/content/services/reorder", AdminContentEndpoints.ServiceReorder);
+
+        admin.MapGet("/users", AdminUserEndpoints.List);
+        admin.MapPost("/users/create", AdminUserEndpoints.Create);
+        admin.MapPost("/users/{id:long}/reset-authenticator", AdminUserEndpoints.ResetAuthenticator);
+        admin.MapPost("/users/{id:long}/disable", AdminUserEndpoints.Disable);
+        admin.MapPost("/users/pending/{id:long}/delete", AdminUserEndpoints.DeletePending);
 
         // No MapFallbackToFile. It would catch an unmatched /api/admin/* and
         // answer HTML with a 200 where a JSON 404 was intended.

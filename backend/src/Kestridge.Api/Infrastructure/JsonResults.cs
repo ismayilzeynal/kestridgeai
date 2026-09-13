@@ -11,6 +11,11 @@ public static class JsonResults
     public static IResult Invalid(string field) =>
         Results.Json(new { ok = false, error = "invalid", field }, statusCode: StatusCodes.Status400BadRequest);
 
+    // The panel's shape, where one field can fail for more than one reason and
+    // the sentence shown depends on which.
+    public static IResult Invalid(string field, string reason) =>
+        Results.Json(new { ok = false, error = "invalid", field, reason }, statusCode: StatusCodes.Status400BadRequest);
+
     public static IResult Origin() =>
         Results.Json(new { ok = false, error = "origin" }, statusCode: StatusCodes.Status403Forbidden);
 

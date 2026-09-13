@@ -126,6 +126,92 @@ public class RateLimitTests
         Assert.Equal(HttpStatusCode.OK, differentSlash64.StatusCode);
     }
 
+    // First sign-in checks a password, so it is held to the login budget, in a
+    // partition of its own: spending it must not also spend /login's, which a
+    // normal sign-in calls straight after start.
+    [Fact]
+    public async Task EnrollEndpoints_HaveTheLoginBudgetInTheirOwnPartition()
+    {
+        using var factory = new ApiFactory
+        {
+            ConnectionString = DeadConnection,
+            Settings = new Dictionary<string, string?>
+            {
+                ["Kestridge:RateLimit:LoginPermitsPerWindow"] = "2",
+                ["Kestridge:RateLimit:WindowMinutes"] = "10",
+            },
+        };
+
+        using var client = factory.CreateClient();
+
+        // A foreign Origin makes each handler answer 403 before it touches the
+        // dead database, so what is measured is only the limiter.
+        async Task<HttpStatusCode> Post(string path)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Post, path)
+            {
+                Content = System.Net.Http.Json.JsonContent.Create(new { username = "x", password = "y" }),
+            };
+
+            request.Headers.Add("Origin", "https://attacker.example");
+            request.Headers.Add(ApiFactory.ClientAddressHeader, "203.0.113.20");
+
+            using var response = await client.SendAsync(request);
+            return response.StatusCode;
+        }
+
+        Assert.Equal(HttpStatusCode.Forbidden, await Post("/api/admin/login/start"));
+        Assert.Equal(HttpStatusCode.Forbidden, await Post("/api/admin/login/enroll"));
+        Assert.Equal(HttpStatusCode.TooManyRequests, await Post("/api/admin/login/start"));
+        Assert.Equal(HttpStatusCode.TooManyRequests, await Post("/api/admin/login/enroll"));
+
+        Assert.Equal(HttpStatusCode.Forbidden, await Post("/api/admin/login"));
+    }
+
+    // Routing ignores case and one trailing slash, so the limiters have to as
+    // well. A variant that reaches the handler without spending a permit from
+    // the tight partition is a way round the 5 per window. Each variant is sent
+    // first, to a fresh factory with a budget of one: the 403 shows routing took
+    // it to the handler, and the 429 on the plain path straight after, from the
+    // same address, shows it spent the permit the plain path needed.
+    [Theory]
+    [InlineData("/api/admin/LOGIN/Start", "/api/admin/login/start")]
+    [InlineData("/api/admin/login/start/", "/api/admin/login/start")]
+    [InlineData("/api/admin/Login/Enroll/", "/api/admin/login/enroll")]
+    [InlineData("/api/admin/LOGIN", "/api/admin/login")]
+    [InlineData("/api/admin/login/", "/api/admin/login")]
+    public async Task PasswordEndpointLimiters_MatchPathsTheWayRoutingDoes(string variant, string plain)
+    {
+        using var factory = new ApiFactory
+        {
+            ConnectionString = DeadConnection,
+            Settings = new Dictionary<string, string?>
+            {
+                ["Kestridge:RateLimit:LoginPermitsPerWindow"] = "1",
+                ["Kestridge:RateLimit:WindowMinutes"] = "10",
+            },
+        };
+
+        using var client = factory.CreateClient();
+
+        async Task<HttpStatusCode> Post(string path)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Post, path)
+            {
+                Content = System.Net.Http.Json.JsonContent.Create(new { username = "x", password = "y" }),
+            };
+
+            request.Headers.Add("Origin", "https://attacker.example");
+            request.Headers.Add(ApiFactory.ClientAddressHeader, "203.0.113.30");
+
+            using var response = await client.SendAsync(request);
+            return response.StatusCode;
+        }
+
+        Assert.Equal(HttpStatusCode.Forbidden, await Post(variant));
+        Assert.Equal(HttpStatusCode.TooManyRequests, await Post(plain));
+    }
+
     [Fact]
     public async Task RateLimitedResponse_CarriesRetryAfterAndCorsHeaders()
     {

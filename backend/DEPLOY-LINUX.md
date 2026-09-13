@@ -94,7 +94,10 @@ Runs the tests, publishes Release, rsyncs into `/srv/kestridge-api` (excluding
 the secrets file), installs the systemd unit, starts it, and polls
 `/api/health` until it answers 200.
 
-52 tests skip because there is no test database on this box. That is expected.
+Nothing is skipped. The script runs the suite with `CI=1`, so if `kestridge_test`
+is not provisioned (see "The test database is not optional" below) the suite
+fails and the deploy stops here. A plain `dotnet test` on a machine with no test
+database reports 276 passed and 128 skipped of 404 instead.
 
 If it fails, the script prints the last 40 journal lines. The most common cause
 by far is options validation: a missing value in the secrets file. Fix it, then
@@ -275,6 +278,9 @@ cd backend
 dotnet dotnet-ef migrations script --idempotent --project src/Kestridge.Api -o ops/migrate.sql
 sed -e '1s/^\xEF\xBB\xBF//' -e 's/\r$//' ops/migrate.sql | mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge
 
+# And when it added a table, or ops/04-table-grants.sql changed:
+sudo mysql < ops/04-table-grants.sql
+
 sudo bash ops/linux/03-deploy.sh
 ```
 
@@ -338,6 +344,135 @@ render, which are the same words.
 and redeploying.** That puts every section back on the constants in
 `src/data/*.ts` without touching the database or the API, with no build failure
 and no blank page.
+
+### Deploying admin user management (stage 3)
+
+The panel gains a Users tab and first sign-in enrolment. The new build reads two
+new tables, `admin_enrollments` and `admin_disables`, on every sign-in and on
+every panel request, so the tables and their grants have to exist before the
+build does. The contact form and `/api/content` never touch them.
+
+```bash
+cd ~/kestridgeai && git pull
+cd backend
+
+# 1. Schema, as the migrator. ops/migrate.sql is committed already regenerated
+#    with the AdminUserManagement migration. The sed is harmless on it, and not
+#    optional if you regenerate the script here, because EF writes a BOM.
+sed -e '1s/^\xEF\xBB\xBF//' -e 's/\r$//' ops/migrate.sql | mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge
+sudo mysql kestridge -e "SHOW TABLES LIKE 'admin%';"
+#    Expect four: admin_accounts, admin_disables, admin_enrollments, admin_sessions.
+
+# 2. Grants, as root, after the migration or ERROR 1146. This is also the step
+#    that lets kestridge_app create accounts; RUNBOOK.md, "The account
+#    boundary", says exactly what it can and cannot do from here on.
+sudo mysql < ops/04-table-grants.sql
+
+# 3. Check them before any code depends on them. The five finding queries
+#    must print nothing.
+sudo mysql < ops/03-verify-grants.sql
+
+# 4. Deploy.
+sudo bash ops/linux/03-deploy.sh
+```
+
+**Step 4 before steps 1 and 2 locks everyone out of the panel.** Continue on
+the sign-in form answers "Sign in is not available right now", an open panel
+fails on its next click, `/api/health` stays green, and
+`journalctl -u kestridge-api -p err` shows a `MySqlException` naming one of
+the two tables. Run steps 1 to 3; no redeploy is needed after them.
+
+Then smoke test it in a browser. It needs your own account and a second entry
+in an authenticator app, which can be on your own phone.
+
+1. **Create a user.** Users tab, "Create a user": username `smoketest`, display
+   name `Smoke Test`, a temporary password, and your current code. Expect a
+   confirmation under the form, `smoketest` under "Waiting for first sign-in",
+   and a mail at `info@kestridge.com` with the subject
+   `Kestridge admin: account created for smoketest`. A warning that the notice
+   mail was not sent means SMTP, not the feature.
+2. **First sign-in.** In a private window, sign in as `smoketest` with the
+   temporary password. Expect "Set up your authenticator" with a QR code
+   instead of the code step. Scan it, choose a new password, type the code,
+   Finish setup. Expect the inbox, signed in as Smoke Test. This is the first
+   time the QR code is drawn on Linux: if Continue answers "Sign in is not
+   available right now" for this user only, the journal has the exception.
+3. **Reset.** Back in your own window, "Reset authenticator" on `smoketest`,
+   with your next code, not the one step 1 spent. Expect the second mail. The
+   private window's next click lands on the sign-in form. Signing in there with
+   the password chosen in step 2 shows the setup screen again, this time
+   without the password fields; finish it with a fresh scan.
+4. **Disable.** "Disable" on `smoketest`. The private window's next click lands
+   on the sign-in form, and signing in again goes to the code step and fails.
+
+Steps 2 to 4 can run into the rate limit before the disable is proven. Continue
+and Finish setup share one budget of 5 per 10 minutes per client address, the
+window starts at the first of them, and both browser windows here are one
+address. The deploy restarts the process, which starts the count again: your
+own Continue is 1, step 2 is 2 more, step 3 is 2 more, so step 4's Continue is
+the sixth, and every mistyped setup code adds one. (If your window stayed
+signed in through the deploy, you never pressed Continue and it is one fewer.)
+When step 4 comes within 10 minutes of the first of them, Continue answers "Too
+many attempts from this network" instead of showing the code step, no sign-in
+request follows, and `admin.login_blocked` is not logged. That says nothing
+about the disable. Wait until 10 minutes have passed since the first of them
+and sign in again, or do step 4 from another network.
+
+```bash
+sudo journalctl -u kestridge-api --since "30 min ago" --no-pager | grep 'admin\.'
+```
+
+Expect these among the lines, in this order: `admin.user_created`,
+`admin.enroll_started`, `admin.enrolled`, `admin.authenticator_reset`,
+`admin.enroll_started`, `admin.enrolled`, `admin.user_disabled` and
+`admin.login_blocked`, each carrying a number or nothing, never a name, and no
+`admin.notice_failed`. Then delete the `smoketest` entries from the
+authenticator app.
+
+Do nothing else as `smoketest`, and the account can go afterwards. It stays
+listed as disabled, because the application can never delete an account row,
+but it handled nothing, so no `handled_by` carries its name and the migrator
+may remove it:
+
+```bash
+mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge -e "DELETE FROM admin_disables WHERE account_id = (SELECT id FROM admin_accounts WHERE username = 'smoketest'); DELETE FROM admin_accounts WHERE username = 'smoketest';"
+```
+
+**Rollback is redeploying the previous commit, with two steps first.** The old
+build is fine against the new tables and grants, but it knows nothing about
+`admin_disables`, so every account disabled from the panel would sign in again
+under it. Copy those disables into the column it does read, as the migrator,
+before it starts:
+
+```bash
+mysql -h 127.0.0.1 -u kestridge_migrator -p kestridge -e "UPDATE admin_accounts a JOIN admin_disables d ON d.account_id = a.id SET a.disabled = 1;"
+```
+
+The second step is for the test database, not production. The new build's
+test run already migrated `kestridge_test`, so it holds 13 tables, and the
+previous commit's `SchemaTests` counts every table there and expects 11.
+`03-deploy.sh` runs that suite before it publishes, so without this the
+rollback stops at the tests with "Expected: 11, Actual: 13" and the new build
+keeps running. Take the two tables and their migration row back out, as
+`kestridge_test`, which owns that schema:
+
+```bash
+mysql -h 127.0.0.1 -u kestridge_test -p kestridge_test -e "DROP TABLE admin_enrollments, admin_disables; DELETE FROM __EFMigrationsHistory WHERE MigrationId = '20260913122030_AdminUserManagement';"
+```
+
+Only `kestridge_test` is touched. Production keeps both tables through the
+rollback, and nothing needs undoing when the new build is deployed again: its
+test run migrates `kestridge_test` back to 13 tables by itself.
+
+An account waiting for a reset cannot sign in under the old build, and a user
+waiting for their first sign-in cannot finish it. Both need the CLI in
+`RUNBOOK.md` until the new build is back. The new grants can stay through a
+short rollback, since the old build never uses them. If the rollback becomes
+permanent, take back the two that widened the boundary:
+
+```bash
+sudo mysql -e "REVOKE INSERT ON kestridge.admin_accounts FROM 'kestridge_app'@'127.0.0.1'; REVOKE UPDATE (totp_secret) ON kestridge.admin_accounts FROM 'kestridge_app'@'127.0.0.1';"
+```
 
 ---
 
@@ -531,8 +666,9 @@ acceptable for it and only for it: the account holds `ALL` on
 production data. Override it with `KESTRIDGE_TEST_CONNECTION` if you would
 rather not.
 
-Without this the suite reports "Passed" while skipping 76 tests, including
-every test that checks the schema against the model. It did exactly that from
+Without this the suite reports "Passed" while skipping every database test,
+128 of 404 as of 13 September 2026, including every test that checks the
+schema against the model. It did exactly that from
 the first deploy until 10 September 2026, and it was hiding two real failures.
 
 ### The production mail settings

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.FileProviders;
 using System.Net;
 
@@ -18,7 +19,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // A CLI mode, before any host is built, so it needs no database and no
 // configuration beyond the iteration count. It prints SQL for a human to run as
-// the migrator; it never writes to MySQL itself. See AdminBootstrap for why.
+// the migrator; it never writes to MySQL itself. The panel creates users too,
+// but this is the only way to make the first account or to recover when nobody
+// can sign in. See AdminBootstrap for why.
 if (args.Contains(AdminBootstrap.Flag))
 {
     return AdminBootstrap.Run(
@@ -101,6 +104,14 @@ builder.Services.AddDbContext<KestridgeDbContext>((sp, options) =>
         new MySqlServerVersion(new Version(8, 0, 43)),
         mysql => mysql.CommandTimeout(15));
     options.AddInterceptors(sp.GetRequiredService<UtcTimeZoneInterceptor>());
+
+    // EF logs a failed command and a failed save at Error, with the server's
+    // message, before the handler's own catch runs. For a unique username
+    // index that message is "Duplicate entry '<username>'", and a race between
+    // two creates of one name would put the username in journald although the
+    // handler answers "taken" and logs nothing. An exception nobody catches
+    // still reaches UseExceptionHandler, which logs it there.
+    options.ConfigureWarnings(w => w.Ignore(CoreEventId.SaveChangesFailed, RelationalEventId.CommandError));
 });
 
 builder.Services.AddCors(options => options.AddPolicy("site", policy => policy

@@ -1,6 +1,6 @@
 # HANDOFF - Kestridge AI saytı
 
-Son yenilənmə: 7 sentyabr 2026
+Son yenilənmə: 13 sentyabr 2026
 Repo: https://github.com/ismayilzeynal/kestridgeai (əvvəl `testlogo-site` idi)
 Branch: `main`. Canlı: https://kestridge.com (www apex-ə 308 yönlənir).
 Build: `npx next build` təmiz. `npx tsc --noEmit` səhvsiz.
@@ -85,7 +85,7 @@ em dash/en dash sıfır. Tam qeyd: `copy-deck.json`.
 ## 1a. Backend (yeni)
 
 **Backend yazıldı: `backend/` qovluğu.** ASP.NET Core 10 (`net10.0`) + EF Core 9 +
-Pomelo 9.0.0 + MySQL 8. Bir proses, iki endpoint, üç cədvəl. Tam sənəd:
+Pomelo 9.0.0 + MySQL 8. Bir proses, bir baza. Tam sənəd:
 `backend/README.md`, əməliyyat: `backend/RUNBOOK.md`, hüquqi sorğular:
 `backend/DSR-PROCESS.md`.
 
@@ -104,11 +104,16 @@ Nə edir:
 4. 24 aydan sonra müraciətləri silir (legal hold istisna), hər silmə `job_runs`-a
    yazılır - vədin yerinə yetirildiyinin sübutu.
 5. `GET /api/health` - uptime monitorinq üçün.
+6. `https://api.kestridge.com/admin/` admin paneli: müraciətlər, hüquqi sorğular
+   (DSR), sayt mətninin redaktəsi və panelin öz istifadəçiləri (bax 1b).
+7. Sayt mətnini `GET /api/content` ilə sayta verir.
 
 Qərəzli olaraq **yazılmayanlar** (səbəbləri `backend/README.md`-də cədvəldir):
-kontent CMS (services/team/FAQ DB-də), admin API/UI, cookie, ayrıca outbox
-cədvəli, `ip_address`/`user_agent` sütunları, CAPTCHA, ziyarətçiyə avtocavab.
-Hər biri üçün "nə vaxt yenidən baxılsın" şərti yazılıb.
+cookie, paneldən şəkil yükləmə, başlıq/klass redaktəsi, yeni xidmət slug-ı,
+ayrıca outbox cədvəli, `ip_address`/`user_agent` sütunları, honeypot
+sətirləri, CAPTCHA, ziyarətçiyə avtocavab. Hər biri üçün "nə vaxt yenidən
+baxılsın" şərti yazılıb. Kontent CMS və admin panel əvvəl bu siyahıda idi,
+sonradan yazıldı.
 
 Testlər: `dotnet test`. MySQL qurulmayıbsa DB testləri **skip** olur (səbəb
 yazılır), CI-də isə fixture exception atır - yəni yaşıl CI heç vaxt boş olmur.
@@ -126,10 +131,12 @@ DB-ləri və grant-ları qurur, migrasiyanı tətbiq edir, connection string-i
 `dotnet user-secrets`-ə yazır və qalan parolları bir dəfə çap edir. Repoda heç
 bir parol saxlanmır.
 
-**Bloklayıcı:** `info@kestridge.com` hələ də açılmır (zonada MX yoxdur). Ona görə
-həm bildiriş ünvanı, həm də Privacy Policy-nin elan etdiyi hüquqi sorğu kanalı
-işləmir. Poçt qurulana qədər `Kestridge__Contact__ToAddress`-i real oxunan bir
-qutuya yönəldin.
+**Poçt işləyir.** `info@kestridge.com` Zoho Mail qutusudur (ABŞ data mərkəzi),
+MX və SPF Vercel zonasındadır. 10 sentyabr 2026-da canlı formadan göndərilən
+müraciətin bildirişi həmin qutuya çatdı. SMTP girişi `chingiz@kestridge.com`
+hesabının app password-u iləndir, çünki `info@` aliasdır və alias giriş edə
+bilmir: o parol ləğv olunsa bütün bildirişlər və admin hesab bildiriş
+məktubları dayanır. Qalır: DKIM, DMARC və Zoho ilə DPA.
 
 **Cookie yoxdur.** Backend heç bir cookie yaratmır - `CookieConsent.tsx`
 toxunulmamış qalır və hələ də yalnız `NEXT_PUBLIC_GA_ID`-ə bağlıdır. Bunu
@@ -164,24 +171,93 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
 
 ---
 
+## 1b. Admin istifadəçi idarəsi (13 sentyabr 2026, serverə hələ yüklənməyib)
+
+**Paneldə Users tab-ı.** Daxil olmuş istənilən operator:
+
+- yeni istifadəçi yaradır: username, görünən ad, müvəqqəti parol və öz
+  authenticator kodu;
+- başqasının authenticator-unu sıfırlayır (telefon itəndə və ya dəyişəndə);
+- hesabı deaktiv edir (offboarding; növbəti sorğuda qüvvəyə minir, açıq
+  sessiyalar və həmin operatorun yaratdığı, hələ gözləyən dəvətlər silinir);
+- ilk girişi heç tamamlanmamış istifadəçini silir.
+
+Heç kim öz hesabını sıfırlaya və ya deaktiv edə bilmir. Username və görünən
+ad sonradan paneldən dəyişdirilmir.
+
+**İlk giriş.** Yeni istifadəçi username və müvəqqəti parolla Continue basanda
+kod addımı əvəzinə "Set up your authenticator" ekranı çıxır: QR kod, eyni açar
+mətn kimi, öz yeni parolu (iki dəfə) və kod. Finish setup-dan sonra daxil olur,
+bundan sonra adi giriş: parol və kod. Müvəqqəti parol yeni parol kimi qəbul
+olunmur. Dəvət 72 saat (`Kestridge:Admin:EnrollHours`), bir setup ekranı 15
+dəqiqə (`Kestridge:Admin:EnrollTokenMinutes`) keçərlidir. Hər Continue yeni
+açar verir, ona görə əvvəlki ekrandan skan edilmiş giriş işləmir. Authenticator
+sıfırlanan hesab da növbəti girişdə eyni ekranı alır, parol sahələri olmadan.
+
+**Qoruyucular.** Yaratmaq və sıfırlamaq üçün operatordan təzə TOTP kodu
+istənir (masada açıq qalmış sessiya tək başına hesab yarada bilməsin). Hər
+ikisi komanda ünvanına (`Kestridge:Contact:ToAddress`) plain-text bildiriş
+məktubu göndərir: hansı hesab, kim etdi, nə vaxt və ilk giriş üçün son tarix;
+parol, açar və kod heç vaxt. Məktub bildirişlərlə eyni SMTP credential-ı ilə
+gedir, bir dəfə göndərilir və retry olunmur; alınmasa dəyişiklik qalır,
+operator paneldə xəbərdarlıq görür.
+
+**Baza nəyi hələ də zəmanət edir** (`kestridge_app` üçün,
+`ops/04-table-grants.sql`):
+
+- mövcud parol hash-ını heç vaxt dəyişə bilmir, parol bir dəfə INSERT ilə
+  yazılır;
+- operatorun username-ini və görünən adını dəyişə bilmir;
+- deaktiv hesabı yenidən aktiv edə bilmir: `disabled` sütununda UPDATE yoxdur,
+  panelin yazdığı `admin_disables` cədvəlində yalnız SELECT və INSERT var;
+- hesab sətrini silə bilmir.
+
+**Artıq edə bildikləri:** `admin_accounts`-a yeni hesab INSERT etmək və
+istənilən hesabın `totp_secret`-ini silmək və ya yazmaq. Yəni kompromis
+olmuş veb proses kod və məktub yoxlamasını keçib özünə hesab yarada bilər:
+bunlar tətbiq səviyyəsində qoruyucudur, baza səviyyəsində yox. Yazılmış yeni
+açar isə hesabın parolu olmadan heç nəyə yaramır, o hash-ı da dəyişə bilmir.
+Kompromis vaxtı yazdığı sessiya və dəvət sətirləri, həmçinin irəli çəkilmiş
+`totp_last_step` proses təmizlənəndən sonra da qalır, kimsə silənə qədər.
+Tam mətn və bərpa addımları: `backend/RUNBOOK.md` -> "The account boundary".
+
+**Niyə trigger yoxdur.** Sahibə "MySQL trigger-ləri" deyilmişdi, amma işləmir:
+idempotent `migrate.sql` hər əmri stored procedure-ə bükür və MySQL orada
+`CREATE TRIGGER`-i qəbul etmir; binlog açıq olduğu üçün trigger yaratmaq SUPER
+istəyir, root-dan başqa heç bir hesabda yoxdur; Windows backup
+`--triggers=FALSE` ilə dump edir, bərpadan sonra qoruyucu səssizcə itərdi.
+Ona görə grant-lar və iki yeni cədvəl: `admin_enrollments` (gözləyən ilk giriş
+və ya sıfırlama) və `admin_disables` (paneldən deaktiv).
+
+**Yalnız SQL ilə qalanlar** (`kestridge_migrator` kimi): yenidən aktiv etmək
+(həm `disabled = 0`, həm `admin_disables` sətrini silmək, ikisi də lazımdır),
+parol dəyişmək, ad dəyişmək, kilidi açmaq. CLI (`--hash-password`) ilk hesab
+və heç kim daxil ola bilməyəndə bərpa üçün saxlanıldı. Skriptlər:
+`ops/admin-account.sql`, `ops/admin-disable.sql`, `ops/admin-unlock.sql`.
+Deploy sırası: `backend/DEPLOY-LINUX.md` -> "Deploying admin user management
+(stage 3)".
+
+Testlər: 404 test; real MySQL-ə qarşı hamısı keçdi, o cümlədən tətbiq məhz
+`kestridge_app` grant-ları ilə qoşulanda. Test bazası olmadan 128-i skip olur.
+
+---
+
 ## 2. Sizdən gözlənilən
 
-1. **Poçt.** Provayder hələ seçilməyib (cavab gözlənilir). Seçiləndən sonra
-   onun MX + SPF + DKIM yazıları Vercel DNS zonasına əlavə olunmalıdır - zona
-   indi boşdur, ona görə `info@kestridge.com`-a yazılan məktub hazırda geri
-   qayıdır. Domen işi bunu pozmayıb, poçt heç vaxt qurulmamışdı.
-   `npx vercel dns add kestridge.com "" MX <host> <priority>`
-   Bu, launch üçün maneədir: sayt həmin ünvanı Contact bölməsində, footer-də və
-   JSON-LD-də elan edir, forma da endpoint boş olduğu müddətdə ora `mailto:` ilə
-   yönəldir.
-2. **Admin hesabı.** Panel `https://api.kestridge.com/admin/` ünvanında
-   işləyir, amma bir dənə də hesab yoxdur. Parolu maşın yaza bilməz:
-   `cd /srv/kestridge-api && dotnet Kestridge.Api.dll --hash-password --username <ad>
-   --display-name "Ad Soyad"` (məhz dotnet ilə: quraşdırma qovluğundakı
-   heç bir faylda icra biti yoxdur), çap olunan `INSERT`-i `ops/admin-account.sql`
-   ilə `kestridge_migrator` kimi işlədin, `otpauth://` linkini authenticator
-   tətbiqinə skan edin. TOTP məcburidir.
-   (Form endpoint artıq qoşulub və canlı yoxlanılıb.)
+1. **Admin istifadəçi idarəsini serverə yükləmək** (bax 1b). Sıra
+   `backend/DEPLOY-LINUX.md` -> "Deploying admin user management (stage 3)":
+   `ops/migrate.sql` `kestridge_migrator` kimi (BOM-u silən `sed` ilə),
+   `ops/04-table-grants.sql` root kimi, `ops/03-verify-grants.sql`, deploy,
+   sonra brauzerdə smoke test: istifadəçi yarat, ilk giriş, sıfırla, deaktiv
+   et. Grant-lar deploy-dan **əvvəl** getməlidir: əks halda heç kim panelə
+   daxil ola bilmir, `/api/health` isə yaşıl qalır. QR kod Linux-da ilk dəfə
+   bu smoke testdə çəkiləcək.
+2. **Digər operatorların hesabları.** İlk hesab CLI ilə yaradılıb, serverdə
+   giriş 10 sentyabr 2026-da işləyirdi. Qalanlarını deploy-dan sonra paneldə,
+   Users tab-ında yaradın. Müvəqqəti parolu şəxsə birbaşa verin, email ilə
+   yox: ilk girişə qədər onu bilən hər kəs, o cümlədən siz, girişi tamamlaya
+   bilər. CLI (`dotnet Kestridge.Api.dll --hash-password`, məhz dotnet ilə) indi
+   yalnız heç kim daxil ola bilməyəndə lazımdır.
 3. **Sarvjeet-in soyadı** (özündən dəqiqləşdiriləcək) və **Sarvjeet + Robert
    üçün şəkil**. Hazırda baş hərfli avatar göstərilir.
 4. **Dəstək şərtləri.** Canlıya çıxandan sonrakı dəstək pulsuz deyil, sayt bunu
@@ -205,6 +281,21 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
    silmək bütün sayt üçün geri qaytarmadır.
 5. **`senedler/` və bu fayl açıq repodadır.** Repo public-dir; daxili sənədlərin
    orada qalması qərarı hələ verilməyib.
+6. **Hesab bildiriş məktubu retry olunmur.** Bildiriş sətri kimi saxlanmır,
+   ona görə SMTP işləməyəndə yaradılan hesabdan komandanın xəbəri olmur;
+   yalnız düyməni basan operator xəbərdarlıq görür, jurnalda
+   `admin.notice_failed` qalır.
+7. **Deaktiv edilən operatorun yaratdığı və ilk girişi artıq bitmiş hesablar**
+   ona bağlanmır: dəvət silinəndən sonra bazada hesabı kimin yaratdığı
+   saxlanmır. Offboarding zamanı "account created" məktublarında "Created by"
+   sətrinə baxıb həmin hesabları əl ilə yoxlamaq lazımdır (`RUNBOOK.md` ->
+   "Disable").
+8. **QRCoder-in istifadə olunmayan asılılıqları** (System.Drawing.Common və
+   Microsoft.Win32.SystemEvents 6.0.0) bin-ə kopyalanır. PNG yolu onları
+   yükləmir; QR yalnız Windows-da işlədilib, Linux-da yoxlanılmayıb.
+9. **Paneldən deaktiv edilmiş hesabı yenidən aktiv etmək** üçün həm
+   `admin_accounts.disabled = 0`, həm də `admin_disables`-dən sətri silmək
+   lazımdır. Yalnız birini etsəniz hesab bağlı qalır.
 
 ---
 
@@ -220,6 +311,9 @@ və `scripts/vercel-ignore.sh` fayllarını silin, qalan hər şey işləməyə 
 | twitter-image route silindi | Next opengraph-image-i Twitter üçün də işlədir |
 | Hero-nun 3 sətrlik animasiyası sadələşdirildi | Yeni cümlə bəzi enlərdə sətir bölgüsünü sındırırdı |
 | Navbar `lg`-də açılır, `md`-də yox | 6 nav elementi + düymə ~930px istəyir |
+| Admin hesab qoruyucusu MySQL trigger yox, grant + iki cədvəl | Trigger idempotent `migrate.sql`-in procedure-ləri içində yaradıla bilmir, binlog ilə SUPER istəyir, Windows backup-a düşmür |
+| Paneldən hesab silinmir, yalnız deaktiv olunur | `handled_by` və `dsr_log` operatorun adını daşıyır, cavablanmış sorğu real şəxsə bağlı qalmalıdır |
+| Paneldə parol dəyişmə yoxdur | Bunun üçün `password_hash`-da UPDATE lazımdır; kompromis olmuş proses mövcud hesabları səssizcə ələ keçirə bilərdi |
 
 ---
 

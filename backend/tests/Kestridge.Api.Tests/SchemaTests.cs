@@ -99,7 +99,7 @@ public class SchemaTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
         // Every table, not a hardcoded list. A list silently stops covering the
         // next table somebody adds, which is exactly what happened to this test
         // when the admin panel landed.
-        Assert.Equal(11, rows.Count);
+        Assert.Equal(13, rows.Count);
         foreach (var row in rows)
         {
             Assert.Contains(":InnoDB:Dynamic", row, StringComparison.OrdinalIgnoreCase);

@@ -3,7 +3,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Kestridge.Api.Admin;
 using Kestridge.Api.Data;
-using Kestridge.Api.Options;
 using MySqlConnector;
 
 namespace Kestridge.Api.Tests;
@@ -624,37 +623,10 @@ public class ContentTests(MySqlFixture fixture) : DatabaseTestBase(fixture)
         throw new InvalidOperationException("Could not locate backend/ops from " + AppContext.BaseDirectory);
     }
 
-    // The session row is written directly rather than driven through
-    // /api/admin/login. What is under test here is the content surface, and a
-    // login that changed shape should fail AdminLogin's own tests, not these.
-    private async Task<HttpClient> SignedInAsync(ApiFactory factory)
-    {
-        var now = factory.Clock.GetUtcNow().UtcDateTime;
-        var token = AdminSessions.NewToken();
-
-        await using (var db = Db())
-        {
-            var account = new AdminAccount
-            {
-                Username = "tester",
-                DisplayName = "Test Operator",
-                PasswordHash = "not-used-on-this-path",
-                TotpSecret = Totp.NewSecret(),
-                CreatedAt = now,
-            };
-
-            db.AdminAccounts.Add(account);
-            await db.SaveChangesAsync();
-
-            db.AdminSessions.Add(AdminSessions.Issue(account.Id, AdminSessions.Hash(token), now, new AdminOptions()));
-            await db.SaveChangesAsync();
-        }
-
-        var client = factory.CreateClient();
-        client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        client.DefaultRequestHeaders.Add(ApiFactory.ClientAddressHeader, "203.0.113.9");
-        return client;
-    }
+    // What is under test here is the content surface, and a login that changed
+    // shape should fail the sign-in tests, not these.
+    private Task<HttpClient> SignedInAsync(ApiFactory factory)
+        => AdminTestAccounts.SignedInAsync(Db, factory, "tester", "Test Operator", "203.0.113.9");
 
     private static async Task<JsonElement> Post(HttpClient client, string path, object body)
     {

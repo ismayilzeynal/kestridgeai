@@ -17,6 +17,9 @@
     <PackageVersion Include="MimeKit" Version="4.17.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.19" />
     <PackageVersion Include="Microsoft.Extensions.Logging.EventLog" Version="9.0.19" />
+    <!-- MIT. The BCL has no QR encoder. Only PngByteQRCode is used, which writes
+         PNG by hand and never loads System.Drawing.Common, so it runs on Linux. -->
+    <PackageVersion Include="QRCoder" Version="1.8.0" />
 
     <!-- Tests -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
