@@ -32,7 +32,7 @@ fi
 echo "==> tests"
 # Nothing is skipped here. CI=1 makes MySqlFixture throw instead of skipping when
 # it cannot reach the test database, so this step fails and the deploy stops.
-# Without it, a wrong or missing kestridge_test credential turns 128 of the 404
+# Without it, a wrong or missing kestridge_test credential turns 128 of the 408
 # tests into silent skips and the deploy proceeds on a suite that proved nearly
 # a third less than it appears to. That is not hypothetical: it is
 # exactly what happened here until 10 September 2026, and it hid two failing

@@ -12,7 +12,7 @@ namespace Kestridge.Api.Admin;
 
 // First sign-in, for a user created in the panel or an account whose
 // authenticator was reset. Two unauthenticated calls, mapped outside the token
-// filter like /login, and both rate limited in their own partition.
+// filter like /login, and each rate limited in a partition of its own.
 //
 // start takes the username and password and answers one of exactly two ways.
 // Anything that is not a live enrolment with the right password gets the same

@@ -20,11 +20,25 @@ public sealed class RateLimitOptions
     // the owner reading thirty submissions makes the public form answer 429 to
     // real visitors while /api/health stays green and nobody is paged.
     //
-    // Both reuse WindowMinutes rather than declaring their own, because
+    // All of them reuse WindowMinutes rather than declaring their own, because
     // RateLimiting.OnRejected hardcodes Retry-After: 600 and two tests assert
     // that exact value. One window everywhere keeps the header truthful.
     [Range(1, 1000)]
     public int LoginPermitsPerWindow { get; set; } = 5;
+
+    // Continue on the sign-in form. Every sign-in spends one here, a first
+    // sign-in too, and so does every retry after "Use a different account", a
+    // cancelled setup and a timed out setup screen, none of which reaches
+    // /login, so it needs more than /login.
+    // Guessing is bounded by the per-row lockout, not by this.
+    [Range(1, 1000)]
+    public int StartPermitsPerWindow { get; set; } = 10;
+
+    // Finish setup. Only the holder of a setup token can use it, and that
+    // person was already shown the secret, so a guessed code gains nothing and
+    // this budget only bounds floods.
+    [Range(1, 1000)]
+    public int EnrollPermitsPerWindow { get; set; } = 30;
 
     [Range(1, 100000)]
     public int AdminPermitsPerWindow { get; set; } = 600;

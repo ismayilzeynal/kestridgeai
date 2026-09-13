@@ -26,12 +26,14 @@ public static class AdminTestAccounts
         }));
 
     // The settings every test that signs in for real wants. The hasher cost is
-    // cut for speed, and the sign-in budget is raised because a test makes more
+    // cut for speed, and the sign-in budgets are raised because a test makes more
     // attempts from one address than a person would.
     public static Dictionary<string, string?> FactorySettings() => new()
     {
         ["Kestridge:Admin:PasswordIterations"] = "1000",
         ["Kestridge:RateLimit:LoginPermitsPerWindow"] = "1000",
+        ["Kestridge:RateLimit:StartPermitsPerWindow"] = "1000",
+        ["Kestridge:RateLimit:EnrollPermitsPerWindow"] = "1000",
     };
 
     public static string Hash(string password) => Hasher.HashPassword(new AdminAccount(), password);

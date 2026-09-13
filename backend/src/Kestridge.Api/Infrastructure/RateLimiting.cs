@@ -59,17 +59,31 @@ public static class RateLimiting
                     })
                 : RateLimitPartition.GetNoLimiter("not-login"));
 
-        // First sign-in checks a password (start) and hands out a secret, so it
-        // gets the login budget in a partition of its own. Sharing "login:"
-        // would halve the owner's sign-in attempts, since every normal sign-in
-        // now calls start before login.
+        // Continue (start) and Finish setup (enroll) each get a partition and a
+        // budget of their own. Every normal sign-in calls start before login,
+        // and when start and enroll shared five permits, a few sign-ins and one
+        // mistyped setup code told the whole network "Too many attempts". What
+        // bounds password guessing is the per-row lockout in
+        // AdminAccess.ChargeAsync, not these per-address budgets.
+        var adminStart = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            IsStartAttempt(context)
+                ? RateLimitPartition.GetFixedWindowLimiter(
+                    "start:" + ClientPartitionKey.For(context),
+                    _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = limits.StartPermitsPerWindow,
+                        Window = TimeSpan.FromMinutes(limits.WindowMinutes),
+                        QueueLimit = 0,
+                    })
+                : RateLimitPartition.GetNoLimiter("not-start"));
+
         var adminEnroll = PartitionedRateLimiter.Create<HttpContext, string>(context =>
             IsEnrollAttempt(context)
                 ? RateLimitPartition.GetFixedWindowLimiter(
                     "enroll:" + ClientPartitionKey.For(context),
                     _ => new FixedWindowRateLimiterOptions
                     {
-                        PermitLimit = limits.LoginPermitsPerWindow,
+                        PermitLimit = limits.EnrollPermitsPerWindow,
                         Window = TimeSpan.FromMinutes(limits.WindowMinutes),
                         QueueLimit = 0,
                     })
@@ -99,12 +113,13 @@ public static class RateLimiting
                     })
                 : RateLimitPartition.GetNoLimiter("not-content"));
 
-        // adminLogin and adminEnroll precede adminApi for the same refund reason
-        // as above: a login request matches both, and the tighter limiter has
-        // to refuse first. Note that /api/admin is never given a no-limiter
-        // partition, which would leave the public password endpoints unbounded.
+        // adminLogin, adminStart and adminEnroll precede adminApi for the same
+        // refund reason as above: each of their requests matches adminApi too,
+        // and the tighter limiter has to refuse first. Note that /api/admin is
+        // never given a no-limiter partition, which would leave the public
+        // password endpoints unbounded.
         options.GlobalLimiter = PartitionedRateLimiter.CreateChained(
-            perClient, wholeSite, adminLogin, adminEnroll, adminApi, contentApi);
+            perClient, wholeSite, adminLogin, adminStart, adminEnroll, adminApi, contentApi);
 
         options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
         options.OnRejected = (context, _) =>
@@ -149,15 +164,19 @@ public static class RateLimiting
         HttpMethods.IsPost(context.Request.Method)
         && RoutesTo(context, "/api/admin/login");
 
+    private static bool IsStartAttempt(HttpContext context) =>
+        HttpMethods.IsPost(context.Request.Method)
+        && RoutesTo(context, "/api/admin/login/start");
+
     private static bool IsEnrollAttempt(HttpContext context) =>
         HttpMethods.IsPost(context.Request.Method)
-        && (RoutesTo(context, "/api/admin/login/start") || RoutesTo(context, "/api/admin/login/enroll"));
+        && RoutesTo(context, "/api/admin/login/enroll");
 
     // Matched the way endpoint routing matches a literal route: ignoring case,
     // and with one trailing slash allowed. An exact comparison let
     // POST /api/admin/LOGIN/Start or /api/admin/login/start/ reach the handler
     // with only the admin budget of 600 charged, so the password endpoints'
-    // 5 per window never fired for anyone who changed a letter.
+    // own budgets never fired for anyone who changed a letter.
     private static bool RoutesTo(HttpContext context, string route)
     {
         var path = context.Request.Path.Value ?? string.Empty;

@@ -179,6 +179,8 @@ Environment variables use `__` where the config path uses `:`.
 | `Kestridge:Smtp:Password` | **yes** | user-secrets | `appsettings.Production.json`, ACLed |
 | `Kestridge:RateLimit:PermitsPerWindow` | no | `100` | `5` |
 | `Kestridge:RateLimit:GlobalPerHour` | no | `100000` | `200` |
+| `Kestridge:RateLimit:StartPermitsPerWindow` | no | `10` | `10` |
+| `Kestridge:RateLimit:EnrollPermitsPerWindow` | no | `30` | `30` |
 | `Kestridge:Notify:MaxAttempts` / `SweepSeconds` / `BatchSize` | no | `7` / `30` / `20` | same |
 | `Kestridge:Retention:Months` / `RunHourUtc` / `BatchSize` | no | `24` / `3` / `500` | same |
 | `Kestridge:Dsr:EmailHashPepper` | **yes** | user-secrets | `appsettings.Production.json`, ACLed |
@@ -189,6 +191,11 @@ Environment variables use `__` where the config path uses `:`.
 whose authenticator was reset, has to complete the first sign-in.
 `EnrollTokenMinutes` (1 to 60) is how long one setup screen, with its QR code,
 stays usable before the person has to sign in again and get a new key.
+
+`StartPermitsPerWindow` and `EnrollPermitsPerWindow` (1 to 1000) are the
+per-address budgets of Continue (`/api/admin/login/start`) and Finish setup
+(`/api/admin/login/enroll`) per `WindowMinutes`, each separate from the other
+and from the 5 of `/api/admin/login`.
 
 Every section is bound with `ValidateDataAnnotations().ValidateOnStart()`, so a
 missing SMTP host or `ToAddress` crashes the process at boot rather than failing

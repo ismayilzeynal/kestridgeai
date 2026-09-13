@@ -371,15 +371,22 @@ screen, needs the right password of an account that is waiting. It does
 confirm that password, for an account that has no working second factor yet to
 protect, and what it hands over is the setup that account needs anyway.
 
-That makes a sign-in two requests, `/login/start` and `/login`, and each has
-its own budget of 5 per 10 minutes per client address, shared by everyone
-behind that address. Over the first, Continue says "Too many attempts from this
-network". Over the second, the code step says "Sign in failed" like any other
-failure, and the journal shows no `admin.login_failed` for it, because the
-limiter refused the request before it reached the login handler. Finish setup,
-`/login/enroll`, spends from the first budget, so a first sign-in costs two of
-its five. The limiter matches these paths the way routing does, ignoring case
-and one trailing slash, so respelling the URL does not get round a budget.
+That makes a sign-in two requests, `/login/start` and `/login`, and Finish
+setup a third, `/login/enroll`. Each has a budget of its own per client
+address, shared by everyone behind that address, and spending one never spends
+another: per 10 minutes, `/login/start` allows 10
+(`Kestridge:RateLimit:StartPermitsPerWindow`), `/login` 5
+(`LoginPermitsPerWindow`) and `/login/enroll` 30 (`EnrollPermitsPerWindow`).
+Over the first, Continue says "Too many attempts from this network". Over the
+second, the code step says "Sign in failed" like any other failure, and the
+journal shows no `admin.login_failed` for it, because the limiter refused the
+request before it reached the login handler. Over the third, Finish setup says
+"Too many attempts from this network". These budgets are not what stops
+password guessing. The lockout under
+[Locked out of the admin panel](#locked-out-of-the-admin-panel) is, and it
+counts per account or invitation, from every address. The limiter matches these
+paths the way routing does, ignoring case and one trailing slash, so respelling
+the URL does not get round a budget.
 
 To tell a reused code from a real failure on the server:
 

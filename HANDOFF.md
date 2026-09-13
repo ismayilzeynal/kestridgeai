@@ -237,7 +237,7 @@ və heç kim daxil ola bilməyəndə bərpa üçün saxlanıldı. Skriptlər:
 Deploy sırası: `backend/DEPLOY-LINUX.md` -> "Deploying admin user management
 (stage 3)".
 
-Testlər: 404 test; real MySQL-ə qarşı hamısı keçdi, o cümlədən tətbiq məhz
+Testlər: 408 test; real MySQL-ə qarşı hamısı keçdi, o cümlədən tətbiq məhz
 `kestridge_app` grant-ları ilə qoşulanda. Test bazası olmadan 128-i skip olur.
 
 ---

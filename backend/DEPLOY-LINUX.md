@@ -97,7 +97,7 @@ the secrets file), installs the systemd unit, starts it, and polls
 Nothing is skipped. The script runs the suite with `CI=1`, so if `kestridge_test`
 is not provisioned (see "The test database is not optional" below) the suite
 fails and the deploy stops here. A plain `dotnet test` on a machine with no test
-database reports 276 passed and 128 skipped of 404 instead.
+database reports 280 passed and 128 skipped of 408 instead.
 
 If it fails, the script prints the last 40 journal lines. The most common cause
 by far is options validation: a missing value in the secrets file. Fix it, then
@@ -405,18 +405,12 @@ in an authenticator app, which can be on your own phone.
 4. **Disable.** "Disable" on `smoketest`. The private window's next click lands
    on the sign-in form, and signing in again goes to the code step and fails.
 
-Steps 2 to 4 can run into the rate limit before the disable is proven. Continue
-and Finish setup share one budget of 5 per 10 minutes per client address, the
-window starts at the first of them, and both browser windows here are one
-address. The deploy restarts the process, which starts the count again: your
-own Continue is 1, step 2 is 2 more, step 3 is 2 more, so step 4's Continue is
-the sixth, and every mistyped setup code adds one. (If your window stayed
-signed in through the deploy, you never pressed Continue and it is one fewer.)
-When step 4 comes within 10 minutes of the first of them, Continue answers "Too
-many attempts from this network" instead of showing the code step, no sign-in
-request follows, and `admin.login_blocked` is not logged. That says nothing
-about the disable. Wait until 10 minutes have passed since the first of them
-and sign in again, or do step 4 from another network.
+Both browser windows are one client address to the rate limiter, which allows
+it, per 10 minutes, 10 presses of Continue, 5 sign-in codes and 30 presses of
+Finish setup, each counted separately. Your own sign-in and steps 2 to 4 spend
+at most 4, 2 and 2 of them, so retries fit. If Continue still answers "Too many
+attempts from this network", that says nothing about the feature: wait 10
+minutes and sign in again.
 
 ```bash
 sudo journalctl -u kestridge-api --since "30 min ago" --no-pager | grep 'admin\.'
@@ -667,7 +661,7 @@ production data. Override it with `KESTRIDGE_TEST_CONNECTION` if you would
 rather not.
 
 Without this the suite reports "Passed" while skipping every database test,
-128 of 404 as of 13 September 2026, including every test that checks the
+128 of 408 as of 13 September 2026, including every test that checks the
 schema against the model. It did exactly that from
 the first deploy until 10 September 2026, and it was hiding two real failures.
 
