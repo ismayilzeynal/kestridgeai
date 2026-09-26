@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { LegalHeader, LegalBody, LegalFootnote } from "@/components/legal/Legal";
 import { site } from "@/lib/site";
+import ogImage from "../opengraph-image.png";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -16,7 +17,10 @@ export const metadata: Metadata = {
     // A child openGraph replaces the parent's rather than merging, and the root
     // opengraph-image.png file convention only attaches to the root segment, so
     // without this the page ships a large-image card with no image.
-    images: ["/opengraph-image.png"],
+    // Imported rather than written as "/opengraph-image.png": that bare path
+    // is served immutable for a year, so a new card at the same URL never
+    // reaches anyone who fetched the old one. The import is content-hashed.
+    images: [{ url: ogImage.src, width: ogImage.width, height: ogImage.height }],
   },
   // Same reason in reverse: define no twitter block and the root's homepage
   // title and description leak onto this page.
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Terms of Use | ${site.brand}`,
     description: `The terms that govern your use of the ${site.brand} website.`,
-    images: ["/opengraph-image.png"],
+    images: [ogImage.src],
   },
 };
 

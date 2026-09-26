@@ -1,0 +1,2224 @@
+{
+ "project": "kestridge-ai-brand",
+ "version": "v3",
+ "mark": "five plates (f2-strict-system), colour split: stem K, arm/tittle/leg/crossbar Ai",
+ "lockup": "M / CAP_H = 2 / 1",
+ "colourways": {
+  "color": {
+   "stem": "#0F1317",
+   "arm": "#0E6A82",
+   "leg": "#0E6A82",
+   "tittle": "#0E6A82",
+   "crossbar": "#0E6A82",
+   "wordmark": "#0F1317",
+   "descriptor": "#0E6A82"
+  },
+  "color-knockout": {
+   "stem": "#FAFAF7",
+   "arm": "#2FA8C7",
+   "leg": "#2FA8C7",
+   "tittle": "#2FA8C7",
+   "crossbar": "#2FA8C7",
+   "wordmark": "#FAFAF7",
+   "descriptor": "#2FA8C7"
+  }
+ },
+ "generator": "tools/build/pack.py",
+ "rebuild": "python tools/build/pack.py",
+ "previous": [
+  "archive/v1-2026-08-24",
+  "archive/v2-2026-09-21"
+ ],
+ "evidence": "qa/",
+ "folders": {
+  "00-docs": 7,
+  "01-logo-svg": 34,
+  "02-logo-png": 153,
+  "03-app-icons": 7,
+  "04-logo-pdf": 10,
+  "05-stationery": 9,
+  "06-fonts": 6,
+  "07-platforms": 35,
+  "08-website": 9,
+  "09-linkedin-banner": 2
+ },
+ "file_count": 272,
+ "files": [
+  {
+   "file": "00-docs/00-BUILD-RECORD.md",
+   "bytes": 66190,
+   "sha256": "11108a5fd424618a2d0adb86d69b717c6e9e506cb2623c40757db3a958510c41"
+  },
+  {
+   "file": "00-docs/01-DECISION-RECORD.md",
+   "bytes": 65819,
+   "sha256": "e6b5dfc60e20c0f985b82aec6767663af19130177040190629fd3428965c823e"
+  },
+  {
+   "file": "00-docs/02-BRAND-GUIDELINES.md",
+   "bytes": 81858,
+   "sha256": "ba3626208c773c783d531d4e0c7faef00fdf6445c1d7e15eb6863a873734f72c"
+  },
+  {
+   "file": "00-docs/03-SITE-NOTES.md",
+   "bytes": 33825,
+   "sha256": "4bf0d0d4e98f046e29625075f0f8bf116aa729a512d08d052d6246f3607bcee1"
+  },
+  {
+   "file": "00-docs/04-PLATFORM-NOTES.md",
+   "bytes": 4835,
+   "sha256": "78bc549d4fcad3f3669ba342faf383645090e1608d984c043a0ffa9dfcd33af3"
+  },
+  {
+   "file": "00-docs/05-BANNER-NOTES.md",
+   "bytes": 31594,
+   "sha256": "34013f67cae73b7e1977652edf6616a34ee09bc9ae89b606f87add56d2750c0a"
+  },
+  {
+   "file": "00-docs/06-REDUCED-CUT.md",
+   "bytes": 20043,
+   "sha256": "27ece4b55b5ab19cf224f7691726e70b26dd3beba13c9c1d0322b1a1ecff78d5"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-default-color-knockout.svg",
+   "bytes": 3306,
+   "sha256": "38e765b70894efe216d358833c2cf2ecbe238ace49ecef5f8dfa33225e4f5357"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-default-color.svg",
+   "bytes": 3306,
+   "sha256": "9ded9a5f42b0983791c91a3deca432ef199eac8d101d2e97ea8d3e368ea0fcf2"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-descriptor-color-knockout.svg",
+   "bytes": 10588,
+   "sha256": "ae57f3365b239a12ca0d1ca26772d40cfe698db2b9e87077b52de1273bc6ce62"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-descriptor-color.svg",
+   "bytes": 10588,
+   "sha256": "8e79ca788cb27f00a29c3e7a8e6587a1693419bf712eaecfd60592facf2c7e3d"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-reserve-color-knockout.svg",
+   "bytes": 3015,
+   "sha256": "d2311354f1f7b51c2229957f9b3204f7a4d66ad11d556cd8ee133e9aec07c3f9"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-horizontal-reserve-color.svg",
+   "bytes": 3015,
+   "sha256": "495065c80c5239275908af0301c67b075ec30c410ace2fc5aaccbb6bf66edd13"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-stacked-default-color-knockout.svg",
+   "bytes": 3403,
+   "sha256": "1371f2abe69910ef23ce06e48d6718f8db8e09d6d5b1193bd08decdf81a1232a"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-stacked-default-color.svg",
+   "bytes": 3403,
+   "sha256": "ba9fab655dfd64d899ad6fe387ca7f3cfea6823d1bea6a5672f652a5962ffdde"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-stacked-reserve-color-knockout.svg",
+   "bytes": 3090,
+   "sha256": "0ce18343bb60b33613519d62f8a216d7e7e6a2fd9961c3033a6863af5fc7940d"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-lockup-stacked-reserve-color.svg",
+   "bytes": 3090,
+   "sha256": "d5fe63fd98c6ee014e624151215e322d7fe6dfc5f0595ebc1e974b87880701bc"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-mark-color-knockout.svg",
+   "bytes": 726,
+   "sha256": "21d8f643249896b74c3439816f2e9a822f9b23c6683ae0f5cfbec7840fb089ac"
+  },
+  {
+   "file": "01-logo-svg/color/kestridge-mark-color.svg",
+   "bytes": 717,
+   "sha256": "6046baa20ea27894651af54b713b24fa7c6f641e271e1bb24875a0a2fcca9e5b"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-default-knockout.svg",
+   "bytes": 3306,
+   "sha256": "e46dfe552f33e06eee6d52b8f84fceac93424cb0850204ae840469bd20a4e6d4"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-default-mono-black.svg",
+   "bytes": 3306,
+   "sha256": "73f3ac0dbe31c28d4bd6b164b83afad9db0483d551eb2b0a4386f5ac195e6da0"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-default-mono-white.svg",
+   "bytes": 3306,
+   "sha256": "eadaf902501ef4052b2b8df4755a5646365b5a4109c5eca059081bc650c2889f"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-default-positive.svg",
+   "bytes": 3306,
+   "sha256": "518e94f8ee29791eee12dae60401a4ce95a734f89f8a64a0cbdeb8e8c262cf89"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-descriptor-knockout.svg",
+   "bytes": 10588,
+   "sha256": "ff4645903b1c85d6ae47986b9564538946cfc6d9c2358447e339326be529fa13"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-descriptor-positive.svg",
+   "bytes": 10588,
+   "sha256": "7f7e606380fd161282173cf73252e4fd7a10b6ef0ac19b24bb5c3581d756712b"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-reserve-knockout.svg",
+   "bytes": 3015,
+   "sha256": "914d8ce34adec47d550abb3a0f713bc54c906c781b6a8584c6c9c205cfab1a2a"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-reserve-mono-black.svg",
+   "bytes": 3015,
+   "sha256": "fb6965a2e71db4882fe17df9e96b6ac0808a24ea1118f6aacb1da24dff59ac86"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-reserve-mono-white.svg",
+   "bytes": 3015,
+   "sha256": "f37ea54fdbcee59535fc826893e753984b0d92d730723d1447b5c3518df3f6cb"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-horizontal-reserve-positive.svg",
+   "bytes": 3015,
+   "sha256": "19d7384702e7b6ed26cd38fa82b28548a1fcd836d0482aa8969d5a6beeb02a18"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-default-knockout.svg",
+   "bytes": 3403,
+   "sha256": "c7bbab11dcabb2973c6dc0fde5986f7a6ef0896ae8d9d0f577195086d8d53160"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-default-mono-black.svg",
+   "bytes": 3403,
+   "sha256": "61f6fc470b2311a5e28bb269851e651bf86f4bcb048bba3aa451cff1be644252"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-default-mono-white.svg",
+   "bytes": 3403,
+   "sha256": "e6854b1b6165967eef7723f7f5dadd683457791769fb1f181b2f6f05223140bf"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-default-positive.svg",
+   "bytes": 3403,
+   "sha256": "0e910365eccf7ebffe8cbe12d3397ccfca7d0d532cca808b755ef378319c9f96"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-reserve-knockout.svg",
+   "bytes": 3090,
+   "sha256": "c11ecc98b2490012e68c2304a9cc05b80b89ec5427bdfbfbabafe6f31a79956c"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-reserve-mono-black.svg",
+   "bytes": 3090,
+   "sha256": "85a77c5420ae113c630cd8547b7683b9f09da5de247647194c7d9e9ccd5884bf"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-reserve-mono-white.svg",
+   "bytes": 3090,
+   "sha256": "887acdb62aa52fe399fe84192fa884acfa1f71111fab39e3afc6d97475a99015"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-lockup-stacked-reserve-positive.svg",
+   "bytes": 3090,
+   "sha256": "5f980d075264a73709aaa994c82396a28800de3fcfc2606dc32b961e68bdae9e"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-mark-knockout.svg",
+   "bytes": 720,
+   "sha256": "cefc382442c31eb1cb8e0a7cf9cefeba4873714fccad5fdee6caf2b712945f01"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-mark-mono-black.svg",
+   "bytes": 722,
+   "sha256": "e88958002912d2f86434dd04e237475270eb84d95badd88f653dbb1b1220282d"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-mark-mono-white.svg",
+   "bytes": 722,
+   "sha256": "ce023574857885985ff046fe8820f6ab2ca96c986981e3f5bebbc71d63a9c405"
+  },
+  {
+   "file": "01-logo-svg/mono/kestridge-mark-positive.svg",
+   "bytes": 720,
+   "sha256": "0633846eeeedf4826b5c110a4003944ae2400c58580e5eca833a7a8ac565e52a"
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-1024.jpg",
+   "bytes": 208884,
+   "sha256": "18a47f6d3f37d361ee20e5ce94048a7a65c822b12fc616245766217173c267ed",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-1024.png",
+   "bytes": 85856,
+   "sha256": "22b4574f1b69877b29f64a66516f2acf2d387ef6d37797d14459e4977e5f165f",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-1024.webp",
+   "bytes": 43086,
+   "sha256": "19a503ec7d0c5fbee4f043d51f739674eeb6bc5565632151f071c119c9c9408f",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-128.jpg",
+   "bytes": 18788,
+   "sha256": "142fff9f804f128e67507343f2a0a9bad6b2e9bccf892e98a4e1ddbb7388cf43",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-128.png",
+   "bytes": 9068,
+   "sha256": "13e940cf92375f7ec7c6c699cc160eda551a1332bf7550f14993cb0fe6a45e6a",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-128.webp",
+   "bytes": 6002,
+   "sha256": "bb4977c85356a407d4d3bba14d3c99e4b73f73e60ec71addd7315640cd091740",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-256.jpg",
+   "bytes": 39394,
+   "sha256": "4aa8c3863b1af9e66136f930e21c9fd44fb5069544d73c934602aaf134efb055",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-256.png",
+   "bytes": 18715,
+   "sha256": "1b0975985fa22431d577198998cc61f4c235c858b8d28217222d0282867a4947",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-256.webp",
+   "bytes": 10716,
+   "sha256": "9413c5fb1e63fc2d6fcbc4cb596e5ff491cc732f7e95e09abbd73bc45db663bc",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-512.jpg",
+   "bytes": 84496,
+   "sha256": "d78c6e7ad767fd2d2ed952ff38152d181eebbff16f546f03d928824b41269d61",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-512.png",
+   "bytes": 38980,
+   "sha256": "609968603d36e7738769d0761597c0de6fdea3c5e8365e428fcdbfedabcf5b7c",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-512.webp",
+   "bytes": 19864,
+   "sha256": "5d9307d652fe2273fbdc739ca08795c99300c0c1d919b16344256ea11647a755",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-64.jpg",
+   "bytes": 8396,
+   "sha256": "01defdc1b3923b51c751aa1814f6dae9d729adf9a140a682f153e5e4db1321c1",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-64.png",
+   "bytes": 5063,
+   "sha256": "a3e24307a9c9f693cc051c6f06034480e5c26751504a4e6035c92e65bfd03d0f",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-default-color-64.webp",
+   "bytes": 3422,
+   "sha256": "84864acce5b9a10d328d6ad76c0320d3861515af6506a530b833c8ce5a143398",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-1024.jpg",
+   "bytes": 181988,
+   "sha256": "34c346560860585ce2adaf9560bf921e91e6f54d8e2bd1894dfd291a7a7da1f8",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-1024.png",
+   "bytes": 72615,
+   "sha256": "ca7fdbe2a6a1f9d65f19ccf2fab2401ded0d9b731d6e37717635effee2d779ad",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-1024.webp",
+   "bytes": 37296,
+   "sha256": "e2f25c588065b8d18bd5cb6c5ab0a19838a6b062bedb9faa79c0157b0b7113bc",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-128.jpg",
+   "bytes": 16588,
+   "sha256": "085f3f2f8c952d69d509e84332cfad86d458dea59156c204b78b32ec43726dfb",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-128.png",
+   "bytes": 7737,
+   "sha256": "44f3f6513c867223c73975d9f3940ebc63ead439e585a166173f7cf93a30d224",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-128.webp",
+   "bytes": 5248,
+   "sha256": "3a01f731e67690ecd618292e41c91cd573f9390def2c8b89e03cca7b0d8855f3",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-256.jpg",
+   "bytes": 34588,
+   "sha256": "83596bf739a307d9988906f603206e22c6737efbb60d74ed62fcc793f66e1cb8",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-256.png",
+   "bytes": 15896,
+   "sha256": "0a796d0ce0fb9c796dcbf55d2b987d63b482c85c6c4eeff9c045c4f978a0dbd6",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-256.webp",
+   "bytes": 9154,
+   "sha256": "c918894b64cd31437a29b0004cc3bcb6de1f934a00c96aa022475a41f12c17a4",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-512.jpg",
+   "bytes": 73810,
+   "sha256": "cc31331b99981cbf695ef7bc845483ebe48b0a9d028ac8eccbd6388b94dd401b",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-512.png",
+   "bytes": 33474,
+   "sha256": "46c439d7200670f9d216847270a79ba324342cbe48e14833581db5af234f0f95",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-512.webp",
+   "bytes": 17142,
+   "sha256": "0f47dd097e49183c3f47a504ae87b118a54dc0a2183a2e5786970f70f9806d2b",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-64.jpg",
+   "bytes": 7513,
+   "sha256": "257d96b7ef585d8c2c23e3f7c703db1f70353a95d93d78c85f36b2c51b513576",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-64.png",
+   "bytes": 4400,
+   "sha256": "cf5f52a5b259c1268038a98f4c7a015db7efacb9a5d9d1ef1ad05c85089ae13b",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-horizontal-reserve-color-64.webp",
+   "bytes": 3020,
+   "sha256": "0fc511c5c1f8fd2eca40d44f2827ded427eac8efd05d8a077e5d6e9e7c63dee3",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-1024.jpg",
+   "bytes": 86605,
+   "sha256": "fc86f20df48d501ca83554096655b48aae72772a4b2261c0f4896b06d555fd3f",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-1024.png",
+   "bytes": 37740,
+   "sha256": "0db50817e99523804fa72631c6619b3efe80c5042e3ef5df56dab53ead98dbd2",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-1024.webp",
+   "bytes": 20098,
+   "sha256": "c8e1c655be927254ce0fbb83519da019c8f694ea912ee7f423ee0e02b43f77d4",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-128.jpg",
+   "bytes": 8416,
+   "sha256": "0e83cf8bf960f42e07734eae5a99c55a95f9546e43c4148487fefec912d4e06b",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-128.png",
+   "bytes": 4460,
+   "sha256": "86dea9601013b3b27c3105d532335674ef5c153726526e392c4ff8e021f105b4",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-128.webp",
+   "bytes": 3556,
+   "sha256": "7f5d58f36b22bcc9f59f9e3a3889f38ee6e7d57f88bf64c2f618e3fde8384708",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-256.jpg",
+   "bytes": 18447,
+   "sha256": "0d9e4410f18fb1de9542e4fdcc0730e98cf39f9a85830a20ccbd5464af577b3b",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-256.png",
+   "bytes": 8569,
+   "sha256": "8c87077c6d33664ecf6562f03452c88bceee2cca11a279efb96394d79dd2d756",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-256.webp",
+   "bytes": 5892,
+   "sha256": "4896c21c7c2d2c7b60824261a2c599d32c41ee61a535584cfa25e3caf6fcd193",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-512.jpg",
+   "bytes": 38715,
+   "sha256": "b592d6850120a574d31a08061932ef65bfa595887dc50442b221d8db292ae568",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-512.png",
+   "bytes": 17468,
+   "sha256": "f38aa14bbf3fa843bc97e3d99a6257451a11fe0422e7cd382af64f89a0b7dd68",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-512.webp",
+   "bytes": 10358,
+   "sha256": "ac4b2d29c2d74712c47ca8322e425d5e1fd3b35d4a9843b9591056e39d867db7",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-64.jpg",
+   "bytes": 3932,
+   "sha256": "a1f1a162ec9a0eda32cd201a900c5856eae08ec49e5a304a4f46852060df3fe9",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-64.png",
+   "bytes": 2518,
+   "sha256": "6bb721d53914dd365200deb40f881583e358450c025e7fab48de4065c90db1a4",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-default-color-64.webp",
+   "bytes": 1808,
+   "sha256": "e25916be224fa5985c5aa390db3d8fed5d00fb5406f882dc06478064bb6a630a",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-1024.jpg",
+   "bytes": 77778,
+   "sha256": "9806548cac018f6841c45ec4a5fae09ecdbe32d2cb1ba7f64fd7b895210b943d",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-1024.png",
+   "bytes": 32112,
+   "sha256": "d15f6e810a0c467263391f44ba438f621e7d1121123a2365706294407e977c87",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-1024.webp",
+   "bytes": 18246,
+   "sha256": "fabaae29c5db8006dbfee383bf94a9c0cc98791e34cf63cd49a95c50024aa1bc",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-128.jpg",
+   "bytes": 7480,
+   "sha256": "bfc742ae0cd5f4161b7ca55efe273130b0c10035ffa369399305c386ec06d080",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-128.png",
+   "bytes": 3901,
+   "sha256": "4ac7d6d81cc8a891ca13ad38bf8f6438c2346ce3421f862fe2dec3d55ed2e543",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-128.webp",
+   "bytes": 3122,
+   "sha256": "fe471166b1237debf84e89fc4f39e31798dd4314b1f65233a6454b8fa293d9fe",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-256.jpg",
+   "bytes": 16448,
+   "sha256": "9b3b3da7fff2c78b8a4205a3ec41ae5e692d4abad8ec1256712d40b2eb0957bb",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-256.png",
+   "bytes": 7322,
+   "sha256": "c157a41ba4dba62dc814a459bc43daa16ec0189fcd8fe31ea9736d3f904c3613",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-256.webp",
+   "bytes": 5172,
+   "sha256": "bd62999af06ea3bf775c1a6cf178dd279aff6185934997a59e561170032d5e42",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-512.jpg",
+   "bytes": 34929,
+   "sha256": "88e1973ff13217ae4894e46d455e1a979466f9ca884cdb57febffe5476bbdf5a",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-512.png",
+   "bytes": 14886,
+   "sha256": "9a3942f982830ef855b7489111bb5d48a88da109cc070f473a9bd37c435abe5c",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-512.webp",
+   "bytes": 9612,
+   "sha256": "1226808fa8f075921876b1886bb504bf84222424fba323994e3d705c97bffd07",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-64.jpg",
+   "bytes": 3549,
+   "sha256": "b7efbdb41f89abf590a8085a8513587f17f0a1eeec37d6722c167d4801e3748e",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-64.png",
+   "bytes": 2291,
+   "sha256": "ce044bcc2ce1a7412fcb98c7a2e0107feb51fc523fc48387df84a6a3c10b5f63",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-lockup-stacked-reserve-color-64.webp",
+   "bytes": 1598,
+   "sha256": "2e7080a8d99a23aeab434f345172229aa4d1d6f8c0422f4abdba1745a984ba18",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-1024.png",
+   "bytes": 9160,
+   "sha256": "60afe64d1789dab557ff4d7c631c0150006d94bb276a66d9e4e0e8e6ed879def",
+   "px": [
+    1024,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-128.png",
+   "bytes": 809,
+   "sha256": "4641f534c3dbe1bc792a0ddb2861003d2f40b762be7485036535312277e8a6df",
+   "px": [
+    128,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-16.png",
+   "bytes": 234,
+   "sha256": "20ff83a10edfb054d356eb049393fbd999680caf88ade55b49fe1cd11c3e1cfa",
+   "px": [
+    16,
+    16
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-180.png",
+   "bytes": 1174,
+   "sha256": "5ae1f2fefaf1fc87500f799fbe5f0b72b131e3c63949395b8301f830e15895cb",
+   "px": [
+    180,
+    180
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-192.png",
+   "bytes": 1192,
+   "sha256": "980e3ae567f9dd234d895718ad80b45057202d47a6bc429aaf73df18c3000e1c",
+   "px": [
+    192,
+    192
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-24.png",
+   "bytes": 352,
+   "sha256": "5556b513185ed7b77493d1996ad761c94847585503fea82c06dc368fbfb81ce6",
+   "px": [
+    24,
+    24
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-256.png",
+   "bytes": 1571,
+   "sha256": "10e23c0ff0d451f74b195cf32d08c6b687e623a0c7d285f00487cd83555edc4e",
+   "px": [
+    256,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-32.png",
+   "bytes": 408,
+   "sha256": "d50a5e04b28a941ec53b2d50b5e7c99accb7790fdbcca2556e00c316ca6e6c04",
+   "px": [
+    32,
+    32
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-48.png",
+   "bytes": 464,
+   "sha256": "f5a6d8e055243c0c41d3c91a550e40e43df527abfb0e5a7891559fb63fc4c824",
+   "px": [
+    48,
+    48
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-512.png",
+   "bytes": 3687,
+   "sha256": "cd2a50a0525e1b009e61cf4fa9dc57f2ffab8000309c73a8176945fc782c56d2",
+   "px": [
+    512,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-64.png",
+   "bytes": 551,
+   "sha256": "802841b5ec0b5360519975c2e85e84b48d560cd03e95727087e3eae00c7305c2",
+   "px": [
+    64,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-1024.png",
+   "bytes": 9168,
+   "sha256": "518f3c3fbd1f4d0b1692969e9833c2e0b6c9e1781deb4a91cbd6c9dc11e21eeb",
+   "px": [
+    1024,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-128.png",
+   "bytes": 805,
+   "sha256": "697fdbc4bc186b1147d78ce2ffb1d108c289bc8282f026fca3e9717ecc521853",
+   "px": [
+    128,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-16.png",
+   "bytes": 248,
+   "sha256": "222f892da3e72bd6ca7e131bd7e0c4c8a8ff0dc996966080fe0e36fa7e7fb41d",
+   "px": [
+    16,
+    16
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-180.png",
+   "bytes": 1173,
+   "sha256": "6a72d411b64b7ebf663b2a59a21ebc1bf3a0dc3b172bda90ae20bfb55b5d9abd",
+   "px": [
+    180,
+    180
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-192.png",
+   "bytes": 1197,
+   "sha256": "437d06407a84b9db85dd94ba578ef6b85677804471dadfd9e599dadf5564705c",
+   "px": [
+    192,
+    192
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-24.png",
+   "bytes": 349,
+   "sha256": "f3782a4958ef0a869ee65349eb44a1547cea4dc0725c6adfef7e96e0def4cdc7",
+   "px": [
+    24,
+    24
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-256.png",
+   "bytes": 1578,
+   "sha256": "ca9b36f1522de496464a4a1ece9515c27a2ffbe7ac168a3cd2bd661e216dc3da",
+   "px": [
+    256,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-32.png",
+   "bytes": 425,
+   "sha256": "1d8ac294f594c217a240645a17aaf8776dfa46960e97260451f8259f954731b9",
+   "px": [
+    32,
+    32
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-48.png",
+   "bytes": 473,
+   "sha256": "78bbfcae1f75e38493e7e396b62c25b30ab1ea1870ee408c0f04a85fbb06c903",
+   "px": [
+    48,
+    48
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-512.png",
+   "bytes": 3701,
+   "sha256": "a62a741774b630487e1a2f2d22f37889c0f1b1eb629966193bc198c299e92438",
+   "px": [
+    512,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/color/kestridge-mark-color-knockout-64.png",
+   "bytes": 556,
+   "sha256": "a326ac914cb3747361d4fef815a28f48a5de491148ff8062879c66e974270759",
+   "px": [
+    64,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-1024.jpg",
+   "bytes": 205082,
+   "sha256": "ba2694268e8c854a6eccb1a455fc957b505d3e6d3274ca0cbf0e5c2c82f688b7",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-1024.png",
+   "bytes": 85867,
+   "sha256": "2f31620a8a897afd8bfd3c9f088bdc75261f1bf0a9f4b04f7c84032d64413a0d",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-1024.webp",
+   "bytes": 39762,
+   "sha256": "70fc4febf0cef03e19d8212b853aa920a14e0ee73b9b20ce39ffbacf140e5a0f",
+   "px": [
+    5077,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-128.jpg",
+   "bytes": 18368,
+   "sha256": "c3b37a830f716156a2af2adfcc4d74e8ee4ece62885bc6cf3df50dbed38c39b8",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-128.png",
+   "bytes": 9045,
+   "sha256": "0f60d0893a260d6bbbdaa38db7dad244ce37a38840fcaa0226415cecf26d5ffc",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-128.webp",
+   "bytes": 5534,
+   "sha256": "99170f22d0c2bdf3a026625ecb875ae1e793d2e137413d1577ebd0ccb906a462",
+   "px": [
+    635,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-256.jpg",
+   "bytes": 38314,
+   "sha256": "e6bba9c0850c206e53bb18ec011469c6eb50f70c837846d12425f08cab6baefb",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-256.png",
+   "bytes": 18692,
+   "sha256": "c056d1c79f0455cddbbc90ba43832b4805b34248fd003c494f990ac672ad12c7",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-256.webp",
+   "bytes": 9700,
+   "sha256": "669d6694819e044966284a41e010e3b87866fc94af2881ccb23b677db359906e",
+   "px": [
+    1269,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-512.jpg",
+   "bytes": 83285,
+   "sha256": "234b35116422f39212c8ce30090d0ed997d80c39214e4ab297a43ded619afc16",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-512.png",
+   "bytes": 39015,
+   "sha256": "25b876746ee0abfb27fe476f560177d74ebec1a94308b3759855d8a8537ff124",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-512.webp",
+   "bytes": 18728,
+   "sha256": "c184bc11cee847f015f1eda2a29be6b7273db61d8667035a3b03ae1f574f726f",
+   "px": [
+    2538,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-64.jpg",
+   "bytes": 8240,
+   "sha256": "89196ea314a5db4fd0adf94f82aa61f08725dc0ee4cfd943c98cc216bd068809",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-64.png",
+   "bytes": 5009,
+   "sha256": "cd9332f6400bb020d4a4218bd371d88f1df29145421ad4702fa07b23d34cb6ad",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-default-positive-64.webp",
+   "bytes": 3238,
+   "sha256": "baf8a31b03af02a329159a38a153acb30eab68bae4909701e932c02bd55e7660",
+   "px": [
+    317,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-1024.jpg",
+   "bytes": 178396,
+   "sha256": "5fb67b3a3656732523c7ae99a265f2c9acd7ed8156f16642b229c77326bc680a",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-1024.png",
+   "bytes": 72610,
+   "sha256": "0ef37f1922529ddc800ebcdaf6cb744c97cacc6d5991e5c715b19f60ef7a14f7",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-1024.webp",
+   "bytes": 34056,
+   "sha256": "add72693f26ece0424a6a213fd95729bfca92d3a6f2b668691ef226ae4bd8f46",
+   "px": [
+    4359,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-128.jpg",
+   "bytes": 16154,
+   "sha256": "873b2a494deae79c660549bfa7513845847927a04f62577c9ec09343564c069f",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-128.png",
+   "bytes": 7714,
+   "sha256": "01072f9745483ed9e8d78daaa01cf647349f67b6687d576c986bf47eb82b779b",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-128.webp",
+   "bytes": 4740,
+   "sha256": "282f454a1ed0d8cfabd4fc3d6732fbe1cae907201bf6f9611c654cf67dd2feea",
+   "px": [
+    545,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-256.jpg",
+   "bytes": 33512,
+   "sha256": "ca9f01f2e8837af52aacdaabc6667922d736b905cee22d6ec953f775c6f9f36d",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-256.png",
+   "bytes": 15872,
+   "sha256": "2a13212950643ef47252aa54a8009ecc1617ef5abc76c44ea203ea622932efeb",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-256.webp",
+   "bytes": 8302,
+   "sha256": "256f4035e6043b7edf8f9c44c89c01aa3e3cf9729aa74d2271ea58c64eb4dce7",
+   "px": [
+    1090,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-512.jpg",
+   "bytes": 72581,
+   "sha256": "6559ba773c83d9351a464c424227630967e2bedcf42326afad712f5d49ec7ff3",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-512.png",
+   "bytes": 33505,
+   "sha256": "e297121abba4b33b05b0ef04acc03f7a99dd0f8529e96b1d5143233ad0a0f1e5",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-512.webp",
+   "bytes": 16140,
+   "sha256": "81efffb75024c22086f9a569e24beec4959153ec6c8e6fe56da0ac8d9e1f8884",
+   "px": [
+    2179,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-64.jpg",
+   "bytes": 7365,
+   "sha256": "a49848f3c810ee777c0aee89efd7bc4337323f0669a6793d593fcc5efbf88c7f",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-64.png",
+   "bytes": 4351,
+   "sha256": "66e128d3d0be8dffad4edf973d5c7931246970fcdbf9fe7d90b75726ee0b5b3f",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-horizontal-reserve-positive-64.webp",
+   "bytes": 2834,
+   "sha256": "93902ee7f6bc51f0f82fd02d0067d4be3f664628e771c10be04bba8555a9bb70",
+   "px": [
+    272,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-1024.jpg",
+   "bytes": 84067,
+   "sha256": "5c20d8b9de0c52b424d35b336037f7a1d0dadf371f43853eccf914f0abe8e221",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-1024.png",
+   "bytes": 37747,
+   "sha256": "8c43e1f5c963f1ac01dbd476dfb19a19527faed6d6c94dd95bb01a0de8a2cef9",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-1024.webp",
+   "bytes": 18046,
+   "sha256": "6dbb14386a6699079f148fff37e1cb4841fc4a664912d4f95bdaf12ba61fe260",
+   "px": [
+    1641,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-128.jpg",
+   "bytes": 8173,
+   "sha256": "1a0dbbf377fc4647aa6e2cc62974fe8367fb743b79498f821f2ac262c7999c85",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-128.png",
+   "bytes": 4420,
+   "sha256": "965838f9283253892869602d3ae6e13b0fd9ddf018b5d5d2d0df48076e2cd571",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-128.webp",
+   "bytes": 3238,
+   "sha256": "2d1e9e6eb752887ada3cb75b17a7b545005dd4e89254944cea23403645c510d3",
+   "px": [
+    205,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-256.jpg",
+   "bytes": 17878,
+   "sha256": "f58ccf311abe0937137127a2556196d2df86c7ea213521677489b58c8f69c5cb",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-256.png",
+   "bytes": 8564,
+   "sha256": "e3b6099b7f93caeca0cd76cc73d918b29251527d2f1d50cbc3cc93ea6465802e",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-256.webp",
+   "bytes": 5144,
+   "sha256": "a911c2f4a01dbaa6ac49db881735669951da9eab21df0836943c27b148f1d380",
+   "px": [
+    410,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-512.jpg",
+   "bytes": 37461,
+   "sha256": "3ad743959a3960f91c070794bd6611d39e5c7001cf74d36df39a0012f528dc66",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-512.png",
+   "bytes": 17470,
+   "sha256": "93501ce3477a1946ece68868795d8a0b7c4c39fc3a14ed9c6dc5af32a8ba9afe",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-512.webp",
+   "bytes": 9250,
+   "sha256": "d3c818aa6a5878a60c5002c2c742587a3532db98c454d8ad98fe4736744290e4",
+   "px": [
+    821,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-64.jpg",
+   "bytes": 3838,
+   "sha256": "fc4af9d8231fd93e9cbdfa9092f963ae02617e2d3f60c93c3bbb1148c0c28aeb",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-64.png",
+   "bytes": 2476,
+   "sha256": "e1981d8eecec35b104120bc2187bbd528a4ee7a2a857592d50ee0dc06d1b1237",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-default-positive-64.webp",
+   "bytes": 1640,
+   "sha256": "4e284ba33e4ae72144323b30664df6cd1c56b3019853023d2f2fedd7ae2ce764",
+   "px": [
+    103,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-1024.jpg",
+   "bytes": 75302,
+   "sha256": "0541342a3ee802a96a063bc20d13356ab84d19add01944aa364cf7d207691b36",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-1024.png",
+   "bytes": 32102,
+   "sha256": "f94c6216292b5a5cd4cfc6c33239facf0354942357508b6d5a26d119aecc57f7",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-1024.webp",
+   "bytes": 15850,
+   "sha256": "b6f6675e54cbdfefbc860d292f6f63c30376fd97e7662b413dc9c6673ecc5bb4",
+   "px": [
+    1348,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-128.jpg",
+   "bytes": 7248,
+   "sha256": "4c36a8e6d9e9c21ea9c0447186a5cb48c3b9302604d8d79a8cb667505b1e66f8",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-128.png",
+   "bytes": 3862,
+   "sha256": "0154e18681ea90253ab9c59cdc8d659aef7c04f28c74a715dfb2477987725aa4",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-128.webp",
+   "bytes": 2854,
+   "sha256": "cb37a29f96f32fdd817ec4c1d531ec0b89cbb9a566d24ec9a49f8a80a27a01be",
+   "px": [
+    168,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-256.jpg",
+   "bytes": 15963,
+   "sha256": "d33609e7773162dea2e3e5fccad8ac866940e41e14aea40bb3c6441ebbf3ffd3",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-256.png",
+   "bytes": 7309,
+   "sha256": "773d20f6c075b52a95614dc893536a19be239b36b85a9c6adc3630fd37f40c8d",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-256.webp",
+   "bytes": 4582,
+   "sha256": "7c9c4c591b5d8675e2fb6f992f771ecd4bfe1e8a5b7d50ae764388cf1c92f120",
+   "px": [
+    337,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-512.jpg",
+   "bytes": 33573,
+   "sha256": "e8840f9bfc7b32e8536150e6fe29dfdb94d407a4aadcf2d76366612a66363b9c",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-512.png",
+   "bytes": 14884,
+   "sha256": "e75e36a23168d824e0d44ad864129a8d2cedf144b8d4b5723bf0c135fd64b090",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-512.webp",
+   "bytes": 8214,
+   "sha256": "43fdb357c0b4c69912df36e8c6e0d38c8bab3f82bf1923e5986ecaa48413437e",
+   "px": [
+    674,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-64.jpg",
+   "bytes": 3411,
+   "sha256": "3be5d9cd7f29eb7303e1d657cc1101f94495cbc0e4559330ec4637e3e50a5f9c",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-64.png",
+   "bytes": 2251,
+   "sha256": "96da3c5b54611f7e70303fc4c0c832cd8f49aa679ea12d2813188a6180757660",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-lockup-stacked-reserve-positive-64.webp",
+   "bytes": 1462,
+   "sha256": "348eb0bf1eb36576bae70b21d00f84d89b8650ebf08a6895a4901b01b484e4b5",
+   "px": [
+    84,
+    64
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-1024.png",
+   "bytes": 9639,
+   "sha256": "3b25f121dab7b6da7c93b99fc591ca9026ebc6f328be74981416ed6abbf30b11",
+   "px": [
+    1024,
+    1024
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-128.png",
+   "bytes": 802,
+   "sha256": "9ba7de17dc3269bf7f990f9ac2a4045739e1ad0abca9b34150a689759e824d74",
+   "px": [
+    128,
+    128
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-16.png",
+   "bytes": 222,
+   "sha256": "9a0c516ba0a48ab6c2f5e9c70e26b5bcd2bb24cbdc7f5922a22e5982baf726ad",
+   "px": [
+    16,
+    16
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-180.png",
+   "bytes": 1179,
+   "sha256": "dee734181e9e96e312b7e5955a06821589020a590acdea80d734212bdfd67427",
+   "px": [
+    180,
+    180
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-192.png",
+   "bytes": 1209,
+   "sha256": "32ab120c05f69a840930cfa005cfdb2039de078f6a0c447539bc5f04e248d5b6",
+   "px": [
+    192,
+    192
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-24.png",
+   "bytes": 329,
+   "sha256": "cdb61efde9eef30b78cc5300101cb4536477f298916e0b033c7f047021473a18",
+   "px": [
+    24,
+    24
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-256.png",
+   "bytes": 1639,
+   "sha256": "4ce2e03cfeb0b69fe1de8956bd08391109d7814538a43ac46d6da4f05feb091d",
+   "px": [
+    256,
+    256
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-32.png",
+   "bytes": 384,
+   "sha256": "7b7c970ed6fb168fd0bbac113932e36a9ceb5a3662cadb994897facdc82265e0",
+   "px": [
+    32,
+    32
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-48.png",
+   "bytes": 457,
+   "sha256": "40f2f82ae15c73694d70eafe6e50735c9a5a611e7f11015b1f118644d032d8d4",
+   "px": [
+    48,
+    48
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-512.png",
+   "bytes": 3848,
+   "sha256": "8d32e817342d4890f90ee66d051a32cdecb8fb7de2e8bdc0f0d79b10f3dcdbed",
+   "px": [
+    512,
+    512
+   ]
+  },
+  {
+   "file": "02-logo-png/mono/kestridge-mark-positive-64.png",
+   "bytes": 512,
+   "sha256": "110ee2b6af94deb32d846ba7fccb07fa6bd7f592f71cbe25b17d564bbac499f7",
+   "px": [
+    64,
+    64
+   ]
+  },
+  {
+   "file": "03-app-icons/favicon.ico",
+   "bytes": 4507,
+   "sha256": "21dbf74a4eee16f8ff7fce012a63c62c227c82daf629fe7a3716721c8a25aab9",
+   "px": [
+    256,
+    256
+   ]
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-circle-1024.svg",
+   "bytes": 700,
+   "sha256": "f9c7fb4601686e1939396bb97b1fded83f377d0bd0a6732bd76c59616143e976"
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-circle-192.svg",
+   "bytes": 698,
+   "sha256": "0cd0366f3f8efaffa4b3c914a5d2eb51e9a669b90efd0f66974701a40b5b331b"
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-circle-512.svg",
+   "bytes": 698,
+   "sha256": "60eb86d6d4c34bae841566b9e69fc54c88902661365d8ce2a6e57e4b3f46031a"
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-square-1024.svg",
+   "bytes": 698,
+   "sha256": "c6ac0ab283bc49d47ab71aca75d8e37d39c692c4b26b124e4cd73d861bc6c3d5"
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-square-192.svg",
+   "bytes": 696,
+   "sha256": "a1ff099ccf117bc0b2fbbea0c7f49a93621470472b45a951447f5f8781718ca9"
+  },
+  {
+   "file": "03-app-icons/kestridge-tile-square-512.svg",
+   "bytes": 696,
+   "sha256": "347e82262e34755ceea2df970f0816470895e710bfe508026052f9d2827efe5d"
+  },
+  {
+   "file": "04-logo-pdf/color/kestridge-lockup-horizontal-default-color.pdf",
+   "bytes": 9046,
+   "sha256": "a06d9f45c6c1d7f9a9d8ae87f68755a40ba059ed3aaba246f2269687e5b714e7"
+  },
+  {
+   "file": "04-logo-pdf/color/kestridge-lockup-horizontal-reserve-color.pdf",
+   "bytes": 8334,
+   "sha256": "e18a83f5eb134497c76eae851cddc4f82f542ad4dc9eac57051c375639873a84"
+  },
+  {
+   "file": "04-logo-pdf/color/kestridge-lockup-stacked-default-color.pdf",
+   "bytes": 9066,
+   "sha256": "87ba2a61737de229d7513bfcb390284fc5696ceb7b7ef545f90bb12ca6815cb9"
+  },
+  {
+   "file": "04-logo-pdf/color/kestridge-lockup-stacked-reserve-color.pdf",
+   "bytes": 8350,
+   "sha256": "7cd43ddb371fe339a5f370f265db7ebafb61dac2f69ca089f3396061b2c8de86"
+  },
+  {
+   "file": "04-logo-pdf/color/kestridge-mark-color.pdf",
+   "bytes": 1012,
+   "sha256": "12cbd59d64c1e93c5bfc8055f146829aaf285ed44d5b855a26e5399b2985d401"
+  },
+  {
+   "file": "04-logo-pdf/mono/kestridge-lockup-horizontal-default-positive.pdf",
+   "bytes": 8962,
+   "sha256": "fd871ef7f8401ec4bee63a14fcb033027e125945c510bf58f2a942272bb7e682"
+  },
+  {
+   "file": "04-logo-pdf/mono/kestridge-lockup-horizontal-reserve-positive.pdf",
+   "bytes": 8250,
+   "sha256": "ed36378922e71b11afc46e48bd85edb3880d903bc55a32843f8e96bf6cea0b10"
+  },
+  {
+   "file": "04-logo-pdf/mono/kestridge-lockup-stacked-default-positive.pdf",
+   "bytes": 8982,
+   "sha256": "a656e1f8e3bcb743d5bd8708da8b861565c6a5e47d6e4fbc7e6e7167685503be"
+  },
+  {
+   "file": "04-logo-pdf/mono/kestridge-lockup-stacked-reserve-positive.pdf",
+   "bytes": 8266,
+   "sha256": "d4caf1959d1087a70d294908eb44859b76be3761343ce0bfcbc11ae5c1ca029e"
+  },
+  {
+   "file": "04-logo-pdf/mono/kestridge-mark-positive.pdf",
+   "bytes": 928,
+   "sha256": "518e7ae1e3b7d53cbb475ec4e56c0d7c93dd7f6cd294719e976a6291a59b0ded"
+  },
+  {
+   "file": "05-stationery/business-card-back.png",
+   "bytes": 10946,
+   "sha256": "859e099f8fc64d48bc7a0f56cd2476e264d5e51c326377087b00333ad0fd86f9",
+   "px": [
+    1125,
+    675
+   ]
+  },
+  {
+   "file": "05-stationery/business-card-front.png",
+   "bytes": 13074,
+   "sha256": "1fd4957ee5ef25c1b9fb514c967eea6ce98b80782617fdbb89138cd968126f29",
+   "px": [
+    1125,
+    675
+   ]
+  },
+  {
+   "file": "05-stationery/email-sig-logo-1x.png",
+   "bytes": 3023,
+   "sha256": "c3e38a8cbeb17eae4b63f629f2a319ba3d57106b027abfe67821a88965fed32a",
+   "px": [
+    160,
+    40
+   ]
+  },
+  {
+   "file": "05-stationery/email-sig-logo-2x.png",
+   "bytes": 5173,
+   "sha256": "1cd5e2d690c95a0e3631db8e44232e253bd0a79e5ec7fa70ec3501a241a670e8",
+   "px": [
+    320,
+    80
+   ]
+  },
+  {
+   "file": "05-stationery/envelope-10-front.png",
+   "bytes": 65130,
+   "sha256": "524c494a165f0b09bb923ba708a326193a08d6460464d386972be2bcb9d47d47",
+   "px": [
+    5775,
+    2550
+   ]
+  },
+  {
+   "file": "05-stationery/letterhead-p1.png",
+   "bytes": 43006,
+   "sha256": "805eabd9b04509192211edb115ffd1da0201b01af864712939d72081aabc9766",
+   "px": [
+    2550,
+    3300
+   ]
+  },
+  {
+   "file": "05-stationery/slide-content-hd.png",
+   "bytes": 18728,
+   "sha256": "1640181c65506752479c588f12324b4be78905b8676625c7d0d7654b285211b1",
+   "px": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "file": "05-stationery/slide-divider-hd.png",
+   "bytes": 23860,
+   "sha256": "a9f4d1e82288bdf9fa40d30d1783ab90758e70b0e5d52ced520e6854842e7da4",
+   "px": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "file": "05-stationery/slide-title-hd.png",
+   "bytes": 19252,
+   "sha256": "bd852f9f29001cfe12c47b70103e10abec33a07d40112aeee14e96df2209cf07",
+   "px": [
+    1920,
+    1080
+   ]
+  },
+  {
+   "file": "06-fonts/Archivo-Variable.ttf",
+   "bytes": 658596,
+   "sha256": "0e094a7d3c7c4c25cf1310c4b30014f1dae9332220b1c2c88f4fa996f0b05053"
+  },
+  {
+   "file": "06-fonts/Inter-Variable.ttf",
+   "bytes": 879708,
+   "sha256": "4989b125924991b90d05b2d16e0e388c48f7d5bb8b30539bbf9c755278d0ccaf"
+  },
+  {
+   "file": "06-fonts/JetBrainsMono-Variable.ttf",
+   "bytes": 187208,
+   "sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda"
+  },
+  {
+   "file": "06-fonts/OFL-Archivo.txt",
+   "bytes": 4388,
+   "sha256": "108b4e57c9c796d3d38d0428ca7ee39de47ad93187302718d9b2d8864b9b716b"
+  },
+  {
+   "file": "06-fonts/OFL-Inter.txt",
+   "bytes": 4377,
+   "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+  },
+  {
+   "file": "06-fonts/OFL-JetBrainsMono.txt",
+   "bytes": 4399,
+   "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+  },
+  {
+   "file": "07-platforms/github-personal-account-profile-picture-shexsi-hesab-teshkilat-uc-500x500.png",
+   "bytes": 3533,
+   "sha256": "100cc3d4c00b31a5c1f5262694ad4f124c3d0f4ec44e0f7c054547a190524fe8",
+   "px": [
+    500,
+    500
+   ]
+  },
+  {
+   "file": "07-platforms/github-repository-social-preview-repo-sosial-onbaxish-shekli-1280x640.png",
+   "bytes": 33367,
+   "sha256": "ab72c1bb32242bac4df1e0c70a68c3e414075219e0ff14021a14e9acb1a01edf",
+   "px": [
+    1280,
+    640
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-company-page-cover-banner-1512x256.png",
+   "bytes": 10277,
+   "sha256": "6923243485633b04109e8cd7c461f69627e74be422ea0f0d1431645fafcac8ca",
+   "px": [
+    1512,
+    256
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-company-page-logo-profile-400x400.png",
+   "bytes": 2538,
+   "sha256": "22f35cecd27c94afdfe37354885d4ef5807c3cfc1d57e7c10d08662cd83a6678",
+   "px": [
+    400,
+    400
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-feed-image-horizontal-single-image-ad-sponsored-content-1200x628.png",
+   "bytes": 31857,
+   "sha256": "d361d2ccc316b7e119301fe2dc1aed660f7f0ea8510dea32e3548b6548642344",
+   "px": [
+    1200,
+    628
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-feed-image-square-single-image-ad-sponsored-content-1200x1200.png",
+   "bytes": 10509,
+   "sha256": "452b7d1f2916e4c29761eff74a5d1845d7fd7628a14d13f8d1bf121a24f15e41",
+   "px": [
+    1200,
+    1200
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-feed-image-vertical-single-image-ad-sponsored-content-720x900.png",
+   "bytes": 13588,
+   "sha256": "7cdfd62b28211a7a0dd8d2e480804d2f29d240b41d07175fa9054346187400be",
+   "px": [
+    720,
+    900
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-life-tab-company-photos-career-pages-900x600.png",
+   "bytes": 10141,
+   "sha256": "790b92b3fc921b04d48cbcd4a290cb6d2a0ba4d7cb30021d5013470b6d25620e",
+   "px": [
+    900,
+    600
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-life-tab-custom-modules-career-pages-502x282.png",
+   "bytes": 14201,
+   "sha256": "6809cce819bb59d2bd309608068476d33df56792879de9822f4f40ca8f0d0e3c",
+   "px": [
+    502,
+    282
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-life-tab-main-image-career-pages-1128x376.png",
+   "bytes": 13491,
+   "sha256": "996616971c8a6572e72a9f83539de91961015e9e801a2ea10b4647b323f5d941",
+   "px": [
+    1128,
+    376
+   ]
+  },
+  {
+   "file": "07-platforms/linkedin-shirket-sehifesi-page-post-image-url-link-share-1200x627.png",
+   "bytes": 31742,
+   "sha256": "62e07772772da221d7eebf49a18cea67d584878b8b8dc09c7849da503f6ee94a",
+   "px": [
+    1200,
+    627
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-apple-touch-icon-ipad-non-retina-standart-152x152.png",
+   "bytes": 1045,
+   "sha256": "b5861e02581ec8af9d9bcc3a6b13b20b4038691b99355886452525127fb94d61",
+   "px": [
+    152,
+    152
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-apple-touch-icon-ipad-pro-retina-167x167.png",
+   "bytes": 1048,
+   "sha256": "0f98d565702fa6de09b644cd34af1f3ab3a0e9e77be47f2ce888b4a518838f74",
+   "px": [
+    167,
+    167
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-apple-touch-icon-iphone-retina-3x-180x180.png",
+   "bytes": 1311,
+   "sha256": "471da0263db4d84a389d487f33c039e0b9d97eb2b47da517a5794f86b21be494",
+   "px": [
+    180,
+    180
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-favicon-chox-olchulu-deste-html-standard-numunesi-16x16.png",
+   "bytes": 255,
+   "sha256": "df43bc510c1f2ba28811c1a9548635a448aefbb27abd4dc82df3a5c7a6b5db14",
+   "px": [
+    16,
+    16
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-favicon-chox-olchulu-deste-html-standard-numunesi-32x32.png",
+   "bytes": 455,
+   "sha256": "65a388fe303cab063b971c4d4b1d3a5993ce01c49c8c36ff7a90cbc01b38feea",
+   "px": [
+    32,
+    32
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-favicon-chox-olchulu-deste-html-standard-numunesi-48x48.png",
+   "bytes": 585,
+   "sha256": "229ad24411be64b02541c8afde228b4cc88b5adfd1756910c7a64be8b21d6919",
+   "px": [
+    48,
+    48
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-favicon-klassik-olchu-16x16.png",
+   "bytes": 255,
+   "sha256": "df43bc510c1f2ba28811c1a9548635a448aefbb27abd4dc82df3a5c7a6b5db14",
+   "px": [
+    16,
+    16
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-og-image-mutleq-minimum-olchu-200x200.png",
+   "bytes": 1323,
+   "sha256": "1e7d91c0561069be01ff791c9329b43559a7fbe990f4a016a70c733324aa7622",
+   "px": [
+    200,
+    200
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-og-image-tovsiye-olunan-olchu-meta-facebook-resmi-implemen-1200x630.png",
+   "bytes": 31505,
+   "sha256": "6764c35c5be4c39eba56f3fd3cc09c73b2428933703bcff78ebb688c02035358",
+   "px": [
+    1200,
+    630
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-pwa-android-manifest-ikonu-mecburi-boyuk-olchu-chromium-512x512.png",
+   "bytes": 3735,
+   "sha256": "b01dc62320de0b71d7c53ee928160796656472637b81d5e27f37f41043f09177",
+   "px": [
+    512,
+    512
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-pwa-android-manifest-ikonu-mecburi-kichik-olchu-chromium-192x192.png",
+   "bytes": 1365,
+   "sha256": "32349c35b68b756d510750e5b6f3c60918fe9e3dbbf72308e8bd0c877ec3777b",
+   "px": [
+    192,
+    192
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-pwa-maskable-ikon-minimum-olchu-512x512.png",
+   "bytes": 3129,
+   "sha256": "ec1632dde1faf9c5bfe45a8874d5976079770367625e759bbd85b9313f99bf40",
+   "px": [
+    512,
+    512
+   ]
+  },
+  {
+   "file": "07-platforms/veb-standartlari-x-website-card-shekli-x-in-canli-resmi-kart-shekli-spesifi-800x418.png",
+   "bytes": 21480,
+   "sha256": "4ab7bea7d9e4968c59ac1b095e30691b449e7e3a30d3457325a4f77614176ec8",
+   "px": [
+    800,
+    418
+   ]
+  },
+  {
+   "file": "07-platforms/x-header-banner-cover-1500x500.png",
+   "bytes": 18410,
+   "sha256": "10dd9e666b47b210472ffcf3b942e9b1d30f3e751945e37db1bb9d2b307190e1",
+   "px": [
+    1500,
+    500
+   ]
+  },
+  {
+   "file": "07-platforms/x-image-ad-promoted-shekli-1-1-kvadrat-x-business-ad-spec-1200x1200.png",
+   "bytes": 10509,
+   "sha256": "452b7d1f2916e4c29761eff74a5d1845d7fd7628a14d13f8d1bf121a24f15e41",
+   "px": [
+    1200,
+    1200
+   ]
+  },
+  {
+   "file": "07-platforms/x-image-ad-promoted-shekli-1-91-1-x-business-ad-spec-1200x628.png",
+   "bytes": 31857,
+   "sha256": "d361d2ccc316b7e119301fe2dc1aed660f7f0ea8510dea32e3548b6548642344",
+   "px": [
+    1200,
+    628
+   ]
+  },
+  {
+   "file": "07-platforms/x-profile-photo-avatar-400x400.png",
+   "bytes": 2538,
+   "sha256": "22f35cecd27c94afdfe37354885d4ef5807c3cfc1d57e7c10d08662cd83a6678",
+   "px": [
+    400,
+    400
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-banner-channel-art-minimum-upload-olchusu-2048x1152.png",
+   "bytes": 55375,
+   "sha256": "ad67c3a2542e7376ee6ffde19c4666dbca0d1e90eebc6d89e026d23200388bf9",
+   "px": [
+    2048,
+    1152
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-banner-channel-art-tovsiye-olunan-olchu-tv-uchun-2560x1440.png",
+   "bytes": 68146,
+   "sha256": "1ad4def53c3a56d41c16995bfca8bcf875189bd18e874d1d501ecb0aaff2b9a4",
+   "px": [
+    2560,
+    1440
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-banner-safe-area-metn-ve-loqo-uchun-minimum-olchude-1235x338.png",
+   "bytes": 12492,
+   "sha256": "694745ba5307e9e8e8e71d950ea9d5c852ea53f83b86b3fe45b2ab5988848dee",
+   "px": [
+    1235,
+    338
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-branding-watermark-video-uzerinde-abune-loqosu-150x150.png",
+   "bytes": 1058,
+   "sha256": "905a75295ebef425946eb0eb6d9bc6b31fcc873e3d7e9afe20591f7d60a7e2d0",
+   "px": [
+    150,
+    150
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-profile-picture-kanal-shekli-avatar-98x98.png",
+   "bytes": 859,
+   "sha256": "ce6f49aaec410a7305c1a0190b512c5f219768ef06b04978e006857bc67d874f",
+   "px": [
+    98,
+    98
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-video-kichik-shekli-thumbnail-shorts-2160x3840.png",
+   "bytes": 97750,
+   "sha256": "3e9a292fe83a3da7fa499d63f15d6c9c8c8d47c9ae695f0b1aa44cfae27c444e",
+   "px": [
+    2160,
+    3840
+   ]
+  },
+  {
+   "file": "07-platforms/youtube-video-kichik-shekli-thumbnail-video-3840x2160.png",
+   "bytes": 110583,
+   "sha256": "61e2f420a2dab5998fbb58700253f7f30a8a4de1479fc3aaf617beccb43ae4a5",
+   "px": [
+    3840,
+    2160
+   ]
+  },
+  {
+   "file": "08-website/apple-icon.png",
+   "bytes": 8439,
+   "sha256": "253cadee17a3efb5d1da7ae2cc72a5559cf343eee3e26168a8b3d7fd3676f6ac",
+   "px": [
+    1024,
+    1024
+   ]
+  },
+  {
+   "file": "08-website/favicon.ico",
+   "bytes": 4507,
+   "sha256": "21dbf74a4eee16f8ff7fce012a63c62c227c82daf629fe7a3716721c8a25aab9",
+   "px": [
+    256,
+    256
+   ]
+  },
+  {
+   "file": "08-website/header-lockup-dark.svg",
+   "bytes": 3306,
+   "sha256": "38e765b70894efe216d358833c2cf2ecbe238ace49ecef5f8dfa33225e4f5357"
+  },
+  {
+   "file": "08-website/header-lockup.svg",
+   "bytes": 3306,
+   "sha256": "9ded9a5f42b0983791c91a3deca432ef199eac8d101d2e97ea8d3e368ea0fcf2"
+  },
+  {
+   "file": "08-website/icon-light.svg",
+   "bytes": 696,
+   "sha256": "347e82262e34755ceea2df970f0816470895e710bfe508026052f9d2827efe5d"
+  },
+  {
+   "file": "08-website/icon.svg",
+   "bytes": 696,
+   "sha256": "5a0ad712fe6981f1c0eff9ef56568e1699f58658b8f1a64da5e3d74128daa058"
+  },
+  {
+   "file": "08-website/kestridge-tokens.css",
+   "bytes": 4717,
+   "sha256": "fe861ffede6f53128d36e355cdbe625297385298be037cbc253ff71f1babf038"
+  },
+  {
+   "file": "08-website/opengraph-image-dark.png",
+   "bytes": 15374,
+   "sha256": "f27f318237bde52731f8caf29d98d7efe23a31c3344a527f05524d13907850cf",
+   "px": [
+    1200,
+    630
+   ]
+  },
+  {
+   "file": "08-website/opengraph-image.png",
+   "bytes": 15994,
+   "sha256": "a464c46653c266acb2e53f682fd034052f17592fb54482c3381b203d5af8b2bb",
+   "px": [
+    1200,
+    630
+   ]
+  },
+  {
+   "file": "09-linkedin-banner/kestridge-banner-linkedin-cover-1512x256.png",
+   "bytes": 12800,
+   "sha256": "c8e69c1a91cdb23acdf53b91ad10a51379117dff942d11647442d82e56e1cb00",
+   "px": [
+    1512,
+    256
+   ]
+  },
+  {
+   "file": "09-linkedin-banner/kestridge-banner-linkedin-profile-background-1584x396.png",
+   "bytes": 17058,
+   "sha256": "6c3aaa011b600d19a9afdddd6968894938f597e487e7c9839d57ec06db85229e",
+   "px": [
+    1584,
+    396
+   ]
+  }
+ ]
+}

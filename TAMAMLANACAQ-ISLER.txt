@@ -22,18 +22,19 @@ Işarələr:  [VACIB] = launch üçün mütləq   [ORTA] = launch-dan qısa müd
         (p=none ilə başlayın, dərhal reject yox).
       → QALIR: Zoho subprocessor-dur, DPA imzalanmalı və registrə yazılmalı.
 [ ] [VACIB] LinkedIn şirkət səhifəsi yaratmaq
-      → Hazır assetlər: Logo/07-platform/ içində LinkedIn üçün hazır
+      → Hazır assetlər: Logo/07-platforms/ içində LinkedIn üçün hazır
         ölçülər var (cover 1512x256, profil 400x400, feed şəkilləri)
       → Real URL kodda yenilənməli: src/lib/site.ts içində `linkedin`
-[x] [ORTA]  Logo - final kit inteqrasiya olundu (Logo/08-site/):
+[x] [ORTA]  Logo - v3 kit inteqrasiya olundu (2026-09-26; mənbə xəritəsi README-də):
       icon.svg, apple-icon.png, favicon.ico, opengraph-image.png,
-      public/brand/lockup-*.svg, manifest ikonları. Köhnə lələk nişanı
-      və AIVanta assetləri silindi.
+      public/brand/lockup-*.svg, manifest ikonları. v3 nişanı iki
+      rənglidir (ink K + petrol Ai), kilid nisbəti 6.1453. Köhnə lələk
+      nişanı, v1 kit və AIVanta assetləri silindi.
 [x] [ORTA]  Brend rəngi: teal #0B7A67 -> petrol #1187A5 ailəsi. Səbəb
-      Logo/03-SITE-NOTES.md 2-ci bölmədə: köhnə aksent status yaşılına
+      Logo/00-docs/03-SITE-NOTES.md 2-ci bölmədə: köhnə aksent status yaşılına
       (success-600) 20 dərəcə yaxın idi; monitorinq satan şirkətdə brend
       "hər şey qaydasındadır" siqnalı kimi oxunurdu. Neytral pilləkən də
-      sistemin ölçülmüş dəyərlərinə keçdi (Logo/08-site/kestridge-tokens.css).
+      sistemin ölçülmüş dəyərlərinə keçdi (Logo/08-website/kestridge-tokens.css).
 
 ────────────────────────────────────────────────────────────────
  2. KONTENT (real məlumatlar)

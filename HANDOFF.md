@@ -20,6 +20,16 @@ https://claude.ai/code/artifact/9fecfe06-c7f9-4613-8405-1ada916d16b6
 
 ## 1. Bitmiş işlər
 
+**Loqo v3 (2026-09-26).** Nişan iki rənglidir: ink `K`, petrol `Ai`. `Logo/`
+brend paketinin `delivery/` qovluğudur, dəyişmədən. Saytın hər brend faylı
+paketdəki bir faylın bayt-bayt nüsxəsidir; hansının hansından gəldiyi
+`README.md`-dəki cədvəldədir (üç qovluqdan gəlir, təkcə `08-website`-dən yox).
+Əvəz edin, yenidən export etməyin: `favicon.ico`-nun 16px kadrı ayrıca
+reduktiv kəsikdir. `/icon.svg` və `/opengraph-image.png` bir il `immutable`
+keşlənir, ona görə onlara yalnız hash-li URL ilə istinad olunur. Kilid nisbəti `8.6055` -> `6.1453` oldu, ona görə
+header loqosu hündürlükdən ölçülür, döşəmə 26px (20px mürəkkəb). Palitra
+dəyişməyib, yeddi token paketlə eynidir.
+
 **Domen: kestridge.com canlıdır.** NS-lər onsuz da Vercel-ə yönəlmişdi, amma
 domen layihəyə əlavə edilmədiyi üçün Vercel-in nameserver-ləri öz hostlamadığı
 zona üçün SERVFAIL qaytarırdı - domen heç yerə açılmırdı. Apex + www layihəyə
@@ -31,7 +41,7 @@ hamısı ondan törəyir.
 **Brend** AIVanta -> Kestridge AI. `site.ts`, metadata, manifest, logo, brand SVG,
 privacy/terms, senedler/, README, TAMAMLANACAQ-ISLER.txt. Kodda və sənədlərdə
 `AIVanta` sıfır. Köhnə OG şəkli (üstündə AIVanta yazılıydı) silindi; indi
-`app/opengraph-image.tsx` onu `site.brand`-dan çəkir.
+`app/opengraph-image.png` brend paketindən birbaşa gəlir.
 
 **About birləşdirildi.** `/about` route silindi -> `Company` bölməsi (`#company`).
 `/about` -> `/#company` 308 redirect. Sitemap və footer yeniləndi.
@@ -44,7 +54,7 @@ Bölmə id-ləri: `top company services process founders security questions cont
 "See our services".
 
 **FAQ:** accordion tamamilə çıxarıldı. İndi həmişə açıq `dl/dt/dd` şəbəkəsi,
-8 qısa sual, 1 sütun mobil / 2 sütun sm / 3 sütun xl.
+7 qısa sual, 1 sütun mobil / 2 sütun sm / 3 sütun xl.
 
 **Təsisçilər:** LinkedIn-dən 4 real şəxs. Şəxsi profil linkləri qoyulmadı.
 Faig və Chingiz-in şəkli var; Sarvjeet və Robert-in şəkli LinkedIn-də yoxdur,

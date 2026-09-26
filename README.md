@@ -31,9 +31,9 @@ src/
     globals.css          light-theme design tokens (RGB-channel CSS vars) + utilities
     page.tsx             home section assembly
     privacy/ terms/      legal pages
-    opengraph-image.tsx  social preview image, rendered per request by next/og on the edge
+    opengraph-image.png  social preview card, straight from the brand kit
     sitemap.ts robots.ts manifest.ts   SEO route handlers
-    icon.svg             favicon (placeholder mark)
+    icon.svg apple-icon.png favicon.ico   app icons, straight from the brand kit
   components/
     layout/     Navbar, Footer, Background, ScrollProgress, MobileCTA
     sections/   Hero, TrustBar, Company, Services, WhyChooseUs, Team, Security, FAQ, Contact
@@ -45,7 +45,7 @@ src/
   data/         services.ts, team.ts, companies.ts
   lib/          site.ts (brand/contact/nav), scroll.ts (nav-offset scrolling + focus move)
 public/
-  brand/        logo mark and lockups (placeholder art)
+  brand/        logo lockups, mark, JSON-LD logo and PWA icons (brand kit v3)
   logos/        company logos for the marquee, sourced from each organization
   team/         founder portraits
 backend/        ASP.NET Core 10 + MySQL contact API (see backend/README.md)
@@ -148,9 +148,9 @@ only).
 
 - **Metadata**: title/description/OpenGraph/Twitter + canonical per page
   (`layout.tsx`, `privacy/page.tsx`, `terms/page.tsx`).
-- **Social image**: `app/opengraph-image.tsx` renders it from `site.brand`, so it
-  tracks the brand name automatically. There is no separate `twitter-image` route;
-  Next reuses the OpenGraph image for Twitter/X cards.
+- **Social image**: `app/opengraph-image.png`, copied unchanged from
+  `Logo/08-website/`. There is no separate `twitter-image` route; Next reuses the
+  OpenGraph image for Twitter/X cards.
 - **Structured data (JSON-LD)**: `Organization` + `WebSite` in `layout.tsx`;
   `FAQPage` in `components/sections/FAQ.tsx`.
 - **Crawling**: `sitemap.ts` → `/sitemap.xml`, `robots.ts` → `/robots.txt`,
@@ -166,13 +166,39 @@ only).
 
 - Design is a **light**, serious editorial theme: near-white surfaces, near-black
   (ink) primary buttons, one petrol accent used sparingly. Every colour comes from
-  the brand kit in `Logo/` (see `Logo/03-SITE-NOTES.md` and
-  `Logo/08-site/kestridge-tokens.css`) and lives as a CSS variable in
+  the brand kit in `Logo/` (see `Logo/00-docs/03-SITE-NOTES.md` and
+  `Logo/08-website/kestridge-tokens.css`) and lives as a CSS variable in
   `globals.css`; neutrals are RGB channels so Tailwind opacity modifiers
   (`bg-surface/70`) work. The contrast matrix is computed for that exact ramp, so
   the neutrals move as a set or not at all.
-- Logo artwork is final. Source of truth is `Logo/`; the files the site actually
-  serves were copied from `Logo/08-site/`.
+- Logo is brand kit v3 (2026-09-26): a two-colour mark, ink `K` and petrol `Ai`.
+  `Logo/` is the kit's `delivery/` folder, unchanged. Every brand file the site
+  serves is a byte copy of one kit file; replace it, never re-export it.
+  `favicon.ico` in particular carries a separate reduced cut in its 16px frame,
+  which any resize or regeneration silently throws away.
+
+  | Site file | Kit source (under `Logo/`) |
+  | --- | --- |
+  | `src/app/icon.svg` | `08-website/icon.svg` |
+  | `src/app/apple-icon.png` | `08-website/apple-icon.png` |
+  | `src/app/favicon.ico` | `08-website/favicon.ico` |
+  | `src/app/opengraph-image.png` | `08-website/opengraph-image.png` |
+  | `public/brand/lockup-light.svg` | `08-website/header-lockup.svg` |
+  | `public/brand/lockup-dark.svg` | `08-website/header-lockup-dark.svg` |
+  | `public/brand/icon-light.svg` | `08-website/icon-light.svg` |
+  | `public/brand/mark.svg` | `01-logo-svg/color/kestridge-mark-color.svg` |
+  | `public/brand/mark-white.svg` | `01-logo-svg/color/kestridge-mark-color-knockout.svg` |
+  | `public/brand/logo.png` (JSON-LD logo) | `02-logo-png/color/kestridge-lockup-horizontal-default-color-1024.png` |
+  | `public/brand/icon-192.png` | `07-platforms/veb-standartlari-pwa-android-manifest-ikonu-mecburi-kichik-olchu-chromium-192x192.png` |
+  | `public/brand/icon-512.png` | `07-platforms/veb-standartlari-pwa-android-manifest-ikonu-mecburi-boyuk-olchu-chromium-512x512.png` |
+  | `public/brand/icon-maskable-512.png` | `07-platforms/veb-standartlari-pwa-maskable-ikon-minimum-olchu-512x512.png` |
+
+  The file-convention routes `/icon.svg` and `/opengraph-image.png` are served
+  immutable for a year. Only reference them through a content-hashed URL (the
+  `<head>` tags Next emits, or a static import), never as a bare path, or a new
+  file behind the same URL never reaches anyone who cached the old one.
+- The header lockup is sized by height with a 26px floor (20px of ink), see
+  `components/ui/Logo.tsx`. Below that the kit says to use the mark alone.
 - The navigation switches to its desktop row at `lg`, not `md`: six nav items plus
   the contact button need about 930px.
 - In-page anchors go through `lib/scroll.ts`, which honors each section's

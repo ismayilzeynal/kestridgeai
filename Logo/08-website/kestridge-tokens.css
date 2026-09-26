@@ -1,0 +1,117 @@
+/* Kestridge AI - brend tokenleri, v2
+   Menbe: projects/brand-identity-2026/DESIGN-LANGUAGE.md, bolme 2.3 pilleken
+   cedveli. Bu fayl HEMIN cedvelden generasiya olunur (tools/build/sitev2.py),
+   el ile yazilmir. Deyer orada deyisse, bu fayl yeniden qurulur.
+   Nishan ve kilid: v2 besh lovheli nishan, kilid nisbeti M / C = 2 / 1.
+   Sebeb ve olchuler: delivery/00-docs/03-SITE-NOTES.md */
+
+/* 1. NEYTRAL ONURGA - pilleken butovdur, yarisini goturmek kontrast
+      matrisini etibarsiz edir (DESIGN-LANGUAGE 2.4). */
+:root {
+  --k-neutral-1000: #000000;
+  --k-neutral-950: #0F1317;
+  --k-neutral-900: #171D23;
+  --k-neutral-850: #1F262E;
+  --k-neutral-800: #303A44;
+  --k-neutral-700: #434D57;
+  --k-neutral-600: #5A646E;
+  --k-neutral-500: #717C86;
+  --k-neutral-400: #85919C;
+  --k-neutral-300: #9AA6B2;
+  --k-neutral-200: #BFC7CF;
+  --k-neutral-150: #DDE2E6;
+  --k-neutral-100: #E7E6E2;
+  --k-neutral-050: #F2F2EE;
+  --k-neutral-025: #FAFAF7;
+  --k-neutral-000: #FFFFFF;
+}
+
+/* 2. PETROL - YEGANE xromatik aksent. Ikinci brend chalari sistemi pozur
+      (DESIGN-LANGUAGE 2.11 bend 1). Butov pilleken verilir: isiqli rejim
+      link ve bashliqlari 600 / 700-den, qaranliq rejim olanlari 400 / 300-den
+      gelir, ona gore saytin hamisina ehtiyaci var. */
+:root {
+  --k-petrol-050: #E8F6FB;
+  --k-petrol-100: #CCEAF5;
+  --k-petrol-200: #A6D9EB;
+  --k-petrol-300: #63C6DE;
+  --k-petrol-400: #2FA8C7;
+  --k-petrol-500: #1187A5;
+  --k-petrol-600: #0E6A82;
+  --k-petrol-700: #0B5568;
+  --k-petrol-800: #004051;
+  --k-petrol-900: #002C38;
+}
+
+/* 3. SEMANTIK - BREND DEYIL, yalniz status. Marketinq materialinda dekorativ
+      islenmir (DESIGN-LANGUAGE 2.11 bend 2). Her ailenin uch pillesi eyni
+      OKLCh isiqliginda qurulub (600 -> L 0.49, 500 -> 0.625, 400 -> 0.755),
+      ona gore heckim digerinden ucadan qishqirmir. */
+:root {
+  --k-success-600: #007439;
+  --k-success-500: #1EA156;
+  --k-success-400: #62C982;
+  --k-warning-600: #7D5A00;
+  --k-warning-500: #AE7E00;
+  --k-warning-400: #DBA632;
+  --k-danger-600: #A13832;
+  --k-danger-500: #D55C52;
+  --k-danger-400: #FC8A7E;
+  --k-info-600: #3F59AF;
+  --k-info-500: #6081E4;
+  --k-info-400: #8DACFF;
+}
+
+/* 3b. Semantik rollar - qisa adlar, yalniz istinad. */
+:root {
+  --k-success:           var(--k-success-600);
+  --k-warning:           var(--k-warning-600);
+  --k-danger:            var(--k-danger-600);
+  --k-info:              var(--k-info-600);
+}
+
+/* 4. ROLLAR - hamisi yuxaridaki pillekene istinad edir, ikinci nusxe yoxdur. */
+:root {
+  --k-ink:               var(--k-neutral-950);    /* Ink - esas metn, tund seth */
+  --k-surface:           var(--k-neutral-900);    /* Surface - qaranliq rejim fonu */
+  --k-surface-2:         var(--k-neutral-850);    /* Surface 2 - qaranliq rejimde kart */
+  --k-paper:             var(--k-neutral-025);    /* Paper - isiqli rejim fonu, theme-color */
+  --k-muted:             var(--k-neutral-700);    /* isiqli rejim ikinci metn */
+  --k-muted-2:           var(--k-neutral-600);    /* isiqli rejim uchuncu metn */
+  --k-muted-dark:        var(--k-neutral-300);    /* qaranliq rejim ikinci metn */
+  --k-hairline:          var(--k-neutral-150);    /* isiqli hairline */
+  --k-hairline-dark:     var(--k-neutral-800);    /* tund hairline */
+  --k-accent:            var(--k-petrol-500);     /* BREND - yalniz nishan, ikon, serhed, fokus */
+  --k-accent-link:       var(--k-petrol-600);     /* isiqli rejimde link, 5.90:1 */
+  --k-accent-link-dark:  var(--k-petrol-400);     /* qaranliq rejimde link, 6.10:1 */
+  --k-accent-head:       var(--k-petrol-700);     /* isiqli rejimde bashliq, 7.99:1 */
+  --k-accent-head-dark:  var(--k-petrol-300);     /* qaranliq rejimde bashliq, 8.62:1 */
+}
+
+/* 5. KILID - v2 nisbeti M / C = 2 / 1. Bashliqdaki SVG-ni olchuye salmaq
+      uchun lazim olan reqemler; hamisi tools/build/lockupv2.py-den olchulub. */
+:root {
+  --k-lockup-ar:        6.1453;      /* yatiq kilid, ink qutusu 110.616u x 18u */
+  --k-lockup-min-h:     20px;      /* ink hundurluyu doshemesi */
+  --k-lockup-min-w:     123px;     /* hemin doshemede ink eni */
+  --k-mark-min-px:      16px;      /* nishanin oz doshemesi */
+  --k-mark-reduced-px:  24px;      /* bundan ashagi REDUKTIV KESIK */
+}
+
+.kestridge-wordmark {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wght' 600, 'wdth' 100;
+  font-feature-settings: 'kern' 1;
+  letter-spacing: -0.014em;   /* tracking -14 pm em */
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.kestridge-descriptor {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-variation-settings: 'wght' 500, 'wdth' 100;
+  letter-spacing: 0.18em;    /* tracking 180 pm em */
+  text-transform: uppercase;
+  line-height: 1;
+}

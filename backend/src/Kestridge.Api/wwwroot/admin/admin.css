@@ -4,7 +4,7 @@
    03-deploy.sh. That constraint is about tooling, not about appearance.
 
    Colours are the site's own tokens, copied from src/app/globals.css, which
-   takes them from Logo/08-site/kestridge-tokens.css. The contrast matrix is
+   takes them from Logo/08-website/kestridge-tokens.css. The contrast matrix is
    computed for this exact ramp, so these move as a set or not at all.
 
    Typography cannot match the site: the CSP is font-src 'self', so Archivo and
