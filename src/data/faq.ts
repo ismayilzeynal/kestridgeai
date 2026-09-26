@@ -12,10 +12,6 @@ export const faqs: Faq[] = [
     a: "We build AI, automation, IT security, and data analytics systems, connect them to what you already run, and support them after launch.",
   },
   {
-    q: "What kinds of work do you take on?",
-    a: "Common examples are entering incoming orders, matching invoices, routing approvals, and reporting from records you already keep.",
-  },
-  {
     q: "Where is Kestridge AI based?",
     a: "Kestridge AI is based in Illinois. We also work with engineering specialists outside the United States.",
   },
