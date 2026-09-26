@@ -20,3 +20,14 @@ backend/ops/linux/** text eol=lf
 # Piped into mysql on the server. The deploy script strips CR defensively, but
 # there is no reason to put it there in the first place.
 *.sql text eol=lf
+
+# Brand files are byte copies of the kit (README.md has the map), so Git must
+# never rewrite their line endings. With core.autocrlf=true a Windows checkout
+# turns LF into CRLF in anything it detects as text, and it detects the kit's
+# PDFs as text: every byte offset in the xref table then points at the wrong
+# place and the PDF no longer opens. The SVGs survive that, but stop matching
+# the kit's sha256, which is how a copy is checked.
+Logo/**           -text
+public/brand/**   -text
+src/app/icon.svg  -text
+*.pdf             binary
