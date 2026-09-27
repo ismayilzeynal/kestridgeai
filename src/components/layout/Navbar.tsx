@@ -98,7 +98,7 @@ export function Navbar() {
           aria-label="Main"
           className="container-x flex h-16 items-center justify-between"
         >
-          <span id="nav-brand">
+          <span id="nav-brand" className="flex">
             <Logo />
           </span>
 
